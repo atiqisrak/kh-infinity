@@ -18,8 +18,12 @@
       <div class="container mx-auto px-4">
         <nav class="flex justify-between items-center py-4">
           <a href="/" class="text-2xl font-bold text-orange-500"
-            >K.H. Infinity</a
-          >
+            ><img
+              src="/images/brand/official_logo.svg"
+              alt="K.H. Infinity"
+              class="w-20 h-10"
+            />
+          </a>
           <ul class="hidden md:flex space-x-8">
             <li>
               <a href="#about" class="hover:text-orange-500 transition-colors"
@@ -28,7 +32,7 @@
             </li>
             <li>
               <a
-                href="#products"
+                href="/products.html"
                 class="hover:text-orange-500 transition-colors"
                 >Products</a
               >
@@ -205,340 +209,221 @@
     <section id="products" class="py-20 bg-gray-50">
       <div class="container mx-auto px-4">
         <div class="text-center mb-16">
-          <h2 class="text-4xl font-bold text-gray-800 mb-4">Our Products</h2>
+          <span
+            class="text-orange-500 font-semibold text-sm tracking-wider uppercase"
+            >Our Products</span
+          >
+          <h2 class="text-4xl font-bold text-gray-800 mb-4 mt-2">
+            Featured Products
+          </h2>
           <p class="text-xl text-gray-600 max-w-3xl mx-auto">
             Discover our premium range of imported and exported products,
             carefully selected to meet international quality standards.
           </p>
         </div>
 
-        <!-- Import Products -->
-        <div class="mb-16">
-          <h3 class="text-2xl font-bold text-gray-800 mb-8 text-center">
-            Import Products
-          </h3>
+        <!-- Featured Products Carousel -->
+        <div class="relative">
+          <!-- Product Grid -->
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Sunflower Oil -->
-            <div
-              class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
-            >
-              <div class="relative h-64">
-                <img
-                  src="images/products/sunflower-oil.png"
-                  alt="Sunflower Seed Oil"
-                  class="w-full h-full object-cover"
-                />
-                <div class="absolute inset-0 bg-black bg-opacity-20"></div>
-              </div>
-              <div class="p-6">
-                <h4 class="text-xl font-bold text-gray-800 mb-3">
-                  Sunflower Seed Oil
-                </h4>
-                <p class="text-gray-600 mb-4">
-                  Premium quality sunflower seed oil sourced from trusted global
-                  suppliers.
-                </p>
-                <a
-                  href="products/sunflower-oil.html"
-                  class="inline-flex items-center text-orange-500 hover:text-orange-600 font-semibold"
-                >
-                  Learn More
-                  <svg
-                    class="w-4 h-4 ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+            <div class="group">
+              <div
+                class="relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-2xl"
+              >
+                <div class="aspect-w-16 aspect-h-9 relative overflow-hidden">
+                  <img
+                    src="images/products/sunflower-oil.webp"
+                    alt="Sunflower Seed Oil"
+                    class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  ></div>
+                </div>
+                <div class="p-6">
+                  <div class="flex items-center justify-between mb-4">
+                    <h4
+                      class="text-xl font-bold text-gray-800 group-hover:text-orange-500 transition-colors"
+                    >
+                      Sunflower Seed Oil
+                    </h4>
+                    <span
+                      class="bg-orange-100 text-orange-600 text-xs font-semibold px-3 py-1 rounded-full"
+                      >Import</span
+                    >
+                  </div>
+                  <p class="text-gray-600 mb-4 line-clamp-2">
+                    Premium quality sunflower seed oil sourced from trusted
+                    global suppliers.
+                  </p>
+                  <a
+                    href="products/sunflower-oil.html"
+                    class="inline-flex items-center text-orange-500 font-semibold group-hover:text-orange-600 transition-colors"
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 5l7 7-7 7"
-                    ></path>
-                  </svg>
-                </a>
+                    <span class="relative">
+                      Learn More
+                      <span
+                        class="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"
+                      ></span>
+                    </span>
+                    <svg
+                      class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      ></path>
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
 
             <!-- Milk Powder -->
-            <div
-              class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
-            >
-              <div class="relative h-64">
-                <img
-                  src="images/products/milk-powder.png"
-                  alt="Skimmed Milk Powder"
-                  class="w-full h-full object-cover"
-                />
-                <div class="absolute inset-0 bg-black bg-opacity-20"></div>
-              </div>
-              <div class="p-6">
-                <h4 class="text-xl font-bold text-gray-800 mb-3">
-                  Skimmed Milk Powder
-                </h4>
-                <p class="text-gray-600 mb-4">
-                  High-quality skimmed milk powder with excellent nutritional
-                  value.
-                </p>
-                <a
-                  href="products/milk-powder.html"
-                  class="inline-flex items-center text-orange-500 hover:text-orange-600 font-semibold"
-                >
-                  Learn More
-                  <svg
-                    class="w-4 h-4 ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+            <div class="group">
+              <div
+                class="relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-2xl"
+              >
+                <div class="aspect-w-16 aspect-h-9 relative overflow-hidden">
+                  <img
+                    src="images/products/milk-powder.webp"
+                    alt="Skimmed Milk Powder"
+                    class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  ></div>
+                </div>
+                <div class="p-6">
+                  <div class="flex items-center justify-between mb-4">
+                    <h4
+                      class="text-xl font-bold text-gray-800 group-hover:text-orange-500 transition-colors"
+                    >
+                      Skimmed Milk Powder
+                    </h4>
+                    <span
+                      class="bg-orange-100 text-orange-600 text-xs font-semibold px-3 py-1 rounded-full"
+                      >Import</span
+                    >
+                  </div>
+                  <p class="text-gray-600 mb-4 line-clamp-2">
+                    High-quality skimmed milk powder with excellent nutritional
+                    value.
+                  </p>
+                  <a
+                    href="products/milk-powder.html"
+                    class="inline-flex items-center text-orange-500 font-semibold group-hover:text-orange-600 transition-colors"
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 5l7 7-7 7"
-                    ></path>
-                  </svg>
-                </a>
+                    <span class="relative">
+                      Learn More
+                      <span
+                        class="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"
+                      ></span>
+                    </span>
+                    <svg
+                      class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      ></path>
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
 
-            <!-- Pulses -->
-            <div
-              class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
-            >
-              <div class="relative h-64">
-                <img
-                  src="images/products/pulses.png"
-                  alt="Pulses"
-                  class="w-full h-full object-cover"
-                />
-                <div class="absolute inset-0 bg-black bg-opacity-20"></div>
-              </div>
-              <div class="p-6">
-                <h4 class="text-xl font-bold text-gray-800 mb-3">Pulses</h4>
-                <p class="text-gray-600 mb-4">
-                  Premium quality lentils, chickpeas, and other pulses from
-                  trusted sources.
-                </p>
-                <a
-                  href="products/pulses.html"
-                  class="inline-flex items-center text-orange-500 hover:text-orange-600 font-semibold"
-                >
-                  Learn More
-                  <svg
-                    class="w-4 h-4 ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 5l7 7-7 7"
-                    ></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Export Products -->
-        <div>
-          <h3 class="text-2xl font-bold text-gray-800 mb-8 text-center">
-            Export Products
-          </h3>
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Potatoes -->
-            <div
-              class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
-            >
-              <div class="relative h-64">
-                <img
-                  src="images/products/potato.png"
-                  alt="Premium Potatoes"
-                  class="w-full h-full object-cover"
-                />
-                <div class="absolute inset-0 bg-black bg-opacity-20"></div>
-              </div>
-              <div class="p-6">
-                <h4 class="text-xl font-bold text-gray-800 mb-3">
-                  Premium Potatoes
-                </h4>
-                <p class="text-gray-600 mb-4">
-                  Fresh, high-quality potatoes from Bangladesh's finest farms.
-                </p>
-                <a
-                  href="products/potato.html"
-                  class="inline-flex items-center text-orange-500 hover:text-orange-600 font-semibold"
-                >
-                  Learn More
-                  <svg
-                    class="w-4 h-4 ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+            <div class="group">
+              <div
+                class="relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-2xl"
+              >
+                <div class="aspect-w-16 aspect-h-9 relative overflow-hidden">
+                  <img
+                    src="images/products/potato.webp"
+                    alt="Premium Potatoes"
+                    class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  ></div>
+                </div>
+                <div class="p-6">
+                  <div class="flex items-center justify-between mb-4">
+                    <h4
+                      class="text-xl font-bold text-gray-800 group-hover:text-orange-500 transition-colors"
+                    >
+                      Premium Potatoes
+                    </h4>
+                    <span
+                      class="bg-green-100 text-green-600 text-xs font-semibold px-3 py-1 rounded-full"
+                      >Export</span
+                    >
+                  </div>
+                  <p class="text-gray-600 mb-4 line-clamp-2">
+                    Fresh, high-quality potatoes from Bangladesh's finest farms.
+                  </p>
+                  <a
+                    href="products/potato.html"
+                    class="inline-flex items-center text-orange-500 font-semibold group-hover:text-orange-600 transition-colors"
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 5l7 7-7 7"
-                    ></path>
-                  </svg>
-                </a>
+                    <span class="relative">
+                      Learn More
+                      <span
+                        class="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"
+                      ></span>
+                    </span>
+                    <svg
+                      class="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      ></path>
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
+          </div>
 
-            <!-- Handicrafts -->
-            <div
-              class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+          <!-- View All Products Button -->
+          <div class="text-center mt-12">
+            <a
+              href="products.html"
+              class="inline-flex items-center bg-orange-500 text-white px-8 py-3 rounded-lg hover:bg-orange-600 transition-colors group"
             >
-              <div class="relative h-64">
-                <img
-                  src="images/products/handicrafts.png"
-                  alt="Handicrafts"
-                  class="w-full h-full object-cover"
-                />
-                <div class="absolute inset-0 bg-black bg-opacity-20"></div>
-              </div>
-              <div class="p-6">
-                <h4 class="text-xl font-bold text-gray-800 mb-3">
-                  Handicrafts
-                </h4>
-                <p class="text-gray-600 mb-4">
-                  Authentic Bangladeshi handicrafts showcasing local artistry.
-                </p>
-                <a
-                  href="products/handicrafts.html"
-                  class="inline-flex items-center text-orange-500 hover:text-orange-600 font-semibold"
-                >
-                  Learn More
-                  <svg
-                    class="w-4 h-4 ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 5l7 7-7 7"
-                    ></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="py-20 bg-gray-50">
-      <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">
-          What Our Clients Say
-        </h2>
-        <div class="grid md:grid-cols-3 gap-8">
-          <div
-            class="bg-white p-8 rounded-lg shadow-lg transform transition-all duration-300 hover:-translate-y-2"
-          >
-            <div class="flex items-center mb-6">
-              <img
-                src="images/testimonials/client1.jpg"
-                alt="Client"
-                class="w-16 h-16 rounded-full object-cover mr-4"
-              />
-              <div>
-                <h4 class="text-xl font-bold text-gray-800">John Smith</h4>
-                <p class="text-gray-600">Import Manager, UK</p>
-              </div>
-            </div>
-            <p class="text-gray-600 italic">
-              "K.H. Infinity has been instrumental in sourcing high-quality
-              products for our market. Their commitment to quality and timely
-              delivery is exceptional."
-            </p>
-          </div>
-          <div
-            class="bg-white p-8 rounded-lg shadow-lg transform transition-all duration-300 hover:-translate-y-2"
-          >
-            <div class="flex items-center mb-6">
-              <img
-                src="images/testimonials/client2.jpg"
-                alt="Client"
-                class="w-16 h-16 rounded-full object-cover mr-4"
-              />
-              <div>
-                <h4 class="text-xl font-bold text-gray-800">Sarah Johnson</h4>
-                <p class="text-gray-600">Procurement Director, UAE</p>
-              </div>
-            </div>
-            <p class="text-gray-600 italic">
-              "Their extensive network and professional approach make them a
-              reliable partner for our import needs. Highly recommended!"
-            </p>
-          </div>
-          <div
-            class="bg-white p-8 rounded-lg shadow-lg transform transition-all duration-300 hover:-translate-y-2"
-          >
-            <div class="flex items-center mb-6">
-              <img
-                src="images/testimonials/client3.jpg"
-                alt="Client"
-                class="w-16 h-16 rounded-full object-cover mr-4"
-              />
-              <div>
-                <h4 class="text-xl font-bold text-gray-800">Michael Chen</h4>
-                <p class="text-gray-600">Supply Chain Manager, Singapore</p>
-              </div>
-            </div>
-            <p class="text-gray-600 italic">
-              "We've been working with K.H. Infinity for over 5 years. Their
-              consistency in quality and service is remarkable."
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Partners Section -->
-    <section class="py-20">
-      <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">
-          Our Global Partners
-        </h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-12 items-center">
-          <div class="grayscale hover:grayscale-0 transition-all duration-300">
-            <img
-              src="images/partners/partner1.png"
-              alt="Partner 1"
-              class="mx-auto"
-            />
-          </div>
-          <div class="grayscale hover:grayscale-0 transition-all duration-300">
-            <img
-              src="images/partners/partner2.png"
-              alt="Partner 2"
-              class="mx-auto"
-            />
-          </div>
-          <div class="grayscale hover:grayscale-0 transition-all duration-300">
-            <img
-              src="images/partners/partner3.png"
-              alt="Partner 3"
-              class="mx-auto"
-            />
-          </div>
-          <div class="grayscale hover:grayscale-0 transition-all duration-300">
-            <img
-              src="images/partners/partner4.png"
-              alt="Partner 4"
-              class="mx-auto"
-            />
+              View All Products
+              <svg
+                class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                ></path>
+              </svg>
+            </a>
           </div>
         </div>
       </div>
@@ -550,17 +435,17 @@
         <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">
           Our Services
         </h2>
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-2 gap-8">
           <div
             class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow"
           >
             <div class="text-orange-500 text-4xl mb-4">
               <i class="fas fa-ship"></i>
             </div>
-            <h3 class="text-xl font-bold mb-4">Import Services</h3>
+            <h3 class="text-xl font-bold mb-4">Import Products</h3>
             <p class="text-gray-600">
-              Comprehensive import solutions including product sourcing,
-              logistics, and customs clearance.
+              We import products from various countries to meet the needs of our
+              clients.
             </p>
           </div>
           <div
@@ -569,22 +454,10 @@
             <div class="text-orange-500 text-4xl mb-4">
               <i class="fas fa-box"></i>
             </div>
-            <h3 class="text-xl font-bold mb-4">Export Services</h3>
+            <h3 class="text-xl font-bold mb-4">Export Products</h3>
             <p class="text-gray-600">
-              End-to-end export services helping Bangladeshi products reach
-              global markets.
-            </p>
-          </div>
-          <div
-            class="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow"
-          >
-            <div class="text-orange-500 text-4xl mb-4">
-              <i class="fas fa-truck"></i>
-            </div>
-            <h3 class="text-xl font-bold mb-4">Logistics Solutions</h3>
-            <p class="text-gray-600">
-              Reliable transportation and warehousing services for seamless
-              delivery.
+              We export products to various countries to meet the needs of our
+              clients.
             </p>
           </div>
         </div>
@@ -665,8 +538,12 @@
       <div class="container mx-auto px-4">
         <div class="grid md:grid-cols-4 gap-8">
           <div>
-            <h4 class="text-xl font-bold mb-4">K.H. Infinity</h4>
-            <p class="text-gray-400">
+            <img
+              src="images/brand/official_logo_lite.svg"
+              alt="K.H. Infinity"
+              class="w-40 h-20"
+            />
+            <p class="text-gray-400 mt-4">
               Bridging Global Markets with Quality Products
             </p>
           </div>
@@ -735,7 +612,7 @@
         </div>
         <div class="border-t border-gray-700 mt-8 pt-8 text-center">
           <p class="text-gray-400">
-            &copy; 2024 K.H. Infinity. All rights reserved.
+            &copy; 2025 K.H. Infinity. All rights reserved.
           </p>
         </div>
       </div>

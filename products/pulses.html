@@ -3,7 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Premium Pulses - K.H. Infinity</title>
+    <title>Premium Pulses - K.H. Infinity | Natural Grains & Legumes</title>
+    <meta
+      name="description"
+      content="High-quality pulses including lentils, chickpeas, and other legumes. Premium quality grains sourced from the world's finest producers."
+    />
+    <meta
+      name="keywords"
+      content="pulses, lentils, chickpeas, legumes, grains, K.H. Infinity, import"
+    />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/mobile.css" />
@@ -12,46 +21,46 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
   </head>
-  <body class="font-sans">
+  <body class="font-sans bg-amber-50">
     <!-- Header -->
     <header class="header bg-white fixed w-full top-0 z-50 shadow-md">
       <div class="container mx-auto px-4">
         <nav class="flex justify-between items-center py-4">
-          <a href="../index.html" class="text-2xl font-bold text-orange-500"
-            >K.H. Infinity</a
-          >
+          <a href="/" class="text-2xl font-bold text-amber-700">
+            <img
+              src="../images/brand/official_logo.svg"
+              alt="K.H. Infinity"
+              class="w-20 h-10"
+            />
+          </a>
           <ul class="hidden md:flex space-x-8">
             <li>
-              <a
-                href="../index.html#about"
-                class="hover:text-orange-500 transition-colors"
+              <a href="/#about" class="hover:text-amber-700 transition-colors"
                 >About Us</a
               >
             </li>
             <li>
               <a
-                href="../products.html"
-                class="hover:text-orange-500 transition-colors"
+                href="/products.html"
+                class="hover:text-amber-700 transition-colors"
                 >Products</a
               >
             </li>
             <li>
               <a
-                href="../services.html"
-                class="hover:text-orange-500 transition-colors"
+                href="/#services"
+                class="hover:text-amber-700 transition-colors"
                 >Services</a
               >
             </li>
             <li>
-              <a
-                href="../contact.html"
-                class="hover:text-orange-500 transition-colors"
+              <a href="/#contact" class="hover:text-amber-700 transition-colors"
                 >Contact Us</a
               >
             </li>
           </ul>
           <button
-            class="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors"
+            class="bg-amber-700 text-white px-6 py-2 rounded-lg hover:bg-amber-800 transition-colors"
           >
             Get In Touch
           </button>
@@ -60,176 +69,317 @@
     </header>
 
     <!-- Product Hero -->
-    <section
-      class="relative pt-32 pb-20 bg-gradient-to-b from-amber-50 to-white"
-    >
-      <div class="container mx-auto px-4">
+    <section class="relative pt-32 pb-20 overflow-hidden">
+      <div
+        class="absolute inset-0 bg-[url('../images/products/grain-pattern.webp')] opacity-5"
+      ></div>
+      <div class="container mx-auto px-4 relative">
         <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div class="space-y-6">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">
-              Premium Quality Pulses
-            </h1>
-            <p class="text-xl text-gray-600">
-              High-quality lentils, chickpeas, and other pulses sourced from the
-              world's finest producers, perfect for various culinary
-              applications.
-            </p>
-            <div class="flex gap-4">
+          <div class="space-y-8">
+            <div class="relative">
+              <div
+                class="absolute -inset-1 bg-gradient-to-r from-amber-700 to-amber-500 rounded-lg blur opacity-25"
+              ></div>
+              <div class="relative bg-white p-8 rounded-lg shadow-xl">
+                <span
+                  class="text-amber-700 font-medium tracking-wider uppercase text-sm block mb-4"
+                  >Natural Goodness</span
+                >
+                <h1
+                  class="text-4xl md:text-5xl font-bold text-gray-800 leading-tight"
+                >
+                  Premium Quality <span class="text-amber-700">Pulses</span>
+                </h1>
+                <p class="mt-6 text-xl text-gray-600 leading-relaxed">
+                  Discover our selection of premium pulses, sourced from
+                  nature's finest harvests.
+                </p>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-4">
               <a
-                href="#specifications"
-                class="bg-orange-500 text-white px-8 py-3 rounded-lg hover:bg-orange-600 transition-colors"
-                >View Specifications</a
+                href="#varieties"
+                class="bg-amber-700 text-white px-8 py-3 rounded-lg hover:bg-amber-800 transition-all transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
               >
+                Explore Varieties
+              </a>
               <a
                 href="#contact"
-                class="border-2 border-orange-500 text-orange-500 px-8 py-3 rounded-lg hover:bg-orange-500 hover:text-white transition-colors"
-                >Request Quote</a
+                class="border-2 border-amber-700 text-amber-700 px-8 py-3 rounded-lg hover:bg-amber-700 hover:text-white transition-all transform hover:-translate-y-1"
               >
+                Request Quote
+              </a>
             </div>
           </div>
           <div class="relative">
-            <img
-              src="../images/products/pulses-hero.jpg"
-              alt="Premium Pulses"
-              class="rounded-lg shadow-xl"
-            />
+            <div
+              class="absolute -inset-4 bg-gradient-to-r from-amber-100 to-amber-200 rounded-full blur-2xl opacity-75 animate-pulse"
+            ></div>
+            <div class="bg-white p-8 rounded-3xl shadow-xl relative">
+              <div class="aspect-square relative overflow-hidden rounded-2xl">
+                <img
+                  src="../images/products/pulses.webp"
+                  alt="Premium Pulses Collection"
+                  class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Product Details -->
-    <section id="specifications" class="py-20">
+    <!-- Varieties -->
+    <section id="varieties" class="py-20 bg-white">
       <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <span
+            class="text-amber-700 font-medium tracking-wider uppercase text-sm block mb-4"
+            >Our Selection</span
+          >
+          <h2 class="text-3xl font-bold text-gray-800">Premium Varieties</h2>
+        </div>
         <div class="grid md:grid-cols-3 gap-8">
-          <!-- Varieties -->
-          <div class="bg-white p-8 rounded-lg shadow-md">
-            <h3 class="text-2xl font-bold mb-6 text-gray-800">
-              Available Varieties
-            </h3>
-            <ul class="space-y-4">
-              <li class="flex items-start">
-                <i class="fas fa-check text-orange-500 mt-1 mr-3"></i>
-                <span>Red Lentils (Masoor Dal)</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fas fa-check text-orange-500 mt-1 mr-3"></i>
-                <span>Chickpeas (Kabuli Chana)</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fas fa-check text-orange-500 mt-1 mr-3"></i>
-                <span>Yellow Split Peas</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fas fa-check text-orange-500 mt-1 mr-3"></i>
-                <span>Green Mung Beans</span>
-              </li>
-            </ul>
+          <div
+            class="bg-amber-50 rounded-3xl overflow-hidden group hover:shadow-xl transition-all duration-300"
+          >
+            <div class="aspect-[4/3] relative overflow-hidden">
+              <img
+                src="../images/products/lentils.webp"
+                alt="Premium Lentils"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">
+                Premium Lentils
+              </h3>
+              <p class="text-gray-600 mb-4">
+                High-quality lentils perfect for soups, stews, and salads.
+              </p>
+              <ul class="space-y-2 text-gray-600">
+                <li class="flex items-center">
+                  <i class="fas fa-check text-amber-700 mr-2"></i>
+                  Rich in protein and fiber
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check text-amber-700 mr-2"></i>
+                  Multiple varieties available
+                </li>
+              </ul>
+            </div>
           </div>
 
-          <!-- Quality Features -->
-          <div class="bg-white p-8 rounded-lg shadow-md">
-            <h3 class="text-2xl font-bold mb-6 text-gray-800">
-              Quality Features
-            </h3>
-            <ul class="space-y-4">
-              <li class="flex items-start">
-                <i class="fas fa-star text-orange-500 mt-1 mr-3"></i>
-                <span>99.9% Purity</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fas fa-star text-orange-500 mt-1 mr-3"></i>
-                <span>Uniform Size & Color</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fas fa-star text-orange-500 mt-1 mr-3"></i>
-                <span>Free from Foreign Matter</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fas fa-star text-orange-500 mt-1 mr-3"></i>
-                <span>Premium Grade Selection</span>
-              </li>
-            </ul>
+          <div
+            class="bg-amber-50 rounded-3xl overflow-hidden group hover:shadow-xl transition-all duration-300"
+          >
+            <div class="aspect-[4/3] relative overflow-hidden">
+              <img
+                src="../images/products/chickpeas.webp"
+                alt="Premium Chickpeas"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Chickpeas</h3>
+              <p class="text-gray-600 mb-4">
+                Versatile chickpeas for hummus, curries, and salads.
+              </p>
+              <ul class="space-y-2 text-gray-600">
+                <li class="flex items-center">
+                  <i class="fas fa-check text-amber-700 mr-2"></i>
+                  High in protein
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check text-amber-700 mr-2"></i>
+                  Premium quality selection
+                </li>
+              </ul>
+            </div>
           </div>
 
-          <!-- Packaging -->
-          <div class="bg-white p-8 rounded-lg shadow-md">
-            <h3 class="text-2xl font-bold mb-6 text-gray-800">
-              Packaging Options
-            </h3>
-            <ul class="space-y-4">
-              <li class="flex items-start">
-                <i class="fas fa-box text-orange-500 mt-1 mr-3"></i>
-                <span>25kg PP Bags</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fas fa-box text-orange-500 mt-1 mr-3"></i>
-                <span>50kg Jute Bags</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fas fa-box text-orange-500 mt-1 mr-3"></i>
-                <span>1kg Consumer Packs</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fas fa-box text-orange-500 mt-1 mr-3"></i>
-                <span>Bulk packaging available</span>
-              </li>
-            </ul>
+          <div
+            class="bg-amber-50 rounded-3xl overflow-hidden group hover:shadow-xl transition-all duration-300"
+          >
+            <div class="aspect-[4/3] relative overflow-hidden">
+              <img
+                src="../images/products/beans.webp"
+                alt="Premium Beans"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">Beans</h3>
+              <p class="text-gray-600 mb-4">
+                Various bean varieties for diverse culinary applications.
+              </p>
+              <ul class="space-y-2 text-gray-600">
+                <li class="flex items-center">
+                  <i class="fas fa-check text-amber-700 mr-2"></i>
+                  Multiple varieties
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check text-amber-700 mr-2"></i>
+                  Consistent quality
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Sourcing & Quality -->
-    <section class="py-20 bg-gray-50">
+    <!-- Benefits -->
+    <section class="py-20 bg-gradient-to-b from-white to-amber-50">
       <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-12 text-center text-gray-800">
-          Sourcing & Quality
-        </h2>
-        <div class="grid md:grid-cols-2 gap-12">
-          <div>
-            <h3 class="text-2xl font-bold mb-6 text-gray-800">Sourcing</h3>
-            <p class="text-gray-600 mb-6">
-              Our pulses are sourced from premium producers in Canada,
-              Australia, and Turkey, known for their exceptional farming
-              practices and quality standards.
+        <div class="text-center mb-16">
+          <span
+            class="text-amber-700 font-medium tracking-wider uppercase text-sm block mb-4"
+            >Why Choose Our Pulses</span
+          >
+          <h2 class="text-3xl font-bold text-gray-800">Key Benefits</h2>
+        </div>
+        <div class="grid md:grid-cols-4 gap-8">
+          <div
+            class="bg-white p-6 rounded-2xl text-center hover:shadow-lg transition-all duration-300"
+          >
+            <div
+              class="w-12 h-12 bg-amber-700 rounded-xl mx-auto flex items-center justify-center mb-4"
+            >
+              <i class="fas fa-seedling text-white"></i>
+            </div>
+            <h3 class="font-bold mb-2">Natural</h3>
+            <p class="text-gray-600 text-sm">
+              100% natural, no artificial additives
             </p>
-            <ul class="space-y-4">
-              <li class="flex items-start">
-                <i class="fas fa-globe text-orange-500 mt-1 mr-3"></i>
-                <span>Multiple sourcing regions</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fas fa-certificate text-orange-500 mt-1 mr-3"></i>
-                <span>Certified organic options available</span>
-              </li>
-            </ul>
           </div>
-          <div>
-            <h3 class="text-2xl font-bold mb-6 text-gray-800">
-              Quality Control
-            </h3>
-            <p class="text-gray-600 mb-6">
-              Each batch undergoes thorough quality testing to ensure it meets
-              our strict standards.
-            </p>
-            <ul class="space-y-4">
-              <li class="flex items-start">
-                <i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i>
-                <span>ISO 22000 certified</span>
-              </li>
-              <li class="flex items-start">
-                <i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i>
-                <span>HACCP compliant</span>
-              </li>
-            </ul>
+          <div
+            class="bg-white p-6 rounded-2xl text-center hover:shadow-lg transition-all duration-300"
+          >
+            <div
+              class="w-12 h-12 bg-amber-700 rounded-xl mx-auto flex items-center justify-center mb-4"
+            >
+              <i class="fas fa-heart text-white"></i>
+            </div>
+            <h3 class="font-bold mb-2">Healthy</h3>
+            <p class="text-gray-600 text-sm">Rich in protein and nutrients</p>
+          </div>
+          <div
+            class="bg-white p-6 rounded-2xl text-center hover:shadow-lg transition-all duration-300"
+          >
+            <div
+              class="w-12 h-12 bg-amber-700 rounded-xl mx-auto flex items-center justify-center mb-4"
+            >
+              <i class="fas fa-certificate text-white"></i>
+            </div>
+            <h3 class="font-bold mb-2">Quality</h3>
+            <p class="text-gray-600 text-sm">Premium grade selection</p>
+          </div>
+          <div
+            class="bg-white p-6 rounded-2xl text-center hover:shadow-lg transition-all duration-300"
+          >
+            <div
+              class="w-12 h-12 bg-amber-700 rounded-xl mx-auto flex items-center justify-center mb-4"
+            >
+              <i class="fas fa-box text-white"></i>
+            </div>
+            <h3 class="font-bold mb-2">Packaging</h3>
+            <p class="text-gray-600 text-sm">Various packaging options</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Specifications -->
+    <section class="py-20 bg-amber-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <span
+            class="text-amber-700 font-medium tracking-wider uppercase text-sm block mb-4"
+            >Product Details</span
+          >
+          <h2 class="text-3xl font-bold text-gray-800">Specifications</h2>
+        </div>
+        <div class="max-w-4xl mx-auto">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-white p-8 rounded-3xl shadow-lg">
+              <h3 class="text-xl font-bold mb-6 text-gray-800">
+                Quality Standards
+              </h3>
+              <ul class="space-y-4">
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-amber-700 mt-1 mr-3"></i>
+                  <div>
+                    <span class="font-semibold">Premium Grade:</span>
+                    <p class="text-gray-600 mt-1">
+                      Carefully selected and graded for consistent quality
+                    </p>
+                  </div>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-amber-700 mt-1 mr-3"></i>
+                  <div>
+                    <span class="font-semibold">Purity:</span>
+                    <p class="text-gray-600 mt-1">99.9% purity guaranteed</p>
+                  </div>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-amber-700 mt-1 mr-3"></i>
+                  <div>
+                    <span class="font-semibold">Moisture Content:</span>
+                    <p class="text-gray-600 mt-1">
+                      Controlled for optimal preservation
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="bg-white p-8 rounded-3xl shadow-lg">
+              <h3 class="text-xl font-bold mb-6 text-gray-800">
+                Packaging Options
+              </h3>
+              <ul class="space-y-4">
+                <li class="flex items-start">
+                  <i class="fas fa-box text-amber-700 mt-1 mr-3"></i>
+                  <div>
+                    <span class="font-semibold">Retail Packs:</span>
+                    <p class="text-gray-600 mt-1">
+                      500g, 1kg, 2kg consumer packages
+                    </p>
+                  </div>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-box text-amber-700 mt-1 mr-3"></i>
+                  <div>
+                    <span class="font-semibold">Bulk Packaging:</span>
+                    <p class="text-gray-600 mt-1">25kg, 50kg bags available</p>
+                  </div>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-box text-amber-700 mt-1 mr-3"></i>
+                  <div>
+                    <span class="font-semibold">Custom Options:</span>
+                    <p class="text-gray-600 mt-1">Available upon request</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Request Quote -->
-    <section id="contact" class="py-20">
+    <section id="contact" class="py-20 bg-white">
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold mb-12 text-center text-gray-800">
           Request a Quote
@@ -242,7 +392,7 @@
                 <input
                   type="text"
                   id="name"
-                  class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500"
+                  class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-amber-500"
                   required
                 />
               </div>
@@ -253,7 +403,7 @@
                 <input
                   type="email"
                   id="email"
-                  class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500"
+                  class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-amber-500"
                   required
                 />
               </div>
@@ -264,24 +414,23 @@
               >
               <select
                 id="product"
-                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-amber-500"
                 required
               >
-                <option value="">Select product type</option>
-                <option value="red-lentils">Red Lentils</option>
+                <option value="">Select a product</option>
+                <option value="lentils">Lentils</option>
                 <option value="chickpeas">Chickpeas</option>
-                <option value="yellow-split-peas">Yellow Split Peas</option>
-                <option value="mung-beans">Green Mung Beans</option>
+                <option value="beans">Beans</option>
               </select>
             </div>
             <div>
               <label class="block text-gray-700 mb-2" for="quantity"
-                >Required Quantity (in MT)</label
+                >Required Quantity</label
               >
               <input
-                type="number"
+                type="text"
                 id="quantity"
-                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-amber-500"
                 required
               />
             </div>
@@ -292,12 +441,12 @@
               <textarea
                 id="message"
                 rows="4"
-                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-amber-500"
               ></textarea>
             </div>
             <button
               type="submit"
-              class="w-full bg-orange-500 text-white px-8 py-3 rounded-lg hover:bg-orange-600 transition-colors"
+              class="w-full bg-amber-700 text-white px-8 py-3 rounded-lg hover:bg-amber-800 transition-colors"
             >
               Submit Request
             </button>
@@ -311,8 +460,12 @@
       <div class="container mx-auto px-4">
         <div class="grid md:grid-cols-4 gap-8">
           <div>
-            <h4 class="text-xl font-bold mb-4">K.H. Infinity</h4>
-            <p class="text-gray-400">
+            <img
+              src="../images/brand/official_logo_lite.svg"
+              alt="K.H. Infinity"
+              class="w-40 h-20"
+            />
+            <p class="text-gray-400 mt-4">
               Bridging Global Markets with Quality Products
             </p>
           </div>
@@ -320,28 +473,22 @@
             <h4 class="text-xl font-bold mb-4">Quick Links</h4>
             <ul class="space-y-2">
               <li>
-                <a
-                  href="../index.html#about"
-                  class="text-gray-400 hover:text-white"
+                <a href="/#about" class="text-gray-400 hover:text-white"
                   >About Us</a
                 >
               </li>
               <li>
-                <a
-                  href="../products.html"
-                  class="text-gray-400 hover:text-white"
+                <a href="/products.html" class="text-gray-400 hover:text-white"
                   >Products</a
                 >
               </li>
               <li>
-                <a
-                  href="../services.html"
-                  class="text-gray-400 hover:text-white"
+                <a href="/#services" class="text-gray-400 hover:text-white"
                   >Services</a
                 >
               </li>
               <li>
-                <a href="../contact.html" class="text-gray-400 hover:text-white"
+                <a href="/#contact" class="text-gray-400 hover:text-white"
                   >Contact</a
                 >
               </li>
@@ -352,26 +499,28 @@
             <ul class="space-y-2">
               <li>
                 <a
-                  href="sunflower-oil.html"
+                  href="/products/sunflower-oil.html"
                   class="text-gray-400 hover:text-white"
                   >Sunflower Oil</a
                 >
               </li>
               <li>
                 <a
-                  href="milk-powder.html"
+                  href="/products/milk-powder.html"
                   class="text-gray-400 hover:text-white"
                   >Milk Powder</a
                 >
               </li>
               <li>
-                <a href="potato.html" class="text-gray-400 hover:text-white"
+                <a
+                  href="/products/potato.html"
+                  class="text-gray-400 hover:text-white"
                   >Potatoes</a
                 >
               </li>
               <li>
                 <a
-                  href="handicrafts.html"
+                  href="/products/handicrafts.html"
                   class="text-gray-400 hover:text-white"
                   >Handicrafts</a
                 >
@@ -379,18 +528,23 @@
             </ul>
           </div>
           <div>
-            <h4 class="text-xl font-bold mb-4">Contact Info</h4>
-            <ul class="space-y-2">
-              <li class="text-gray-400">123 Business District</li>
-              <li class="text-gray-400">Dhaka, Bangladesh</li>
-              <li class="text-gray-400">info@khinfinity.com</li>
-              <li class="text-gray-400">+880 XXXXXXXXXX</li>
-            </ul>
+            <h4 class="text-xl font-bold mb-4">Follow Us</h4>
+            <div class="flex space-x-4">
+              <a href="#" class="text-gray-400 hover:text-white text-xl"
+                ><i class="fab fa-facebook"></i
+              ></a>
+              <a href="#" class="text-gray-400 hover:text-white text-xl"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+              <a href="#" class="text-gray-400 hover:text-white text-xl"
+                ><i class="fab fa-instagram"></i
+              ></a>
+            </div>
           </div>
         </div>
         <div class="border-t border-gray-700 mt-8 pt-8 text-center">
           <p class="text-gray-400">
-            &copy; 2024 K.H. Infinity. All rights reserved.
+            &copy; 2025 K.H. Infinity. All rights reserved.
           </p>
         </div>
       </div>
