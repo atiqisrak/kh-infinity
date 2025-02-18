@@ -1,6 +1,6 @@
 # **K.H. Infinity Website**
 
-![K.H. Infinity Logo](https://github.com/atiqisrak/kh-infinity/blob/main/images/brand/official_logo.svg)
+![K.H. Infinity](https://github.com/atiqisrak/kh-infinity/blob/main/images/brand/official_logo.svg)
 
 **Tagline:** Bridging Global Markets with Quality Products
 
