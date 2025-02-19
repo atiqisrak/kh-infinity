@@ -1,13 +1,13 @@
 // Function to load HTML components
-async function loadComponent(url, targetId) {
+async function loadComponent(elementId, componentPath) {
   try {
-    const response = await fetch(url);
+    const response = await fetch(componentPath);
     const html = await response.text();
-    document.getElementById(targetId).innerHTML = html;
+    document.getElementById(elementId).innerHTML = html;
 
     // Replace theme color classes based on the current page
     const pageTheme = document.body.dataset.theme || "orange";
-    const component = document.getElementById(targetId);
+    const component = document.getElementById(elementId);
 
     component.innerHTML = component.innerHTML
       .replace(/text-theme/g, `text-${pageTheme}-500`)
@@ -18,11 +18,11 @@ async function loadComponent(url, targetId) {
       .replace(/bg-theme-dark/g, `bg-${pageTheme}-600`);
 
     // Initialize mobile menu if loading header
-    if (targetId === "header") {
+    if (elementId === "header") {
       initializeMobileMenu();
     }
   } catch (error) {
-    console.error("Error loading component:", error);
+    console.error(`Error loading component ${componentPath}:`, error);
   }
 }
 
@@ -84,10 +84,10 @@ function initializeProductPage() {
   }
 }
 
-// Load components when DOM is ready
+// Load header and footer when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
-  loadComponent("/components/header.html", "header");
-  loadComponent("/components/footer.html", "footer").then(() => {
+  loadComponent("header", "/components/header.html");
+  loadComponent("footer", "/components/footer.html").then(() => {
     // Initialize product page after footer is loaded
     initializeProductPage();
   });
