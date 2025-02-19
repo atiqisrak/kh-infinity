@@ -54,13 +54,44 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   });
 });
 
-// Mobile Menu Toggle
-const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
-const mobileMenu = document.querySelector(".mobile-menu");
+// Mobile Menu Functionality
+const mobileMenuButton = document.getElementById("mobile-menu-button");
+const mobileMenu = document.getElementById("mobile-menu");
+let isMenuOpen = false;
 
-if (mobileMenuBtn && mobileMenu) {
-  mobileMenuBtn.addEventListener("click", () => {
-    mobileMenu.classList.toggle("hidden");
+if (mobileMenuButton && mobileMenu) {
+  mobileMenuButton.addEventListener("click", () => {
+    isMenuOpen = !isMenuOpen;
+
+    if (isMenuOpen) {
+      mobileMenu.classList.remove("translate-x-full");
+      mobileMenuButton.innerHTML = `
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      `;
+    } else {
+      mobileMenu.classList.add("translate-x-full");
+      mobileMenuButton.innerHTML = `
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      `;
+    }
+  });
+
+  // Close menu when clicking on a link
+  const mobileMenuLinks = mobileMenu.getElementsByTagName("a");
+  Array.from(mobileMenuLinks).forEach((link) => {
+    link.addEventListener("click", () => {
+      isMenuOpen = false;
+      mobileMenu.classList.add("translate-x-full");
+      mobileMenuButton.innerHTML = `
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      `;
+    });
   });
 }
 
@@ -108,14 +139,14 @@ if (contactForm) {
   });
 }
 
-// Initialize Google Maps
+// Google Maps Initialization
 function initMap() {
-  // Replace these coordinates with your actual office location
-  const officeLocation = { lat: 23.8103, lng: 90.4125 }; // Dhaka coordinates
+  // Coordinates for Kader Tropical Height
+  const location = { lat: 23.7216, lng: 90.4152 }; // Dhaka coordinates
 
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: 15,
-    center: officeLocation,
+    center: location,
     styles: [
       {
         featureType: "all",
@@ -123,36 +154,23 @@ function initMap() {
         stylers: [{ color: "#7c93a3" }],
       },
       {
-        featureType: "administrative",
-        elementType: "geometry.fill",
+        featureType: "administrative.country",
+        elementType: "geometry",
         stylers: [{ visibility: "on" }],
       },
       // Add more custom styles as needed
     ],
   });
 
-  // Add a marker for the office location
   const marker = new google.maps.Marker({
-    position: officeLocation,
+    position: location,
     map: map,
-    title: "K.H. Infinity Office",
-  });
-
-  // Add an info window
-  const infoWindow = new google.maps.InfoWindow({
-    content: `
-      <div style="padding: 10px;">
-        <h3 style="margin: 0 0 5px; font-weight: bold;">K.H. Infinity</h3>
-        <p style="margin: 0;">123 Business District, Dhaka, Bangladesh</p>
-      </div>
-    `,
-  });
-
-  // Show info window when marker is clicked
-  marker.addListener("click", () => {
-    infoWindow.open(map, marker);
+    title: "K.H. Infinity",
   });
 }
+
+// Attach the function to window object so it's globally accessible
+window.initMap = initMap;
 
 // Hero Slider
 function initHeroSlider() {

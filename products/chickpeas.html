@@ -21,52 +21,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
   </head>
-  <body class="font-sans bg-stone-50">
+  <body class="font-sans bg-stone-50" data-theme="stone">
     <!-- Header -->
-    <header class="header bg-white fixed w-full top-0 z-50 shadow-md">
-      <div class="container mx-auto px-4">
-        <nav class="flex justify-between items-center py-4">
-          <a href="/" class="text-2xl font-bold text-stone-700">
-            <img
-              src="../images/brand/official_logo.svg"
-              alt="K.H. Infinity"
-              class="w-20 h-10"
-            />
-          </a>
-          <ul class="hidden md:flex space-x-8">
-            <li>
-              <a href="/#about" class="hover:text-stone-600 transition-colors"
-                >About Us</a
-              >
-            </li>
-            <li>
-              <a
-                href="/products.html"
-                class="hover:text-stone-600 transition-colors"
-                >Products</a
-              >
-            </li>
-            <li>
-              <a
-                href="/#services"
-                class="hover:text-stone-600 transition-colors"
-                >Services</a
-              >
-            </li>
-            <li>
-              <a href="/#contact" class="hover:text-stone-600 transition-colors"
-                >Contact Us</a
-              >
-            </li>
-          </ul>
-          <button
-            class="bg-stone-700 text-white px-6 py-2 rounded-lg hover:bg-stone-800 transition-colors"
-          >
-            Get In Touch
-          </button>
-        </nav>
-      </div>
-    </header>
+    <div id="header"></div>
 
     <!-- Product Hero -->
     <section class="relative pt-32 pb-20 overflow-hidden">
@@ -392,7 +349,7 @@
     </section>
 
     <!-- Applications -->
-    <section class="py-20 bg-stone-50">
+    <section class="py-20 bg-white">
       <div class="container mx-auto px-4">
         <div class="text-center mb-16">
           <span
@@ -401,7 +358,7 @@
           >
           <h2 class="text-3xl font-bold text-gray-800">Applications</h2>
         </div>
-        <div class="grid md:grid-cols-4 gap-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div
             class="bg-white p-6 rounded-2xl text-center hover:shadow-lg transition-all duration-300"
           >
@@ -530,100 +487,10 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
-      <div class="container mx-auto px-4">
-        <div class="grid md:grid-cols-4 gap-8">
-          <div>
-            <img
-              src="../images/brand/official_logo_lite.svg"
-              alt="K.H. Infinity"
-              class="w-40 h-20"
-            />
-            <p class="text-gray-400 mt-4">
-              Bridging Global Markets with Quality Products
-            </p>
-          </div>
-          <div>
-            <h4 class="text-xl font-bold mb-4">Quick Links</h4>
-            <ul class="space-y-2">
-              <li>
-                <a href="/#about" class="text-gray-400 hover:text-white"
-                  >About Us</a
-                >
-              </li>
-              <li>
-                <a href="/products.html" class="text-gray-400 hover:text-white"
-                  >Products</a
-                >
-              </li>
-              <li>
-                <a href="/#services" class="text-gray-400 hover:text-white"
-                  >Services</a
-                >
-              </li>
-              <li>
-                <a href="/#contact" class="text-gray-400 hover:text-white"
-                  >Contact</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="text-xl font-bold mb-4">Products</h4>
-            <ul class="space-y-2">
-              <li>
-                <a
-                  href="/products/sunflower-oil.html"
-                  class="text-gray-400 hover:text-white"
-                  >Sunflower Oil</a
-                >
-              </li>
-              <li>
-                <a
-                  href="/products/milk-powder.html"
-                  class="text-gray-400 hover:text-white"
-                  >Milk Powder</a
-                >
-              </li>
-              <li>
-                <a
-                  href="/products/potato.html"
-                  class="text-gray-400 hover:text-white"
-                  >Potatoes</a
-                >
-              </li>
-              <li>
-                <a
-                  href="/products/handicrafts.html"
-                  class="text-gray-400 hover:text-white"
-                  >Handicrafts</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="text-xl font-bold mb-4">Follow Us</h4>
-            <div class="flex space-x-4">
-              <a href="#" class="text-gray-400 hover:text-white text-xl"
-                ><i class="fab fa-facebook"></i
-              ></a>
-              <a href="#" class="text-gray-400 hover:text-white text-xl"
-                ><i class="fab fa-linkedin"></i
-              ></a>
-              <a href="#" class="text-gray-400 hover:text-white text-xl"
-                ><i class="fab fa-instagram"></i
-              ></a>
-            </div>
-          </div>
-        </div>
-        <div class="border-t border-gray-700 mt-8 pt-8 text-center">
-          <p class="text-gray-400">
-            &copy; 2025 K.H. Infinity. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
+    <div id="footer"></div>
 
     <script src="../js/main.js"></script>
+    <script src="../js/products-data.js"></script>
+    <script src="../js/components.js"></script>
   </body>
 </html>
