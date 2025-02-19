@@ -55,8 +55,8 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 
 For any questions, feedback, or collaboration opportunities, feel free to reach out:
 
-- **Website**: [www.khinfinity.com](http://www.khinfinity.com) _(Replace with your actual domain)_
-- **Email**: info@khinfinity.com
+- **Website**: [www.khi.com.bd](http://www.khi.com.bd) _(Replace with your actual domain)_
+- **Email**: info@khi.com.bd
 - **Phone**: +880 XXXXXXXXXX
 - **Social Media**:
   - LinkedIn: [linkedin.com/company/khinfinity](https://www.linkedin.com/company/khinfinity)
