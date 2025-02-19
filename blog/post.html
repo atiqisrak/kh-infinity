@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog Post - K.H. Infinity</title>
+    <meta name="description" content="" id="meta-description" />
+
+    <!-- Stylesheets -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/mobile.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+
+    <!-- Open Graph Tags -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="" id="og-title" />
+    <meta property="og:description" content="" id="og-description" />
+    <meta property="og:image" content="" id="og-image" />
+
+    <!-- Add Disqus comments -->
+    <script>
+      var disqus_config = function () {
+        this.page.url = window.location.href;
+        this.page.identifier = window.location.pathname;
+      };
+      (function () {
+        var d = document,
+          s = d.createElement("script");
+        s.src = "https://kh-infinity.disqus.com/embed.js";
+        s.setAttribute("data-timestamp", +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+  </head>
+  <body class="font-sans bg-gray-50">
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Blog Post Content -->
+    <main class="pt-32 pb-20">
+      <article class="container mx-auto px-4 max-w-4xl">
+        <div id="blog-post-content">
+          <!-- Content will be loaded dynamically -->
+        </div>
+
+        <!-- Author Info -->
+        <div id="author-info" class="mt-12 p-6 bg-white rounded-lg shadow-md">
+          <!-- Author details will be loaded dynamically -->
+        </div>
+
+        <!-- Social Share -->
+        <div class="mt-8 flex items-center gap-4">
+          <span class="text-gray-600">Share this article:</span>
+          <div id="social-share" class="flex gap-4">
+            <!-- Social share buttons will be loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- Comments -->
+        <div class="mt-12">
+          <h3 class="text-2xl font-bold mb-6">Comments</h3>
+          <div id="disqus_thread"></div>
+        </div>
+      </article>
+    </main>
+
+    <!-- Related Posts -->
+    <section class="py-20 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-12">Related Posts</h2>
+        <div id="related-posts" class="grid md:grid-cols-3 gap-8">
+          <!-- Related posts will be loaded dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/blog-data.js"></script>
+    <script src="../js/blog-post.js"></script>
+  </body>
+</html>

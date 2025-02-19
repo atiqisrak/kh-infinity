@@ -63,12 +63,35 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+
+    <!-- Add RSS feed link -->
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="K.H. Infinity Blog"
+      href="/blog/feed.xml"
+    />
+
+    <!-- Add Disqus comments -->
+    <script>
+      var disqus_config = function () {
+        this.page.url = window.location.href;
+        this.page.identifier = window.location.pathname;
+      };
+      (function () {
+        var d = document,
+          s = d.createElement("script");
+        s.src = "https://kh-infinity.disqus.com/embed.js";
+        s.setAttribute("data-timestamp", +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
   </head>
   <body class="font-sans bg-gray-50" data-theme="gray">
     <!-- Header -->
     <div id="header"></div>
 
-    <!-- Blog Hero -->
+    <!-- Blog Hero with Search -->
     <section
       class="relative pt-32 pb-20 bg-gradient-to-b from-orange-50 to-white"
     >
@@ -76,10 +99,41 @@
         <h1 class="text-5xl font-bold text-center mb-6 text-gray-800">
           Trade Insights & News
         </h1>
-        <p class="text-xl text-center text-gray-600 max-w-3xl mx-auto">
+        <p class="text-xl text-center text-gray-600 max-w-3xl mx-auto mb-12">
           Stay informed with the latest updates on international trade, industry
           trends, and expert insights from K.H. Infinity.
         </p>
+
+        <!-- Search Bar -->
+        <div class="max-w-2xl mx-auto relative">
+          <div class="relative">
+            <input
+              type="text"
+              id="blog-search"
+              placeholder="Search articles..."
+              class="w-full px-6 py-4 rounded-lg border focus:outline-none focus:border-orange-500 shadow-md"
+            />
+            <i
+              class="fas fa-search absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-400"
+            ></i>
+          </div>
+          <div
+            id="search-results"
+            class="absolute w-full mt-2 bg-white rounded-lg shadow-lg z-10 hidden divide-y"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tag Filters -->
+    <section class="py-8 bg-white border-b">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center space-x-4 overflow-x-auto pb-4">
+          <span class="text-gray-700 font-medium whitespace-nowrap"
+            >Filter by:</span
+          >
+          <div id="tag-filters" class="flex space-x-2"></div>
+        </div>
       </div>
     </section>
 
@@ -89,147 +143,8 @@
         <h2 class="text-3xl font-bold mb-12 text-gray-800">
           Featured Articles
         </h2>
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- Article 1 -->
-          <article class="bg-white rounded-lg shadow-md overflow-hidden">
-            <img
-              src="../images/blog/trade-trends-2024.jpg"
-              alt="Global Trade Trends 2024"
-              class="w-full h-48 object-cover"
-            />
-            <div class="p-6">
-              <div class="flex items-center mb-4">
-                <span class="text-sm text-gray-500">March 15, 2024</span>
-                <span class="mx-2 text-gray-300">•</span>
-                <span class="text-sm text-orange-500">Trade Insights</span>
-              </div>
-              <h3 class="text-xl font-bold mb-2">
-                <a
-                  href="/blog/global-trade-trends-2024.html"
-                  class="text-gray-800 hover:text-orange-500 transition-colors"
-                >
-                  Global Trade Trends to Watch in 2024
-                </a>
-              </h3>
-              <p class="text-gray-600 mb-4">
-                Explore the key trends shaping international trade in 2024, from
-                digital transformation to sustainable practices.
-              </p>
-              <a
-                href="/blog/global-trade-trends-2024.html"
-                class="text-orange-500 hover:text-orange-600 transition-colors inline-flex items-center"
-              >
-                Read More
-                <svg
-                  class="w-4 h-4 ml-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- Article 2 -->
-          <article class="bg-white rounded-lg shadow-md overflow-hidden">
-            <img
-              src="../images/blog/documentation-guide.jpg"
-              alt="Import Documentation Guide"
-              class="w-full h-48 object-cover"
-            />
-            <div class="p-6">
-              <div class="flex items-center mb-4">
-                <span class="text-sm text-gray-500">March 10, 2024</span>
-                <span class="mx-2 text-gray-300">•</span>
-                <span class="text-sm text-orange-500">Guides</span>
-              </div>
-              <h3 class="text-xl font-bold mb-2">
-                <a
-                  href="/blog/import-documentation-guide.html"
-                  class="text-gray-800 hover:text-orange-500 transition-colors"
-                >
-                  Complete Guide to Import Documentation
-                </a>
-              </h3>
-              <p class="text-gray-600 mb-4">
-                A comprehensive guide to understanding and preparing essential
-                import documentation for smooth customs clearance.
-              </p>
-              <a
-                href="/blog/import-documentation-guide.html"
-                class="text-orange-500 hover:text-orange-600 transition-colors inline-flex items-center"
-              >
-                Read More
-                <svg
-                  class="w-4 h-4 ml-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- Article 3 -->
-          <article class="bg-white rounded-lg shadow-md overflow-hidden">
-            <img
-              src="../images/blog/sustainable-trade.jpg"
-              alt="Sustainable Trade Practices"
-              class="w-full h-48 object-cover"
-            />
-            <div class="p-6">
-              <div class="flex items-center mb-4">
-                <span class="text-sm text-gray-500">March 5, 2024</span>
-                <span class="mx-2 text-gray-300">•</span>
-                <span class="text-sm text-orange-500">Sustainability</span>
-              </div>
-              <h3 class="text-xl font-bold mb-2">
-                <a
-                  href="/blog/sustainable-trade-practices.html"
-                  class="text-gray-800 hover:text-orange-500 transition-colors"
-                >
-                  Implementing Sustainable Trade Practices
-                </a>
-              </h3>
-              <p class="text-gray-600 mb-4">
-                Learn how businesses can incorporate sustainable practices in
-                their international trade operations.
-              </p>
-              <a
-                href="/blog/sustainable-trade-practices.html"
-                class="text-orange-500 hover:text-orange-600 transition-colors inline-flex items-center"
-              >
-                Read More
-                <svg
-                  class="w-4 h-4 ml-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </a>
-            </div>
-          </article>
+        <div id="featured-posts" class="grid md:grid-cols-3 gap-8">
+          <!-- Posts will be loaded dynamically -->
         </div>
       </div>
     </section>
@@ -240,39 +155,34 @@
         <h2 class="text-3xl font-bold mb-12 text-gray-800">
           Browse by Category
         </h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <a
-            href="/blog/category/trade-insights.html"
-            class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all text-center"
-          >
-            <i class="fas fa-chart-line text-3xl text-orange-500 mb-4"></i>
-            <h3 class="font-bold">Trade Insights</h3>
-            <p class="text-gray-600 text-sm mt-2">12 Articles</p>
-          </a>
-          <a
-            href="/blog/category/guides.html"
-            class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all text-center"
-          >
-            <i class="fas fa-book text-3xl text-orange-500 mb-4"></i>
-            <h3 class="font-bold">Guides</h3>
-            <p class="text-gray-600 text-sm mt-2">8 Articles</p>
-          </a>
-          <a
-            href="/blog/category/regulations.html"
-            class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all text-center"
-          >
-            <i class="fas fa-gavel text-3xl text-orange-500 mb-4"></i>
-            <h3 class="font-bold">Regulations</h3>
-            <p class="text-gray-600 text-sm mt-2">6 Articles</p>
-          </a>
-          <a
-            href="/blog/category/industry-news.html"
-            class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all text-center"
-          >
-            <i class="fas fa-newspaper text-3xl text-orange-500 mb-4"></i>
-            <h3 class="font-bold">Industry News</h3>
-            <p class="text-gray-600 text-sm mt-2">15 Articles</p>
-          </a>
+        <div id="categories-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <!-- Categories will be loaded dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest Posts -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-800">Latest Posts</h2>
+          <div class="flex gap-4">
+            <button
+              id="prev-posts"
+              class="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50"
+            >
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button
+              id="next-posts"
+              class="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50"
+            >
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <div id="latest-posts" class="grid md:grid-cols-3 gap-8">
+          <!-- Posts will be loaded dynamically -->
         </div>
       </div>
     </section>
@@ -306,5 +216,166 @@
 
     <script src="../js/main.js"></script>
     <script src="../js/components.js"></script>
+    <script src="../js/blog-data.js"></script>
+    <script src="../js/blog-search.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Helper function to render a post card with social sharing
+        function renderPostCard(post) {
+          const date = new Date(post.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+
+          const postUrl = `/blog/post.html?id=${post.id}`;
+          const shareText = encodeURIComponent(post.title);
+
+          return `
+            <article class="bg-white rounded-lg shadow-md overflow-hidden">
+              <img
+                src="${post.image}"
+                alt="${post.title}"
+                class="w-full h-48 object-cover"
+              />
+              <div class="p-6">
+                <div class="flex items-center mb-4">
+                  <span class="text-sm text-gray-500">${date}</span>
+                  <span class="mx-2 text-gray-300">•</span>
+                  <span class="text-sm text-orange-500">${post.category}</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2">
+                  <a
+                    href="${postUrl}"
+                    class="text-gray-800 hover:text-orange-500 transition-colors"
+                  >
+                    ${post.title}
+                  </a>
+                </h3>
+                <p class="text-gray-600 mb-4">
+                  ${post.excerpt}
+                </p>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center space-x-4">
+                    <a
+                      href="/blog/${post.id}.html"
+                      class="text-orange-500 hover:text-orange-600 transition-colors inline-flex items-center"
+                    >
+                      Read More
+                      <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </a>
+                    <div class="flex space-x-2">
+                      <a
+                        href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                          postUrl
+                        )}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-gray-400 hover:text-blue-600 transition-colors"
+                      >
+                        <i class="fab fa-facebook"></i>
+                      </a>
+                      <a
+                        href="https://twitter.com/intent/tweet?url=${encodeURIComponent(
+                          postUrl
+                        )}&text=${shareText}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-gray-400 hover:text-blue-400 transition-colors"
+                      >
+                        <i class="fab fa-twitter"></i>
+                      </a>
+                      <a
+                        href="https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
+                          postUrl
+                        )}&title=${shareText}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-gray-400 hover:text-blue-700 transition-colors"
+                      >
+                        <i class="fab fa-linkedin"></i>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="flex items-center">
+                    <img
+                      src="${post.author.image}"
+                      alt="${post.author.name}"
+                      class="w-8 h-8 rounded-full mr-2"
+                    />
+                    <div class="text-sm">
+                      <p class="font-semibold">${post.author.name}</p>
+                      <p class="text-gray-500">${post.author.role}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          `;
+        }
+
+        // Render featured posts
+        const featuredPosts = document.getElementById("featured-posts");
+        blogData.posts.slice(0, 3).forEach((post) => {
+          featuredPosts.innerHTML += renderPostCard(post);
+        });
+
+        // Render categories
+        const categoriesGrid = document.getElementById("categories-grid");
+        blogData.categories.forEach((category) => {
+          categoriesGrid.innerHTML += `
+            <a
+              href="/blog/category/${category.id}.html"
+              class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all text-center"
+            >
+              <i class="fas fa-${category.icon} text-3xl text-orange-500 mb-4"></i>
+              <h3 class="font-bold">${category.name}</h3>
+              <p class="text-gray-600 text-sm mt-2">${category.count} Articles</p>
+            </a>
+          `;
+        });
+
+        // Initialize pagination for latest posts
+        const postsPerPage = 6;
+        let currentPage = 0;
+        const totalPages = Math.ceil(blogData.posts.length / postsPerPage);
+
+        function renderLatestPosts(page) {
+          const latestPosts = document.getElementById("latest-posts");
+          const start = page * postsPerPage;
+          const end = start + postsPerPage;
+
+          latestPosts.innerHTML = "";
+          blogData.posts.slice(start, end).forEach((post) => {
+            latestPosts.innerHTML += renderPostCard(post);
+          });
+
+          // Update pagination buttons
+          document.getElementById("prev-posts").disabled = page === 0;
+          document.getElementById("next-posts").disabled =
+            page >= totalPages - 1;
+        }
+
+        // Add pagination event listeners
+        document.getElementById("prev-posts").addEventListener("click", () => {
+          if (currentPage > 0) {
+            currentPage--;
+            renderLatestPosts(currentPage);
+          }
+        });
+
+        document.getElementById("next-posts").addEventListener("click", () => {
+          if (currentPage < totalPages - 1) {
+            currentPage++;
+            renderLatestPosts(currentPage);
+          }
+        });
+
+        // Initial render of latest posts
+        renderLatestPosts(0);
+      });
+    </script>
   </body>
 </html>

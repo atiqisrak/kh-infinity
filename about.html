@@ -41,21 +41,29 @@
     />
     <meta name="twitter:image" content="/images/about-banner.jpg" />
 
-    <link rel="stylesheet" href="styles.css" />
+    <!-- Stylesheets -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/mobile.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
   </head>
-  <body>
-    <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
-      <!-- Include your existing navigation code here -->
-    </nav>
+  <body class="font-sans bg-gray-50" data-theme="gray">
+    <!-- Header -->
+    <div id="header"></div>
 
     <!-- Hero Section -->
-    <section class="bg-gray-900 text-white py-20">
+    <section
+      class="bg-gray-900 text-white py-40"
+      style="
+        background-image: url('/images/cover/kh1.webp');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      "
+    >
       <div class="container mx-auto px-4">
         <h1 class="text-5xl font-bold mb-6">About K.H. Infinity</h1>
         <p class="text-xl">Your Trusted Partner in Global Trade Since 2018</p>
@@ -200,10 +208,9 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-      <!-- Include your existing footer code here -->
-    </footer>
+    <div id="footer"></div>
 
-    <script src="script.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/components.js"></script>
   </body>
 </html>

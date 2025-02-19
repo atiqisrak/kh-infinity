@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>K.H. Infinity Blog - Trade Insights &amp; News</title>
+  <link>https://khi.com.bd/blog</link>
+  <description>Stay updated with the latest insights on international trade, import-export trends, and industry news from K.H. Infinity.</description>
+  <language>en-us</language>
+  <lastBuildDate>Thu, 21 Mar 2024 12:00:00 GMT</lastBuildDate>
+  <atom:link href="https://khi.com.bd/blog/feed.xml" rel="self" type="application/rss+xml" />
+  
+  <item>
+    <title>Global Trade Trends to Watch in 2024</title>
+    <link>https://khi.com.bd/blog/global-trade-trends-2024.html</link>
+    <description>
+      <![CDATA[
+        Explore the key trends shaping international trade in 2024, from digital transformation to sustainable practices. Learn about blockchain adoption, sustainability initiatives, supply chain diversification, and e-commerce integration.
+      ]]>
+    </description>
+    <author>sarah.rahman@khi.com.bd (Sarah Rahman)</author>
+    <category>Trade Insights</category>
+    <pubDate>Wed, 15 Mar 2024 09:00:00 GMT</pubDate>
+    <guid>https://khi.com.bd/blog/global-trade-trends-2024.html</guid>
+  </item>
+
+  <item>
+    <title>Complete Guide to Import Documentation</title>
+    <link>https://khi.com.bd/blog/import-documentation-guide.html</link>
+    <description>
+      <![CDATA[
+        A comprehensive guide to understanding and preparing essential import documentation for smooth customs clearance. Learn about commercial invoices, bills of lading, packing lists, and more.
+      ]]>
+    </description>
+    <author>abdul.karim@khi.com.bd (Abdul Karim)</author>
+    <category>Guides</category>
+    <pubDate>Sun, 10 Mar 2024 10:00:00 GMT</pubDate>
+    <guid>https://khi.com.bd/blog/import-documentation-guide.html</guid>
+  </item>
+
+  <item>
+    <title>Implementing Sustainable Trade Practices</title>
+    <link>https://khi.com.bd/blog/sustainable-trade-practices.html</link>
+    <description>
+      <![CDATA[
+        Learn how businesses can incorporate sustainable practices in their international trade operations. Discover eco-friendly packaging solutions, green logistics practices, and carbon offset programs.
+      ]]>
+    </description>
+    <author>mohammad.khan@khi.com.bd (Mohammad Khan)</author>
+    <category>Sustainability</category>
+    <pubDate>Tue, 05 Mar 2024 11:00:00 GMT</pubDate>
+    <guid>https://khi.com.bd/blog/sustainable-trade-practices.html</guid>
+  </item>
+</channel>
+</rss> 

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Category - K.H. Infinity Blog</title>
+    <meta name="description" content="Browse our articles by category." />
+    <meta
+      name="keywords"
+      content="import, export, trade, bangladesh, business"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Header -->
+    <div id="header"></div>
+
+    <!-- Category Header -->
+    <header class="bg-white border-b">
+      <div class="container mx-auto px-4 py-20">
+        <div class="max-w-4xl mx-auto text-center">
+          <div id="category-icon" class="text-5xl text-orange-500 mb-6">
+            <!-- Icon will be loaded dynamically -->
+          </div>
+          <h1 id="category-title" class="text-4xl font-bold mb-4"></h1>
+          <p id="category-description" class="text-xl text-gray-600"></p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Posts Grid -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center mb-12">
+          <div>
+            <h2 class="text-3xl font-bold text-gray-800">Articles</h2>
+            <p id="post-count" class="text-gray-600 mt-2"></p>
+          </div>
+          <div class="flex gap-4">
+            <button
+              id="prev-posts"
+              class="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50"
+            >
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button
+              id="next-posts"
+              class="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50"
+            >
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <div id="posts-grid" class="grid md:grid-cols-3 gap-8">
+          <!-- Posts will be loaded dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Other Categories -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-12 text-gray-800">Other Categories</h2>
+        <div
+          id="other-categories"
+          class="grid grid-cols-2 md:grid-cols-3 gap-6"
+        >
+          <!-- Other categories will be loaded dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer"></div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/blog-data.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Get category ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryId = urlParams.get("id");
+
+        // Find the category in blogData
+        const category = blogData.categories.find((c) => c.id === categoryId);
+        if (!category) {
+          window.location.href = "/blog"; // Redirect to blog index if category not found
+          return;
+        }
+
+        // Update page title and meta description
+        document.title = `${category.name} - K.H. Infinity Blog`;
+        document.querySelector(
+          'meta[name="description"]'
+        ).content = `Browse our articles about ${category.name.toLowerCase()}.`;
+
+        // Update category header
+        document.getElementById(
+          "category-icon"
+        ).innerHTML = `<i class="fas fa-${category.icon}"></i>`;
+        document.getElementById("category-title").textContent = category.name;
+        document.getElementById("category-description").textContent =
+          category.description;
+
+        // Get posts for this category
+        const categoryPosts = blogData.posts.filter(
+          (post) => post.category === category.name
+        );
+        document.getElementById("post-count").textContent = `${
+          categoryPosts.length
+        } article${categoryPosts.length === 1 ? "" : "s"}`;
+
+        // Set up pagination
+        const postsPerPage = 9;
+        let currentPage = 0;
+        const totalPages = Math.ceil(categoryPosts.length / postsPerPage);
+
+        function renderPosts(page) {
+          const postsGrid = document.getElementById("posts-grid");
+          const start = page * postsPerPage;
+          const end = start + postsPerPage;
+
+          postsGrid.innerHTML = "";
+          categoryPosts.slice(start, end).forEach((post) => {
+            const date = new Date(post.date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            });
+
+            postsGrid.innerHTML += `
+              <article class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img
+                  src="${post.image}"
+                  alt="${post.title}"
+                  class="w-full h-48 object-cover"
+                />
+                <div class="p-6">
+                  <div class="flex items-center mb-4">
+                    <span class="text-sm text-gray-500">${date}</span>
+                    <span class="mx-2 text-gray-300">•</span>
+                    <span class="text-sm text-orange-500">${post.category}</span>
+                  </div>
+                  <h3 class="text-xl font-bold mb-2">
+                    <a
+                      href="/blog/${post.id}.html"
+                      class="text-gray-800 hover:text-orange-500 transition-colors"
+                    >
+                      ${post.title}
+                    </a>
+                  </h3>
+                  <p class="text-gray-600 mb-4">
+                    ${post.excerpt}
+                  </p>
+                  <div class="flex items-center justify-between">
+                    <a
+                      href="/blog/${post.id}.html"
+                      class="text-orange-500 hover:text-orange-600 transition-colors inline-flex items-center"
+                    >
+                      Read More
+                      <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </a>
+                    <div class="flex items-center">
+                      <img
+                        src="${post.author.image}"
+                        alt="${post.author.name}"
+                        class="w-8 h-8 rounded-full mr-2"
+                      />
+                      <div class="text-sm">
+                        <p class="font-semibold">${post.author.name}</p>
+                        <p class="text-gray-500">${post.author.role}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            `;
+          });
+
+          // Update pagination buttons
+          document.getElementById("prev-posts").disabled = page === 0;
+          document.getElementById("next-posts").disabled =
+            page >= totalPages - 1;
+        }
+
+        // Add pagination event listeners
+        document.getElementById("prev-posts").addEventListener("click", () => {
+          if (currentPage > 0) {
+            currentPage--;
+            renderPosts(currentPage);
+          }
+        });
+
+        document.getElementById("next-posts").addEventListener("click", () => {
+          if (currentPage < totalPages - 1) {
+            currentPage++;
+            renderPosts(currentPage);
+          }
+        });
+
+        // Initial render of posts
+        renderPosts(0);
+
+        // Render other categories
+        const otherCategories = blogData.categories.filter(
+          (c) => c.id !== categoryId
+        );
+        const otherCategoriesContainer =
+          document.getElementById("other-categories");
+
+        otherCategories.forEach((otherCategory) => {
+          const categoryPosts = blogData.posts.filter(
+            (post) => post.category === otherCategory.name
+          );
+          otherCategoriesContainer.innerHTML += `
+            <a
+              href="/blog/category/${otherCategory.id}.html"
+              class="bg-gray-50 p-6 rounded-lg hover:shadow-md transition-all text-center group"
+            >
+              <i class="fas fa-${
+                otherCategory.icon
+              } text-3xl text-orange-500 mb-4 group-hover:scale-110 transition-transform"></i>
+              <h3 class="font-bold mb-2">${otherCategory.name}</h3>
+              <p class="text-gray-600 text-sm">${categoryPosts.length} article${
+            categoryPosts.length === 1 ? "" : "s"
+          }</p>
+            </a>
+          `;
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+{
+    "categories": [
+        {
+            "id": "import",
+            "title": "Import Process",
+            "questions": [
+                {
+                    "question": "What is the typical timeline for importing goods?",
+                    "answer": "The timeline varies depending on the product type, origin country, and shipping method. Generally:",
+                    "list": [
+                        "Sea freight: 20-45 days",
+                        "Air freight: 3-7 days",
+                        "Customs clearance: 2-5 business days"
+                    ]
+                },
+                {
+                    "question": "What documents are required for importing?",
+                    "answer": "Essential documents include:",
+                    "list": [
+                        "Commercial Invoice",
+                        "Bill of Lading/Airway Bill",
+                        "Packing List",
+                        "Certificate of Origin",
+                        "Import License (if applicable)",
+                        "Letter of Credit (if required)"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "export",
+            "title": "Export Process",
+            "questions": [
+                {
+                    "question": "How do you ensure product quality for exports?",
+                    "answer": "We implement a comprehensive quality control process:",
+                    "list": [
+                        "Pre-production inspection",
+                        "During production quality checks",
+                        "Final inspection before shipping",
+                        "Quality certification where required"
+                    ]
+                },
+                {
+                    "question": "Which countries do you export to?",
+                    "answer": "We export to multiple regions including:",
+                    "list": [
+                        "North America (USA, Canada)",
+                        "Europe (UK, Germany, France, etc.)",
+                        "Middle East (UAE, Saudi Arabia)",
+                        "Asia Pacific (Australia, Japan, Singapore)"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "documentation",
+            "title": "Documentation",
+            "questions": [
+                {
+                    "question": "What are Incoterms and how do they affect my shipment?",
+                    "answer": "Incoterms are international commercial terms that define:",
+                    "list": [
+                        "Responsibility for shipping costs",
+                        "Insurance requirements",
+                        "Risk transfer points",
+                        "Customs clearance responsibilities"
+                    ],
+                    "note": "Common terms include FOB, CIF, EXW, and DDP."
+                },
+                {
+                    "question": "Do you help with customs documentation?",
+                    "answer": "Yes, we provide comprehensive customs documentation support:",
+                    "list": [
+                        "Preparation of all required documents",
+                        "Customs declaration filing",
+                        "HS code classification",
+                        "Compliance verification"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "payment",
+            "title": "Payment & Pricing",
+            "questions": [
+                {
+                    "question": "What payment methods do you accept?",
+                    "answer": "We accept various payment methods:",
+                    "list": [
+                        "Letter of Credit (L/C)",
+                        "Wire Transfer",
+                        "Documentary Collection",
+                        "Advance Payment"
+                    ]
+                },
+                {
+                    "question": "How are shipping costs calculated?",
+                    "answer": "Shipping costs are determined by several factors:",
+                    "list": [
+                        "Cargo volume and weight",
+                        "Shipping method (air/sea/land)",
+                        "Origin and destination",
+                        "Special handling requirements",
+                        "Insurance coverage"
+                    ],
+                    "note": "Contact us for a detailed quote based on your specific requirements."
+                }
+            ]
+        }
+    ]
+}
