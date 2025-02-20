@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trade Insights & News - K.H. Infinity | Import Export Blog</title>
+    <title>Trade Insights & News - K.H. Infinity Blog</title>
     <meta
       name="description"
       content="Stay updated with the latest insights on international trade, import-export trends, and industry news. Expert articles on global trade, shipping, and regulations."
@@ -91,91 +91,85 @@
     <!-- Header -->
     <div id="header"></div>
 
-    <!-- Blog Hero with Search -->
+    <!-- Hero Section -->
     <section
-      class="relative pt-32 pb-20 bg-gradient-to-b from-orange-50 to-white"
+      class="relative min-h-[70vh] flex items-center bg-gradient-to-br from-orange-50 via-orange-100 to-white overflow-hidden"
     >
-      <div class="container mx-auto px-4">
-        <h1 class="text-5xl font-bold text-center mb-6 text-gray-800">
-          Trade Insights & News
-        </h1>
-        <p class="text-xl text-center text-gray-600 max-w-3xl mx-auto mb-12">
-          Stay informed with the latest updates on international trade, industry
-          trends, and expert insights from K.H. Infinity.
-        </p>
-
-        <!-- Search Bar -->
-        <div class="max-w-2xl mx-auto relative">
-          <div class="relative">
-            <input
-              type="text"
-              id="blog-search"
-              placeholder="Search articles..."
-              class="w-full px-6 py-4 rounded-lg border focus:outline-none focus:border-orange-500 shadow-md"
-            />
-            <i
-              class="fas fa-search absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-400"
-            ></i>
-          </div>
-          <div
-            id="search-results"
-            class="absolute w-full mt-2 bg-white rounded-lg shadow-lg z-10 hidden divide-y"
-          ></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Tag Filters -->
-    <section class="py-8 bg-white border-b">
-      <div class="container mx-auto px-4">
-        <div class="flex items-center space-x-4 overflow-x-auto pb-4">
-          <span class="text-gray-700 font-medium whitespace-nowrap"
-            >Filter by:</span
+      <div class="absolute inset-0 bg-pattern opacity-5"></div>
+      <div class="container mx-auto px-4 py-20 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1
+            class="text-6xl font-bold mb-6 bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent"
           >
-          <div id="tag-filters" class="flex space-x-2"></div>
+            Trade Insights & News
+          </h1>
+          <p class="text-xl text-gray-600 mb-12 leading-relaxed">
+            Stay informed with the latest updates on international trade,
+            industry trends, and expert insights from K.H. Infinity.
+          </p>
+
+          <!-- Search Bar -->
+          <div class="max-w-2xl mx-auto relative">
+            <div class="relative">
+              <input
+                type="text"
+                id="blog-search"
+                placeholder="Search articles..."
+                class="w-full px-6 py-4 rounded-full border-2 border-orange-100 focus:border-orange-500 focus:outline-none shadow-lg text-lg"
+              />
+              <button
+                class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition-colors"
+              >
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+            <div
+              id="search-results"
+              class="absolute w-full mt-2 bg-white rounded-2xl shadow-xl z-20 hidden divide-y overflow-hidden"
+            ></div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Featured Articles -->
+    <!-- Featured Article -->
     <section class="py-20">
       <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-12 text-gray-800">
-          Featured Articles
-        </h2>
-        <div id="featured-posts" class="grid md:grid-cols-3 gap-8">
-          <!-- Posts will be loaded dynamically -->
+        <h2 class="text-3xl font-bold mb-12 text-center">Featured Article</h2>
+        <div id="featured-article" class="max-w-6xl mx-auto">
+          <!-- Featured article will be loaded dynamically -->
         </div>
       </div>
     </section>
 
-    <!-- Categories -->
-    <section class="py-20 bg-gray-50">
+    <!-- Categories Grid -->
+    <section class="py-20 bg-gradient-to-br from-gray-50 to-orange-50">
       <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-12 text-gray-800">
-          Browse by Category
-        </h2>
-        <div id="categories-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <h2 class="text-3xl font-bold mb-12 text-center">Browse by Category</h2>
+        <div
+          id="categories-grid"
+          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6"
+        >
           <!-- Categories will be loaded dynamically -->
         </div>
       </div>
     </section>
 
-    <!-- Latest Posts -->
-    <section class="py-20 bg-white">
+    <!-- Latest Articles -->
+    <section class="py-20">
       <div class="container mx-auto px-4">
         <div class="flex justify-between items-center mb-12">
-          <h2 class="text-3xl font-bold text-gray-800">Latest Posts</h2>
+          <h2 class="text-3xl font-bold">Latest Articles</h2>
           <div class="flex gap-4">
             <button
               id="prev-posts"
-              class="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50"
+              class="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 transition-colors"
             >
               <i class="fas fa-chevron-left"></i>
             </button>
             <button
               id="next-posts"
-              class="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50"
+              class="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 transition-colors"
             >
               <i class="fas fa-chevron-right"></i>
             </button>
@@ -188,7 +182,9 @@
     </section>
 
     <!-- Newsletter -->
-    <section class="py-20 bg-orange-500 text-white">
+    <section
+      class="py-20 bg-gradient-to-br from-orange-500 to-orange-600 text-white"
+    >
       <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl font-bold mb-6">Stay Updated</h2>
         <p class="text-xl mb-8 max-w-2xl mx-auto">
@@ -199,11 +195,11 @@
           <input
             type="email"
             placeholder="Enter your email"
-            class="flex-1 px-4 py-3 rounded-lg text-gray-800 focus:outline-none"
+            class="flex-1 px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-white"
           />
           <button
             type="submit"
-            class="bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors"
+            class="bg-white text-orange-500 px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
           >
             Subscribe
           </button>
@@ -220,137 +216,145 @@
     <script src="../js/blog-search.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        // Helper function to render a post card with social sharing
-        function renderPostCard(post) {
-          const date = new Date(post.date).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          });
-
-          const postUrl = `/blog/post.html?id=${post.id}`;
-          const shareText = encodeURIComponent(post.title);
-
-          return `
-            <article class="bg-white rounded-lg shadow-md overflow-hidden">
-              <img
-                src="${post.image}"
-                alt="${post.title}"
-                class="w-full h-48 object-cover"
-              />
-              <div class="p-6">
-                <div class="flex items-center mb-4">
-                  <span class="text-sm text-gray-500">${date}</span>
-                  <span class="mx-2 text-gray-300">•</span>
-                  <span class="text-sm text-orange-500">${post.category}</span>
-                </div>
-                <h3 class="text-xl font-bold mb-2">
-                  <a
-                    href="${postUrl}"
-                    class="text-gray-800 hover:text-orange-500 transition-colors"
-                  >
-                    ${post.title}
-                  </a>
-                </h3>
-                <p class="text-gray-600 mb-4">
-                  ${post.excerpt}
-                </p>
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center space-x-4">
-                    <a
-                      href="/blog/${post.id}.html"
-                      class="text-orange-500 hover:text-orange-600 transition-colors inline-flex items-center"
-                    >
-                      Read More
-                      <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </a>
-                    <div class="flex space-x-2">
-                      <a
-                        href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                          postUrl
-                        )}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-gray-400 hover:text-blue-600 transition-colors"
-                      >
-                        <i class="fab fa-facebook"></i>
-                      </a>
-                      <a
-                        href="https://twitter.com/intent/tweet?url=${encodeURIComponent(
-                          postUrl
-                        )}&text=${shareText}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-gray-400 hover:text-blue-400 transition-colors"
-                      >
-                        <i class="fab fa-twitter"></i>
-                      </a>
-                      <a
-                        href="https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
-                          postUrl
-                        )}&title=${shareText}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-gray-400 hover:text-blue-700 transition-colors"
-                      >
-                        <i class="fab fa-linkedin"></i>
-                      </a>
-                    </div>
-                  </div>
-                  <div class="flex items-center">
-                    <img
-                      src="${post.author.image}"
-                      alt="${post.author.name}"
-                      class="w-8 h-8 rounded-full mr-2"
-                    />
-                    <div class="text-sm">
-                      <p class="font-semibold">${post.author.name}</p>
-                      <p class="text-gray-500">${post.author.role}</p>
-                    </div>
-                  </div>
+        // Render featured article
+        const featuredPost = blogData.posts[0]; // Get the latest post
+        document.getElementById("featured-article").innerHTML = `
+          <article class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition-transform duration-300">
+            <div class="grid md:grid-cols-2 gap-8">
+              <div class="relative h-full">
+                <img src="${featuredPost.image}" alt="${
+          featuredPost.title
+        }" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-6">
+                  <span class="text-white text-sm">${new Date(
+                    featuredPost.date
+                  ).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}</span>
                 </div>
               </div>
-            </article>
-          `;
-        }
+              <div class="p-8">
+                <span class="text-orange-500 font-semibold">${
+                  featuredPost.category
+                }</span>
+                <h3 class="text-2xl font-bold mt-2 mb-4">
+                  <a href="/blog/post.html?id=${
+                    featuredPost.id
+                  }" class="text-gray-800 hover:text-orange-500 transition-colors">
+                    ${featuredPost.title}
+                  </a>
+                </h3>
+                <p class="text-gray-600 mb-6 line-clamp-3">${
+                  featuredPost.excerpt
+                }</p>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <img src="${featuredPost.author.image}" alt="${
+          featuredPost.author.name
+        }" class="w-12 h-12 rounded-full mr-4">
+                    <div>
+                      <p class="font-semibold">${featuredPost.author.name}</p>
+                      <p class="text-gray-500 text-sm">${
+                        featuredPost.author.role
+                      }</p>
+                    </div>
+                  </div>
+                  <a href="/blog/post.html?id=${
+                    featuredPost.id
+                  }" class="text-orange-500 hover:text-orange-600 transition-colors flex items-center gap-2">
+                    Read more
+                    <i class="fas fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
 
-        // Render featured posts
-        const featuredPosts = document.getElementById("featured-posts");
-        blogData.posts.slice(0, 3).forEach((post) => {
-          featuredPosts.innerHTML += renderPostCard(post);
-        });
-
-        // Render categories
+        // Render categories with modern design
         const categoriesGrid = document.getElementById("categories-grid");
         blogData.categories.forEach((category) => {
+          const categoryPosts = blogData.posts.filter(
+            (post) => post.category === category.name
+          );
           categoriesGrid.innerHTML += `
             <a
-              href="/blog/category/${category.id}.html"
-              class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all text-center"
+              href="/blog/category.html?id=${category.id}"
+              class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all text-center group relative overflow-hidden"
             >
-              <i class="fas fa-${category.icon} text-3xl text-orange-500 mb-4"></i>
-              <h3 class="font-bold">${category.name}</h3>
-              <p class="text-gray-600 text-sm mt-2">${category.count} Articles</p>
+              <div class="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div class="relative z-10">
+                <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center mx-auto mb-4">
+                  <i class="fas fa-${
+                    category.icon
+                  } text-orange-500 text-xl group-hover:scale-110 transition-transform"></i>
+                </div>
+                <h3 class="font-bold mb-2">${category.name}</h3>
+                <p class="text-gray-600 text-sm">${
+                  categoryPosts.length
+                } article${categoryPosts.length === 1 ? "" : "s"}</p>
+              </div>
             </a>
           `;
         });
 
-        // Initialize pagination for latest posts
+        // Initialize blog search
+        new BlogSearch();
+
+        // Render latest posts with pagination
         const postsPerPage = 6;
         let currentPage = 0;
-        const totalPages = Math.ceil(blogData.posts.length / postsPerPage);
+        const totalPages = Math.ceil(
+          (blogData.posts.length - 1) / postsPerPage
+        );
 
         function renderLatestPosts(page) {
           const latestPosts = document.getElementById("latest-posts");
-          const start = page * postsPerPage;
+          const start = page * postsPerPage + 1; // Skip the featured post
           const end = start + postsPerPage;
 
-          latestPosts.innerHTML = "";
-          blogData.posts.slice(start, end).forEach((post) => {
-            latestPosts.innerHTML += renderPostCard(post);
-          });
+          latestPosts.innerHTML = blogData.posts
+            .slice(start, end)
+            .map((post) => {
+              const date = new Date(post.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              });
+
+              return `
+                <article class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-[1.02] transition-transform duration-300">
+                  <div class="relative">
+                    <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                      <span class="text-white text-sm">${date}</span>
+                    </div>
+                  </div>
+                  <div class="p-6">
+                    <span class="text-orange-500 text-sm font-semibold">${post.category}</span>
+                    <h3 class="text-xl font-bold mt-2 mb-3 line-clamp-2">
+                      <a href="/blog/post.html?id=${post.id}" class="text-gray-800 hover:text-orange-500 transition-colors">
+                        ${post.title}
+                      </a>
+                    </h3>
+                    <p class="text-gray-600 mb-4 line-clamp-2">${post.excerpt}</p>
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center">
+                        <img src="${post.author.image}" alt="${post.author.name}" class="w-8 h-8 rounded-full mr-3">
+                        <div class="text-sm">
+                          <p class="font-semibold">${post.author.name}</p>
+                          <p class="text-gray-500">${post.author.role}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              `;
+            })
+            .join("");
 
           // Update pagination buttons
           document.getElementById("prev-posts").disabled = page === 0;
@@ -363,6 +367,7 @@
           if (currentPage > 0) {
             currentPage--;
             renderLatestPosts(currentPage);
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }
         });
 
@@ -370,6 +375,7 @@
           if (currentPage < totalPages - 1) {
             currentPage++;
             renderLatestPosts(currentPage);
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }
         });
 

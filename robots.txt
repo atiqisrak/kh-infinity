@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Allow: /blog/
+Allow: /sitemap.xml
+
+# Disallow admin and sensitive areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /includes/
+
+# Sitemap location
+Sitemap: https://khi.com.bd/sitemap.xml 

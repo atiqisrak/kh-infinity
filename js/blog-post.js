@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 class="w-full h-48 object-cover">
             <div class="p-6">
                 <h3 class="text-xl font-bold mb-2">
-                    <a href="/blog/${relatedPost.id}.html" 
+                    <a href="/blog/post.html?id=${relatedPost.id}" 
                        class="text-gray-800 hover:text-orange-500 transition-colors">
                         ${relatedPost.title}
                     </a>

@@ -112,7 +112,7 @@
           <div class="flex items-start">
             <img
               id="author-bio-image"
-              class="w-16 h-16 rounded-full mr-6"
+              class="w-32 h-32 rounded-full mr-6 object-cover"
               src=""
               alt=""
             />
@@ -237,7 +237,7 @@
         post.tags.forEach((tag) => {
           tagsContainer.innerHTML += `
             <a
-              href="/blog/tag/${tag.toLowerCase().replace(/\s+/g, "-")}.html"
+              href="/blog/index.html?tag=${encodeURIComponent(tag)}"
               class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors"
             >
               ${tag}
@@ -277,7 +277,7 @@
               <img
                 src="${relatedPost.image}"
                 alt="${relatedPost.title}"
-                class="w-full h-48 object-cover"
+                class="w-48 h-48 object-cover"
               />
               <div class="p-6">
                 <div class="flex items-center mb-4">
@@ -287,7 +287,7 @@
                 </div>
                 <h3 class="text-xl font-bold mb-2">
                   <a
-                    href="/blog/${relatedPost.id}.html"
+                    href="/blog/post.html?id=${relatedPost.id}"
                     class="text-gray-800 hover:text-orange-500 transition-colors"
                   >
                     ${relatedPost.title}
@@ -297,7 +297,7 @@
                   ${relatedPost.excerpt}
                 </p>
                 <a
-                  href="/blog/${relatedPost.id}.html"
+                  href="/blog/post.html?id=${relatedPost.id}"
                   class="text-orange-500 hover:text-orange-600 transition-colors inline-flex items-center"
                 >
                   Read More

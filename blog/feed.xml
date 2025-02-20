@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" 
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:media="http://search.yahoo.com/mrss/">
 <channel>
   <title>K.H. Infinity Blog - Trade Insights &amp; News</title>
   <link>https://khi.com.bd/blog</link>
@@ -7,6 +11,13 @@
   <language>en-us</language>
   <lastBuildDate>Thu, 21 Mar 2024 12:00:00 GMT</lastBuildDate>
   <atom:link href="https://khi.com.bd/blog/feed.xml" rel="self" type="application/rss+xml" />
+  <copyright>Copyright 2024 K.H. Infinity. All rights reserved.</copyright>
+  <generator>K.H. Infinity Blog Platform</generator>
+  <image>
+    <url>https://khi.com.bd/images/logo.png</url>
+    <title>K.H. Infinity Blog</title>
+    <link>https://khi.com.bd/blog</link>
+  </image>
   
   <item>
     <title>Global Trade Trends to Watch in 2024</title>
@@ -17,9 +28,15 @@
       ]]>
     </description>
     <author>sarah.rahman@khi.com.bd (Sarah Rahman)</author>
+    <dc:creator>Sarah Rahman</dc:creator>
     <category>Trade Insights</category>
     <pubDate>Wed, 15 Mar 2024 09:00:00 GMT</pubDate>
-    <guid>https://khi.com.bd/blog/global-trade-trends-2024.html</guid>
+    <guid isPermaLink="true">https://khi.com.bd/blog/global-trade-trends-2024.html</guid>
+    <content:encoded><![CDATA[
+      <h1>Global Trade Trends to Watch in 2024</h1>
+      <p>Explore the key trends shaping international trade in 2024, from digital transformation to sustainable practices. Learn about blockchain adoption, sustainability initiatives, supply chain diversification, and e-commerce integration.</p>
+      <p><a href="https://khi.com.bd/blog/global-trade-trends-2024.html">Read more...</a></p>
+    ]]></content:encoded>
   </item>
 
   <item>
@@ -31,9 +48,15 @@
       ]]>
     </description>
     <author>abdul.karim@khi.com.bd (Abdul Karim)</author>
+    <dc:creator>Abdul Karim</dc:creator>
     <category>Guides</category>
     <pubDate>Sun, 10 Mar 2024 10:00:00 GMT</pubDate>
-    <guid>https://khi.com.bd/blog/import-documentation-guide.html</guid>
+    <guid isPermaLink="true">https://khi.com.bd/blog/import-documentation-guide.html</guid>
+    <content:encoded><![CDATA[
+      <h1>Complete Guide to Import Documentation</h1>
+      <p>A comprehensive guide to understanding and preparing essential import documentation for smooth customs clearance. Learn about commercial invoices, bills of lading, packing lists, and more.</p>
+      <p><a href="https://khi.com.bd/blog/import-documentation-guide.html">Read more...</a></p>
+    ]]></content:encoded>
   </item>
 
   <item>
@@ -45,9 +68,15 @@
       ]]>
     </description>
     <author>mohammad.khan@khi.com.bd (Mohammad Khan)</author>
+    <dc:creator>Mohammad Khan</dc:creator>
     <category>Sustainability</category>
     <pubDate>Tue, 05 Mar 2024 11:00:00 GMT</pubDate>
-    <guid>https://khi.com.bd/blog/sustainable-trade-practices.html</guid>
+    <guid isPermaLink="true">https://khi.com.bd/blog/sustainable-trade-practices.html</guid>
+    <content:encoded><![CDATA[
+      <h1>Implementing Sustainable Trade Practices</h1>
+      <p>Learn how businesses can incorporate sustainable practices in their international trade operations. Discover eco-friendly packaging solutions, green logistics practices, and carbon offset programs.</p>
+      <p><a href="https://khi.com.bd/blog/sustainable-trade-practices.html">Read more...</a></p>
+    ]]></content:encoded>
   </item>
 </channel>
 </rss> 

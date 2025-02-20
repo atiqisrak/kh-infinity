@@ -1,32 +1,49 @@
 <!-- Header -->
-<header class="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
-  <nav class="container mx-auto px-4">
-    <div class="flex justify-between items-center h-20">
-      <!-- Logo -->
-      <a href="/" class="flex items-center">
-        <img src="/images/logo.png" alt="K.H. Infinity Logo" class="h-12" />
+<header class="header bg-white fixed w-full top-0 z-50 shadow-md">
+  <div class="container mx-auto px-4">
+    <nav class="flex justify-between items-center py-4">
+      <a href="/" class="text-2xl font-bold text-theme z-10">
+        <img
+          src="/images/brand/official_logo.svg"
+          alt="K.H. Infinity"
+          class="w-20 h-10"
+        />
       </a>
 
+      <!-- Mobile menu button -->
+      <button
+        class="md:hidden text-gray-500 hover:text-theme focus:outline-none z-10"
+        id="mobile-menu-button"
+      >
+        <svg
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+
       <!-- Desktop Navigation -->
-      <div class="hidden md:flex space-x-8">
-        <a
-          href="/"
-          class="text-gray-700 hover:text-orange-500 transition-colors"
-          >Home</a
-        >
-        <a
-          href="/about.html"
-          class="text-gray-700 hover:text-orange-500 transition-colors"
-          >About Us</a
-        >
-        <div class="relative group">
-          <a
-            href="/products.html"
-            class="text-gray-700 hover:text-orange-500 transition-colors"
+      <ul class="hidden md:flex space-x-8">
+        <li><a href="/" class="hover:text-theme transition-colors">Home</a></li>
+        <li>
+          <a href="/about.html" class="hover:text-theme transition-colors"
+            >About Us</a
+          >
+        </li>
+        <li class="relative group">
+          <a href="/products.html" class="hover:text-theme transition-colors"
             >Products</a
           >
           <div
-            class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 hidden group-hover:block"
+            class="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
           >
             <a
               href="/products/sunflower-oil.html"
@@ -69,136 +86,203 @@
               >Handicrafts</a
             >
           </div>
+        </li>
+        <li>
+          <a href="/services.html" class="hover:text-theme transition-colors"
+            >Services</a
+          >
+        </li>
+        <li>
+          <a href="/blog" class="hover:text-theme transition-colors">Blog</a>
+        </li>
+        <li>
+          <a href="/faq.html" class="hover:text-theme transition-colors">FAQ</a>
+        </li>
+      </ul>
+
+      <!-- Mobile Navigation -->
+      <div
+        class="pt-20 fixed inset-0 bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-sm md:hidden transition-all duration-300 transform translate-x-full"
+        id="mobile-menu"
+      >
+        <div class="flex flex-col h-full">
+          <div class="p-6">
+            <ul class="space-y-6">
+              <li>
+                <a
+                  href="/"
+                  class="block text-lg text-white hover:text-theme transition-all transform hover:translate-x-2"
+                >
+                  <span class="text-theme text-sm mb-1 block">01</span>
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/about.html"
+                  class="block text-lg text-white hover:text-theme transition-all transform hover:translate-x-2"
+                >
+                  <span class="text-theme text-sm mb-1 block">02</span>
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/products.html"
+                  class="block text-lg text-white hover:text-theme transition-all transform hover:translate-x-2"
+                >
+                  <span class="text-theme text-sm mb-1 block">03</span>
+                  Products
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/services.html"
+                  class="block text-lg text-white hover:text-theme transition-all transform hover:translate-x-2"
+                >
+                  <span class="text-theme text-sm mb-1 block">04</span>
+                  Services
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/blog"
+                  class="block text-lg text-white hover:text-theme transition-all transform hover:translate-x-2"
+                >
+                  <span class="text-theme text-sm mb-1 block">05</span>
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/faq.html"
+                  class="block text-lg text-white hover:text-theme transition-all transform hover:translate-x-2"
+                >
+                  <span class="text-theme text-sm mb-1 block">06</span>
+                  FAQ
+                </a>
+              </li>
+            </ul>
+
+            <div class="mt-12 pt-12 border-t border-gray-700">
+              <p class="text-gray-400 mb-4">Get in touch</p>
+              <a
+                href="tel:+8801577081856"
+                class="text-white hover:text-theme transition-colors block mb-2"
+              >
+                <i class="fas fa-phone mr-2"></i> +880 1577081856
+              </a>
+              <a
+                href="mailto:info@khi.com.bd"
+                class="text-white hover:text-theme transition-colors block"
+              >
+                <i class="fas fa-envelope mr-2"></i> info@khi.com.bd
+              </a>
+            </div>
+
+            <div class="mt-8">
+              <div class="flex space-x-4">
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-theme text-xl transition-colors"
+                >
+                  <i class="fab fa-facebook"></i>
+                </a>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-theme text-xl transition-colors"
+                >
+                  <i class="fab fa-linkedin"></i>
+                </a>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-theme text-xl transition-colors"
+                >
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-        <a
-          href="/services.html"
-          class="text-gray-700 hover:text-orange-500 transition-colors"
-          >Services</a
-        >
-        <a
-          href="/blog"
-          class="text-gray-700 hover:text-orange-500 transition-colors"
-          >Blog</a
-        >
-        <a
-          href="/faq.html"
-          class="text-gray-700 hover:text-orange-500 transition-colors"
-          >FAQ</a
-        >
-        <a
-          href="/contact.html"
-          class="text-gray-700 hover:text-orange-500 transition-colors"
-          >Contact</a
-        >
       </div>
 
-      <!-- Mobile Menu Button -->
-      <button class="md:hidden text-gray-700" id="mobile-menu-button">
-        <i class="fas fa-bars text-2xl"></i>
+      <button
+        class="hidden md:block bg-theme text-white px-6 py-2 rounded-lg hover:bg-theme-dark transition-colors"
+      >
+        <a href="/contact.html">Get In Touch</a>
       </button>
-    </div>
-
-    <!-- Mobile Navigation -->
-    <div class="md:hidden hidden" id="mobile-menu">
-      <div class="py-4 space-y-4">
-        <a
-          href="/"
-          class="block text-gray-700 hover:text-orange-500 transition-colors"
-          >Home</a
-        >
-        <a
-          href="/about.html"
-          class="block text-gray-700 hover:text-orange-500 transition-colors"
-          >About Us</a
-        >
-        <div class="relative">
-          <button
-            class="flex items-center justify-between w-full text-gray-700 hover:text-orange-500 transition-colors"
-            onclick="toggleMobileSubmenu()"
-          >
-            Products
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="hidden pl-4 mt-2 space-y-2" id="mobile-submenu">
-            <a
-              href="/products/sunflower-oil.html"
-              class="block text-gray-700 hover:text-orange-500"
-              >Sunflower Oil</a
-            >
-            <a
-              href="/products/milk-powder.html"
-              class="block text-gray-700 hover:text-orange-500"
-              >Milk Powder</a
-            >
-            <a
-              href="/products/pulses.html"
-              class="block text-gray-700 hover:text-orange-500"
-              >Pulses</a
-            >
-            <a
-              href="/products/sugar.html"
-              class="block text-gray-700 hover:text-orange-500"
-              >Sugar</a
-            >
-            <a
-              href="/products/soyabean-oil.html"
-              class="block text-gray-700 hover:text-orange-500"
-              >Soyabean Oil</a
-            >
-            <a
-              href="/products/tarpaulin.html"
-              class="block text-gray-700 hover:text-orange-500"
-              >Tarpaulin</a
-            >
-            <a
-              href="/products/potato.html"
-              class="block text-gray-700 hover:text-orange-500"
-              >Potato</a
-            >
-            <a
-              href="/products/handicrafts.html"
-              class="block text-gray-700 hover:text-orange-500"
-              >Handicrafts</a
-            >
-          </div>
-        </div>
-        <a
-          href="/services.html"
-          class="block text-gray-700 hover:text-orange-500 transition-colors"
-          >Services</a
-        >
-        <a
-          href="/blog"
-          class="block text-gray-700 hover:text-orange-500 transition-colors"
-          >Blog</a
-        >
-        <a
-          href="/faq.html"
-          class="block text-gray-700 hover:text-orange-500 transition-colors"
-          >FAQ</a
-        >
-        <a
-          href="/contact.html"
-          class="block text-gray-700 hover:text-orange-500 transition-colors"
-          >Contact</a
-        >
-      </div>
-    </div>
-  </nav>
+    </nav>
+  </div>
 </header>
+
+<style>
+  .mobile-submenu {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+  }
+
+  .mobile-submenu:not(.hidden) {
+    max-height: none;
+    opacity: 1;
+  }
+</style>
 
 <script>
   // Mobile menu toggle
   const mobileMenuButton = document.getElementById("mobile-menu-button");
   const mobileMenu = document.getElementById("mobile-menu");
+  const mobileSubmenuButton = document.querySelector(".mobile-submenu-button");
+  const mobileSubmenu = document.querySelector(".mobile-submenu");
+  const chevronIcon = mobileSubmenuButton.querySelector("i");
+  let isSubmenuOpen = false;
 
   mobileMenuButton.addEventListener("click", () => {
-    mobileMenu.classList.toggle("hidden");
+    if (mobileMenu.classList.contains("translate-x-full")) {
+      mobileMenu.classList.remove("translate-x-full");
+      mobileMenu.classList.add("translate-x-0");
+      mobileMenuButton.innerHTML = `
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      `;
+    } else {
+      mobileMenu.classList.remove("translate-x-0");
+      mobileMenu.classList.add("translate-x-full");
+      mobileMenuButton.innerHTML = `
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      `;
+      // Reset submenu state when closing mobile menu
+      if (isSubmenuOpen) {
+        mobileSubmenu.classList.add("hidden");
+        chevronIcon.classList.remove("rotate-180");
+        isSubmenuOpen = false;
+      }
+    }
   });
 
-  // Mobile submenu toggle
-  function toggleMobileSubmenu() {
-    const mobileSubmenu = document.getElementById("mobile-submenu");
-    mobileSubmenu.classList.toggle("hidden");
-  }
+  // Mobile submenu toggle with animation
+  mobileSubmenuButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    isSubmenuOpen = !isSubmenuOpen;
+
+    if (isSubmenuOpen) {
+      mobileSubmenu.classList.remove("hidden");
+      chevronIcon.classList.add("rotate-180");
+      // Add slide down animation
+      mobileSubmenu.style.maxHeight = mobileSubmenu.scrollHeight + "px";
+      mobileSubmenu.style.opacity = "1";
+    } else {
+      chevronIcon.classList.remove("rotate-180");
+      // Add slide up animation
+      mobileSubmenu.style.maxHeight = "0";
+      mobileSubmenu.style.opacity = "0";
+      setTimeout(() => {
+        mobileSubmenu.classList.add("hidden");
+      }, 300);
+    }
+  });
 </script>

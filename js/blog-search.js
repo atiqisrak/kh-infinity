@@ -64,7 +64,9 @@ class BlogSearch {
     container.innerHTML = results
       .map(
         (post) => `
-      <a href="/blog/${post.id}.html" class="block p-4 hover:bg-gray-50">
+      <a href="/blog/post.html?id=${
+        post.id
+      }" class="block p-4 hover:bg-gray-50">
         <h3 class="font-semibold text-gray-800">${post.title}</h3>
         <p class="text-sm text-gray-600 mt-1">${post.excerpt.slice(
           0,
@@ -135,6 +137,92 @@ class BlogSearch {
     const postsPerPage = 6;
     const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
     let currentPage = 0;
+
+    const renderPostCard = (post) => {
+      const date = new Date(post.date).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+
+      const postUrl = `/blog/post.html?id=${post.id}`;
+      const shareText = encodeURIComponent(post.title);
+
+      return `
+        <article class="bg-white rounded-lg shadow-md overflow-hidden">
+          <img
+            src="${post.image}"
+            alt="${post.title}"
+            class="w-full h-48 object-cover"
+          />
+          <div class="p-6">
+            <div class="flex items-center mb-4">
+              <span class="text-sm text-gray-500">${date}</span>
+              <span class="mx-2 text-gray-300">•</span>
+              <span class="text-sm text-orange-500">${post.category}</span>
+            </div>
+            <h3 class="text-xl font-bold mb-2">
+              <a
+                href="${postUrl}"
+                class="text-gray-800 hover:text-orange-500 transition-colors"
+              >
+                ${post.title}
+              </a>
+            </h3>
+            <p class="text-gray-600 mb-4">
+              ${post.excerpt}
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-4">
+                <div class="flex space-x-2">
+                  <a
+                    href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                      postUrl
+                    )}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-gray-400 hover:text-blue-600 transition-colors"
+                  >
+                    <i class="fab fa-facebook"></i>
+                  </a>
+                  <a
+                    href="https://twitter.com/intent/tweet?url=${encodeURIComponent(
+                      postUrl
+                    )}&text=${shareText}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-gray-400 hover:text-blue-400 transition-colors"
+                  >
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
+                      postUrl
+                    )}&title=${shareText}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-gray-400 hover:text-blue-700 transition-colors"
+                  >
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <img
+                  src="${post.author.image}"
+                  alt="${post.author.name}"
+                  class="w-8 h-8 rounded-full mr-2"
+                />
+                <div class="text-sm">
+                  <p class="font-semibold">${post.author.name}</p>
+                  <p class="text-gray-500">${post.author.role}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    };
 
     function renderPosts(page) {
       const start = page * postsPerPage;
