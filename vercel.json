@@ -9,8 +9,8 @@
     ],
     "rewrites": [
         {
-            "source": "/:path*",
-            "destination": "/:path*.html"
+            "source": "/((?!components|images|css|js|blog|products|zohoverify).*?)(?:\\?.*)?$",
+            "destination": "/$1.html"
         }
     ]
 }
