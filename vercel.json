@@ -1,16 +1,4 @@
 {
-    "cleanUrls": true,
-    "trailingSlash": false,
-    "redirects": [
-        {
-            "source": "/products",
-            "destination": "/products.html"
-        }
-    ],
-    "rewrites": [
-        {
-            "source": "/(about|contact|services|faq)",
-            "destination": "/$1.html"
-        }
-    ]
+    "cleanUrls": false,
+    "trailingSlash": false
 }
