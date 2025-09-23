@@ -78,6 +78,19 @@
   .social-links {
     justify-content: center;
   }
+
+  /* WhatsApp Button Tablet Styles */
+  .whatsapp-float {
+    width: 55px;
+    height: 55px;
+    bottom: 18px;
+    right: 18px;
+    font-size: 26px;
+  }
+
+  .whatsapp-float i {
+    font-size: 26px;
+  }
 }
 
 /* Small Mobile Devices */
@@ -96,5 +109,18 @@
 
   .stats {
     grid-template-columns: 1fr;
+  }
+
+  /* WhatsApp Button Mobile Styles */
+  .whatsapp-float {
+    width: 50px;
+    height: 50px;
+    bottom: 15px;
+    right: 15px;
+    font-size: 24px;
+  }
+
+  .whatsapp-float i {
+    font-size: 24px;
   }
 }
