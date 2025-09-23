@@ -9,7 +9,7 @@
     ],
     "rewrites": [
         {
-            "source": "/((?!components|images|css|js|blog|products|zohoverify).*?)(?:\\?.*)?$",
+            "source": "/(about|contact|services|faq)",
             "destination": "/$1.html"
         }
     ]
