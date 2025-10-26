@@ -1,0 +1,48 @@
+# Cursor Rules for KHI Next.js Project
+
+## Project Overview
+
+This is a Next.js 15 project with TypeScript, Tailwind CSS, and Turbopack for development.
+
+## Tech Stack
+
+- Next.js 15 with App Router
+- TypeScript
+- Tailwind CSS
+- Turbopack (for dev mode)
+- pnpm (package manager)
+
+## Code Style
+
+- Use TypeScript strict mode
+- Follow Next.js best practices
+- Use Tailwind CSS for styling
+- Prefer functional components with hooks
+- Use proper TypeScript types
+- Follow ESLint rules
+
+## File Structure
+
+- `/src/app/` - App Router pages and layouts
+- `/src/components/` - Reusable components
+- `/src/lib/` - Utility functions and configurations
+- `/src/types/` - TypeScript type definitions
+
+## Development Guidelines
+
+- Always write mobile-responsive code
+- Avoid infinite loops in useEffect
+- Check if packages are already available before installing
+- Use proper error handling
+- Follow accessibility best practices
+- Always implement best practices in code
+- Never create big jsx files, instead create small components and use them in parent files
+- If you find a function being used in multiple places, think about making hook to reuse
+- Always use Nextjs Image component to show images and make sure it's optimized with lazyloading, loading skeleton and container
+
+## Commands
+
+- `pnpm dev` - Start development server with Turbopack
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
