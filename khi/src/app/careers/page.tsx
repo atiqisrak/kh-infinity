@@ -190,7 +190,7 @@ export default function CareersPage() {
                   </div>
                   <div>
                     <h4 className="font-bold text-gray-800 mb-3">
-                      What We're Looking For:
+                      What We&apos;re Looking For:
                     </h4>
                     <ul className="space-y-2">
                       {job.requirements.slice(0, 3).map((req, idx) => (

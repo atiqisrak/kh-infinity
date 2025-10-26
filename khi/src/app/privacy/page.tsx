@@ -38,13 +38,14 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="prose prose-lg max-w-none space-y-6 text-gray-700">
             <p>
-              K.H. Infinity ("K.H. Infinity", "we", "us" or "our") and its
-              subsidiary and affiliated entities have created this privacy
-              policy ("Policy") to demonstrate our firm commitment to protecting
-              the personal information of our users ("you") and to inform you of
-              our data collection, use and disclosure practices. This Policy
-              addresses maintaining the privacy of personal information and data
-              we collect.
+              K.H. Infinity (&quot;K.H. Infinity&quot;, &quot;we&quot;,
+              &quot;us&quot; or &quot;our&quot;) and its subsidiary and
+              affiliated entities have created this privacy policy
+              (&quot;Policy&quot;) to demonstrate our firm commitment to
+              protecting the personal information of our users (&quot;you&quot;)
+              and to inform you of our data collection, use and disclosure
+              practices. This Policy addresses maintaining the privacy of
+              personal information and data we collect.
             </p>
 
             <p>
@@ -56,7 +57,8 @@ export default function PrivacyPage() {
               >
                 https://khi.com.bd
               </a>{" "}
-              (the "Site") and the usage of our services (the "Services").
+              (the &quot;Site&quot;) and the usage of our services (the
+              &quot;Services&quot;).
               <strong>
                 Please read this Policy carefully. By using the Site you agree
                 that your data and personal information may be collected, used
@@ -79,8 +81,8 @@ export default function PrivacyPage() {
 
             <p>
               K.H. Infinity collects and retains data, including personal
-              information, about you. "Personal Information" generally means
-              information that can reasonably identify an individual or
+              information, about you. &quot;Personal Information&quot; generally
+              means information that can reasonably identify an individual or
               household. We collect Personal Information and data when you
               interact with the Site, or provide it to us on certain other
               occasions (such as via the phone, in person meetings, emails or in
@@ -127,10 +129,10 @@ export default function PrivacyPage() {
             </h3>
 
             <p>
-              We do not currently collect "sensitive" or "special category" data
-              or information as defined by data protection laws. Do not provide
-              us with any sensitive information unless we have given you prior
-              authorization to do so.
+              We do not currently collect &quot;sensitive&quot; or &quot;special
+              category&quot; data or information as defined by data protection
+              laws. Do not provide us with any sensitive information unless we
+              have given you prior authorization to do so.
             </p>
 
             <h3 className="text-xl font-bold mt-6 mb-3 text-gray-900">
@@ -141,10 +143,10 @@ export default function PrivacyPage() {
               Through our Site and Services, you may have the opportunity to
               invite other individuals to register for our Services or receive
               communications from us by providing us with their name, email, and
-              company. By providing us with another individual's information,
-              you represent and warrant that they have provided you with consent
-              to do so, and you have full authority to provide us with this
-              information.
+              company. By providing us with another individual&apos;s
+              information, you represent and warrant that they have provided you
+              with consent to do so, and you have full authority to provide us
+              with this information.
             </p>
 
             <h3 className="text-xl font-bold mt-6 mb-3 text-gray-900">
@@ -156,9 +158,9 @@ export default function PrivacyPage() {
               but please realize that you may be unable to utilize the Site or
               our Services. Personal Information is required to process your
               requests to us, to provide information to you about K.H.
-              Infinity's activities and to provide services to you. If you do
-              not provide the Personal Information we ask for, it may delay or
-              prevent us from providing services to you.
+              Infinity&apos;s activities and to provide services to you. If you
+              do not provide the Personal Information we ask for, it may delay
+              or prevent us from providing services to you.
             </p>
 
             <h2 className="text-2xl font-bold mt-8 mb-4 text-gray-900">
@@ -173,10 +175,10 @@ export default function PrivacyPage() {
               use your Personal Information to contact you about the Site or to
               request your input regarding ways in which we might improve the
               Site. We may also use your Personal Information to inform you
-              about K.H. Infinity's services. The Personal Information may also
-              be analyzed so that we can provide you with useful information and
-              can serve you in the best manner possible through enhanced
-              features and functions on the Site.
+              about K.H. Infinity&apos;s services. The Personal Information may
+              also be analyzed so that we can provide you with useful
+              information and can serve you in the best manner possible through
+              enhanced features and functions on the Site.
             </p>
 
             <p>
@@ -259,7 +261,8 @@ export default function PrivacyPage() {
                 <strong>Business Transfers:</strong> We may share or transfer
                 your Personal Information in connection with a merger,
                 acquisition, restructuring, reorganization, dissolution, or
-                other sale or transfer of some or all of K.H. Infinity's assets.
+                other sale or transfer of some or all of K.H. Infinity&apos;s
+                assets.
               </li>
             </ul>
 
@@ -352,7 +355,7 @@ export default function PrivacyPage() {
             </p>
 
             <h2 className="text-2xl font-bold mt-8 mb-4 text-gray-900">
-              CHILDREN'S PRIVACY
+              CHILDREN&apos;S PRIVACY
             </h2>
 
             <p>
@@ -371,9 +374,9 @@ export default function PrivacyPage() {
             <p>
               We may update this Privacy Policy from time to time. We will
               notify you of any changes by posting the new Privacy Policy on
-              this page and updating the "Last Revised" date at the bottom of
-              this Policy. You are advised to review this Privacy Policy
-              periodically for any changes.
+              this page and updating the &quot;Last Revised&quot; date at the
+              bottom of this Policy. You are advised to review this Privacy
+              Policy periodically for any changes.
             </p>
 
             <h2 className="text-2xl font-bold mt-8 mb-4 text-gray-900">

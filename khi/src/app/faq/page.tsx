@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const faqData = {
+const faqData = {
   import: {
     title: "Import Process",
     questions: [

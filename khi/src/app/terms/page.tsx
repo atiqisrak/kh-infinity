@@ -39,14 +39,14 @@ export default function TermsPage() {
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="prose prose-lg max-w-none space-y-6 text-gray-700">
             <p>
-              Access to and use of this K.H. Infinity site and K.H. Infinity's
-              official sites in social media networks such as Facebook,
-              LinkedIn, Twitter, blogs and wikis (collectively "Sites") is
-              subject to these terms and conditions. Use of the Sites
-              constitutes acceptance of these terms and conditions in full. The
-              content of this K.H. Infinity website, including trademarks or
-              other Intellectual Property, is either the property of K.H.
-              Infinity or its affiliated companies.
+              Access to and use of this K.H. Infinity site and K.H.
+              Infinity&apos;s official sites in social media networks such as
+              Facebook, LinkedIn, Twitter, blogs and wikis (collectively
+              &quot;Sites&quot;) is subject to these terms and conditions. Use
+              of the Sites constitutes acceptance of these terms and conditions
+              in full. The content of this K.H. Infinity website, including
+              trademarks or other Intellectual Property, is either the property
+              of K.H. Infinity or its affiliated companies.
             </p>
 
             <p>
@@ -80,7 +80,8 @@ export default function TermsPage() {
               </li>
               <li>
                 In any manner that could damage, disable, overburden, or impair
-                any server, or interfere with any other party's use of the Sites
+                any server, or interfere with any other party&apos;s use of the
+                Sites
               </li>
               <li>
                 To introduce any viruses, Trojan horses, worms, logic bombs, or
@@ -119,7 +120,7 @@ export default function TermsPage() {
               royalty-free, perpetual, irrevocable, sublicensable, and
               transferable license to use, reproduce, distribute, prepare
               derivative works of, display, and perform such content in
-              connection with the Sites and K.H. Infinity's business.
+              connection with the Sites and K.H. Infinity&apos;s business.
             </p>
 
             <p>
@@ -135,10 +136,10 @@ export default function TermsPage() {
             </h2>
 
             <p>
-              THE INFORMATION ON THE SITES IS PROVIDED "AS IS" WITHOUT WARRANTY
-              OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED
-              TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-              PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
+              THE INFORMATION ON THE SITES IS PROVIDED &quot;AS IS&quot; WITHOUT
+              WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, BUT
+              NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS
+              FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
             </p>
 
             <p>
@@ -172,9 +173,9 @@ export default function TermsPage() {
               their respective officers, directors, employees, contractors,
               agents, licensors, suppliers, successors, and assigns from and
               against any claims, liabilities, damages, judgments, awards,
-              losses, costs, expenses, or fees (including reasonable attorneys'
-              fees) arising out of or relating to your violation of these Terms
-              or your use of the Sites.
+              losses, costs, expenses, or fees (including reasonable
+              attorneys&apos; fees) arising out of or relating to your violation
+              of these Terms or your use of the Sites.
             </p>
 
             <h2 className="text-2xl font-bold mt-8 mb-4 text-gray-900">

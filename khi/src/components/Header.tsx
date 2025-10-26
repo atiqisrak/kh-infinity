@@ -60,6 +60,53 @@ export default function Header() {
               </li>
               <li className="relative group">
                 <Link
+                  href="/blog"
+                  className="text-gray-700 font-medium hover:text-orange-500 transition-colors flex items-center"
+                >
+                  Resources
+                  <svg
+                    className="w-4 h-4 ml-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </Link>
+                <div className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                  <Link
+                    href="/blog"
+                    className="block px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
+                  >
+                    Blog
+                  </Link>
+                  <Link
+                    href="/news"
+                    className="block px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
+                  >
+                    News
+                  </Link>
+                  <Link
+                    href="/awards"
+                    className="block px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
+                  >
+                    Awards
+                  </Link>
+                  <Link
+                    href="/events"
+                    className="block px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
+                  >
+                    Events
+                  </Link>
+                </div>
+              </li>
+              <li className="relative group">
+                <Link
                   href="/products"
                   className="text-gray-700 font-medium hover:text-orange-500 transition-colors flex items-center"
                 >
@@ -153,14 +200,7 @@ export default function Header() {
                   Trade Routes
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/blog"
-                  className="text-gray-700 font-medium hover:text-orange-500 transition-colors"
-                >
-                  Blog
-                </Link>
-              </li>
+
               <li>
                 <Link
                   href="/faq"
@@ -299,13 +339,47 @@ export default function Header() {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/blog"
-                  className="block text-lg font-medium text-gray-900 hover:text-orange-500 transition-colors py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Blog
-                </Link>
+                <div className="text-lg font-medium text-gray-900 py-2">
+                  Resources
+                </div>
+                <ul className="ml-4 space-y-2">
+                  <li>
+                    <Link
+                      href="/blog"
+                      className="block text-base text-gray-600 hover:text-orange-500 transition-colors py-2"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Blog
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/news"
+                      className="block text-base text-gray-600 hover:text-orange-500 transition-colors py-2"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      News
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/awards"
+                      className="block text-base text-gray-600 hover:text-orange-500 transition-colors py-2"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Awards
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/events"
+                      className="block text-base text-gray-600 hover:text-orange-500 transition-colors py-2"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Events
+                    </Link>
+                  </li>
+                </ul>
               </li>
               <li>
                 <Link

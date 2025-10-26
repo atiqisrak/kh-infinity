@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white py-16">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Company Info */}
           <div className="col-span-2 md:col-span-1">
             <Image
@@ -89,6 +89,45 @@ export default function Footer() {
                   className="text-gray-400 hover:text-orange-500 transition-colors"
                 >
                   Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Resources */}
+          <div>
+            <h3 className="text-lg font-bold mb-6">Resources</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  href="/blog"
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                >
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/news"
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                >
+                  News
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/awards"
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                >
+                  Awards
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/events"
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                >
+                  Events
                 </Link>
               </li>
             </ul>

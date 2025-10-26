@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { getJob, jobPositions } from "@/lib/jobs";
 
 interface PageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export function generateStaticParams() {
@@ -16,7 +16,8 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const job = getJob(params.id);
+  const { id } = await params;
+  const job = getJob(id);
 
   if (!job) {
     return {
@@ -45,8 +46,9 @@ export async function generateMetadata({
   };
 }
 
-export default function JobDetailPage({ params }: PageProps) {
-  const job = getJob(params.id);
+export default async function JobDetailPage({ params }: PageProps) {
+  const { id } = await params;
+  const job = getJob(id);
 
   if (!job) {
     notFound();

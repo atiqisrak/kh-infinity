@@ -3,127 +3,263 @@
   <!-- Main pages -->
   <url>
     <loc>https://khi.com.bd/</loc>
-    <lastmod>2024-12-21</lastmod>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://khi.com.bd/about.html</loc>
-    <lastmod>2024-12-21</lastmod>
+    <loc>https://khi.com.bd/about</loc>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://khi.com.bd/contact.html</loc>
-    <lastmod>2024-12-21</lastmod>
+    <loc>https://khi.com.bd/contact</loc>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://khi.com.bd/services.html</loc>
-    <lastmod>2024-12-21</lastmod>
+    <loc>https://khi.com.bd/services</loc>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://khi.com.bd/products.html</loc>
-    <lastmod>2024-12-21</lastmod>
+    <loc>https://khi.com.bd/products</loc>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://khi.com.bd/faq.html</loc>
-    <lastmod>2024-12-21</lastmod>
+    <loc>https://khi.com.bd/faq</loc>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
-  <!-- Blog pages -->
   <url>
-    <loc>https://khi.com.bd/blog/</loc>
-    <lastmod>2024-12-21</lastmod>
+    <loc>https://khi.com.bd/careers</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- New Resource Pages -->
+  <url>
+    <loc>https://khi.com.bd/blog</loc>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
-
-  <!-- Product pages -->
   <url>
-    <loc>https://khi.com.bd/products/sunflower-oil.html</loc>
-    <lastmod>2024-12-21</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://khi.com.bd/news</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://khi.com.bd/products/milk-powder.html</loc>
-    <lastmod>2024-12-21</lastmod>
+    <loc>https://khi.com.bd/awards</loc>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://khi.com.bd/products/potato.html</loc>
-    <lastmod>2024-12-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://khi.com.bd/products/pulses.html</loc>
-    <lastmod>2024-12-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://khi.com.bd/products/tarpaulin.html</loc>
-    <lastmod>2024-12-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://khi.com.bd/products/cumin.html</loc>
-    <lastmod>2024-12-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://khi.com.bd/products/sugar.html</loc>
-    <lastmod>2024-12-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://khi.com.bd/products/soyabean-oil.html</loc>
-    <lastmod>2024-12-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://khi.com.bd/products/chickpeas.html</loc>
-    <lastmod>2024-12-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://khi.com.bd/products/handicrafts.html</loc>
-    <lastmod>2024-12-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://khi.com.bd/events</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 
   <!-- Blog posts -->
   <url>
-    <loc>https://khi.com.bd/blog/global-trade-trends-2024.html</loc>
+    <loc>https://khi.com.bd/blog/exporter-guide-bangladesh</loc>
+    <lastmod>2025-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/blog/import-guide-bangladesh</loc>
+    <lastmod>2025-01-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/blog/lc-vs-tt-payment</loc>
+    <lastmod>2025-01-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/blog/bangladesh-jute-sustainable</loc>
+    <lastmod>2025-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/blog/nbr-customs-update-2025</loc>
+    <lastmod>2024-12-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/blog/china-vs-india-sourcing</loc>
+    <lastmod>2024-12-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/blog/pre-shipment-inspection</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/blog/global-supply-chain-trends-2025</loc>
+    <lastmod>2024-12-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/blog/sourcing-partner-advantages</loc>
     <lastmod>2024-12-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://khi.com.bd/blog/import-documentation-guide.html</loc>
-    <lastmod>2024-12-10</lastmod>
+    <loc>https://khi.com.bd/blog/made-in-bangladesh-pharmaceuticals-food</loc>
+    <lastmod>2024-12-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://khi.com.bd/blog/sustainable-trade-practices.html</loc>
-    <lastmod>2024-12-05</lastmod>
+    <loc>https://khi.com.bd/blog/bill-of-lading-guide</loc>
+    <lastmod>2024-03-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Product pages -->
+  <url>
+    <loc>https://khi.com.bd/products/sunflower-oil</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/products/milk-powder</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/products/potato</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/products/pulses</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/products/tarpaulin</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/products/cumin</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/products/sugar</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/products/soyabean-oil</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/products/chickpeas</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/products/handicrafts</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Industry Pages -->
+  <url>
+    <loc>https://khi.com.bd/industries</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/industries/agriculture</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/industries/fmcg</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/industries/hospitality</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/industries/manufacturing</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/industries/retail</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Trade Routes -->
+  <url>
+    <loc>https://khi.com.bd/trade-routes</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/trade-routes/import-from-china</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/trade-routes/import-from-middle-east</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://khi.com.bd/trade-routes/export-to-middle-east</loc>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import JobApplicationForm from "@/components/JobApplicationForm";
 
 interface ApplyPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export function generateStaticParams() {
@@ -13,8 +13,9 @@ export function generateStaticParams() {
   }));
 }
 
-export default function ApplyPage({ params }: ApplyPageProps) {
-  const job = getJob(params.id);
+export default async function ApplyPage({ params }: ApplyPageProps) {
+  const { id } = await params;
+  const job = getJob(id);
 
   if (!job) {
     notFound();
@@ -26,7 +27,7 @@ export default function ApplyPage({ params }: ApplyPageProps) {
       <section className="bg-gray-900 text-white py-24">
         <div className="container mx-auto px-4">
           <Link
-            href={`/careers/${params.id}`}
+            href={`/careers/${id}`}
             className="inline-flex items-center text-white hover:text-orange-300 transition-colors mb-6"
           >
             <i className="fas fa-arrow-left mr-2"></i>
@@ -84,7 +85,7 @@ export default function ApplyPage({ params }: ApplyPageProps) {
           </div>
           <div className="text-center">
             <Link
-              href={`/careers/${params.id}`}
+              href={`/careers/${id}`}
               className="inline-block text-orange-500 hover:text-orange-600 font-semibold"
             >
               <i className="fas fa-arrow-left mr-2"></i>
