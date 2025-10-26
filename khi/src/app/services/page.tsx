@@ -391,12 +391,20 @@ export default function ServicesPage() {
             </Link>
             .
           </p>
-          <Link
-            href="/contact"
-            className="bg-white text-orange-500 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors inline-block"
-          >
-            Get Started
-          </Link>
+          <div className="flex gap-4 justify-center">
+            <Link
+              href="/quote"
+              className="bg-white text-orange-500 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors inline-block"
+            >
+              Request a Quote
+            </Link>
+            <Link
+              href="/trade-routes"
+              className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white/10 transition-colors inline-block"
+            >
+              View Trade Routes
+            </Link>
+          </div>
         </div>
       </section>
     </div>

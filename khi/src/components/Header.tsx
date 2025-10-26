@@ -137,6 +137,22 @@ export default function Header() {
                   Services
                 </Link>
               </li>
+              <li className="relative group">
+                <Link
+                  href="/industries"
+                  className="text-gray-700 font-medium hover:text-orange-500 transition-colors"
+                >
+                  Industries
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/trade-routes"
+                  className="text-gray-700 font-medium hover:text-orange-500 transition-colors"
+                >
+                  Trade Routes
+                </Link>
+              </li>
               <li>
                 <Link
                   href="/blog"
@@ -153,14 +169,22 @@ export default function Header() {
                   FAQ
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/careers"
+                  className="text-gray-700 font-medium hover:text-orange-500 transition-colors"
+                >
+                  Careers
+                </Link>
+              </li>
             </ul>
 
             {/* Desktop CTA */}
             <Link
-              href="/contact"
+              href="/quote"
               className="hidden md:block bg-orange-500 text-white px-6 py-2.5 rounded-lg hover:bg-orange-600 transition-colors font-medium"
             >
-              Get In Touch
+              Request Quote
             </Link>
 
             {/* Mobile menu button */}
@@ -258,6 +282,24 @@ export default function Header() {
               </li>
               <li>
                 <Link
+                  href="/industries"
+                  className="block text-lg font-medium text-gray-900 hover:text-orange-500 transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Industries
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/trade-routes"
+                  className="block text-lg font-medium text-gray-900 hover:text-orange-500 transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Trade Routes
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/blog"
                   className="block text-lg font-medium text-gray-900 hover:text-orange-500 transition-colors py-2"
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -272,6 +314,15 @@ export default function Header() {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   FAQ
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/careers"
+                  className="block text-lg font-medium text-gray-900 hover:text-orange-500 transition-colors py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Careers
                 </Link>
               </li>
             </ul>
@@ -332,11 +383,11 @@ export default function Header() {
           </nav>
 
           <Link
-            href="/contact"
+            href="/quote"
             className="block w-full bg-orange-500 text-white text-center py-3 rounded-lg hover:bg-orange-600 transition-colors font-medium mt-6"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Get In Touch
+            Request Quote
           </Link>
         </div>
       </div>

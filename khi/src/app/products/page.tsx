@@ -270,6 +270,33 @@ export default function ProductsPage() {
           </div>
         </div>
       </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-orange-500 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-4xl font-bold mb-6">
+            Ready to Source These Products?
+          </h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            Get competitive pricing and reliable delivery for any of our premium
+            import or export products.
+          </p>
+          <div className="flex gap-4 justify-center">
+            <Link
+              href="/quote"
+              className="bg-white text-orange-500 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+            >
+              Request a Quote
+            </Link>
+            <Link
+              href="/industries/fmcg"
+              className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white/10 transition-colors font-semibold"
+            >
+              View Industries
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
