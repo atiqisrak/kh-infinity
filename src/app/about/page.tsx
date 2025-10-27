@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     description:
       "Learn about K.H. Infinity's journey as a trusted import-export company in Bangladesh. Discover our mission, values, and commitment to excellence in global trade.",
     images: ["/images/about-banner.jpg"],
-    url: "https://khinfinity.com/about",
+    url: "https://khi.com.bd/about",
   },
   twitter: {
     card: "summary_large_image",

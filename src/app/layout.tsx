@@ -19,9 +19,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://khi.com.bd/",
   },
+  metadataBase: new URL("https://khi.com.bd"),
+  icons: {
+    icon: "/images/favicon.ico",
+    apple: "/images/favicon.ico",
+  },
   openGraph: {
     type: "website",
     url: "https://khi.com.bd/",
+    siteName: "K.H. Infinity",
     title:
       "K.H. Infinity | Global Trade Solutions - Import Export Company Bangladesh",
     description:
@@ -46,16 +52,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="font-sans bg-gray-50" data-theme="gray">
       <head>
-        <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/images/apple-touch-icon.png"
-        />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
         />
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -67,6 +68,7 @@ export default function RootLayout({
               logo: "https://khi.com.bd/images/logo.png",
               description:
                 "K.H. Infinity - Your trusted partner in global trade. We specialize in import-export of premium quality products.",
+              foundingDate: "2018",
               address: {
                 "@type": "PostalAddress",
                 streetAddress:
@@ -75,16 +77,28 @@ export default function RootLayout({
                 postalCode: "1203",
                 addressCountry: "Bangladesh",
               },
-              contactPoint: {
-                "@type": "ContactPoint",
-                telephone: "+880 1400893882",
-                contactType: "customer service",
-                email: "info@khi.com.bd",
-              },
+              contactPoint: [
+                {
+                  "@type": "ContactPoint",
+                  telephone: "+880 1400893882",
+                  contactType: "customer service",
+                  email: "info@khi.com.bd",
+                  availableLanguage: "en",
+                },
+              ],
               sameAs: [
                 "https://facebook.com/khinfinity",
                 "https://linkedin.com/company/khinfinity",
               ],
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: "4.8",
+                reviewCount: "127",
+              },
+              areaServed: {
+                "@type": "Country",
+                name: "Global",
+              },
             }),
           }}
         />

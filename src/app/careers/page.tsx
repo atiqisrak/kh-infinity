@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     description:
       "Explore exciting career opportunities in international trade with remote and hybrid positions.",
     images: ["/images/cover/kh1.webp"],
-    url: "https://khinfinity.com/careers",
+    url: "https://khi.com.bd/careers",
   },
   twitter: {
     card: "summary_large_image",

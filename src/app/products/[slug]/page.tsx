@@ -88,8 +88,42 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const iconColorHover =
     primaryColor === "green" ? "text-green-600" : "text-orange-600";
 
+  // Structured data for product
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    image: `https://khi.com.bd${product.image}`,
+    category: product.category,
+    brand: product.brand
+      ? {
+          "@type": "Brand",
+          name: product.brand,
+        }
+      : undefined,
+    offers: {
+      "@type": "Offer",
+      availability: "https://schema.org/InStock",
+      category: product.type === "import" ? "Import Product" : "Export Product",
+    },
+    additionalProperty: Object.entries(product.specifications).map(
+      ([key, value]) => ({
+        "@type": "PropertyValue",
+        name: key,
+        value: value,
+      })
+    ),
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
+      />
       <ProductHero
         product={product}
         textColor={textColor}

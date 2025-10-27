@@ -35,7 +35,7 @@ export async function generateMetadata({
       title: `${job.title} - K.H. Infinity`,
       description: job.description[0],
       images: ["/images/cover/kh1.webp"],
-      url: `https://khinfinity.com/careers/${job.id}`,
+      url: `https://khi.com.bd/careers/${job.id}`,
     },
     twitter: {
       card: "summary_large_image",
@@ -54,8 +54,56 @@ export default async function JobDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  // Structured data for job posting
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: job.title,
+    description: job.description.join(" "),
+    datePosted: new Date().toISOString(),
+    validThrough: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(),
+    employmentType:
+      job.type === "remote"
+        ? "REMOTE"
+        : job.type === "hybrid"
+        ? "PART_TIME"
+        : "FULL_TIME",
+    hiringOrganization: {
+      "@type": "Organization",
+      name: "K.H. Infinity",
+      sameAs: "https://khi.com.bd",
+      logo: "https://khi.com.bd/images/logo.png",
+    },
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: job.location.split(",")[0] || job.location,
+        addressCountry: "BD",
+      },
+    },
+    baseSalary: {
+      "@type": "MonetaryAmount",
+      currency: "USD",
+      value: {
+        "@type": "QuantitativeValue",
+        value: job.salary,
+      },
+    },
+    workHours: "Full Time",
+    qualifications: job.requirements,
+    responsibilities: job.responsibilities,
+    benefits: job.benefits,
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
+      />
       {/* Hero Section */}
       <section
         className="bg-gray-900 text-white py-32"

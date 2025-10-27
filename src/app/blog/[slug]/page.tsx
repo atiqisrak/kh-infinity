@@ -61,8 +61,43 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
     day: "numeric",
   });
 
+  // Structured data for blog post
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    image: `https://khi.com.bd${post.image}`,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      "@type": "Person",
+      name: post.author.name,
+      jobTitle: post.author.role,
+      image: `https://khi.com.bd${post.author.image}`,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "K.H. Infinity",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://khi.com.bd/images/logo.png",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://khi.com.bd/blog/${post.id}`,
+    },
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
+      />
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-4">
