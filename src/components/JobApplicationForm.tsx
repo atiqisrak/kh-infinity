@@ -25,12 +25,56 @@ export default function JobApplicationForm({
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Application submitted for:", jobTitle, formData);
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      const response = await fetch("/api/send-job-application", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          jobTitle,
+          jobId,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to submit application");
+      }
+
+      // Reset form on success
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        country: "",
+        resumeUrl: "",
+        coverLetter: "",
+        portfolio: "",
+        availability: "immediate",
+        salaryExpectation: "",
+        noticePeriod: "",
+      });
+
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Failed to submit application"
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -64,6 +108,17 @@ export default function JobApplicationForm({
 
   return (
     <form className="space-y-8" onSubmit={handleSubmit}>
+      {error && (
+        <div className="bg-red-50 border border-red-500 text-red-700 px-6 py-4 rounded-lg">
+          <div className="flex items-center">
+            <i className="fas fa-exclamation-circle text-2xl mr-3"></i>
+            <div>
+              <h3 className="font-bold text-lg mb-1">Error</h3>
+              <p>{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Personal Information */}
       <div className="bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">
@@ -247,9 +302,17 @@ export default function JobApplicationForm({
       <div className="flex gap-4">
         <button
           type="submit"
-          className="flex-1 bg-orange-500 text-white px-8 py-4 rounded-lg hover:bg-orange-600 transition-colors font-semibold text-lg"
+          disabled={isSubmitting}
+          className="flex-1 bg-orange-600 text-white px-8 py-4 rounded-lg hover:bg-orange-700 transition-colors font-semibold text-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          Submit Application
+          {isSubmitting ? (
+            <span className="flex items-center justify-center">
+              <i className="fas fa-spinner fa-spin mr-2"></i>
+              Submitting...
+            </span>
+          ) : (
+            "Submit Application"
+          )}
         </button>
       </div>
     </form>

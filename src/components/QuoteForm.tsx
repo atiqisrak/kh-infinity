@@ -207,7 +207,7 @@ export default function QuoteForm() {
 
           <button
             type="submit"
-            className="w-full bg-orange-500 text-white px-8 py-3 rounded-lg hover:bg-orange-600 transition-colors font-medium"
+            className="w-full bg-orange-600 text-white px-8 py-3 rounded-lg hover:bg-orange-700 transition-colors font-medium"
           >
             Submit Request
           </button>
