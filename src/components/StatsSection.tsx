@@ -79,7 +79,7 @@ export default function StatsSection() {
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
-              <div className="text-4xl font-bold text-orange-500 mb-2 min-h-[48px] flex items-center justify-center">
+              <div className="text-4xl font-bold text-orange-700 mb-2 min-h-[48px] flex items-center justify-center">
                 {isVisible ? (
                   <Counter target={stat.value} suffix={stat.suffix} />
                 ) : (

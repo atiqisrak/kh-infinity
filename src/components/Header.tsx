@@ -222,7 +222,7 @@ export default function Header() {
             {/* Desktop CTA */}
             <Link
               href="/quote"
-              className="hidden md:block bg-orange-500 text-white px-6 py-2.5 rounded-lg hover:bg-orange-600 transition-colors font-medium"
+              className="hidden md:block bg-orange-600 text-white px-6 py-2.5 rounded-lg hover:bg-orange-700 transition-colors font-medium"
             >
               Request Quote
             </Link>
@@ -458,7 +458,7 @@ export default function Header() {
 
           <Link
             href="/quote"
-            className="block w-full bg-orange-500 text-white text-center py-3 rounded-lg hover:bg-orange-600 transition-colors font-medium mt-6"
+            className="block w-full bg-orange-600 text-white text-center py-3 rounded-lg hover:bg-orange-700 transition-colors font-medium mt-6"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Request Quote

@@ -63,7 +63,7 @@ export default function HeroSection() {
         <div className="max-w-3xl">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-white animate-fade-in">
             Global Import Export Solutions: Bridging Markets with
-            <span className="text-orange-500 animate-text-highlight">
+            <span className="text-orange-400 animate-text-highlight">
               {" "}
               Quality Products
             </span>
@@ -77,7 +77,7 @@ export default function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-in-up">
             <Link
               href="#products"
-              className="bg-orange-500 text-white px-6 sm:px-8 py-3 rounded-lg hover:bg-orange-600 transition-all hover:scale-105 text-center text-sm sm:text-base"
+              className="bg-orange-600 text-white px-6 sm:px-8 py-3 rounded-lg hover:bg-orange-700 transition-all hover:scale-105 text-center text-sm sm:text-base"
             >
               Explore Products
             </Link>

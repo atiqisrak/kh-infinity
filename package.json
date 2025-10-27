@@ -4,8 +4,11 @@
   "scripts": {
     "dev": "next dev --turbo --port 3076",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint ."
+    "start": "next start -p 3076",
+    "lint": "eslint .",
+    "perf": "pnpm build && pnpm start & sleep 5 && node scripts/lighthouse-check.js && pkill -f 'next start'",
+    "perf:dev": "pnpm dev & sleep 8 && node scripts/lighthouse-check.js && pkill -f 'next dev'",
+    "kill-port": "f() { lsof -ti :3000 -sTCP:LISTEN | xargs kill -9 2>/dev/null || true; lsof -ti :3076 -sTCP:LISTEN | xargs kill -9 2>/dev/null || true; }; f"
   },
   "private": true,
   "packageManager": "pnpm@10.15.0",
@@ -28,9 +31,11 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
+    "@playwright/test": "^1.56.1",
     "@tailwindcss/cli": "^4.1.16",
     "@tailwindcss/postcss": "^4.1.16",
     "eslint-import-resolver-typescript": "^4.4.4",
-    "typescript-eslint": "^8.46.2"
+    "typescript-eslint": "^8.46.2",
+    "web-vitals": "^5.1.0"
   }
 }

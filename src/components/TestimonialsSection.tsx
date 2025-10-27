@@ -133,7 +133,7 @@ export default function TestimonialsSection() {
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <span className="text-orange-500 font-medium tracking-wider uppercase text-sm block mb-4">
+          <span className="text-orange-700 font-medium tracking-wider uppercase text-sm block mb-4">
             What Our Clients Say
           </span>
           <h2 className="text-4xl font-bold text-gray-800">

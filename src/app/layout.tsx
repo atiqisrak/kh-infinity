@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "./web-vitals";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+
+const isProduction = process.env.NODE_ENV === "production";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -66,11 +69,6 @@ export default function RootLayout({
       <head>
         <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
         <link
-          rel="preconnect"
-          href="https://cdnjs.cloudflare.com"
-          crossOrigin="anonymous"
-        />
-        <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
         />
@@ -125,8 +123,8 @@ export default function RootLayout({
         {children}
         <Footer />
         <WhatsAppButton />
-        <SpeedInsights />
-        <Analytics />
+        {isProduction && <SpeedInsights />}
+        {isProduction && <Analytics />}
       </body>
     </html>
   );

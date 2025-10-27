@@ -16,7 +16,7 @@ export default function AboutSection() {
               quality Bangladeshi products to global markets. Our
               <Link
                 href="/services"
-                className="text-orange-500 hover:text-orange-600 font-semibold"
+                className="text-orange-700 hover:text-orange-800 font-semibold"
               >
                 {" "}
                 comprehensive services
@@ -24,7 +24,7 @@ export default function AboutSection() {
               include
               <Link
                 href="/products"
-                className="text-orange-500 hover:text-orange-600 font-semibold"
+                className="text-orange-700 hover:text-orange-800 font-semibold"
               >
                 {" "}
                 premium products
@@ -33,15 +33,15 @@ export default function AboutSection() {
             </p>
             <div className="grid grid-cols-3 gap-8">
               <div className="text-center">
-                <h3 className="text-4xl font-bold text-orange-500">5+</h3>
+                <h3 className="text-4xl font-bold text-orange-700">5+</h3>
                 <p className="text-gray-600">Years Experience</p>
               </div>
               <div className="text-center">
-                <h3 className="text-4xl font-bold text-orange-500">10+</h3>
+                <h3 className="text-4xl font-bold text-orange-700">10+</h3>
                 <p className="text-gray-600">Global Partners</p>
               </div>
               <div className="text-center">
-                <h3 className="text-4xl font-bold text-orange-500">70+</h3>
+                <h3 className="text-4xl font-bold text-orange-700">70+</h3>
                 <p className="text-gray-600">Successful Deliveries</p>
               </div>
             </div>

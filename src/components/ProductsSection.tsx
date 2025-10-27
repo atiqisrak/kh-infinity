@@ -43,7 +43,7 @@ export default function ProductsSection() {
     >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <span className="text-orange-500 font-semibold text-sm tracking-wider uppercase">
+          <span className="text-orange-700 font-semibold text-sm tracking-wider uppercase">
             Our Products
           </span>
           <h2 className="text-4xl font-bold text-gray-800 mb-4 mt-2">
@@ -54,7 +54,7 @@ export default function ProductsSection() {
             carefully selected to meet international quality standards. From
             <Link
               href="/products/sunflower-oil"
-              className="text-orange-500 hover:text-orange-600 font-semibold"
+              className="text-orange-700 hover:text-orange-800 font-semibold"
             >
               {" "}
               cooking oils
@@ -62,7 +62,7 @@ export default function ProductsSection() {
             to
             <Link
               href="/products/milk-powder"
-              className="text-orange-500 hover:text-orange-600 font-semibold"
+              className="text-orange-700 hover:text-orange-800 font-semibold"
             >
               {" "}
               dairy products
@@ -70,7 +70,7 @@ export default function ProductsSection() {
             and
             <Link
               href="/products/potato"
-              className="text-orange-500 hover:text-orange-600 font-semibold"
+              className="text-orange-700 hover:text-orange-800 font-semibold"
             >
               {" "}
               fresh produce
@@ -82,11 +82,10 @@ export default function ProductsSection() {
         <div className="relative">
           <div
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-            role="list"
-            aria-label="Featured Products List"
+            aria-label="Featured Products"
           >
             {featuredProducts.map((product) => (
-              <article key={product.id} className="group" role="listitem">
+              <article key={product.id} className="group">
                 <Link href={product.href} className="block">
                   <div className="relative overflow-hidden rounded-xl bg-white shadow-lg transition-all duration-300 hover:shadow-2xl">
                     <div className="relative h-64 overflow-hidden">
@@ -113,10 +112,10 @@ export default function ProductsSection() {
                       <p className="text-gray-600 mb-4 line-clamp-2">
                         {product.description}
                       </p>
-                      <div className="inline-flex items-center text-orange-500 font-semibold group-hover:text-orange-600 transition-colors">
+                      <div className="inline-flex items-center text-orange-700 font-semibold group-hover:text-orange-800 transition-colors">
                         <span className="relative">
                           Learn More
-                          <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
+                          <span className="absolute bottom-0 left-0 w-full h-0.5 bg-orange-700 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
                         </span>
                         <svg
                           className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform"
@@ -142,7 +141,7 @@ export default function ProductsSection() {
           <div className="text-center mt-12">
             <Link
               href="/products"
-              className="inline-flex items-center bg-orange-500 text-white px-8 py-3 rounded-lg hover:bg-orange-600 transition-colors group"
+              className="inline-flex items-center bg-orange-600 text-white px-8 py-3 rounded-lg hover:bg-orange-700 transition-colors group"
             >
               View All Products
               <svg

@@ -87,7 +87,7 @@ export default function ContactSection() {
               </div>
               <button
                 type="submit"
-                className="bg-orange-500 text-white px-8 py-3 rounded-lg hover:bg-orange-600 transition-colors"
+                className="bg-orange-600 text-white px-8 py-3 rounded-lg hover:bg-orange-700 transition-colors"
               >
                 Send Message
               </button>
@@ -107,7 +107,7 @@ export default function ContactSection() {
                 Email:{" "}
                 <a
                   href="mailto:info@khi.com.bd"
-                  className="text-orange-500 hover:text-orange-600"
+                  className="text-orange-700 hover:text-orange-800"
                 >
                   info@khi.com.bd
                 </a>
@@ -116,7 +116,7 @@ export default function ContactSection() {
                 Phone:{" "}
                 <a
                   href="tel:+8801400893882"
-                  className="text-orange-500 hover:text-orange-600"
+                  className="text-orange-700 hover:text-orange-800"
                 >
                   +880 1400893882
                 </a>
