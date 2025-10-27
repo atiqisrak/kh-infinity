@@ -28,12 +28,12 @@ export default function ServicesPage() {
   return (
     <div>
       {/* Services Hero */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-b from-orange-50 to-white">
+      <section className="relative pt-20 md:pt-32 pb-12 md:pb-20 bg-gradient-to-b from-orange-50 to-white">
         <div className="container mx-auto px-4">
-          <h1 className="text-5xl font-bold text-center mb-6 text-gray-800">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 md:mb-6 text-gray-800">
             Our Services
           </h1>
-          <p className="text-xl text-center text-gray-600 max-w-3xl mx-auto mb-12">
+          <p className="text-base sm:text-lg md:text-xl text-center text-gray-600 max-w-3xl mx-auto mb-8 md:mb-12">
             Connecting global markets through professional import and export
             services, ensuring quality products and reliable partnerships. We
             handle everything from{" "}
@@ -56,17 +56,21 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20">
+      <section className="py-12 md:py-20">
         <div className="container mx-auto px-4">
           {/* Import Services */}
-          <div className="mb-20">
-            <h3 className="text-3xl font-bold mb-8">Import Services</h3>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-all">
-                <div className="text-orange-500 text-4xl mb-4">
+          <div className="mb-12 md:mb-20">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-6 md:mb-8">
+              Import Services
+            </h3>
+            <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+              <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-xl transition-all">
+                <div className="text-orange-500 text-3xl md:text-4xl mb-3 md:mb-4">
                   <i className="fas fa-ship"></i>
                 </div>
-                <h4 className="text-xl font-bold mb-4">Global Sourcing</h4>
+                <h4 className="text-lg md:text-xl font-bold mb-3 md:mb-4">
+                  Global Sourcing
+                </h4>
                 <p className="text-gray-600 mb-4">
                   Access our extensive network of verified suppliers across
                   Asia, Europe, and the Americas. We handle everything from
@@ -102,11 +106,11 @@ export default function ServicesPage() {
                 </ul>
               </div>
 
-              <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-all">
-                <div className="text-orange-500 text-4xl mb-4">
+              <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-xl transition-all">
+                <div className="text-orange-500 text-3xl md:text-4xl mb-3 md:mb-4">
                   <i className="fas fa-file-contract"></i>
                 </div>
-                <h4 className="text-xl font-bold mb-4">
+                <h4 className="text-lg md:text-xl font-bold mb-3 md:mb-4">
                   Documentation & Compliance
                 </h4>
                 <p className="text-gray-600 mb-4">
@@ -129,11 +133,13 @@ export default function ServicesPage() {
                 </ul>
               </div>
 
-              <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-all">
-                <div className="text-orange-500 text-4xl mb-4">
+              <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-xl transition-all">
+                <div className="text-orange-500 text-3xl md:text-4xl mb-3 md:mb-4">
                   <i className="fas fa-truck"></i>
                 </div>
-                <h4 className="text-xl font-bold mb-4">Logistics Management</h4>
+                <h4 className="text-lg md:text-xl font-bold mb-3 md:mb-4">
+                  Logistics Management
+                </h4>
                 <p className="text-gray-600 mb-4">
                   End-to-end logistics solutions including transportation,
                   warehousing, and last-mile delivery.
@@ -157,14 +163,18 @@ export default function ServicesPage() {
           </div>
 
           {/* Export Services */}
-          <div className="mb-20">
-            <h3 className="text-3xl font-bold mb-8">Export Services</h3>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-all">
-                <div className="text-orange-500 text-4xl mb-4">
+          <div className="mb-12 md:mb-20">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-6 md:mb-8">
+              Export Services
+            </h3>
+            <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+              <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-xl transition-all">
+                <div className="text-orange-500 text-3xl md:text-4xl mb-3 md:mb-4">
                   <i className="fas fa-globe"></i>
                 </div>
-                <h4 className="text-xl font-bold mb-4">Market Access</h4>
+                <h4 className="text-lg md:text-xl font-bold mb-3 md:mb-4">
+                  Market Access
+                </h4>
                 <p className="text-gray-600 mb-4">
                   Connect with international buyers and expand your market reach
                   through our established network.
@@ -185,11 +195,13 @@ export default function ServicesPage() {
                 </ul>
               </div>
 
-              <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-all">
-                <div className="text-orange-500 text-4xl mb-4">
+              <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-xl transition-all">
+                <div className="text-orange-500 text-3xl md:text-4xl mb-3 md:mb-4">
                   <i className="fas fa-box"></i>
                 </div>
-                <h4 className="text-xl font-bold mb-4">Product Preparation</h4>
+                <h4 className="text-lg md:text-xl font-bold mb-3 md:mb-4">
+                  Product Preparation
+                </h4>
                 <p className="text-gray-600 mb-4">
                   Complete product preparation services meeting international
                   standards and requirements. We ensure quality for our{" "}
@@ -224,11 +236,13 @@ export default function ServicesPage() {
                 </ul>
               </div>
 
-              <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-xl transition-all">
-                <div className="text-orange-500 text-4xl mb-4">
+              <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-xl transition-all">
+                <div className="text-orange-500 text-3xl md:text-4xl mb-3 md:mb-4">
                   <i className="fas fa-handshake"></i>
                 </div>
-                <h4 className="text-xl font-bold mb-4">Trade Finance</h4>
+                <h4 className="text-lg md:text-xl font-bold mb-3 md:mb-4">
+                  Trade Finance
+                </h4>
                 <p className="text-gray-600 mb-4">
                   Flexible trade finance solutions to support your export
                   operations.
@@ -252,11 +266,15 @@ export default function ServicesPage() {
           </div>
 
           {/* Global Network */}
-          <div className="bg-gray-50 p-8 rounded-lg">
-            <h3 className="text-3xl font-bold mb-8">Our Global Network</h3>
+          <div className="bg-gray-50 p-6 md:p-8 rounded-lg">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-6 md:mb-8">
+              Our Global Network
+            </h3>
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h4 className="text-xl font-bold mb-4">Regions We Serve</h4>
+                <h4 className="text-lg md:text-xl font-bold mb-3 md:mb-4">
+                  Regions We Serve
+                </h4>
                 <div className="grid grid-cols-2 gap-4">
                   <ul className="text-gray-600 space-y-2">
                     <li>
@@ -297,7 +315,7 @@ export default function ServicesPage() {
                 </div>
               </div>
               <div>
-                <h4 className="text-xl font-bold mb-4">
+                <h4 className="text-lg md:text-xl font-bold mb-3 md:mb-4">
                   Key Ports & Facilities
                 </h4>
                 <ul className="text-gray-600 space-y-2">
@@ -325,9 +343,9 @@ export default function ServicesPage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-20">
+      <section className="py-12 md:py-20">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center text-gray-800">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-8 md:mb-12 text-center text-gray-800">
             Why Choose Us
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -370,10 +388,12 @@ export default function ServicesPage() {
       </section>
 
       {/* Contact CTA */}
-      <section className="py-20 bg-orange-500 text-white">
+      <section className="py-12 md:py-20 bg-orange-500 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to Start Trading?</h2>
-          <p className="text-xl mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4 md:mb-6">
+            Ready to Start Trading?
+          </h2>
+          <p className="text-base sm:text-lg md:text-xl mb-6 md:mb-8">
             Contact us today to discuss your import/export needs. Whether you
             need{" "}
             <Link
@@ -391,16 +411,16 @@ export default function ServicesPage() {
             </Link>
             .
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
               href="/quote"
-              className="bg-white text-orange-500 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors inline-block"
+              className="bg-white text-orange-500 px-6 sm:px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors inline-block text-sm sm:text-base"
             >
               Request a Quote
             </Link>
             <Link
               href="/trade-routes"
-              className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white/10 transition-colors inline-block"
+              className="bg-transparent border-2 border-white text-white px-6 sm:px-8 py-3 rounded-lg hover:bg-white/10 transition-colors inline-block text-sm sm:text-base"
             >
               View Trade Routes
             </Link>

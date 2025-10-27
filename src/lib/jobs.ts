@@ -271,10 +271,10 @@ export const jobPositions: JobPosition[] = [
     id: 'sre-intern',
     title: 'Site Reliability Engineer (SRE) Intern',
     department: 'Technology & Operations',
-    type: 'remote',
-    location: 'Global Remote',
+    type: 'onsite',
+    location: 'Dhaka, Bangladesh',
     experience: 'Entry Level / Students',
-    salary: '$15,000 - $25,000',
+    salary: 'up to BDT 15000',
     description: [
       'We are looking for a motivated SRE Intern to join our technology team. This is an excellent opportunity for students or recent graduates to gain hands-on experience in site reliability engineering, infrastructure management, and DevOps practices.',
       'As an SRE Intern, you will work alongside our experienced engineers to monitor system health, deploy infrastructure, and ensure the reliability of our digital platforms. This role offers valuable learning opportunities in a real-world trading environment.',
@@ -299,7 +299,7 @@ export const jobPositions: JobPosition[] = [
       'Support the team in capacity planning and performance optimization',
     ],
     benefits: [
-      'Remote internship opportunity',
+      'On-site internship opportunity',
       'Mentorship from experienced SRE engineers',
       'Real-world experience with cloud infrastructure',
       'Certificate of completion',

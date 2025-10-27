@@ -115,16 +115,16 @@ export default function ProductsPage() {
   return (
     <div>
       {/* Products Hero */}
-      <section className="relative pt-32 pb-16 bg-gradient-to-b from-white to-gray-50">
+      <section className="relative pt-20 md:pt-32 pb-12 md:pb-16 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <span className="text-orange-500 font-medium tracking-wider uppercase text-sm mb-4 block">
+            <span className="text-orange-500 font-medium tracking-wider uppercase text-xs sm:text-sm mb-3 md:mb-4 block">
               Our Collection
             </span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-gray-800 leading-tight">
               Premium Import & Export Products
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed">
               Discover our carefully curated selection of premium products,
               sourced from and delivered to global markets. Our{" "}
               <Link
@@ -272,25 +272,25 @@ export default function ProductsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-orange-500 text-white">
+      <section className="py-12 md:py-20 bg-orange-500 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">
             Ready to Source These Products?
           </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl mx-auto">
             Get competitive pricing and reliable delivery for any of our premium
             import or export products.
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
               href="/quote"
-              className="bg-white text-orange-500 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+              className="bg-white text-orange-500 px-6 sm:px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold text-sm sm:text-base"
             >
               Request a Quote
             </Link>
             <Link
               href="/industries/fmcg"
-              className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white/10 transition-colors font-semibold"
+              className="bg-transparent border-2 border-white text-white px-6 sm:px-8 py-3 rounded-lg hover:bg-white/10 transition-colors font-semibold text-sm sm:text-base"
             >
               View Industries
             </Link>

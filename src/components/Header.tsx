@@ -407,11 +407,11 @@ export default function Header() {
               </h3>
               <div className="space-y-3">
                 <a
-                  href="tel:+8801577081856"
+                  href="tel:+8801400893882"
                   className="flex items-center text-gray-700 hover:text-orange-500 transition-colors"
                 >
                   <i className="fas fa-phone w-5 mr-3 text-orange-500"></i>
-                  <span>+880 1577081856</span>
+                  <span>+880 1400893882</span>
                 </a>
                 <a
                   href="mailto:info@khi.com.bd"

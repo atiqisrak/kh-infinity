@@ -139,7 +139,7 @@ export default function ContactPage() {
                     <i className="fas fa-phone text-orange-500 mt-1 mr-4 text-xl"></i>
                     <div>
                       <h4 className="font-bold mb-1">Phone</h4>
-                      <p className="text-gray-600">+880 1577081856</p>
+                      <p className="text-gray-600">+880 1400893882</p>
                     </div>
                   </div>
                   <div className="flex items-start">

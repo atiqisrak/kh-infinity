@@ -231,10 +231,10 @@ export default function EqualOpportunityPage() {
               <p className="mt-2">
                 <i className="fas fa-phone mr-2 text-orange-500"></i>
                 <a
-                  href="tel:+8801577081856"
+                  href="tel:+8801400893882"
                   className="text-orange-500 hover:text-orange-600"
                 >
-                  +880 1577081856
+                  +880 1400893882
                 </a>
               </p>
               <p className="mt-2">
