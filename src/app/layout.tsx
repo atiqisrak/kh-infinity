@@ -5,7 +5,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  adjustFontFallback: false,
+});
 
 export const metadata: Metadata = {
   title:
@@ -50,13 +55,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="font-sans bg-gray-50" data-theme="gray">
+    <html
+      lang="en"
+      className="font-sans bg-gray-50"
+      data-theme="gray"
+      data-scroll-behavior="smooth"
+    >
       <head>
+        <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+        <link
+          rel="preconnect"
+          href="https://cdnjs.cloudflare.com"
+          crossOrigin="anonymous"
+        />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
         />
-        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

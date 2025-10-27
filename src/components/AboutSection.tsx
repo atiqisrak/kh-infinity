@@ -46,13 +46,14 @@ export default function AboutSection() {
               </div>
             </div>
           </div>
-          <div className="relative">
+          <div className="relative aspect-[3/2] w-full">
             <Image
               src="/images/cover/kh4.webp"
               alt="About K.H. Infinity"
-              width={600}
-              height={400}
-              className="rounded-lg shadow-xl"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              quality={75}
+              className="rounded-lg shadow-xl object-cover"
             />
           </div>
         </div>

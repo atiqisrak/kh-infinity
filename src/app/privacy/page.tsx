@@ -416,12 +416,7 @@ export default function PrivacyPage() {
             </div>
 
             <p className="text-sm text-gray-500 mt-8">
-              Last Revised:{" "}
-              {new Date().toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+              Last Revised: October 27, 2025
             </p>
           </div>
         </div>

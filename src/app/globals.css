@@ -56,11 +56,13 @@ body {
   transform: scale(1.1);
   transition: opacity var(--fade-duration) ease-in-out,
     transform var(--slide-duration) ease-in-out;
+  will-change: opacity, transform;
 }
 
 .slide.active {
   opacity: 1;
   transform: scale(1);
+  will-change: auto;
 }
 
 /* Animations */
@@ -102,6 +104,19 @@ body {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .animate-text-highlight {
+    animation: none;
+    transition: color 0.3s ease;
+  }
+
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-fade-in-up {
+    animation: none;
+  }
+}
+
 .animate-fade-in {
   animation: fadeIn 1s ease-out;
 }
@@ -116,6 +131,7 @@ body {
 
 .animate-text-highlight {
   animation: textHighlight 2s ease-out forwards;
+  will-change: auto;
 }
 
 /* Statistics Animation */

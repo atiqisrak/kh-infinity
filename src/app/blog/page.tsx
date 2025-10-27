@@ -1,7 +1,9 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { getBlogPosts, getBlogCategories } from "@/lib/blog";
+import NewsletterFormSkeleton from "@/components/NewsletterFormSkeleton";
 
 export const metadata: Metadata = {
   title: "Trade Insights & News - K.H. Infinity Blog",
@@ -233,30 +235,32 @@ export default function BlogPage() {
       )}
 
       {/* Newsletter */}
-      <section className="py-12 md:py-20 bg-gradient-to-br from-orange-500 to-orange-600 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4 md:mb-6">
-            Stay Updated
-          </h2>
-          <p className="text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl mx-auto">
-            Subscribe to our newsletter for the latest insights on international
-            trade and industry updates.
-          </p>
-          <form className="max-w-md mx-auto flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-white text-sm sm:text-base"
-            />
-            <button
-              type="submit"
-              className="bg-white text-orange-500 px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold text-sm sm:text-base"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
-      </section>
+      <Suspense fallback={<NewsletterFormSkeleton />}>
+        <section className="py-12 md:py-20 bg-gradient-to-br from-orange-500 to-orange-600 text-white">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4 md:mb-6">
+              Stay Updated
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl mx-auto">
+              Subscribe to our newsletter for the latest insights on
+              international trade and industry updates.
+            </p>
+            <form className="max-w-md mx-auto flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-4 py-3 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-white text-sm sm:text-base"
+              />
+              <button
+                type="submit"
+                className="bg-white text-orange-500 px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold text-sm sm:text-base"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </section>
+      </Suspense>
     </div>
   );
 }

@@ -258,12 +258,7 @@ export default function EqualOpportunityPage() {
             </div>
 
             <p className="text-sm text-gray-500 mt-8">
-              Last Updated:{" "}
-              {new Date().toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+              Last Updated: January 1, 2025
             </p>
           </div>
         </div>

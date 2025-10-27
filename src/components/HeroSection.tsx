@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const slides = [
   { id: 1, image: "/images/cover/kh1.webp" },
@@ -30,13 +31,29 @@ export default function HeroSection() {
         {slides.map((slide, index) => (
           <div
             key={slide.id}
-            className={`slide ${
-              index === currentSlide ? "active" : ""
-            } blur-[2px]`}
-            style={{
-              backgroundImage: `url(${slide.image})`,
-            }}
+            className={`slide ${index === currentSlide ? "active" : ""}`}
           >
+            {index === 0 ? (
+              <Image
+                src={slide.image}
+                alt=""
+                fill
+                priority
+                quality={75}
+                className="object-cover blur-[2px]"
+                sizes="100vw"
+              />
+            ) : (
+              <Image
+                src={slide.image}
+                alt=""
+                fill
+                quality={60}
+                className="object-cover blur-[2px]"
+                sizes="100vw"
+                loading="lazy"
+              />
+            )}
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"></div>
           </div>
         ))}

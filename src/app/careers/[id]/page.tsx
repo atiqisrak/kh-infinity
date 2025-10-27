@@ -60,8 +60,8 @@ export default async function JobDetailPage({ params }: PageProps) {
     "@type": "JobPosting",
     title: job.title,
     description: job.description.join(" "),
-    datePosted: new Date().toISOString(),
-    validThrough: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(),
+    datePosted: "2025-01-01T00:00:00.000Z",
+    validThrough: "2025-12-31T00:00:00.000Z",
     employmentType:
       job.type === "remote"
         ? "REMOTE"

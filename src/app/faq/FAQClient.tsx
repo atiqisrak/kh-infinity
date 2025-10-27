@@ -53,10 +53,7 @@ export default function FAQClient({ faqData }: FAQClientProps) {
       "November",
       "December",
     ];
-    const date = new Date();
-    return `Last update: ${
-      months[date.getMonth()]
-    } ${date.getDate()}, ${date.getFullYear()}`;
+    return `Last update: October 27, 2025`;
   };
 
   const currentSection = faqData[activeSection] || faqData.import;

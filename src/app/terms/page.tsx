@@ -280,12 +280,7 @@ export default function TermsPage() {
             </div>
 
             <p className="text-sm text-gray-500 mt-8">
-              Last Updated:{" "}
-              {new Date().toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+              Last Updated: October 27, 2025
             </p>
           </div>
         </div>
