@@ -6,11 +6,24 @@ export const metadata: Metadata = {
     "K.H. Infinity Privacy Statement - Data Collection, Use and Disclosure Practices",
   keywords:
     "K.H. Infinity, privacy policy, data protection, personal information, privacy statement",
+  alternates: {
+    canonical: "https://khi.com.bd/privacy",
+  },
   openGraph: {
     title: "Privacy Statement - K.H. Infinity",
     description:
       "K.H. Infinity Privacy Statement - Data Collection, Use and Disclosure Practices",
     url: "https://khi.com.bd/privacy",
+    siteName: "K.H. Infinity",
+    type: "website",
+    images: ["/images/cover/kh1.webp"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Statement - K.H. Infinity",
+    description:
+      "K.H. Infinity Privacy Statement - Data Collection, Use and Disclosure Practices",
+    images: ["/images/cover/kh1.webp"],
   },
 };
 

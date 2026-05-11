@@ -8,12 +8,17 @@ export const metadata: Metadata = {
     "Professional import-export services including product sourcing, quality assurance, documentation support, market access, and trade compliance. Your trusted partner in global trade.",
   keywords:
     "import export services, trade services, global trade solutions, product sourcing, quality assurance, trade documentation, market access, K.H. Infinity, Bangladesh",
+  alternates: {
+    canonical: "https://khi.com.bd/services",
+  },
   openGraph: {
     title: "Import Export Services - K.H. Infinity | Global Trade Solutions",
     description:
       "Professional import-export services including product sourcing, quality assurance, documentation support, market access, and trade compliance. Your trusted partner in global trade.",
     images: ["/images/cover/kh1.webp"],
     url: "https://khi.com.bd/services",
+    siteName: "K.H. Infinity",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
@@ -131,6 +136,12 @@ export default function ServicesPage() {
                     Regulatory compliance
                   </li>
                 </ul>
+                <Link
+                  href="/customs-clearance-service"
+                  className="mt-4 inline-block text-orange-600 font-semibold hover:text-orange-700"
+                >
+                  Customs clearance service hub →
+                </Link>
               </div>
 
               <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-xl transition-all">

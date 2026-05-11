@@ -169,6 +169,12 @@ export default function Header() {
                     Potato
                   </Link>
                   <Link
+                    href="/potato-export"
+                    className="block px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
+                  >
+                    Potato export (Gulf)
+                  </Link>
+                  <Link
                     href="/products/handicrafts"
                     className="block px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
                   >
@@ -310,6 +316,17 @@ export default function Header() {
                 >
                   Products
                 </Link>
+                <ul className="ml-4 space-y-2 mt-1">
+                  <li>
+                    <Link
+                      href="/potato-export"
+                      className="block text-base text-gray-600 hover:text-orange-500 transition-colors py-2"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Potato export (Gulf)
+                    </Link>
+                  </li>
+                </ul>
               </li>
               <li>
                 <Link

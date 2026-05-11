@@ -8,12 +8,17 @@ export const metadata: Metadata = {
     "Professional import services from China to Bangladesh. We source industrial products, equipment, and raw materials with quality assurance and efficient logistics.",
   keywords:
     "import from China, China to Bangladesh, industrial products, trade route, China imports, Bangladesh import, industrial equipment",
+  alternates: {
+    canonical: "https://khi.com.bd/trade-routes/import-from-china",
+  },
   openGraph: {
     title: "Import from China to Bangladesh - K.H. Infinity",
     description:
       "Professional import services from China to Bangladesh with quality assurance.",
     images: ["/images/products/tarpaulin.webp"],
-    url: "https://khinfinity.com/trade-routes/import-from-china",
+    url: "https://khi.com.bd/trade-routes/import-from-china",
+    siteName: "K.H. Infinity",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProduct, getRelatedProducts } from "@/lib/products";
 import ProductHero from "@/components/products/ProductHero";
@@ -34,6 +35,8 @@ export async function generateMetadata({
     };
   }
 
+  const productUrl = `https://khi.com.bd/products/${product.id}`;
+
   return {
     title: `${product.brand ? product.brand + " " : ""}${
       product.name
@@ -42,13 +45,18 @@ export async function generateMetadata({
     } Product`,
     description: product.description,
     keywords: `${product.name}, ${product.type} product, ${product.category}, K.H. Infinity, Bangladesh trade`,
+    alternates: {
+      canonical: productUrl,
+    },
     openGraph: {
       title: `${product.brand ? product.brand + " " : ""}${
         product.name
       } - K.H. Infinity`,
       description: product.description,
       images: [product.image],
-      url: `https://khi.com.bd/products/${product.id}`,
+      url: productUrl,
+      siteName: "K.H. Infinity",
+      type: "website",
     },
     twitter: {
       card: "summary_large_image",
@@ -133,6 +141,24 @@ export default async function ProductPage({ params }: ProductPageProps) {
         borderColor={borderColor}
         primaryColor={primaryColor}
       />
+
+      {slug === "potato" && (
+        <section className="bg-orange-50 border-y border-orange-100">
+          <div className="container mx-auto px-4 py-4 text-center text-gray-800">
+            <span className="font-medium">Sourcing for Gulf &amp; GCC? </span>
+            <Link
+              href="/potato-export"
+              className={`${textColorStrong} font-semibold underline-offset-2 hover:underline`}
+            >
+              Open the potato export hub
+            </Link>
+            <span className="text-gray-600">
+              {" "}
+              for logistics, documentation, and buyer FAQs.
+            </span>
+          </div>
+        </section>
+      )}
 
       <ProductNutrition product={product} iconColor={iconColor} />
 

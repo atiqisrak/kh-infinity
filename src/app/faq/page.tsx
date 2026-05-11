@@ -8,11 +8,24 @@ export const metadata: Metadata = {
     "Frequently asked questions about import/export services, documentation, shipping, and payment processes at K.H. Infinity. Get answers about international trade, customs, and logistics.",
   keywords:
     "FAQ, import export FAQ, shipping FAQ, customs documentation, international trade questions, logistics FAQ, freight forwarding",
+  alternates: {
+    canonical: "https://khi.com.bd/faq",
+  },
   openGraph: {
     title: "FAQ - K.H. Infinity Import Export",
     description:
       "Frequently asked questions about import/export services, documentation, shipping, and payment processes at K.H. Infinity.",
     type: "website",
+    url: "https://khi.com.bd/faq",
+    siteName: "K.H. Infinity",
+    images: ["/images/cover/kh1.webp"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FAQ - K.H. Infinity Import Export",
+    description:
+      "Frequently asked questions about import/export services, documentation, shipping, and payment processes at K.H. Infinity.",
+    images: ["/images/cover/kh1.webp"],
   },
 };
 

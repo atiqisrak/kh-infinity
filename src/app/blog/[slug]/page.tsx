@@ -28,15 +28,22 @@ export async function generateMetadata({
     };
   }
 
+  const postUrl = `https://khi.com.bd/blog/${post.id}`;
+
   return {
     title: `${post.title} - K.H. Infinity Blog`,
     description: post.excerpt,
     keywords: post.tags.join(", "),
+    alternates: {
+      canonical: postUrl,
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       images: [post.image],
-      url: `https://khi.com.bd/blog/${post.id}`,
+      url: postUrl,
+      siteName: "K.H. Infinity",
+      type: "article",
     },
     twitter: {
       card: "summary_large_image",

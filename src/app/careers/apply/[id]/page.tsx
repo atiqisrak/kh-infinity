@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getJob, jobPositions } from "@/lib/jobs";
 import { notFound } from "next/navigation";
@@ -11,6 +12,39 @@ export function generateStaticParams() {
   return jobPositions.map((job) => ({
     id: job.id,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: ApplyPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const job = getJob(id);
+
+  if (!job) {
+    return { title: "Apply - K.H. Infinity" };
+  }
+
+  const applyUrl = `https://khi.com.bd/careers/apply/${job.id}`;
+
+  return {
+    title: `Apply for ${job.title} | K.H. Infinity Careers`,
+    description: `Submit your application for ${job.title} at K.H. Infinity. ${job.department} · ${job.location}.`,
+    alternates: { canonical: applyUrl },
+    openGraph: {
+      title: `Apply for ${job.title} | K.H. Infinity`,
+      description: `Career application: ${job.title}`,
+      url: applyUrl,
+      siteName: "K.H. Infinity",
+      type: "website",
+      images: ["/images/cover/kh1.webp"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Apply for ${job.title} | K.H. Infinity`,
+      description: `Career application: ${job.title}`,
+      images: ["/images/cover/kh1.webp"],
+    },
+  };
 }
 
 export default async function ApplyPage({ params }: ApplyPageProps) {

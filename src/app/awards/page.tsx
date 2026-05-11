@@ -8,11 +8,24 @@ export const metadata: Metadata = {
     "Explore our certifications, industry awards, and client testimonials that showcase K.H. Infinity's commitment to excellence in international trade.",
   keywords:
     "certifications, awards, ISO certification, trade licenses, client testimonials, K.H. Infinity achievements",
+  alternates: {
+    canonical: "https://khi.com.bd/awards",
+  },
   openGraph: {
     title: "Certifications & Awards - K.H. Infinity",
     description:
       "Our certifications, awards, and client testimonials demonstrate our commitment to excellence.",
     url: "https://khi.com.bd/awards",
+    siteName: "K.H. Infinity",
+    type: "website",
+    images: ["/images/cover/kh1.webp"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Certifications & Awards - K.H. Infinity",
+    description:
+      "Our certifications, awards, and client testimonials demonstrate our commitment to excellence.",
+    images: ["/images/cover/kh1.webp"],
   },
 };
 

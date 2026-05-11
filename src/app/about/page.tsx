@@ -8,12 +8,17 @@ export const metadata: Metadata = {
     "Learn about K.H. Infinity's journey as a trusted import-export company in Bangladesh. Discover our mission, values, and commitment to excellence in global trade.",
   keywords:
     "K.H. Infinity, import export company Bangladesh, global trade partner, international business, trade certifications, customs expertise",
+  alternates: {
+    canonical: "https://khi.com.bd/about",
+  },
   openGraph: {
     title: "About K.H. Infinity - Your Trusted Global Trade Partner",
     description:
       "Learn about K.H. Infinity's journey as a trusted import-export company in Bangladesh. Discover our mission, values, and commitment to excellence in global trade.",
     images: ["/images/about-banner.jpg"],
     url: "https://khi.com.bd/about",
+    siteName: "K.H. Infinity",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",

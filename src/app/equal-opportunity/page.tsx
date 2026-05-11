@@ -6,11 +6,24 @@ export const metadata: Metadata = {
     "K.H. Infinity is an equal opportunity employer committed to diversity and inclusion",
   keywords:
     "K.H. Infinity, equal opportunity employer, diversity, inclusion, careers, employment",
+  alternates: {
+    canonical: "https://khi.com.bd/equal-opportunity",
+  },
   openGraph: {
     title: "Equal Opportunity Employer - K.H. Infinity",
     description:
       "K.H. Infinity is an equal opportunity employer committed to diversity and inclusion",
     url: "https://khi.com.bd/equal-opportunity",
+    siteName: "K.H. Infinity",
+    type: "website",
+    images: ["/images/cover/kh1.webp"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Equal Opportunity Employer - K.H. Infinity",
+    description:
+      "K.H. Infinity is an equal opportunity employer committed to diversity and inclusion",
+    images: ["/images/cover/kh1.webp"],
   },
 };
 

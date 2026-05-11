@@ -9,12 +9,17 @@ export const metadata: Metadata = {
     "Request a quote for your import-export needs. Get competitive pricing on premium products including cooking oils, milk powder, sugar, pulses, and more. Fast response within 24 hours.",
   keywords:
     "request quote, import export quote, trade quote, shipping quote, product quote, K.H. Infinity, Bangladesh",
+  alternates: {
+    canonical: "https://khi.com.bd/quote",
+  },
   openGraph: {
     title: "Request a Quote - K.H. Infinity | Import Export Company",
     description:
       "Request a quote for your import-export needs. Get competitive pricing on premium products. Fast response within 24 hours.",
     images: ["/images/cover/kh1.webp"],
-    url: "https://khinfinity.com/quote",
+    url: "https://khi.com.bd/quote",
+    siteName: "K.H. Infinity",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",

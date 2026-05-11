@@ -8,12 +8,17 @@ export const metadata: Metadata = {
     "Industrial raw materials and supplies for manufacturing businesses. Source quality materials and equipment to support your production needs.",
   keywords:
     "manufacturing supplies, industrial materials, raw materials sourcing, industrial equipment, manufacturing Bangladesh, industrial import",
+  alternates: {
+    canonical: "https://khi.com.bd/industries/manufacturing",
+  },
   openGraph: {
     title: "Manufacturing & Industrial Solutions - K.H. Infinity",
     description:
       "Industrial raw materials and supplies for manufacturing businesses.",
     images: ["/images/products/tarpaulin.webp"],
-    url: "https://khinfinity.com/industries/manufacturing",
+    url: "https://khi.com.bd/industries/manufacturing",
+    siteName: "K.H. Infinity",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",

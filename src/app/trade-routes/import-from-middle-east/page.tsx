@@ -9,12 +9,17 @@ export const metadata: Metadata = {
     "Import premium food products, oils, and dairy from Middle East to Bangladesh. Quality sourcing with Halal certification and international standards.",
   keywords:
     "import from Middle East, Middle East to Bangladesh, food products, cooking oils, dairy import, Halal products, Middle East trade",
+  alternates: {
+    canonical: "https://khi.com.bd/trade-routes/import-from-middle-east",
+  },
   openGraph: {
     title: "Import from Middle East to Bangladesh - K.H. Infinity",
     description:
       "Import premium food products from Middle East to Bangladesh with quality assurance.",
     images: ["/images/products/sunflower-oil.webp"],
-    url: "https://khinfinity.com/trade-routes/import-from-middle-east",
+    url: "https://khi.com.bd/trade-routes/import-from-middle-east",
+    siteName: "K.H. Infinity",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",

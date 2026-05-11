@@ -77,6 +77,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/customs-clearance-service"
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                >
+                  Customs clearance
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/faq"
                   className="text-gray-400 hover:text-orange-500 transition-colors"
                 >

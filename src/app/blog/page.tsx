@@ -11,12 +11,17 @@ export const metadata: Metadata = {
     "Stay updated with the latest insights on international trade, import-export trends, and industry news. Expert articles on global trade, shipping, and regulations.",
   keywords:
     "trade insights, import export blog, international trade news, shipping updates, trade regulations, Bangladesh trade, K.H. Infinity blog",
+  alternates: {
+    canonical: "https://khi.com.bd/blog",
+  },
   openGraph: {
     title: "Trade Insights & News - K.H. Infinity Blog",
     description:
       "Stay updated with the latest insights on international trade, import-export trends, and industry news. Expert articles on global trade, shipping, and regulations.",
     images: ["/images/blog/blog-cover.jpg"],
     url: "https://khi.com.bd/blog",
+    siteName: "K.H. Infinity",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",

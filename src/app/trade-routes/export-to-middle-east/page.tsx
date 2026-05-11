@@ -9,12 +9,17 @@ export const metadata: Metadata = {
     "Export fresh produce, agricultural products, and handicrafts from Bangladesh to Middle East. Quality Bangladeshi products for Middle Eastern markets.",
   keywords:
     "export to Middle East, Bangladesh export, potato export, handicrafts export, Middle East trade, Bangladesh products",
+  alternates: {
+    canonical: "https://khi.com.bd/trade-routes/export-to-middle-east",
+  },
   openGraph: {
     title: "Export to Middle East from Bangladesh - K.H. Infinity",
     description:
       "Export quality Bangladeshi products to Middle East markets with reliable service.",
     images: ["/images/products/potato.webp"],
-    url: "https://khinfinity.com/trade-routes/export-to-middle-east",
+    url: "https://khi.com.bd/trade-routes/export-to-middle-east",
+    siteName: "K.H. Infinity",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
@@ -67,6 +72,15 @@ export default function ExportToMiddleEastPage() {
                 complete documentation to meet Middle Eastern market
                 requirements.
               </p>
+              <p className="text-lg text-gray-600 mb-6">
+                <Link
+                  href="/potato-export"
+                  className="text-orange-600 font-semibold hover:text-orange-700"
+                >
+                  Gulf-focused potato export hub →
+                </Link>{" "}
+                — grading, packing, documentation, and buyer FAQs in one place.
+              </p>
               <Link
                 href="/quote"
                 className="inline-block bg-orange-500 text-white px-8 py-3 rounded-lg hover:bg-orange-600 transition-colors font-semibold"
@@ -109,6 +123,12 @@ export default function ExportToMiddleEastPage() {
                 className="mt-4 inline-block text-orange-500 hover:text-orange-600 font-semibold"
               >
                 View Product →
+              </Link>
+              <Link
+                href="/potato-export"
+                className="mt-2 block text-sm text-gray-600 hover:text-orange-600 font-medium"
+              >
+                Gulf buyer landing page
               </Link>
             </div>
 

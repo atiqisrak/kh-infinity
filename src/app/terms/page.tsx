@@ -5,10 +5,22 @@ export const metadata: Metadata = {
   description: "Terms and Conditions of Use for K.H. Infinity Website",
   keywords:
     "K.H. Infinity, terms and conditions, terms of use, website terms, legal",
+  alternates: {
+    canonical: "https://khi.com.bd/terms",
+  },
   openGraph: {
     title: "Terms & Conditions - K.H. Infinity",
     description: "Terms and Conditions of Use for K.H. Infinity Website",
     url: "https://khi.com.bd/terms",
+    siteName: "K.H. Infinity",
+    type: "website",
+    images: ["/images/cover/kh1.webp"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms & Conditions - K.H. Infinity",
+    description: "Terms and Conditions of Use for K.H. Infinity Website",
+    images: ["/images/cover/kh1.webp"],
   },
 };
 

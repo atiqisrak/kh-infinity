@@ -8,12 +8,17 @@ export const metadata: Metadata = {
     "Get in touch with K.H. Infinity for all your import-export needs. Contact our team for inquiries about our products and services. Located in Dhaka, Bangladesh.",
   keywords:
     "contact K.H. Infinity, import export contact, global trade contact, Bangladesh trade contact, business inquiry",
+  alternates: {
+    canonical: "https://khi.com.bd/contact",
+  },
   openGraph: {
     title: "Contact K.H. Infinity | Global Trade Solutions",
     description:
       "Get in touch with K.H. Infinity for all your import-export needs. Contact our team for inquiries about our products and services. Located in Dhaka, Bangladesh.",
     images: ["/images/cover/kh1.webp"],
     url: "https://khi.com.bd/contact",
+    siteName: "K.H. Infinity",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",

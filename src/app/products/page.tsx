@@ -9,12 +9,17 @@ export const metadata: Metadata = {
     "Explore our premium range of import and export products including sunflower oil, milk powder, pulses, sugar, and more. High-quality products sourced from trusted global suppliers.",
   keywords:
     "import products, export products, sunflower oil, milk powder, pulses, sugar, chickpeas, cumin, tarpaulin, K.H. Infinity, Bangladesh trade",
+  alternates: {
+    canonical: "https://khi.com.bd/products",
+  },
   openGraph: {
     title: "Premium Import & Export Products - K.H. Infinity",
     description:
       "Explore our premium range of import and export products including sunflower oil, milk powder, pulses, sugar, and more. High-quality products sourced from trusted global suppliers.",
     images: ["/images/cover/kh1.webp"],
     url: "https://khi.com.bd/products",
+    siteName: "K.H. Infinity",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",

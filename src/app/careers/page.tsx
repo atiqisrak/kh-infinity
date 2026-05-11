@@ -8,12 +8,17 @@ export const metadata: Metadata = {
     "Explore exciting career opportunities with K.H. Infinity. We're hiring for remote and hybrid positions in international trade, supply chain, sales, and operations. Competitive salaries and global opportunities.",
   keywords:
     "careers, jobs, hiring, international trade jobs, import export careers, remote jobs Bangladesh, trading jobs",
+  alternates: {
+    canonical: "https://khi.com.bd/careers",
+  },
   openGraph: {
     title: "Career Opportunities - Join K.H. Infinity",
     description:
       "Explore exciting career opportunities in international trade with remote and hybrid positions.",
     images: ["/images/cover/kh1.webp"],
     url: "https://khi.com.bd/careers",
+    siteName: "K.H. Infinity",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",

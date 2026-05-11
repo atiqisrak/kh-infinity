@@ -8,12 +8,17 @@ export const metadata: Metadata = {
     "K.H. Infinity serves diverse industries with specialized import-export solutions. Our expertise spans FMCG, retail, hospitality, manufacturing, and agriculture sectors.",
   keywords:
     "industries served, FMCG import export, retail trading, hospitality supplies, manufacturing sourcing, agricultural products, Bangladesh trade",
+  alternates: {
+    canonical: "https://khi.com.bd/industries",
+  },
   openGraph: {
     title: "Industries We Serve - K.H. Infinity",
     description:
       "Specialized import-export solutions for FMCG, retail, hospitality, manufacturing, and agriculture industries.",
     images: ["/images/cover/kh1.webp"],
-    url: "https://khinfinity.com/industries",
+    url: "https://khi.com.bd/industries",
+    siteName: "K.H. Infinity",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",

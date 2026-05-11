@@ -111,6 +111,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/potato-export`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/customs-clearance-service`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
   ];
 
   // Blog posts
@@ -195,6 +207,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
+  const jobApplyPages = activeJobs.map((job) => ({
+    url: `${baseUrl}/careers/apply/${job.id}`,
+    lastModified: now,
+    changeFrequency: 'weekly' as const,
+    priority: 0.55,
+  }));
+
   return [
     ...mainPages,
     ...blogPages,
@@ -202,6 +221,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...industryPages,
     ...tradeRoutePages,
     ...jobPages,
+    ...jobApplyPages,
   ];
 }
 

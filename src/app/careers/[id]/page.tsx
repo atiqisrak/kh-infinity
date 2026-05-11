@@ -25,17 +25,24 @@ export async function generateMetadata({
     };
   }
 
+  const jobUrl = `https://khi.com.bd/careers/${job.id}`;
+
   return {
     title: `${job.title} - Career Opportunities | K.H. Infinity`,
     description: `${job.description[0]}`,
     keywords: `careers, ${job.title.toLowerCase()}, ${
       job.type
     } jobs, ${job.department.toLowerCase()}, import export jobs`,
+    alternates: {
+      canonical: jobUrl,
+    },
     openGraph: {
       title: `${job.title} - K.H. Infinity`,
       description: job.description[0],
       images: ["/images/cover/kh1.webp"],
-      url: `https://khi.com.bd/careers/${job.id}`,
+      url: jobUrl,
+      siteName: "K.H. Infinity",
+      type: "website",
     },
     twitter: {
       card: "summary_large_image",

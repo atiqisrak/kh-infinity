@@ -8,12 +8,17 @@ export const metadata: Metadata = {
     "Bulk food products and supplies for hotels, restaurants, and catering businesses. Complete sourcing for cooking ingredients and specialty food items.",
   keywords:
     "hospitality supplies, food service, hotel supplies, restaurant sourcing, catering supplies, bulk food import Bangladesh",
+  alternates: {
+    canonical: "https://khi.com.bd/industries/hospitality",
+  },
   openGraph: {
     title: "Hospitality & Food Service Solutions - K.H. Infinity",
     description:
       "Complete sourcing solutions for hotels, restaurants, and catering businesses.",
     images: ["/images/products/milk-powder.webp"],
-    url: "https://khinfinity.com/industries/hospitality",
+    url: "https://khi.com.bd/industries/hospitality",
+    siteName: "K.H. Infinity",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",

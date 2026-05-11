@@ -8,12 +8,17 @@ export const metadata: Metadata = {
     "Supply chain solutions for retail businesses and e-commerce platforms. Source quality products at competitive prices with reliable delivery for your retail operations.",
   keywords:
     "retail import export, e-commerce sourcing, retail supply chain, online retail, retail trading Bangladesh, retail products",
+  alternates: {
+    canonical: "https://khi.com.bd/industries/retail",
+  },
   openGraph: {
     title: "Retail & E-commerce Import Export Solutions - K.H. Infinity",
     description:
       "Supply chain solutions for retail businesses with quality products and reliable delivery.",
     images: ["/images/products/handicrafts.webp"],
-    url: "https://khinfinity.com/industries/retail",
+    url: "https://khi.com.bd/industries/retail",
+    siteName: "K.H. Infinity",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",

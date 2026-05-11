@@ -8,12 +8,17 @@ export const metadata: Metadata = {
     "Agricultural products and processing materials for the agriculture and food processing industry. Export fresh produce and import essential inputs.",
   keywords:
     "agricultural trading, food processing, agricultural export, fresh produce, Bangladesh agricultural products, potato export, pulses import",
+  alternates: {
+    canonical: "https://khi.com.bd/industries/agriculture",
+  },
   openGraph: {
     title: "Agriculture & Food Processing Solutions - K.H. Infinity",
     description:
       "Agricultural products and processing materials for food processing industry.",
     images: ["/images/products/potato.webp"],
-    url: "https://khinfinity.com/industries/agriculture",
+    url: "https://khi.com.bd/industries/agriculture",
+    siteName: "K.H. Infinity",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
@@ -64,6 +69,14 @@ export default function AgriculturePage() {
               <p className="text-lg text-gray-600 mb-6">
                 From farm-fresh potatoes to imported pulses and processing
                 materials, we ensure quality from field to factory.
+              </p>
+              <p className="text-lg text-gray-600 mb-6">
+                <Link
+                  href="/potato-export"
+                  className="text-orange-600 font-semibold hover:text-orange-700"
+                >
+                  Potato export for Gulf &amp; GCC buyers →
+                </Link>
               </p>
               <Link
                 href="/quote"
@@ -123,6 +136,12 @@ export default function AgriculturePage() {
                 className="mt-4 inline-block text-orange-500 hover:text-orange-600 font-semibold"
               >
                 View Product →
+              </Link>
+              <Link
+                href="/potato-export"
+                className="mt-2 block text-sm text-gray-600 hover:text-orange-600 font-medium"
+              >
+                Gulf export overview
               </Link>
             </div>
 

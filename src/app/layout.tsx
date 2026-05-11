@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   description:
     "K.H. Infinity - Your trusted partner in global trade. We specialize in import-export of premium quality products including sunflower oil, milk powder, potatoes, and more from Bangladesh.",
   keywords:
-    "K.H. Infinity, import export, global trade, Bangladesh, sunflower oil, milk powder, potatoes, trading company, international trade",
+    "K.H. Infinity, import export, global trade, Bangladesh, sunflower oil, milk powder, potatoes, trading company, international trade, customs clearance service Bangladesh, potato export Gulf",
   authors: [{ name: "K.H. Infinity" }],
   robots: "index, follow",
   alternates: {

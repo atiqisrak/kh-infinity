@@ -9,12 +9,17 @@ export const metadata: Metadata = {
     "Specialized FMCG import-export solutions for food products, beverages, and household essentials. We source and supply cooking oils, milk powder, sugar, pulses, and spices with quality assurance.",
   keywords:
     "FMCG import Bangladesh, fast moving consumer goods, food products supplier, cooking oils import, dairy products trading, food commodity trading, Bangladesh FMCG",
+  alternates: {
+    canonical: "https://khi.com.bd/industries/fmcg",
+  },
   openGraph: {
     title: "FMCG Import Export Solutions - K.H. Infinity",
     description:
       "Specialized FMCG import-export solutions for food products with quality assurance.",
     images: ["/images/products/sunflower-oil.webp"],
-    url: "https://khinfinity.com/industries/fmcg",
+    url: "https://khi.com.bd/industries/fmcg",
+    siteName: "K.H. Infinity",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
