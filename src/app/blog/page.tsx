@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title: "Trade Insights & News - K.H. Infinity Blog",
     description:
       "Stay updated with the latest insights on international trade, import-export trends, and industry news. Expert articles on global trade, shipping, and regulations.",
-    images: ["/images/blog/blog-cover.jpg"],
+    images: ["/images/blog/blog-cover.webp"],
     url: "https://khi.com.bd/blog",
     siteName: "K.H. Infinity",
     type: "website",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "Trade Insights & News - K.H. Infinity Blog",
     description:
       "Stay updated with the latest insights on international trade, import-export trends, and industry news. Expert articles on global trade, shipping, and regulations.",
-    images: ["/images/blog/blog-cover.jpg"],
+    images: ["/images/blog/blog-cover.webp"],
   },
 };
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import PageHero from "@/components/PageHero";
 import { getProductsByType } from "@/lib/products";
 import { breadcrumbSchema } from "@/lib/schema-helpers";
 
@@ -14,6 +15,11 @@ export const metadata: Metadata = {
     url: "https://khi.com.bd/imports",
     siteName: "K.H. Infinity",
     type: "website",
+    images: ["/images/hubs/imports-hero.webp"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/images/hubs/imports-hero.webp"],
   },
 };
 
@@ -31,28 +37,26 @@ export default function ImportsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <section className="pt-28 pb-16 bg-gradient-to-b from-green-50 to-white">
-        <div className="container mx-auto px-4">
-          <p className="text-green-600 font-semibold uppercase text-sm mb-2">
-            Direct B2B Importer
-          </p>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-            Import Operations
-          </h1>
-          <p className="text-lg text-gray-600 max-w-3xl mb-4 geo-anchor" data-speakable>
-            K.H. Infinity is the direct wholesale importer of bulk commodities in
-            Bangladesh. We own physical inventory—not facilitate trades—and manage
-            NBR customs clearance, TTI transparency, and BSTI compliance as internal
-            capabilities from our Tikatuli, Dhaka hub.
-          </p>
-          <Link
-            href="/services/customs"
-            className="text-green-600 font-semibold hover:text-green-700"
-          >
-            Customs clearance &amp; TTI support →
-          </Link>
-        </div>
-      </section>
+      <PageHero
+        image="/images/hubs/imports-hero.webp"
+        imageAlt="Colourful shipping containers stacked at a port, representing bulk import logistics"
+        eyebrow="Direct B2B Importer"
+        eyebrowClassName="text-green-300"
+        title="Import Operations"
+      >
+        <p className="mb-4 geo-anchor" data-speakable>
+          K.H. Infinity is the direct wholesale importer of bulk commodities in
+          Bangladesh. We own physical inventory—not facilitate trades—and manage
+          NBR customs clearance, TTI transparency, and BSTI compliance as internal
+          capabilities from our Tikatuli, Dhaka hub.
+        </p>
+        <Link
+          href="/services/customs"
+          className="inline-flex font-semibold text-green-300 hover:text-green-200"
+        >
+          Customs clearance &amp; TTI support →
+        </Link>
+      </PageHero>
 
       <section className="py-16">
         <div className="container mx-auto px-4">
@@ -79,17 +83,10 @@ export default function ImportsPage() {
                   <span className="text-xs text-green-600 font-medium uppercase">
                     {product.hsSection ?? product.category}
                   </span>
-                  <h3 className="text-xl font-bold text-gray-800 mt-1 mb-2">
+                  <h3 className="text-xl font-bold text-gray-800 mt-2 group-hover:text-green-600 transition-colors">
                     {product.name}
                   </h3>
-                  {product.hsCode && (
-                    <p className="text-sm text-gray-500 mb-2">
-                      HS {product.hsCode}
-                    </p>
-                  )}
-                  <p className="text-gray-600 text-sm line-clamp-2">
-                    {product.description}
-                  </p>
+                  <p className="text-gray-600 mt-2 line-clamp-2">{product.description}</p>
                 </div>
               </Link>
             ))}

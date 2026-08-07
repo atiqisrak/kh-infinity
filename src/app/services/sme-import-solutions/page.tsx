@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 import { speakableWebPageSchema } from "@/lib/schema-helpers";
 
 export const metadata: Metadata = {
@@ -12,6 +13,11 @@ export const metadata: Metadata = {
     url: "https://khi.com.bd/services/sme-import-solutions",
     siteName: "K.H. Infinity",
     type: "website",
+    images: ["/images/services/sme-import-hero.webp"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/images/services/sme-import-hero.webp"],
   },
 };
 
@@ -59,20 +65,21 @@ export default function SmeImportSolutionsPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakable) }} />
 
-      <section className="pt-28 pb-16 bg-gradient-to-b from-blue-50 to-white">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-            SME Import Solutions
-          </h1>
-          <p className="text-lg text-gray-600 max-w-3xl geo-anchor" data-speakable>
-            K.H. Infinity&apos;s consolidated door-to-door import programme turns complex
-            international trade into simple local delivery for Bangladesh SMEs. We handle
-            Letter of Credit documentation, NBR customs clearance, LCL freight consolidation,
-            and last-mile logistics—so you can source from Alibaba, Amazon, and global B2B
-            platforms without navigating forex and LC barriers alone.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        image="/images/services/sme-import-hero.webp"
+        imageAlt="Warehouse worker inspecting labelled parcel shelves for consolidated SME import delivery"
+        eyebrow="Consolidated door-to-door imports"
+        eyebrowClassName="text-blue-300"
+        title="SME Import Solutions"
+      >
+        <p className="geo-anchor" data-speakable>
+          K.H. Infinity&apos;s consolidated door-to-door import programme turns complex
+          international trade into simple local delivery for Bangladesh SMEs. We handle
+          Letter of Credit documentation, NBR customs clearance, LCL freight consolidation,
+          and last-mile logistics—so you can source from Alibaba, Amazon, and global B2B
+          platforms without navigating forex and LC barriers alone.
+        </p>
+      </PageHero>
 
       <section className="py-16">
         <div className="container mx-auto px-4">

@@ -356,7 +356,7 @@ export const products: Product[] = [
   {
     id: 'almonds',
     name: 'U.S. Almonds',
-    image: '/images/products/beans.webp',
+    image: '/images/products/almonds.webp',
     description: 'Premium U.S. almonds for the health-conscious Bangladesh market. Direct-sourced with BSTI compliance and radioactivity verification for food manufacturing.',
     type: 'import',
     category: 'Tree Nuts',
@@ -386,7 +386,7 @@ export const products: Product[] = [
   {
     id: 'medjool-dates',
     name: 'Medjool Dates',
-    image: '/images/products/lentils.webp',
+    image: '/images/products/medjool-dates.webp',
     description: 'Premium Medjool dates for Ramadan programmes and healthy-snacking retail. High shelf-life with BSTI food preparation compliance.',
     type: 'import',
     category: 'Processed Fruits',
@@ -416,7 +416,7 @@ export const products: Product[] = [
   {
     id: 'soy-sauce',
     name: 'Soy Sauce & Condiments',
-    image: '/images/products/cumin.webp',
+    image: '/images/products/soy-sauce.webp',
     description: 'Premium soy sauce and Asian condiments for Bangladesh\'s expanding food processing and HRI sectors. BFSA and BSTI compliant imports.',
     type: 'import',
     category: 'Condiments & Sauces',

@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title:
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     title: "About K.H. Infinity - Your Trusted Global Trade Partner",
     description:
       "Learn about K.H. Infinity's journey as a trusted import-export company in Bangladesh. Discover our mission, values, and commitment to excellence in global trade.",
-    images: ["/images/about-banner.jpg"],
+    images: ["/images/about/about-banner.webp"],
     url: "https://khi.com.bd/about",
     siteName: "K.H. Infinity",
     type: "website",
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     title: "About K.H. Infinity - Your Trusted Global Trade Partner",
     description:
       "Learn about K.H. Infinity's journey as a trusted import-export company in Bangladesh. Discover our mission, values, and commitment to excellence in global trade.",
-    images: ["/images/about-banner.jpg"],
+    images: ["/images/about/about-banner.webp"],
   },
 };
 
@@ -33,18 +34,19 @@ export default function AboutPage() {
   return (
     <div>
       {/* Hero Section */}
-      <section
-        className="bg-gray-900 text-white py-40"
-        style={{
-          backgroundImage: "url(/images/cover/kh1.webp)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div className="container mx-auto px-4">
+      <section className="relative text-white py-40 overflow-hidden">
+        <Image
+          src="/images/about/about-banner.webp"
+          alt="Container cargo ship at sunset, representing K.H. Infinity global trade operations"
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="container relative z-10 mx-auto px-4">
           <h1 className="text-5xl font-bold mb-6">About K.H. Infinity</h1>
-          <p className="text-xl">
+          <p className="text-xl max-w-2xl">
             Your Trusted Partner in Global Trade Since 2018
           </p>
         </div>
@@ -94,7 +96,17 @@ export default function AboutPage() {
                 meet diverse market demands.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-4">
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg">
+                <Image
+                  src="/images/hubs/imports-hero.webp"
+                  alt="Shipping containers at port representing KHI import and export logistics"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
               <div className="bg-orange-100 p-6 rounded-lg text-center">
                 <h3 className="text-4xl font-bold text-orange-500 mb-2">5+</h3>
                 <p className="text-gray-700">Years of Excellence</p>
@@ -110,6 +122,7 @@ export default function AboutPage() {
               <div className="bg-orange-100 p-6 rounded-lg text-center">
                 <h3 className="text-4xl font-bold text-orange-500 mb-2">10+</h3>
                 <p className="text-gray-700">Global Partners</p>
+              </div>
               </div>
             </div>
           </div>

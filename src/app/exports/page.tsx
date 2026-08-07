@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import PageHero from "@/components/PageHero";
 import { getProductsByType } from "@/lib/products";
 import { breadcrumbSchema } from "@/lib/schema-helpers";
 
@@ -14,6 +15,11 @@ export const metadata: Metadata = {
     url: "https://khi.com.bd/exports",
     siteName: "K.H. Infinity",
     type: "website",
+    images: ["/images/hubs/exports-hero.webp"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/images/hubs/exports-hero.webp"],
   },
 };
 
@@ -31,28 +37,26 @@ export default function ExportsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <section className="pt-28 pb-16 bg-gradient-to-b from-orange-50 to-white">
-        <div className="container mx-auto px-4">
-          <p className="text-orange-600 font-semibold uppercase text-sm mb-2">
-            Direct B2B Exporter
-          </p>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-            Export Operations
-          </h1>
-          <p className="text-lg text-gray-600 max-w-3xl mb-4 geo-anchor" data-speakable>
-            K.H. Infinity manages direct export of premium Bangladeshi commodities
-            to Gulf, GCC, and global markets. Formalized, contract-backed export
-            programmes replace informal Khatunganj trust-only trading with SPS
-            documentation and temperature-controlled logistics.
-          </p>
-          <Link
-            href="/products/potato-gulf"
-            className="text-orange-600 font-semibold hover:text-orange-700"
-          >
-            Potato export (Gulf) specialty hub →
-          </Link>
-        </div>
-      </section>
+      <PageHero
+        image="/images/hubs/exports-hero.webp"
+        imageAlt="Premium Bangladesh potatoes prepared for Gulf export shipment"
+        eyebrow="Direct B2B Exporter"
+        eyebrowClassName="text-orange-300"
+        title="Export Operations"
+      >
+        <p className="mb-4 geo-anchor" data-speakable>
+          K.H. Infinity manages direct export of premium Bangladeshi commodities
+          to Gulf, GCC, and global markets. Formalized, contract-backed export
+          programmes replace informal Khatunganj trust-only trading with SPS
+          documentation and temperature-controlled logistics.
+        </p>
+        <Link
+          href="/products/potato-gulf"
+          className="inline-flex font-semibold text-orange-300 hover:text-orange-200"
+        >
+          Potato export (Gulf) specialty hub →
+        </Link>
+      </PageHero>
 
       <section className="py-16">
         <div className="container mx-auto px-4">
@@ -79,17 +83,10 @@ export default function ExportsPage() {
                   <span className="text-xs text-orange-600 font-medium uppercase">
                     {product.hsSection ?? product.category}
                   </span>
-                  <h3 className="text-xl font-bold text-gray-800 mt-1 mb-2">
+                  <h3 className="text-xl font-bold text-gray-800 mt-2 group-hover:text-orange-600 transition-colors">
                     {product.name}
                   </h3>
-                  {product.hsCode && (
-                    <p className="text-sm text-gray-500 mb-2">
-                      HS {product.hsCode}
-                    </p>
-                  )}
-                  <p className="text-gray-600 text-sm line-clamp-2">
-                    {product.description}
-                  </p>
+                  <p className="text-gray-600 mt-2 line-clamp-2">{product.description}</p>
                 </div>
               </Link>
             ))}
@@ -97,17 +94,18 @@ export default function ExportsPage() {
 
           <div className="bg-orange-50 border border-orange-100 rounded-xl p-8">
             <h3 className="text-2xl font-bold text-gray-800 mb-3">
-              Gulf &amp; GCC potato export programme
+              Gulf potato export programme
             </h3>
-            <p className="text-gray-600 mb-4">
-              Dedicated landing page for Gulf buyers: grading, mesh and jute
-              packing, documentation, and buyer FAQs.
+            <p className="text-gray-600 mb-4 max-w-3xl">
+              Our dedicated potato export hub covers Gulf retail specifications,
+              tarpaulin protection, grading, and full export documentation for GCC
+              buyers.
             </p>
             <Link
               href="/products/potato-gulf"
-              className="inline-block bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 font-semibold"
+              className="inline-flex items-center font-semibold text-orange-600 hover:text-orange-700"
             >
-              Open potato export (Gulf) hub
+              View potato export (Gulf) hub →
             </Link>
           </div>
         </div>
