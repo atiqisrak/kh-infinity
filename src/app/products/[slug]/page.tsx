@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProduct, getRelatedProducts } from "@/lib/products";
+import { buildProductSchema, speakableWebPageSchema } from "@/lib/schema-helpers";
 import ProductHero from "@/components/products/ProductHero";
 import ProductNutrition from "@/components/products/ProductNutrition";
 import ProductDetails from "@/components/products/ProductDetails";
@@ -43,7 +44,7 @@ export async function generateMetadata({
     } - K.H. Infinity | Premium ${
       product.type === "import" ? "Import" : "Export"
     } Product`,
-    description: product.description,
+    description: product.geoAnchor ?? product.description,
     keywords: `${product.name}, ${product.type} product, ${product.category}, K.H. Infinity, Bangladesh trade`,
     alternates: {
       canonical: productUrl,
@@ -96,33 +97,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const iconColorHover =
     primaryColor === "green" ? "text-green-600" : "text-orange-600";
 
-  // Structured data for product
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Product",
+  const productUrl = `https://khi.com.bd/products/${product.id}`;
+  const structuredData = buildProductSchema(product);
+  const speakableData = speakableWebPageSchema({
+    url: productUrl,
     name: product.name,
-    description: product.description,
-    image: `https://khi.com.bd${product.image}`,
-    category: product.category,
-    brand: product.brand
-      ? {
-          "@type": "Brand",
-          name: product.brand,
-        }
-      : undefined,
-    offers: {
-      "@type": "Offer",
-      availability: "https://schema.org/InStock",
-      category: product.type === "import" ? "Import Product" : "Export Product",
-    },
-    additionalProperty: Object.entries(product.specifications).map(
-      ([key, value]) => ({
-        "@type": "PropertyValue",
-        name: key,
-        value: value,
-      })
-    ),
-  };
+    dateModified: product.updatedAt,
+  });
 
   return (
     <div>
@@ -130,6 +111,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredData),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(speakableData),
         }}
       />
       <ProductHero
@@ -147,7 +134,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <div className="container mx-auto px-4 py-4 text-center text-gray-800">
             <span className="font-medium">Sourcing for Gulf &amp; GCC? </span>
             <Link
-              href="/potato-export"
+              href="/products/potato-gulf"
               className={`${textColorStrong} font-semibold underline-offset-2 hover:underline`}
             >
               Open the potato export hub

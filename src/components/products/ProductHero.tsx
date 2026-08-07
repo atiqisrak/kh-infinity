@@ -18,7 +18,6 @@ export default function ProductHero({
   bgColor,
   bgColorHover,
   borderColor,
-  primaryColor,
 }: ProductHeroProps) {
   return (
     <section className="relative pt-20 md:pt-32 pb-12 md:pb-20 bg-gradient-to-b from-white to-gray-50">
@@ -29,7 +28,8 @@ export default function ProductHero({
               <span
                 className={`${textColor} font-medium tracking-wider uppercase text-xs md:text-sm block mb-3 md:mb-4`}
               >
-                Premium Quality
+                {product.type === "import" ? "Direct B2B Import" : "Direct B2B Export"}
+                {product.hsCode && ` · HS ${product.hsCode}`}
               </span>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 leading-tight">
                 {product.brand && (
@@ -37,9 +37,20 @@ export default function ProductHero({
                 )}
                 {product.name}
               </h1>
-              <p className="mt-4 md:mt-6 text-base md:text-xl text-gray-600 leading-relaxed">
+              {product.geoAnchor && (
+                <p
+                  className="mt-4 md:mt-6 text-base md:text-lg text-gray-700 leading-relaxed geo-anchor font-medium"
+                  data-speakable
+                >
+                  {product.geoAnchor}
+                </p>
+              )}
+              <p className="mt-4 text-base text-gray-600 leading-relaxed">
                 {product.description}
               </p>
+              {product.geoHeading && (
+                <h2 className="sr-only">{product.geoHeading}</h2>
+              )}
             </div>
             <div className="flex flex-wrap gap-3 md:gap-4">
               <a
@@ -70,11 +81,6 @@ export default function ProductHero({
                 />
               </div>
             </div>
-            <div
-              className={`absolute inset-0 ${
-                primaryColor === "green" ? "bg-green-200" : "bg-orange-200"
-              } rounded-3xl transform rotate-3 md:rotate-6 -z-10`}
-            ></div>
           </div>
         </div>
       </div>

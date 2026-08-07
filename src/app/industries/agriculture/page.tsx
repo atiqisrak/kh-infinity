@@ -72,7 +72,7 @@ export default function AgriculturePage() {
               </p>
               <p className="text-lg text-gray-600 mb-6">
                 <Link
-                  href="/potato-export"
+                  href="/products/potato-gulf"
                   className="text-orange-600 font-semibold hover:text-orange-700"
                 >
                   Potato export for Gulf &amp; GCC buyers →
@@ -138,7 +138,7 @@ export default function AgriculturePage() {
                 View Product →
               </Link>
               <Link
-                href="/potato-export"
+                href="/products/potato-gulf"
                 className="mt-2 block text-sm text-gray-600 hover:text-orange-600 font-medium"
               >
                 Gulf export overview

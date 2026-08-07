@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { getProductsByType } from "@/lib/products";
 
 export const metadata: Metadata = {
   title:
@@ -30,93 +31,10 @@ export const metadata: Metadata = {
   },
 };
 
-const importProducts = [
-  {
-    id: "sunflower-oil",
-    name: "Sunflower Seed Oil",
-    image: "/images/products/sunflower-oil.webp",
-    description:
-      "Premium quality sunflower seed oil with high nutritional value. Perfect companion to our soybean oil for diverse cooking needs.",
-    relatedProducts: ["soyabean-oil"],
-  },
-  {
-    id: "milk-powder",
-    name: "Skimmed Milk Powder",
-    image: "/images/products/milk-powder.webp",
-    description:
-      "High-quality skimmed milk powder with excellent nutritional value and consistent quality. Great for dairy processing alongside our sugar products.",
-    relatedProducts: ["sugar"],
-  },
-  {
-    id: "pulses",
-    name: "Pulses",
-    image: "/images/products/pulses.webp",
-    description:
-      "Premium quality lentils, chickpeas, and other pulses sourced from the finest producers. Complement with our specialty chickpeas and cumin for authentic flavors.",
-    relatedProducts: ["chickpeas", "cumin"],
-  },
-  {
-    id: "tarpaulin",
-    name: "Tarpaulin",
-    image: "/images/products/tarpaulin.webp",
-    description:
-      "Durable and weather-resistant tarpaulin for various industrial and commercial applications. Essential for protecting our potato exports during transport.",
-    relatedProducts: ["potato"],
-  },
-  {
-    id: "cumin",
-    name: "Cumin",
-    image: "/images/products/cumin.webp",
-    description:
-      "Premium quality cumin with a distinct aroma and flavor, sourced from trusted global suppliers. Perfect seasoning for our chickpeas and pulses.",
-    relatedProducts: ["chickpeas", "pulses"],
-  },
-  {
-    id: "sugar",
-    name: "Sugar",
-    image: "/images/products/sugar.webp",
-    description:
-      "Premium quality sugar with a distinct aroma and flavor, sourced from trusted global suppliers. Ideal for food processing with our milk powder.",
-    relatedProducts: ["milk-powder"],
-  },
-  {
-    id: "soyabean-oil",
-    name: "Soyabean Oil",
-    image: "/images/products/soyabean-oil.webp",
-    description:
-      "Premium quality soyabean oil with a distinct aroma and flavor, sourced from trusted global suppliers. Excellent alternative to our sunflower oil.",
-    relatedProducts: ["sunflower-oil"],
-  },
-  {
-    id: "chickpeas",
-    name: "Chickpeas",
-    image: "/images/products/chick-pea.webp",
-    description:
-      "Premium quality chickpeas with a distinct aroma and flavor, sourced from trusted global suppliers. Part of our comprehensive pulses collection.",
-    relatedProducts: ["pulses"],
-  },
-];
-
-const exportProducts = [
-  {
-    id: "potato",
-    name: "Premium Potatoes",
-    image: "/images/products/potato.webp",
-    description:
-      "Fresh, high-quality potatoes from Bangladesh's finest farms. Protected with our tarpaulin during export.",
-    relatedProducts: ["tarpaulin"],
-  },
-  {
-    id: "handicrafts",
-    name: "Handicrafts",
-    image: "/images/products/handicrafts.webp",
-    description:
-      "Authentic Bangladeshi handicrafts showcasing local artistry and cultural heritage. Complemented by our agricultural exports.",
-    relatedProducts: ["potato"],
-  },
-];
-
 export default function ProductsPage() {
+  const importProducts = getProductsByType("import");
+  const exportProducts = getProductsByType("export");
+
   return (
     <div>
       {/* Products Hero */}

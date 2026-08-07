@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { products } from "@/lib/products";
+import { getProducts } from "@/lib/products";
 
 export default function QuoteForm() {
   const [formData, setFormData] = useState({
@@ -20,25 +20,33 @@ export default function QuoteForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
 
-    // Reset form
-    setFormData({
-      product: "",
-      quantity: "",
-      destination: "",
-      name: "",
-      email: "",
-      phone: "",
-      company: "",
-      specifications: "",
-    });
+    try {
+      const response = await fetch("/api/send-quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    setSubmitted(true);
+      if (!response.ok) {
+        throw new Error("Failed to submit");
+      }
 
-    // Reset success message after 5 seconds
-    setTimeout(() => setSubmitted(false), 5000);
+      setFormData({
+        product: "",
+        quantity: "",
+        destination: "",
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        specifications: "",
+      });
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch {
+      alert("Unable to submit your request. Please email info@khi.com.bd directly.");
+    }
   };
 
   const handleChange = (
@@ -84,7 +92,7 @@ export default function QuoteForm() {
               required
             >
               <option value="">Select a product</option>
-              {products.map((product) => (
+              {getProducts().map((product) => (
                 <option key={product.id} value={product.name}>
                   {product.name} (
                   {product.type === "import" ? "Import" : "Export"})

@@ -144,7 +144,7 @@ export default function ContactPage() {
                     <i className="fas fa-phone text-orange-500 mt-1 mr-4 text-xl"></i>
                     <div>
                       <h4 className="font-bold mb-1">Phone</h4>
-                      <p className="text-gray-600">+880 1400893882</p>
+                      <p className="text-gray-600">+880 1577081856</p>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -181,25 +181,33 @@ export default function ContactPage() {
                 </h3>
                 <div className="flex space-x-6">
                   <a
-                    href="#"
+                    href="https://facebook.com/khinfinity"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-gray-600 hover:text-orange-500 transition-colors"
                   >
                     <i className="fab fa-facebook text-3xl"></i>
                   </a>
                   <a
-                    href="#"
+                    href="https://linkedin.com/company/khinfinity"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-gray-600 hover:text-orange-500 transition-colors"
                   >
                     <i className="fab fa-linkedin text-3xl"></i>
                   </a>
                   <a
-                    href="#"
+                    href="https://instagram.com/khinfinity"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-gray-600 hover:text-orange-500 transition-colors"
                   >
                     <i className="fab fa-instagram text-3xl"></i>
                   </a>
                   <a
-                    href="#"
+                    href="https://twitter.com/khinfinity"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-gray-600 hover:text-orange-500 transition-colors"
                   >
                     <i className="fab fa-twitter text-3xl"></i>

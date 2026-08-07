@@ -8,17 +8,30 @@ export default function ContactSection() {
     email: "",
     message: "",
   });
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
+    setError(false);
 
-    // Reset form
-    setFormData({ name: "", email: "", message: "" });
+    try {
+      const response = await fetch("/api/send-contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
-    // Show success message
-    alert("Thank you for your message. We will get back to you soon!");
+      if (!response.ok) {
+        throw new Error("Failed to submit");
+      }
+
+      setFormData({ name: "", email: "", message: "" });
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch {
+      setError(true);
+    }
   };
 
   const handleChange = (
@@ -36,6 +49,16 @@ export default function ContactSection() {
         <h2 className="text-4xl font-bold text-center mb-16 text-gray-800">
           Contact Us
         </h2>
+        {submitted && (
+          <div className="max-w-xl mx-auto mb-8 bg-green-50 border border-green-500 text-green-700 px-6 py-4 rounded-lg">
+            Thank you for your message. We will get back to you soon!
+          </div>
+        )}
+        {error && (
+          <div className="max-w-xl mx-auto mb-8 bg-red-50 border border-red-500 text-red-700 px-6 py-4 rounded-lg">
+            Unable to send message. Please email info@khi.com.bd directly.
+          </div>
+        )}
         <div className="grid md:grid-cols-2 gap-12">
           <div>
             <form
@@ -115,10 +138,10 @@ export default function ContactSection() {
               <p className="text-gray-600">
                 Phone:{" "}
                 <a
-                  href="tel:+8801400893882"
+                  href="tel:+8801577081856"
                   className="text-orange-700 hover:text-orange-800"
                 >
-                  +880 1400893882
+                  +880 1577081856
                 </a>
               </p>
             </div>

@@ -68,9 +68,14 @@ export default function RootLayout({
     >
       <head>
         <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+        <link rel="dns-prefetch" href="https://cdn-uicons.flaticon.com" />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css"
         />
         <script
           type="application/ld+json"
@@ -95,7 +100,7 @@ export default function RootLayout({
               contactPoint: [
                 {
                   "@type": "ContactPoint",
-                  telephone: "+880 1400893882",
+                  telephone: "+880 1577081856",
                   contactType: "customer service",
                   email: "info@khi.com.bd",
                   availableLanguage: "en",
@@ -104,15 +109,37 @@ export default function RootLayout({
               sameAs: [
                 "https://facebook.com/khinfinity",
                 "https://linkedin.com/company/khinfinity",
+                "https://instagram.com/khinfinity",
               ],
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: "4.8",
-                reviewCount: "127",
-              },
               areaServed: {
                 "@type": "Country",
                 name: "Global",
+              },
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "K.H. Infinity",
+              alternateName: "KHI",
+              url: "https://khi.com.bd",
+              description:
+                "Direct B2B importer and exporter of bulk commodities in Bangladesh with NBR TTI transparency.",
+              publisher: {
+                "@type": "Organization",
+                name: "K.H. Infinity",
+              },
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate: "https://khi.com.bd/products?q={search_term_string}",
+                },
+                "query-input": "required name=search_term_string",
               },
             }),
           }}

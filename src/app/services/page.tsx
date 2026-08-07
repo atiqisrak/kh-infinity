@@ -38,24 +38,22 @@ export default function ServicesPage() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 md:mb-6 text-gray-800">
             Our Services
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-center text-gray-600 max-w-3xl mx-auto mb-8 md:mb-12">
-            Connecting global markets through professional import and export
-            services, ensuring quality products and reliable partnerships. We
-            handle everything from{" "}
-            <Link
-              href="/products/sunflower-oil"
-              className="text-orange-500 hover:text-orange-600 font-semibold"
-            >
+          <p className="text-base sm:text-lg md:text-xl text-center text-gray-600 max-w-3xl mx-auto mb-8 md:mb-12 geo-anchor" data-speakable>
+            K.H. Infinity is a direct B2B importer and wholesale distributor—not a
+            3PL facilitator. The services below are internal capabilities that
+            support our core business of owning, sourcing, and distributing physical
+            inventory with NBR customs clearance and TTI transparency.
+          </p>
+          <p className="text-base text-center text-gray-500 max-w-2xl mx-auto mb-8">
+            From{" "}
+            <Link href="/products/sunflower-oil" className="text-orange-500 hover:text-orange-600 font-semibold">
               cooking oils
             </Link>{" "}
             to{" "}
-            <Link
-              href="/products/potato"
-              className="text-orange-500 hover:text-orange-600 font-semibold"
-            >
-              fresh produce
+            <Link href="/products/potato" className="text-orange-500 hover:text-orange-600 font-semibold">
+              agricultural exports
             </Link>
-            .
+            , our internal logistics ensure reliable delivery.
           </p>
         </div>
       </section>
@@ -137,7 +135,7 @@ export default function ServicesPage() {
                   </li>
                 </ul>
                 <Link
-                  href="/customs-clearance-service"
+                  href="/services/customs"
                   className="mt-4 inline-block text-orange-600 font-semibold hover:text-orange-700"
                 >
                   Customs clearance service hub →
@@ -430,10 +428,10 @@ export default function ServicesPage() {
               Request a Quote
             </Link>
             <Link
-              href="/trade-routes"
+              href="/services/sme-import-solutions"
               className="bg-transparent border-2 border-white text-white px-6 sm:px-8 py-3 rounded-lg hover:bg-white/10 transition-colors inline-block text-sm sm:text-base"
             >
-              View Trade Routes
+              SME Import Solutions
             </Link>
           </div>
         </div>

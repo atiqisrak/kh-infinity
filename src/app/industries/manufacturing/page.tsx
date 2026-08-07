@@ -261,7 +261,7 @@ export default function ManufacturingPage() {
               Request Quote
             </Link>
             <Link
-              href="/trade-routes"
+              href="/services/trade-routes"
               className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white/10 transition-colors font-semibold"
             >
               View Trade Routes

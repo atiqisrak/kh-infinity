@@ -44,13 +44,37 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: cdnjs.cloudflare.com fonts.gstatic.com; connect-src 'self'; frame-src 'self' https://maps.google.com https://www.google.com;",
+              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.gstatic.com; connect-src 'self'; frame-src 'self' https://maps.google.com https://www.google.com;",
           },
         ],
       },
     ];
   },
   allowedDevOrigins: ["http://localhost:3076", "http://127.0.0.1:3076"],
+  async redirects() {
+    return [
+      {
+        source: "/potato-export",
+        destination: "/products/potato-gulf",
+        permanent: true,
+      },
+      {
+        source: "/customs-clearance-service",
+        destination: "/services/customs",
+        permanent: true,
+      },
+      {
+        source: "/trade-routes",
+        destination: "/services/trade-routes",
+        permanent: true,
+      },
+      {
+        source: "/trade-routes/:path*",
+        destination: "/services/trade-routes/:path*",
+        permanent: true,
+      },
+    ];
+  },
   turbopack: {
     rules: {
       "*.svg": {

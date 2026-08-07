@@ -1,3 +1,5 @@
+import { getProductGeo } from './product-geo'
+
 export interface Product {
   id: string
   name: string
@@ -6,6 +8,12 @@ export interface Product {
   description: string
   type: 'import' | 'export'
   category: string
+  hsCode?: string
+  hsSection?: string
+  ttiRange?: string
+  geoAnchor?: string
+  geoHeading?: string
+  updatedAt?: string
   specifications: {
     [key: string]: string
   }
@@ -344,15 +352,128 @@ export const products: Product[] = [
       certifications: ['ISO 22000', 'HACCP', 'Halal Certified']
     },
     relatedProducts: ['pulses']
+  },
+  {
+    id: 'almonds',
+    name: 'U.S. Almonds',
+    image: '/images/products/beans.webp',
+    description: 'Premium U.S. almonds for the health-conscious Bangladesh market. Direct-sourced with BSTI compliance and radioactivity verification for food manufacturing.',
+    type: 'import',
+    category: 'Tree Nuts',
+    specifications: {
+      'Origin': 'United States (California)',
+      'Grade': 'Premium export quality',
+      'Packaging': '25kg vacuum-sealed bags',
+      'Certification': 'BSTI, Halal available'
+    },
+    benefits: [
+      'Premium U.S. origin safety perception',
+      'High protein and healthy fats',
+      'Retail and HRI ready',
+      'Ramadan and festive demand'
+    ],
+    packaging: [
+      '25kg vacuum-sealed bags',
+      '50kg bulk containers',
+      'Custom retail packs on enquiry'
+    ],
+    sourcing: {
+      countries: ['United States'],
+      certifications: ['BSTI', 'Halal Certified', 'ISO 22000']
+    },
+    relatedProducts: ['medjool-dates', 'milk-powder', 'sugar']
+  },
+  {
+    id: 'medjool-dates',
+    name: 'Medjool Dates',
+    image: '/images/products/lentils.webp',
+    description: 'Premium Medjool dates for Ramadan programmes and healthy-snacking retail. High shelf-life with BSTI food preparation compliance.',
+    type: 'import',
+    category: 'Processed Fruits',
+    specifications: {
+      'Variety': 'Medjool',
+      'Grade': 'Premium export',
+      'Shelf Life': '12+ months sealed',
+      'Certification': 'BSTI compliant'
+    },
+    benefits: [
+      'Peak Ramadan demand capture',
+      'Premium middle-class positioning',
+      'Long shelf life',
+      'HRI and retail ready'
+    ],
+    packaging: [
+      '5kg gift boxes',
+      '10kg cartons',
+      'Bulk 20kg containers'
+    ],
+    sourcing: {
+      countries: ['Saudi Arabia', 'Jordan', 'UAE'],
+      certifications: ['BSTI', 'Halal Certified', 'ISO 22000']
+    },
+    relatedProducts: ['almonds', 'sugar']
+  },
+  {
+    id: 'soy-sauce',
+    name: 'Soy Sauce & Condiments',
+    image: '/images/products/cumin.webp',
+    description: 'Premium soy sauce and Asian condiments for Bangladesh\'s expanding food processing and HRI sectors. BFSA and BSTI compliant imports.',
+    type: 'import',
+    category: 'Condiments & Sauces',
+    specifications: {
+      'Types': 'Soy sauce, vinegars, Asian condiments',
+      'Grade': 'Food service and industrial',
+      'Certification': 'BSTI, BFSA standards',
+      'Target': 'HRI and food manufacturing'
+    },
+    benefits: [
+      'HRI sector specialization',
+      'Global brand sourcing',
+      'Consistent quality supply',
+      'Regulatory documentation included'
+    ],
+    packaging: [
+      '1L bottles (food service)',
+      '5L containers',
+      '20L bulk drums'
+    ],
+    sourcing: {
+      countries: ['China', 'Thailand', 'Japan'],
+      certifications: ['BSTI', 'ISO 22000', 'Halal available']
+    },
+    relatedProducts: ['sunflower-oil', 'sugar', 'cumin']
   }
 ]
 
+function enrichProduct(product: Product): Product {
+  const geo = getProductGeo(product.id)
+  if (!geo) return product
+  return {
+    ...product,
+    hsCode: geo.hsCode,
+    hsSection: geo.hsSection,
+    ttiRange: geo.ttiRange,
+    geoAnchor: geo.geoAnchor,
+    geoHeading: geo.geoHeading,
+    updatedAt: geo.updatedAt,
+  }
+}
+
+export function getProducts(): Product[] {
+  return products.map(enrichProduct)
+}
+
+export function getProductsByType(type: 'import' | 'export'): Product[] {
+  return getProducts().filter((p) => p.type === type)
+}
+
 export function getProduct(id: string): Product | undefined {
-  return products.find(product => product.id === id)
+  const product = products.find((p) => p.id === id)
+  return product ? enrichProduct(product) : undefined
 }
 
 export function getRelatedProducts(product: Product): Product[] {
-  return products.filter(p => 
+  return getProducts().filter(p => 
     product.relatedProducts.includes(p.id) && p.id !== product.id
   )
 }

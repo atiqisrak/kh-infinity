@@ -57,23 +57,34 @@ export default function AboutPage() {
             <div>
               <h2 className="text-3xl font-bold mb-6">Our Journey</h2>
               <p className="text-gray-600 mb-4">
-                Founded in 2018, K.H. Infinity has grown from a small trading
-                company to a respected name in the global import-export
-                industry. Our commitment to quality, reliability, and customer
-                satisfaction has helped us build strong relationships with
-                partners worldwide. We specialize in{" "}
-                <Link
-                  href="/products"
-                  className="text-orange-500 hover:text-orange-600 font-semibold"
-                >
-                  premium products
-                </Link>{" "}
-                and{" "}
-                <Link
-                  href="/services"
-                  className="text-orange-500 hover:text-orange-600 font-semibold"
-                >
-                  comprehensive services
+                Founded in 2018, K.H. Infinity operates from Tikatuli, Dhaka—within
+                reach of the historic Khatunganj market, established in the 1850s and
+                known as the &ldquo;Wall Street of the East.&rdquo; Named after Khatun
+                Bibi, this trade network connects Bangladesh to global commerce via
+                the Karnaphuli River and the Chaktai, Rajakhali, and Badarshah
+                canals. KHI provides a formalized, contract-backed alternative to
+                informal trust-only trading.
+              </p>
+              <p className="text-gray-600 mb-4">
+                We are a <strong>direct B2B importer and wholesale distributor</strong>—we
+                own physical inventory and manage NBR customs clearance, TTI
+                transparency, and BSTI compliance as internal capabilities, not as a
+                third-party logistics facilitator.
+              </p>
+              <p className="text-gray-600 mb-4">
+                Our commitment to quality, reliability, and customer satisfaction has
+                helped us build strong relationships with partners worldwide. Explore
+                our{" "}
+                <Link href="/imports" className="text-orange-500 hover:text-orange-600 font-semibold">
+                  import operations
+                </Link>
+                ,{" "}
+                <Link href="/exports" className="text-orange-500 hover:text-orange-600 font-semibold">
+                  export programmes
+                </Link>
+                , and{" "}
+                <Link href="/services" className="text-orange-500 hover:text-orange-600 font-semibold">
+                  internal trade services
                 </Link>
                 .
               </p>

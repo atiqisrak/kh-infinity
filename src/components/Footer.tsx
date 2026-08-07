@@ -61,10 +61,18 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/products"
+                  href="/imports"
                   className="text-gray-400 hover:text-orange-500 transition-colors"
                 >
-                  Products
+                  Imports
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/exports"
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                >
+                  Exports
                 </Link>
               </li>
               <li>
@@ -77,7 +85,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/customs-clearance-service"
+                  href="/services/customs"
                   className="text-gray-400 hover:text-orange-500 transition-colors"
                 >
                   Customs clearance
@@ -179,6 +187,38 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/products/soyabean-oil"
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                >
+                  Soyabean Oil
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/products/potato"
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                >
+                  Potato
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/products/potato-gulf"
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                >
+                  Potato export (Gulf)
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/products/almonds"
+                  className="text-gray-400 hover:text-orange-500 transition-colors"
+                >
+                  U.S. Almonds
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/products/handicrafts"
                   className="text-gray-400 hover:text-orange-500 transition-colors"
                 >
@@ -205,10 +245,10 @@ export default function Footer() {
               <li className="flex items-center">
                 <i className="fas fa-phone text-orange-500 mr-3"></i>
                 <a
-                  href="tel:+8801400893882"
+                  href="tel:+8801577081856"
                   className="text-gray-400 hover:text-orange-500 transition-colors"
                 >
-                  +880 1400893882
+                  +880 1577081856
                 </a>
               </li>
               <li className="flex items-center">

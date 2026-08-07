@@ -133,6 +133,26 @@ const faqData = {
       },
     ],
   },
+  geo: {
+    title: "Customs & Trade Intelligence",
+    questions: [
+      {
+        question: "Does KHI handle customs clearance in Bangladesh?",
+        answer:
+          "Yes, K.H. Infinity manages full customs clearance for B2B imports and exports, providing transparency on Total Tax Incidence (TTI) including CD, RD, SD, VAT, AIT, and AT per current NBR SROs and the Bangladesh Customs Tariff First Schedule.",
+      },
+      {
+        question: "What are the primary trade routes for KHI?",
+        answer:
+          "K.H. Infinity manages global B2B trade routes including imports from China and the Middle East to Bangladesh, and export lanes to the Gulf and GCC for fresh produce such as potatoes. See our trade routes hub for lane-specific documentation.",
+      },
+      {
+        question: "What is Total Tax Incidence (TTI) and how does KHI calculate it?",
+        answer:
+          "TTI is the total landed cost multiplier for imports in Bangladesh, calculated as: Assessable Value (AV) = (C&F + Insurance + Landing) × Adjustment Rate; then CD, RD, SD, VAT, AIT, and AT are applied sequentially per NBR budget gazettes. KHI provides TTI modelling for procurement planning.",
+      },
+    ],
+  },
 };
 
 export default function FAQPage() {
@@ -146,7 +166,7 @@ export default function FAQPage() {
         name: q.question,
         acceptedAnswer: {
           "@type": "Answer",
-          text: `${q.answer}${q.list ? "\n" + q.list.join("\n") : ""}${
+          text: `${q.answer}${"list" in q && q.list ? "\n" + q.list.join("\n") : ""}${
             "note" in q && q.note ? "\n" + q.note : ""
           }`,
         },
