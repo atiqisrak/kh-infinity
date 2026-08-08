@@ -1,25 +1,27 @@
-import Link from "next/link";
-import Image from "next/image";
-import { Product } from "@/lib/products";
+import { Link } from '@/i18n/navigation'
+import Image from 'next/image'
+import { Product } from '@/lib/products'
+import type { ProductLabels } from '@/lib/product-labels'
 
 interface RelatedProductsProps {
-  relatedProducts: Product[];
-  textColor: string;
-  iconColorHover: string;
+  relatedProducts: Product[]
+  textColor: string
+  iconColorHover: string
+  labels: ProductLabels
 }
 
 export default function RelatedProducts({
   relatedProducts,
   textColor,
-  iconColorHover,
+  labels,
 }: RelatedProductsProps) {
-  if (relatedProducts.length === 0) return null;
+  if (relatedProducts.length === 0) return null
 
   return (
     <section className="py-12 md:py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center text-gray-800">
-          Related Products
+          {labels.relatedProducts}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {relatedProducts.map((relatedProduct) => (
@@ -45,14 +47,14 @@ export default function RelatedProducts({
               </p>
               <Link
                 href={`/products/${relatedProduct.id}`}
-                className={`${textColor} hover:${iconColorHover} font-semibold transition-colors`}
+                className={`${textColor} font-semibold transition-colors hover:opacity-80`}
               >
-                View Details →
+                {labels.viewDetails} →
               </Link>
             </div>
           ))}
         </div>
       </div>
     </section>
-  );
+  )
 }

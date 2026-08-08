@@ -1,110 +1,173 @@
-import { getProductsByType } from "./products";
+import { getProductsByType } from './products'
 import {
   getProductNavIcon,
   getResourceNavIcon,
   getServiceNavIcon,
   hubNavIcons,
-} from "./nav-icons";
+} from './nav-icons'
 
 export interface NavLink {
-  label: string;
-  href: string;
-  icon: string;
+  label: string
+  href: string
+  icon: string
 }
 
 export interface NavGroup {
-  id: string;
-  label: string;
-  href: string;
-  icon: string;
-  children: NavLink[];
+  id: string
+  label: string
+  href: string
+  icon: string
+  children: NavLink[]
 }
 
-export const primaryLinks: NavLink[] = [
-  { label: "About Us", href: "/about", icon: "info" },
-  { label: "Industries", href: "/industries", icon: "building" },
-  { label: "FAQ", href: "/faq", icon: "interrogation" },
-];
+interface NavLinkDef {
+  labelKey: string
+  href: string
+  icon: string
+  productName?: string
+}
 
-export const serviceLinks: NavLink[] = [
-  { label: "All services", href: "/services", icon: getServiceNavIcon("/services") },
-  { label: "Customs clearance", href: "/services/customs", icon: getServiceNavIcon("/services/customs") },
-  { label: "Trade routes", href: "/services/trade-routes", icon: getServiceNavIcon("/services/trade-routes") },
+interface NavGroupDef {
+  id: string
+  labelKey: string
+  href: string
+  icon: string
+  children: NavLinkDef[]
+}
+
+export const primaryLinkDefs = [
+  { labelKey: 'about', href: '/about', icon: 'info' },
+  { labelKey: 'industries', href: '/industries', icon: 'building' },
+  { labelKey: 'faq', href: '/faq', icon: 'interrogation' },
+]
+
+const serviceLinkDefs: NavLinkDef[] = [
+  { labelKey: 'allServices', href: '/services', icon: getServiceNavIcon('/services') },
+  { labelKey: 'customs', href: '/services/customs', icon: getServiceNavIcon('/services/customs') },
+  { labelKey: 'tradeRoutes', href: '/services/trade-routes', icon: getServiceNavIcon('/services/trade-routes') },
   {
-    label: "SME import solutions",
-    href: "/services/sme-import-solutions",
-    icon: getServiceNavIcon("/services/sme-import-solutions"),
+    labelKey: 'smeImport',
+    href: '/services/sme-import-solutions',
+    icon: getServiceNavIcon('/services/sme-import-solutions'),
   },
-];
+]
 
-export const resourceLinks: NavLink[] = [
-  { label: "Blog", href: "/blog", icon: getResourceNavIcon("/blog") },
-  { label: "News", href: "/news", icon: getResourceNavIcon("/news") },
-  { label: "Awards", href: "/awards", icon: getResourceNavIcon("/awards") },
-  { label: "Events", href: "/events", icon: getResourceNavIcon("/events") },
-  { label: "Careers", href: "/careers", icon: getResourceNavIcon("/careers") },
-];
+const resourceLinkDefs: NavLinkDef[] = [
+  { labelKey: 'blog', href: '/blog', icon: getResourceNavIcon('/blog') },
+  { labelKey: 'news', href: '/news', icon: getResourceNavIcon('/news') },
+  { labelKey: 'awards', href: '/awards', icon: getResourceNavIcon('/awards') },
+  { labelKey: 'events', href: '/events', icon: getResourceNavIcon('/events') },
+  { labelKey: 'careers', href: '/careers', icon: getResourceNavIcon('/careers') },
+]
 
-export function getImportNavGroup(): NavGroup {
-  const products = getProductsByType("import");
+function resolveLink(
+  def: NavLinkDef,
+  t: (key: string) => string,
+  productLabel?: string
+): NavLink {
   return {
-    id: "imports",
-    label: "Imports",
-    href: "/imports",
-    icon: "box-open",
+    label: productLabel ?? t(def.labelKey),
+    href: def.href,
+    icon: def.icon,
+  }
+}
+
+function resolveGroup(
+  def: NavGroupDef,
+  t: (key: string) => string,
+  productLabelFn?: (id: string, fallback: string) => string
+): NavGroup {
+  return {
+    id: def.id,
+    label: t(def.labelKey),
+    href: def.href,
+    icon: def.icon,
+    children: def.children.map((child) => {
+      const isProduct = child.productName !== undefined
+      const label = isProduct && productLabelFn
+        ? productLabelFn(child.labelKey, child.productName!)
+        : t(child.labelKey)
+      return resolveLink(child, t, label)
+    }),
+  }
+}
+
+export function getImportNavGroup(
+  t: (key: string) => string,
+  productLabelFn?: (id: string, fallback: string) => string
+): NavGroup {
+  const products = getProductsByType('import')
+  const def: NavGroupDef = {
+    id: 'imports',
+    labelKey: 'imports',
+    href: '/imports',
+    icon: 'box-open',
     children: [
-      { label: "All imports", href: "/imports", icon: hubNavIcons.allImports },
+      { labelKey: 'allImports', href: '/imports', icon: hubNavIcons.allImports },
       ...products.map((p) => ({
-        label: p.name,
+        labelKey: p.id,
         href: `/products/${p.id}`,
         icon: getProductNavIcon(p.id),
+        productName: p.name,
       })),
     ],
-  };
+  }
+  return resolveGroup(def, t, productLabelFn)
 }
 
-export function getExportNavGroup(): NavGroup {
-  const products = getProductsByType("export");
-  return {
-    id: "exports",
-    label: "Exports",
-    href: "/exports",
-    icon: "plane-departure",
+export function getExportNavGroup(
+  t: (key: string) => string,
+  productLabelFn?: (id: string, fallback: string) => string
+): NavGroup {
+  const products = getProductsByType('export')
+  const def: NavGroupDef = {
+    id: 'exports',
+    labelKey: 'exports',
+    href: '/exports',
+    icon: 'plane-departure',
     children: [
-      { label: "All exports", href: "/exports", icon: hubNavIcons.allExports },
+      { labelKey: 'allExports', href: '/exports', icon: hubNavIcons.allExports },
       ...products.map((p) => ({
-        label: p.name,
+        labelKey: p.id,
         href: `/products/${p.id}`,
         icon: getProductNavIcon(p.id),
+        productName: p.name,
       })),
       {
-        label: "Potato export (Gulf)",
-        href: "/products/potato-gulf",
-        icon: getProductNavIcon("potato-gulf"),
+        labelKey: 'potatoGulf',
+        href: '/products/potato-gulf',
+        icon: getProductNavIcon('potato-gulf'),
       },
     ],
-  };
+  }
+  return resolveGroup(def, t, productLabelFn)
 }
 
-export function getServicesNavGroup(): NavGroup {
-  return {
-    id: "services",
-    label: "Services",
-    href: "/services",
-    icon: "settings-sliders",
-    children: serviceLinks,
-  };
+export function getServicesNavGroup(t: (key: string) => string): NavGroup {
+  return resolveGroup(
+    {
+      id: 'services',
+      labelKey: 'services',
+      href: '/services',
+      icon: 'settings-sliders',
+      children: serviceLinkDefs,
+    },
+    t
+  )
 }
 
-export function getResourcesNavGroup(): NavGroup {
-  return {
-    id: "resources",
-    label: "Resources",
-    href: "/blog",
-    icon: "book-bookmark",
-    children: resourceLinks,
-  };
+export function getResourcesNavGroup(t: (key: string) => string): NavGroup {
+  return resolveGroup(
+    {
+      id: 'resources',
+      labelKey: 'resources',
+      href: '/blog',
+      icon: 'book-bookmark',
+      children: resourceLinkDefs,
+    },
+    t
+  )
 }
 
-export const contactPhone = "+880 1400893882";
-export const contactEmail = "info@khi.com.bd";
+export const contactPhone = '+880 1400893882'
+export const contactEmail = 'info@khi.com.bd'

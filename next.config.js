@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
+const createNextIntlPlugin = require('next-intl/plugin')
+
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts')
+
 const nextConfig = {
   // Enable Cache Components feature for Next.js 16
   cacheComponents: true,
@@ -55,23 +59,28 @@ const nextConfig = {
     return [
       {
         source: "/potato-export",
-        destination: "/products/potato-gulf",
+        destination: "/en/products/potato-gulf",
         permanent: true,
       },
       {
         source: "/customs-clearance-service",
-        destination: "/services/customs",
+        destination: "/en/services/customs",
         permanent: true,
       },
       {
         source: "/trade-routes",
-        destination: "/services/trade-routes",
+        destination: "/en/services/trade-routes",
         permanent: true,
       },
       {
         source: "/trade-routes/:path*",
-        destination: "/services/trade-routes/:path*",
+        destination: "/en/services/trade-routes/:path*",
         permanent: true,
+      },
+      {
+        source: "/:path((?!en|bn|api|_next).*)",
+        destination: "/en/:path",
+        permanent: false,
       },
     ];
   },
@@ -85,4 +94,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withNextIntl(nextConfig);

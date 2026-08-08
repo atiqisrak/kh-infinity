@@ -1,15 +1,18 @@
-import { Product } from "@/lib/products";
+import { Product } from '@/lib/products'
+import type { ProductLabels } from '@/lib/product-labels'
 
 interface ProductNutritionProps {
-  product: Product;
-  iconColor: string;
+  product: Product
+  iconColor: string
+  labels: ProductLabels
 }
 
 export default function ProductNutrition({
   product,
   iconColor,
+  labels,
 }: ProductNutritionProps) {
-  if (!product.nutritionalInfo) return null;
+  if (!product.nutritionalInfo) return null
 
   return (
     <section className="py-20 bg-white">
@@ -17,14 +20,12 @@ export default function ProductNutrition({
         <div className="text-center mb-16">
           <span
             className={`${
-              product.type === "import" ? "text-green-600" : "text-orange-600"
+              product.type === 'import' ? 'text-green-600' : 'text-orange-600'
             } font-medium tracking-wider uppercase text-sm block mb-4`}
           >
-            Nutrition Facts
+            {labels.nutritionInfo}
           </span>
-          <h2 className="text-3xl font-bold text-gray-800">
-            Nutritional Information
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-800">{labels.nutritionInfo}</h2>
         </div>
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
@@ -41,24 +42,20 @@ export default function ProductNutrition({
                     strokeLinejoin="round"
                     strokeWidth="2"
                     d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                  ></path>
+                  />
                 </svg>
-                Per 100g Serving
+                {labels.per100g}
               </h3>
               <div className="space-y-4">
-                {Object.entries(product.nutritionalInfo.per100g).map(
-                  ([key, value]) => (
-                    <div
-                      key={key}
-                      className="flex items-center justify-between py-3 border-b border-gray-200"
-                    >
-                      <span className="text-gray-600">{key}</span>
-                      <span className="font-semibold text-gray-800">
-                        {value}
-                      </span>
-                    </div>
-                  )
-                )}
+                {Object.entries(product.nutritionalInfo.per100g).map(([key, value]) => (
+                  <div
+                    key={key}
+                    className="flex items-center justify-between py-3 border-b border-gray-200"
+                  >
+                    <span className="text-gray-600">{key}</span>
+                    <span className="font-semibold text-gray-800">{value}</span>
+                  </div>
+                ))}
               </div>
             </div>
             <div className="bg-gray-50 rounded-3xl p-8 hover:shadow-xl transition-shadow duration-300">
@@ -74,29 +71,25 @@ export default function ProductNutrition({
                     strokeLinejoin="round"
                     strokeWidth="2"
                     d="M13 10V3L4 14h7v7l9-11h-7z"
-                  ></path>
+                  />
                 </svg>
-                Additional Info
+                {labels.additionalInfo}
               </h3>
               <div className="space-y-4">
-                {Object.entries(product.nutritionalInfo.additional).map(
-                  ([key, value]) => (
-                    <div
-                      key={key}
-                      className="flex items-center justify-between py-3 border-b border-gray-200"
-                    >
-                      <span className="text-gray-600">{key}</span>
-                      <span className="font-semibold text-gray-800">
-                        {value}
-                      </span>
-                    </div>
-                  )
-                )}
+                {Object.entries(product.nutritionalInfo.additional).map(([key, value]) => (
+                  <div
+                    key={key}
+                    className="flex items-center justify-between py-3 border-b border-gray-200"
+                  >
+                    <span className="text-gray-600">{key}</span>
+                    <span className="font-semibold text-gray-800">{value}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-  );
+  )
 }

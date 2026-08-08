@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { NavGroup, NavLink } from "@/lib/navigation";
 import FlaticonIcon from "@/components/navigation/FlaticonIcon";
 
@@ -24,10 +24,10 @@ function DropdownLink({ item, isHub }: { item: NavLink; isHub?: boolean }) {
 
 export default function NavDropdown({ group }: NavDropdownProps) {
   return (
-    <li className="relative group/nav">
+    <li className="relative group/nav shrink-0 list-none">
       <Link
         href={group.href}
-        className="inline-flex items-center gap-1.5 px-2.5 xl:px-3 text-sm font-medium text-gray-700 hover:text-orange-600 transition-colors py-2 rounded-lg hover:bg-orange-50/60"
+        className="inline-flex items-center gap-1.5 px-2 xl:px-2.5 text-xs xl:text-sm font-medium text-gray-700 hover:text-orange-600 transition-colors py-2 rounded-lg hover:bg-orange-50/60 whitespace-nowrap"
       >
         <FlaticonIcon name={group.icon} className="text-sm text-orange-500/80" />
         {group.label}

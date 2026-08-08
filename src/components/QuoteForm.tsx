@@ -1,12 +1,32 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { useTranslations, useLocale } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { getProducts } from "@/lib/products";
+import { getLocalizedProductName } from "@/lib/localized-products";
+import type { Locale } from "@/i18n/routing";
 
-export default function QuoteForm() {
+interface QuoteFormProps {
+  defaultProduct?: string;
+  compact?: boolean;
+}
+
+export default function QuoteForm({
+  defaultProduct = "",
+  compact = false,
+}: QuoteFormProps) {
+  const t = useTranslations("quote");
+  const tc = useTranslations("common");
+  const locale = useLocale() as Locale;
+  const products = getProducts();
+  const defaultProductName =
+    getLocalizedProductName(defaultProduct, locale) ??
+    products.find((p) => p.id === defaultProduct)?.name ??
+    "";
+
   const [formData, setFormData] = useState({
-    product: "",
+    product: defaultProductName,
     quantity: "",
     destination: "",
     name: "",
@@ -33,7 +53,7 @@ export default function QuoteForm() {
       }
 
       setFormData({
-        product: "",
+        product: defaultProductName,
         quantity: "",
         destination: "",
         name: "",
@@ -45,7 +65,7 @@ export default function QuoteForm() {
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 5000);
     } catch {
-      alert("Unable to submit your request. Please email info@khi.com.bd directly.");
+      alert(t("submitError"));
     }
   };
 
@@ -61,19 +81,18 @@ export default function QuoteForm() {
   };
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-md">
-      <h2 className="text-3xl font-bold mb-8 text-gray-800">Request a Quote</h2>
+    <div className={compact ? "" : "bg-white p-8 rounded-lg shadow-md"}>
+      {!compact && (
+        <h2 className="text-3xl font-bold mb-8 text-gray-800">{t("title")}</h2>
+      )}
 
       {submitted ? (
         <div className="bg-green-50 border border-green-500 text-green-700 px-6 py-4 rounded-lg mb-6">
           <div className="flex items-center">
             <i className="fas fa-check-circle text-2xl mr-3"></i>
             <div>
-              <h3 className="font-bold text-lg">Thank You!</h3>
-              <p>
-                We&apos;ve received your inquiry. Our team will get back to you
-                within 24 hours.
-              </p>
+              <h3 className="font-bold text-lg">{t("thankYou")}</h3>
+              <p>{t("thankYouMessage")}</p>
             </div>
           </div>
         </div>
@@ -81,7 +100,7 @@ export default function QuoteForm() {
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label className="block text-gray-700 mb-2" htmlFor="product">
-              Product / Category <span className="text-red-500">*</span>
+              {t("productCategory")} <span className="text-red-500">*</span>
             </label>
             <select
               id="product"
@@ -91,20 +110,24 @@ export default function QuoteForm() {
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500"
               required
             >
-              <option value="">Select a product</option>
-              {getProducts().map((product) => (
-                <option key={product.id} value={product.name}>
-                  {product.name} (
-                  {product.type === "import" ? "Import" : "Export"})
-                </option>
-              ))}
+              <option value="">{t("selectProduct")}</option>
+              {products.map((product) => {
+                const name =
+                  getLocalizedProductName(product.id, locale) ?? product.name;
+                return (
+                  <option key={product.id} value={name}>
+                    {name} (
+                    {product.type === "import" ? tc("import") : tc("export")})
+                  </option>
+                );
+              })}
             </select>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <label className="block text-gray-700 mb-2" htmlFor="quantity">
-                Quantity Required <span className="text-red-500">*</span>
+                {t("quantity")} <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -112,14 +135,14 @@ export default function QuoteForm() {
                 name="quantity"
                 value={formData.quantity}
                 onChange={handleChange}
-                placeholder="e.g., 10 MT, 1000 units"
+                placeholder={t("quantityPlaceholder")}
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500"
                 required
               />
             </div>
             <div>
               <label className="block text-gray-700 mb-2" htmlFor="destination">
-                Destination Country/Port <span className="text-red-500">*</span>
+                {t("destination")} <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -127,7 +150,7 @@ export default function QuoteForm() {
                 name="destination"
                 value={formData.destination}
                 onChange={handleChange}
-                placeholder="e.g., Bangladesh, Chittagong Port"
+                placeholder={t("destinationPlaceholder")}
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500"
                 required
               />
@@ -137,7 +160,7 @@ export default function QuoteForm() {
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <label className="block text-gray-700 mb-2" htmlFor="name">
-                Full Name <span className="text-red-500">*</span>
+                {t("fullName")} <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -151,7 +174,7 @@ export default function QuoteForm() {
             </div>
             <div>
               <label className="block text-gray-700 mb-2" htmlFor="email">
-                Email <span className="text-red-500">*</span>
+                {t("email")} <span className="text-red-500">*</span>
               </label>
               <input
                 type="email"
@@ -168,7 +191,7 @@ export default function QuoteForm() {
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <label className="block text-gray-700 mb-2" htmlFor="phone">
-                Phone Number <span className="text-red-500">*</span>
+                {t("phone")} <span className="text-red-500">*</span>
               </label>
               <input
                 type="tel"
@@ -182,7 +205,7 @@ export default function QuoteForm() {
             </div>
             <div>
               <label className="block text-gray-700 mb-2" htmlFor="company">
-                Company Name
+                {t("company")}
               </label>
               <input
                 type="text"
@@ -196,11 +219,8 @@ export default function QuoteForm() {
           </div>
 
           <div>
-            <label
-              className="block text-gray-700 mb-2"
-              htmlFor="specifications"
-            >
-              Additional Specifications
+            <label className="block text-gray-700 mb-2" htmlFor="specifications">
+              {t("specifications")}
             </label>
             <textarea
               id="specifications"
@@ -208,52 +228,54 @@ export default function QuoteForm() {
               rows={4}
               value={formData.specifications}
               onChange={handleChange}
-              placeholder="Please provide any additional details, specifications, or requirements..."
+              placeholder={t("specificationsPlaceholder")}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500"
-            ></textarea>
+            />
           </div>
 
           <button
             type="submit"
             className="w-full bg-orange-600 text-white px-8 py-3 rounded-lg hover:bg-orange-700 transition-colors font-medium"
           >
-            Submit Request
+            {t("submit")}
           </button>
         </form>
       )}
 
-      <div className="mt-8 p-6 bg-orange-50 rounded-lg">
-        <h3 className="text-xl font-bold mb-4 text-gray-800">
-          What Happens Next?
-        </h3>
-        <ul className="space-y-3 text-gray-700">
-          <li className="flex items-start">
-            <i className="fas fa-check-circle text-orange-500 mt-1 mr-3"></i>
-            <span>We&apos;ll review your request within 24 hours</span>
-          </li>
-          <li className="flex items-start">
-            <i className="fas fa-check-circle text-orange-500 mt-1 mr-3"></i>
-            <span>Our team will prepare a detailed quote for you</span>
-          </li>
-          <li className="flex items-start">
-            <i className="fas fa-check-circle text-orange-500 mt-1 mr-3"></i>
-            <span>
-              You&apos;ll receive pricing, delivery details, and next steps
-            </span>
-          </li>
-        </ul>
-      </div>
+      {!compact && (
+        <div className="mt-8 p-6 bg-orange-50 rounded-lg">
+          <h3 className="text-xl font-bold mb-4 text-gray-800">
+            {t("whatHappensNext")}
+          </h3>
+          <ul className="space-y-3 text-gray-700">
+            <li className="flex items-start">
+              <i className="fas fa-check-circle text-orange-500 mt-1 mr-3"></i>
+              <span>{t("step1")}</span>
+            </li>
+            <li className="flex items-start">
+              <i className="fas fa-check-circle text-orange-500 mt-1 mr-3"></i>
+              <span>{t("step2")}</span>
+            </li>
+            <li className="flex items-start">
+              <i className="fas fa-check-circle text-orange-500 mt-1 mr-3"></i>
+              <span>{t("step3")}</span>
+            </li>
+          </ul>
+        </div>
+      )}
 
-      <p className="mt-6 text-sm text-gray-600">
-        Need immediate assistance?{" "}
-        <Link
-          href="/contact"
-          className="text-orange-500 hover:text-orange-600 font-semibold"
-        >
-          Contact us directly
-        </Link>
-        .
-      </p>
+      {!compact && (
+        <p className="mt-6 text-sm text-gray-600">
+          {t("needHelp")}{" "}
+          <Link
+            href="/contact"
+            className="text-orange-500 hover:text-orange-600 font-semibold"
+          >
+            {t("contactDirectly")}
+          </Link>
+          .
+        </p>
+      )}
     </div>
   );
 }

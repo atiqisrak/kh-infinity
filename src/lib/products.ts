@@ -1,4 +1,32 @@
 import { getProductGeo } from './product-geo'
+import { getProductTrustData, type ProductDetailLevel } from './product-trust-data'
+
+export interface ProductFAQ {
+  question: string
+  answer: string
+}
+
+export interface ProductDocument {
+  name: string
+  description: string
+}
+
+export interface ProductCommercial {
+  moq?: string
+  leadTime?: string
+  incoterms?: string
+  shelfLife?: string
+}
+
+export interface ProductProcessStep {
+  title: string
+  description: string
+}
+
+export interface ProductUseCase {
+  title: string
+  description: string
+}
 
 export interface Product {
   id: string
@@ -11,9 +39,12 @@ export interface Product {
   hsCode?: string
   hsSection?: string
   ttiRange?: string
+  bctReference?: string
   geoAnchor?: string
   geoHeading?: string
   updatedAt?: string
+  detailLevel?: ProductDetailLevel
+  qualityNote?: string
   specifications: {
     [key: string]: string
   }
@@ -32,6 +63,13 @@ export interface Product {
     certifications: string[]
   }
   relatedProducts: string[]
+  faqs?: ProductFAQ[]
+  documents?: ProductDocument[]
+  commercial?: ProductCommercial
+  processSteps?: ProductProcessStep[]
+  trustBadges?: string[]
+  gallery?: string[]
+  useCases?: ProductUseCase[]
 }
 
 export const products: Product[] = [
@@ -447,15 +485,29 @@ export const products: Product[] = [
 
 function enrichProduct(product: Product): Product {
   const geo = getProductGeo(product.id)
-  if (!geo) return product
+  const trust = getProductTrustData(product.id)
   return {
     ...product,
-    hsCode: geo.hsCode,
-    hsSection: geo.hsSection,
-    ttiRange: geo.ttiRange,
-    geoAnchor: geo.geoAnchor,
-    geoHeading: geo.geoHeading,
-    updatedAt: geo.updatedAt,
+    ...(geo && {
+      hsCode: geo.hsCode,
+      hsSection: geo.hsSection,
+      ttiRange: geo.ttiRange,
+      bctReference: geo.bctReference,
+      geoAnchor: geo.geoAnchor,
+      geoHeading: geo.geoHeading,
+      updatedAt: geo.updatedAt,
+    }),
+    ...(trust && {
+      detailLevel: trust.detailLevel,
+      qualityNote: trust.qualityNote,
+      faqs: trust.faqs,
+      documents: trust.documents,
+      commercial: trust.commercial,
+      processSteps: trust.processSteps,
+      trustBadges: trust.trustBadges,
+      gallery: trust.gallery,
+      useCases: trust.useCases,
+    }),
   }
 }
 
