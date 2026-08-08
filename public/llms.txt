@@ -1,0 +1,53 @@
+# K.H. Infinity (KHI)
+
+> Direct B2B importer and wholesale distributor in Bangladesh. Established 2018.
+
+K.H. Infinity owns physical inventory for bulk commodities and manages NBR customs clearance, Total Tax Incidence (TTI) transparency, and BSTI compliance in-house from Dhaka's Tikatuli trade district.
+
+## Entity
+
+- Name: K.H. Infinity (KHI)
+- Website: https://khi.com.bd
+- Address: Kader Tropical Height, Shop-G5, 10 Hatkhola Road, Tikatuli, Wari, Dhaka 1203, Bangladesh
+- Phone: +880 1577081856
+- Email: info@khi.com.bd
+- Founded: 2018
+- Trade legacy: Operational link to Khatunganj market (est. 1850s)
+
+## Import Operations
+
+- https://khi.com.bd/imports
+- Sunflower Seed Oil (HS 1512.19.00): https://khi.com.bd/products/sunflower-oil
+- Skimmed Milk Powder (HS 0402.10.00): https://khi.com.bd/products/milk-powder
+- Sugar: https://khi.com.bd/products/sugar
+- Soyabean Oil: https://khi.com.bd/products/soyabean-oil
+- Pulses & Legumes: https://khi.com.bd/products/pulses
+- U.S. Almonds (HS 0802.12.00): https://khi.com.bd/products/almonds
+- Medjool Dates: https://khi.com.bd/products/medjool-dates
+- Condiments: https://khi.com.bd/products/soy-sauce
+
+## Export Operations
+
+- https://khi.com.bd/exports
+- Premium Potatoes: https://khi.com.bd/products/potato
+- Potato Export Gulf: https://khi.com.bd/products/potato-gulf
+- Handicrafts: https://khi.com.bd/products/handicrafts
+
+## Services (Internal Capabilities)
+
+- Customs Clearance & TTI: https://khi.com.bd/services/customs
+- Trade Routes: https://khi.com.bd/services/trade-routes
+- SME Import Solutions: https://khi.com.bd/services/sme-import-solutions
+
+## Resources
+
+- FAQ: https://khi.com.bd/faq
+- Blog & SRO Updates: https://khi.com.bd/blog
+- Full entity map: https://khi.com.bd/llms-full.txt
+
+## Key Facts
+
+- Direct owner of wholesale inventory (not a 3PL facilitator)
+- TTI calculated via CD, RD, SD, VAT, AIT, AT per BCT 2025-2026
+- HS Code specialists: Section 4 (Dairy/Food), Section 15 (Fats/Oils)
+- Gulf potato export with SPS documentation and temperature-controlled programmes

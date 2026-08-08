@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+:root {
+  --primary-color: #ff9f43;
+  --secondary-color: #2d3436;
+  --text-color: #2d3436;
+  --light-gray: #f5f6fa;
+  --white: #ffffff;
+  --slide-duration: 6s;
+  --fade-duration: 2s;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: opacity var(--fade-duration) ease-in-out,
+    transform var(--slide-duration) ease-in-out;
+  will-change: opacity, transform;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
+  will-change: auto;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes textHighlight {
+  0% {
+    color: white;
+  }
+  50% {
+    color: #f97316;
+  }
+  100% {
+    color: #f97316;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-text-highlight {
+    animation: none;
+    transition: color 0.3s ease;
+  }
+
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-fade-in-up {
+    animation: none;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 1s ease-out 0.5s both;
+}
+
+.animate-fade-in-up {
+  animation: slideUp 1s ease-out 1s both;
+}
+
+.animate-text-highlight {
+  animation: textHighlight 2s ease-out forwards;
+  will-change: auto;
+}
+
+/* Statistics Animation */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-float {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25d366;
+  color: white;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 2px 2px 3px #999;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  animation: pulse 2s infinite;
+}
+
+.whatsapp-float:hover {
+  background-color: #128c7e;
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+}
+
+.whatsapp-float i {
+  font-size: 30px;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .whatsapp-float {
+    width: 55px;
+    height: 55px;
+    bottom: 18px;
+    right: 18px;
+    font-size: 26px;
+  }
+
+  .whatsapp-float i {
+    font-size: 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  .whatsapp-float {
+    width: 50px;
+    height: 50px;
+    bottom: 15px;
+    right: 15px;
+    font-size: 24px;
+  }
+
+  .whatsapp-float i {
+    font-size: 24px;
+  }
+}
