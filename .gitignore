@@ -15,6 +15,7 @@
 
 .env.local
 .env
+atlas-credentials.env
 
 # production
 /build
