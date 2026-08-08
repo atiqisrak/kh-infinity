@@ -7,30 +7,23 @@ import NavDropdown from "@/components/navigation/NavDropdown";
 import MobileNavGroup from "@/components/navigation/MobileNavGroup";
 import FlaticonIcon from "@/components/navigation/FlaticonIcon";
 import {
-  primaryLinks,
-  getImportNavGroup,
-  getExportNavGroup,
+  getProductsNavGroup,
   getServicesNavGroup,
   getResourcesNavGroup,
+  getCompanyNavGroup,
   contactPhone,
   contactEmail,
 } from "@/lib/navigation";
-
-const navLinkClass =
-  "inline-flex items-center gap-1.5 px-2.5 xl:px-3 py-2 text-sm font-medium text-gray-700 hover:text-orange-600 transition-colors rounded-lg hover:bg-orange-50/60";
-
-const mobileNavLinkClass =
-  "flex items-center gap-2.5 rounded-lg px-3 py-3 text-base font-semibold text-gray-900 hover:bg-orange-50 hover:text-orange-600";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navGroups = useMemo(
     () => [
-      getImportNavGroup(),
-      getExportNavGroup(),
+      getProductsNavGroup(),
       getServicesNavGroup(),
       getResourcesNavGroup(),
+      getCompanyNavGroup(),
     ],
     []
   );
@@ -75,24 +68,8 @@ export default function Header() {
 
             {/* Desktop — lg+ only to avoid cramped tablet layout */}
             <ul className="hidden lg:flex flex-1 items-center justify-center gap-x-2 xl:gap-x-4">
-              {primaryLinks.slice(0, 1).map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className={navLinkClass}>
-                    <FlaticonIcon name={link.icon} className="text-sm text-orange-500/80" />
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
               {navGroups.map((group) => (
                 <NavDropdown key={group.id} group={group} />
-              ))}
-              {primaryLinks.slice(1).map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className={navLinkClass}>
-                    <FlaticonIcon name={link.icon} className="text-sm text-orange-500/80" />
-                    {link.label}
-                  </Link>
-                </li>
               ))}
             </ul>
 
@@ -152,24 +129,8 @@ export default function Header() {
 
         <nav className="flex-1 overflow-y-auto px-4 py-4">
           <ul className="space-y-1">
-            {primaryLinks.slice(0, 1).map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} onClick={closeMobile} className={mobileNavLinkClass}>
-                  <FlaticonIcon name={link.icon} className="text-base text-orange-500" />
-                  {link.label}
-                </Link>
-              </li>
-            ))}
             {navGroups.map((group) => (
               <MobileNavGroup key={group.id} group={group} onNavigate={closeMobile} />
-            ))}
-            {primaryLinks.slice(1).map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} onClick={closeMobile} className={mobileNavLinkClass}>
-                  <FlaticonIcon name={link.icon} className="text-base text-orange-500" />
-                  {link.label}
-                </Link>
-              </li>
             ))}
           </ul>
 
