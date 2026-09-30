@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProduct, getRelatedProducts } from "@/lib/products";
 import { buildProductSchema, speakableWebPageSchema } from "@/lib/schema-helpers";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import ProductHero from "@/components/products/ProductHero";
+import ProductTradeInfo from "@/components/products/ProductTradeInfo";
 import ProductNutrition from "@/components/products/ProductNutrition";
 import ProductDetails from "@/components/products/ProductDetails";
 import ProductQuality from "@/components/products/ProductQuality";
@@ -96,6 +98,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
     primaryColor === "green" ? "text-green-500" : "text-orange-500";
   const iconColorHover =
     primaryColor === "green" ? "text-green-600" : "text-orange-600";
+  const badgeBg = primaryColor === "green" ? "bg-green-100" : "bg-orange-100";
+  const badgeText =
+    primaryColor === "green" ? "text-green-700" : "text-orange-700";
+  const iconBg = primaryColor === "green" ? "bg-green-50" : "bg-orange-50";
 
   const productUrl = `https://khi.com.bd/products/${product.id}`;
   const structuredData = buildProductSchema(product);
@@ -119,6 +125,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
           __html: JSON.stringify(speakableData),
         }}
       />
+      <Breadcrumbs
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Products", href: "/products" },
+          { label: product.category },
+          { label: product.name },
+        ]}
+      />
+
       <ProductHero
         product={product}
         textColor={textColor}
@@ -127,6 +142,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
         bgColorHover={bgColorHover}
         borderColor={borderColor}
         primaryColor={primaryColor}
+        badgeBg={badgeBg}
+        badgeText={badgeText}
+      />
+
+      <ProductTradeInfo
+        product={product}
+        iconColor={iconColor}
+        borderColor={borderColor}
       />
 
       {slug === "potato" && (
@@ -147,21 +170,34 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </section>
       )}
 
-      <ProductNutrition product={product} iconColor={iconColor} />
+      <ProductNutrition
+        product={product}
+        iconColor={iconColor}
+        iconBg={iconBg}
+        borderColor={borderColor}
+      />
 
       <ProductDetails
         product={product}
         iconColor={iconColor}
         iconColorHover={iconColorHover}
         isImport={isImport}
+        iconBg={iconBg}
+        borderColor={borderColor}
       />
 
-      <ProductQuality product={product} iconColor={iconColor} />
+      <ProductQuality
+        product={product}
+        iconColor={iconColor}
+        iconBg={iconBg}
+        borderColor={borderColor}
+      />
 
       <ProductQuote
         primaryColor={primaryColor}
         bgColor={bgColor}
         bgColorHover={bgColorHover}
+        borderColor={borderColor}
       />
 
       <RelatedProducts

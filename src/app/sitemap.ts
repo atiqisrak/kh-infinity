@@ -31,6 +31,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/products/potato-gulf`, lastModified: CONTENT_UPDATED, changeFrequency: 'weekly', priority: 0.95 },
     { url: `${baseUrl}/services/customs`, lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${baseUrl}/services/sme-import-solutions`, lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${baseUrl}/investors`, lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/investors/onboarding`, lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.6 },
   ];
 
   const blogPosts = getBlogPosts();

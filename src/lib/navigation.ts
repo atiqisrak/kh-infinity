@@ -10,6 +10,7 @@ export interface NavLink {
   label: string;
   href: string;
   icon: string;
+  children?: NavLink[];
 }
 
 export interface NavGroup {
@@ -20,9 +21,10 @@ export interface NavGroup {
   children: NavLink[];
 }
 
-export const primaryLinks: NavLink[] = [
+export const companyLinks: NavLink[] = [
   { label: "About Us", href: "/about", icon: "info" },
   { label: "Industries", href: "/industries", icon: "building" },
+  { label: "Investors", href: "/investors", icon: "chart-histogram" },
   { label: "FAQ", href: "/faq", icon: "interrogation" },
 ];
 
@@ -45,44 +47,57 @@ export const resourceLinks: NavLink[] = [
   { label: "Careers", href: "/careers", icon: getResourceNavIcon("/careers") },
 ];
 
-export function getImportNavGroup(): NavGroup {
-  const products = getProductsByType("import");
+export function getProductsNavGroup(): NavGroup {
+  const importProducts = getProductsByType("import");
+  const exportProducts = getProductsByType("export");
   return {
-    id: "imports",
-    label: "Imports",
+    id: "products",
+    label: "Products",
     href: "/imports",
     icon: "box-open",
     children: [
-      { label: "All imports", href: "/imports", icon: hubNavIcons.allImports },
-      ...products.map((p) => ({
-        label: p.name,
-        href: `/products/${p.id}`,
-        icon: getProductNavIcon(p.id),
-      })),
+      {
+        label: "Imports",
+        href: "/imports",
+        icon: "box-open",
+        children: [
+          { label: "All imports", href: "/imports", icon: hubNavIcons.allImports },
+          ...importProducts.map((p) => ({
+            label: p.name,
+            href: `/products/${p.id}`,
+            icon: getProductNavIcon(p.id),
+          })),
+        ],
+      },
+      {
+        label: "Exports",
+        href: "/exports",
+        icon: "plane-departure",
+        children: [
+          { label: "All exports", href: "/exports", icon: hubNavIcons.allExports },
+          ...exportProducts.map((p) => ({
+            label: p.name,
+            href: `/products/${p.id}`,
+            icon: getProductNavIcon(p.id),
+          })),
+          {
+            label: "Potato export (Gulf)",
+            href: "/products/potato-gulf",
+            icon: getProductNavIcon("potato-gulf"),
+          },
+        ],
+      },
     ],
   };
 }
 
-export function getExportNavGroup(): NavGroup {
-  const products = getProductsByType("export");
+export function getCompanyNavGroup(): NavGroup {
   return {
-    id: "exports",
-    label: "Exports",
-    href: "/exports",
-    icon: "plane-departure",
-    children: [
-      { label: "All exports", href: "/exports", icon: hubNavIcons.allExports },
-      ...products.map((p) => ({
-        label: p.name,
-        href: `/products/${p.id}`,
-        icon: getProductNavIcon(p.id),
-      })),
-      {
-        label: "Potato export (Gulf)",
-        href: "/products/potato-gulf",
-        icon: getProductNavIcon("potato-gulf"),
-      },
-    ],
+    id: "company",
+    label: "Company",
+    href: "/about",
+    icon: "info",
+    children: companyLinks,
   };
 }
 

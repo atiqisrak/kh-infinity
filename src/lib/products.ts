@@ -5,6 +5,7 @@ export interface Product {
   name: string
   brand?: string
   image: string
+  images?: string[]
   description: string
   type: 'import' | 'export'
   category: string
@@ -40,6 +41,11 @@ export const products: Product[] = [
     name: 'Sunflower Seed Oil',
     brand: 'Maslo',
     image: '/images/products/sunflower-oil.webp',
+    images: [
+      '/images/products/sunflower-oil.webp',
+      '/images/products/sun.webp',
+      '/images/products/sunflower-oil-3.jpg',
+    ],
     description: 'High-quality, heart-healthy sunflower seed oil sourced from the world\'s finest producers. Rich in Vitamin E and healthy fats.',
     type: 'import',
     category: 'Cooking Oils',
@@ -117,6 +123,12 @@ export const products: Product[] = [
     id: 'potato',
     name: 'Premium Potatoes',
     image: '/images/products/potato.webp',
+    images: [
+      '/images/products/potato.webp',
+      '/images/products/red-potato.webp',
+      '/images/products/yellow-potato.webp',
+      '/images/products/russet-potato.webp',
+    ],
     description: 'Fresh, high-quality potatoes from Bangladesh\'s finest farms. Protected with our tarpaulin during export.',
     type: 'export',
     category: 'Agricultural Products',
@@ -147,6 +159,12 @@ export const products: Product[] = [
     id: 'handicrafts',
     name: 'Handicrafts',
     image: '/images/products/handicrafts.webp',
+    images: [
+      '/images/products/handicrafts.webp',
+      '/images/products/pottery.webp',
+      '/images/products/woodcraft.webp',
+      '/images/products/textiles.webp',
+    ],
     description: 'Authentic Bangladeshi handicrafts showcasing local artistry and cultural heritage.',
     type: 'export',
     category: 'Cultural Products',
@@ -177,6 +195,11 @@ export const products: Product[] = [
     id: 'pulses',
     name: 'Pulses',
     image: '/images/products/pulses.webp',
+    images: [
+      '/images/products/pulses.webp',
+      '/images/products/lentils.webp',
+      '/images/products/beans.webp',
+    ],
     description: 'Premium quality lentils, chickpeas, and other pulses sourced from the finest producers worldwide.',
     type: 'import',
     category: 'Grains & Legumes',
@@ -207,6 +230,11 @@ export const products: Product[] = [
     id: 'tarpaulin',
     name: 'Tarpaulin',
     image: '/images/products/tarpaulin.webp',
+    images: [
+      '/images/products/tarpaulin.webp',
+      '/images/products/tarpaulin-3.jpg',
+      '/images/products/tarpaulin-2.jpg',
+    ],
     description: 'Durable and weather-resistant tarpaulin for various industrial and commercial applications.',
     type: 'import',
     category: 'Industrial Products',
@@ -237,6 +265,11 @@ export const products: Product[] = [
     id: 'cumin',
     name: 'Cumin',
     image: '/images/products/cumin.webp',
+    images: [
+      '/images/products/cumin.webp',
+      '/images/products/cumin-2.jpg',
+      '/images/products/cumin-3.jpg',
+    ],
     description: 'Premium quality cumin with a distinct aroma and flavor, sourced from trusted global suppliers.',
     type: 'import',
     category: 'Spices',
@@ -267,6 +300,11 @@ export const products: Product[] = [
     id: 'sugar',
     name: 'Sugar',
     image: '/images/products/sugar.webp',
+    images: [
+      '/images/products/sugar.webp',
+      '/images/products/sugar-2.jpg',
+      '/images/products/sugar-3.jpg',
+    ],
     description: 'Premium quality refined sugar ideal for food processing and cooking applications.',
     type: 'import',
     category: 'Sweeteners',
@@ -297,6 +335,11 @@ export const products: Product[] = [
     id: 'soyabean-oil',
     name: 'Soyabean Oil',
     image: '/images/products/soyabean-oil.webp',
+    images: [
+      '/images/products/soyabean-oil.webp',
+      '/images/products/soyabean-oil-2.jpg',
+      '/images/products/soyabean-oil-3.jpg',
+    ],
     description: 'Premium quality soybean oil with excellent nutritional profile and cooking properties.',
     type: 'import',
     category: 'Cooking Oils',
@@ -327,6 +370,11 @@ export const products: Product[] = [
     id: 'chickpeas',
     name: 'Chickpeas',
     image: '/images/products/chick-pea.webp',
+    images: [
+      '/images/products/chick-pea.webp',
+      '/images/products/chickpeas.webp',
+      '/images/products/chickpeas-2.jpg',
+    ],
     description: 'Premium quality chickpeas with excellent nutritional value and cooking properties.',
     type: 'import',
     category: 'Grains & Legumes',
@@ -357,6 +405,11 @@ export const products: Product[] = [
     id: 'almonds',
     name: 'U.S. Almonds',
     image: '/images/products/almonds.webp',
+    images: [
+      '/images/products/almonds.webp',
+      '/images/products/almonds-2.jpg',
+      '/images/products/almonds-3.jpg',
+    ],
     description: 'Premium U.S. almonds for the health-conscious Bangladesh market. Direct-sourced with BSTI compliance and radioactivity verification for food manufacturing.',
     type: 'import',
     category: 'Tree Nuts',
@@ -387,6 +440,11 @@ export const products: Product[] = [
     id: 'medjool-dates',
     name: 'Medjool Dates',
     image: '/images/products/medjool-dates.webp',
+    images: [
+      '/images/products/medjool-dates.webp',
+      '/images/products/medjool-dates-2.jpg',
+      '/images/products/medjool-dates-3.jpg',
+    ],
     description: 'Premium Medjool dates for Ramadan programmes and healthy-snacking retail. High shelf-life with BSTI food preparation compliance.',
     type: 'import',
     category: 'Processed Fruits',
@@ -417,6 +475,11 @@ export const products: Product[] = [
     id: 'soy-sauce',
     name: 'Soy Sauce & Condiments',
     image: '/images/products/soy-sauce.webp',
+    images: [
+      '/images/products/soy-sauce.webp',
+      '/images/products/soy-sauce-2.jpg',
+      '/images/products/soy-sauce-3.jpg',
+    ],
     description: 'Premium soy sauce and Asian condiments for Bangladesh\'s expanding food processing and HRI sectors. BFSA and BSTI compliant imports.',
     type: 'import',
     category: 'Condiments & Sauces',
