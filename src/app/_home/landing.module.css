@@ -16,6 +16,11 @@
 
 /* Condensed display type. Anton's caps are tall, so ~1.02 keeps stacked
    lines from touching without feeling loose. */
+/* Anchored headings clear the fixed SiteNav */
+.root [id] {
+  scroll-margin-top: 96px;
+}
+
 .display {
   font-family: var(--font-display), Impact, "Arial Narrow", sans-serif;
   font-weight: 400;
@@ -169,6 +174,103 @@
   display: none;
 }
 
+/* ── Container family ─────────────────────────────────────────────────────
+   A CSS-drawn 20ft container side: corrugated ribs, darker frame rails and
+   corner posts. Set --c for the livery colour. Text inside stays real text. */
+.box {
+  --c: #fa6a25;
+  position: relative;
+  border-radius: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--c), #fff 14%) 0 3px,
+    var(--c) 3px 7px,
+    color-mix(in srgb, var(--c), #000 20%) 7px 9px
+  );
+  box-shadow:
+    inset 0 4px 0 color-mix(in srgb, var(--c), #000 28%),
+    inset 0 -4px 0 color-mix(in srgb, var(--c), #000 34%),
+    inset 5px 0 0 color-mix(in srgb, var(--c), #000 30%),
+    inset -5px 0 0 color-mix(in srgb, var(--c), #000 30%),
+    0 6px 14px -8px rgba(6, 19, 29, 0.6);
+}
+
+/* Trailer wheels for the process-track container */
+.wheels::before,
+.wheels::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #1b1f24;
+  box-shadow: 0 0 0 2px #0b2c3d;
+}
+
+.wheels::before { left: 14%; }
+.wheels::after { right: 14%; }
+
+/* ── Scroll-triggered container motion (see Reveal.tsx) ─────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  /* D: strip container lowers on its cable, then swings to rest */
+  .dropHang { transform: translateY(-120%); }
+  [data-inview] .dropHang { animation: dropIn 1100ms cubic-bezier(0.25, 1, 0.35, 1) forwards; }
+  [data-inview] .dropHang > * { transform-origin: 50% 0; animation: settle 2600ms 1000ms ease-out both; }
+
+  /* B: yard containers drop in one by one, then settle with a small rock.
+     `rotate` is its own property, so it composes with the transform drop. */
+  /* Resting state is set as real styles and the drop fills *backwards* (not
+     forwards): once it ends the box holds no animated transform/opacity, so it
+     stops being its own stacking context and tooltips can sit above neighbours. */
+  .yardBox { opacity: 0; transform: translateY(-260px); }
+  [data-inview] .yardBox {
+    opacity: 1;
+    transform: none;
+    animation:
+      yardDrop 720ms cubic-bezier(0.3, 1.2, 0.5, 1) var(--d) backwards,
+      settleSmall 1100ms ease-out calc(var(--d) + 620ms);
+  }
+
+  /* C: ships sail their lane once the section is on screen, wake following */
+  .ship { left: 0; }
+  .wake { width: 0; }
+  [data-inview] .ship { left: calc(100% - 30px); transition: left 2400ms cubic-bezier(0.45, 0, 0.2, 1) var(--d); }
+  [data-inview] .wake { width: 100%; transition: width 2400ms cubic-bezier(0.45, 0, 0.2, 1) var(--d); }
+  .shipBob { animation: bob 2.6s ease-in-out infinite; }
+}
+
+@keyframes dropIn {
+  from { transform: translateY(-120%); }
+  to { transform: none; }
+}
+
+@keyframes settle {
+  0% { rotate: 0deg; }
+  18% { rotate: 3.2deg; }
+  42% { rotate: -2.2deg; }
+  66% { rotate: 1deg; }
+  84% { rotate: -0.4deg; }
+  100% { rotate: 0deg; }
+}
+
+@keyframes yardDrop {
+  0% { opacity: 0; transform: translateY(-260px); }
+  40% { opacity: 1; }
+  100% { opacity: 1; transform: none; }
+}
+
+@keyframes settleSmall {
+  0%, 100% { rotate: 0deg; }
+  30% { rotate: -1.6deg; }
+  65% { rotate: 0.9deg; }
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1.5px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .sway,
   .shadowPulse,
@@ -181,6 +283,10 @@
   .laneFill {
     width: 70%;
   }
+
+  /* Lane ships rest at their destination */
+  .ship { left: calc(100% - 30px); }
+  .wake { width: 100%; }
 
   /* No auto-scroll: let people swipe/scroll the rail instead */
   .productTrack {

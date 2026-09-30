@@ -54,6 +54,12 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        // v3 homepage concept was previewed here before it replaced "/"
+        source: "/landing-v2",
+        destination: "/",
+        permanent: false,
+      },
+      {
         source: "/potato-export",
         destination: "/products/potato-gulf",
         permanent: true,

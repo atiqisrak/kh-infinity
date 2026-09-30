@@ -3,7 +3,9 @@
 
 const RIB_COUNT = 24;
 
-export default function HangingContainer({ className }: { className?: string }) {
+// fadeCable: the top of the cable fades out (free-hanging look). Pass false when the
+// container hangs from an edge that clips it, so the cable reads as continuous.
+export default function HangingContainer({ className, fadeCable = true }: { className?: string; fadeCable?: boolean }) {
   const ribs = Array.from({ length: RIB_COUNT }, (_, i) => 98 + i * 19);
 
   return (
@@ -40,7 +42,7 @@ export default function HangingContainer({ className }: { className?: string }) 
       </defs>
 
       {/* Crane cable: fades out upward so it reads as running off-frame */}
-      <path d="M314 -240 V0 M326 -240 V0" stroke="url(#khc-cable)" strokeWidth="3" />
+      <path d="M314 -240 V0 M326 -240 V0" stroke={fadeCable ? "url(#khc-cable)" : "#1b1f24"} strokeWidth="3" />
       <line x1="314" y1="0" x2="314" y2="146" stroke="#1b1f24" strokeWidth="3" />
       <line x1="326" y1="0" x2="326" y2="146" stroke="#1b1f24" strokeWidth="3" />
 

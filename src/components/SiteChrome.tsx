@@ -2,12 +2,11 @@
 
 import { usePathname } from "next/navigation";
 
-// Routes that render their own header/footer (design concepts, campaign pages).
-const BARE_ROUTES = ["/landing-v2"];
+// Pages that render their own header/footer (the v3 homepage). Matched exactly —
+// "/" is a prefix of every path, so prefix matching would hide chrome site-wide.
+const BARE_ROUTES = new Set(["/"]);
 
 export default function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isBare = BARE_ROUTES.some((route) => pathname === route || pathname?.startsWith(`${route}/`));
-
-  return isBare ? null : <>{children}</>;
+  return pathname && BARE_ROUTES.has(pathname) ? null : <>{children}</>;
 }

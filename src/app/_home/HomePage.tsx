@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Anton } from "next/font/google";
@@ -8,6 +7,9 @@ import { contactEmail } from "@/lib/navigation";
 import Flag, { flagCodeFor } from "./Flag";
 import HangingContainer from "./HangingContainer";
 import HeroModes from "./HeroModes";
+import ProcessTrack from "./ProcessTrack";
+import SiteNav from "./SiteNav";
+import Reveal from "./Reveal";
 import Icon from "./Icons";
 import {
   certLogos,
@@ -16,9 +18,8 @@ import {
   phone,
   industries,
   journey,
-  navLinks,
   potatoSpecs,
-  process,
+  shipmentDocs,
   reasons,
   routes,
   services,
@@ -26,8 +27,9 @@ import {
 } from "./content";
 import s from "./landing.module.css";
 
-// v3 design concept: deep-sea navy base, KH orange as the only accent,
+// Homepage (v3 design): deep-sea navy base, KH orange as the only accent,
 // aerial photography, condensed display type, hanging-container motif.
+// Title, description, canonical and OG tags come from the root layout.
 
 const anton = Anton({
   weight: "400",
@@ -35,13 +37,6 @@ const anton = Anton({
   display: "swap",
   variable: "--font-display",
 });
-
-export const metadata: Metadata = {
-  title: "Landing v2 (Design Concept) - K.H. Infinity",
-  description:
-    "Design concept for the v3 K.H. Infinity website: import, export, customs clearance and trade routes from Bangladesh.",
-  robots: { index: false, follow: false },
-};
 
 // ── data derived from the product catalogue ───────────────────────────────
 const COUNTRY_ALIASES: Record<string, string> = { "United States": "USA" };
@@ -51,22 +46,30 @@ const CERT_ALIASES: Record<string, string> = {
   "Halal available": "Halal",
 };
 function sourcingFacts(products: ReturnType<typeof getProducts>) {
-  const countries = new Set<string>();
+  const byCountry = new Map<string, Set<string>>();
   const certs = new Map<string, number>();
   for (const p of products) {
     for (const c of p.sourcing.countries) {
       const name = COUNTRY_ALIASES[c] ?? c;
-      if (name !== "Bangladesh") countries.add(name);
+      if (name === "Bangladesh") continue;
+      if (!byCountry.has(name)) byCountry.set(name, new Set());
+      byCountry.get(name)!.add(p.name);
     }
     for (const c of new Set(p.sourcing.certifications.map((x) => CERT_ALIASES[x] ?? x))) {
       if (c in certLogos) certs.set(c, (certs.get(c) ?? 0) + 1);
     }
   }
   return {
-    countries: [...countries].sort(),
+    // Biggest origins first, so they land at the bottom of the yard stack
+    countries: [...byCountry.entries()]
+      .map(([name, items]) => ({ name, items: [...items] }))
+      .sort((a, b) => b.items.length - a.items.length || a.name.localeCompare(b.name)),
     certs: [...certs.entries()].sort((a, b) => b[1] - a[1]),
   };
 }
+
+// Container liveries for the sourcing yard (white text stays legible on all of them)
+const YARD_COLOURS = ["#fa6a25", "#0b2c3d", "#12506a", "#b8440f", "#3d6b85", "#d9531a", "#1f3a4d", "#56697a"];
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
@@ -221,6 +224,21 @@ function ProductCard({ product: p, index, tabbable }: { product: Product; index:
   );
 }
 
+function ShipIcon() {
+  return (
+    <svg viewBox="0 0 30 14" className="h-[14px] w-[30px]" aria-hidden="true">
+      <path d="M1 8h28l-4 5H4.5z" fill="#fff" />
+      <path d="M1 8h28l-.8 1H1.8z" fill="#fa6a25" />
+      <rect x="5" y="4" width="4" height="4" fill="#fa6a25" />
+      <rect x="9.5" y="4" width="4" height="4" fill="#12506a" />
+      <rect x="14" y="4" width="4" height="4" fill="#fa6a25" />
+      <rect x="9.5" y="1" width="4" height="3" fill="#d5dee7" />
+      <rect x="21" y="1.5" width="4" height="6.5" fill="#fff" />
+      <rect x="22" y="2.5" width="2" height="1.2" fill="#0b2c3d" />
+    </svg>
+  );
+}
+
 function footerColumns(products: Product[]) {
   return [
     {
@@ -250,62 +268,17 @@ function footerColumns(products: Product[]) {
 
 const pad = "mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-10";
 
-export default function LandingV2Page() {
+export default function HomePage() {
   const products = getProducts();
   const { countries, certs } = sourcingFacts(products);
   const [featured, ...rest] = [...getBlogPosts()].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
 
-  const header = (
-    <header className={`${pad} flex w-full items-center justify-between gap-6 pt-5 lg:pt-6`}>
-      <Link href="/" className="shrink-0" aria-label="K.H. Infinity home">
-        <Image src="/images/brand/official_logo_lite.svg" alt="K.H. Infinity" width={96} height={57} priority />
-      </Link>
-      <nav aria-label="Main" className={`${s.glass} hidden items-center gap-1 rounded-full px-2 py-1.5 lg:flex`}>
-        {navLinks.map((l) => (
-          <Link
-            key={l.href}
-            href={l.href}
-            className="rounded-full px-4 py-2 text-sm text-white/80 transition hover:bg-white/10 hover:text-white"
-          >
-            {l.label}
-          </Link>
-        ))}
-      </nav>
-      <div className="flex items-center gap-2">
-        <Link
-          href="/quote"
-          className={`hidden rounded-full px-5 py-2.5 text-sm font-semibold transition-colors duration-300 sm:inline-flex ${btnPrimary}`}
-        >
-          Request a quote
-        </Link>
-        <details className="relative lg:hidden">
-          <summary
-            className={`${s.glass} flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-full [&::-webkit-details-marker]:hidden`}
-            aria-label="Open menu"
-          >
-            <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
-              <path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            </svg>
-          </summary>
-          <div className="absolute right-0 z-20 mt-2 w-60 rounded-2xl bg-[#06131d]/95 p-2 shadow-2xl ring-1 ring-white/10 backdrop-blur">
-            {navLinks.map((l) => (
-              <Link key={l.href} href={l.href} className="block rounded-xl px-4 py-3 text-sm text-white/85 hover:bg-white/10">
-                {l.label}
-              </Link>
-            ))}
-            <Link href="/quote" className="mt-1 block rounded-xl bg-[#fa6a25] px-4 py-3 text-sm font-semibold text-white hover:bg-[#d9531a]">
-              Request a quote
-            </Link>
-          </div>
-        </details>
-      </div>
-    </header>
-  );
-
   return (
     <main id="top" className={`${s.root} ${anton.variable}`}>
+      <SiteNav />
+
       {/* ───────────── HERO (sea / road / air) ───────────── */}
-      <HeroModes header={header}>
+      <HeroModes>
         <div className="max-w-3xl">
           <Eyebrow>Import · Export · Since 2018</Eyebrow>
           {/* Sized off both width and height so the hero always fits one screen */}
@@ -325,8 +298,8 @@ export default function LandingV2Page() {
       </HeroModes>
 
       {/* ───────────── AT A GLANCE ───────────── */}
-      <section aria-label="K.H. Infinity at a glance" className="border-t border-white/10 bg-[#06131d]">
-        <ul className={`${pad} grid grid-cols-2 lg:grid-cols-4`}>
+      <section aria-label="K.H. Infinity at a glance" className="overflow-hidden border-t border-white/10 bg-[#06131d]">
+        <Reveal as="ul" className={`${pad} grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-[repeat(4,minmax(0,1fr))_230px]`}>
           {glance.map((g, i) => (
             <li
               key={g.label}
@@ -335,19 +308,29 @@ export default function LandingV2Page() {
               } ${i > 1 ? "max-lg:border-t max-lg:border-white/10" : ""}`}
             >
               <p className={`${s.display} ${s.displayTight} text-5xl sm:text-6xl`}>{g.value ?? countries.length}</p>
-              <p className="mt-2 text-xs uppercase tracking-[0.14em] text-white/55">{g.label}</p>
+              <p className="mt-2 min-h-[2lh] text-xs uppercase tracking-[0.14em] text-white/55 sm:min-h-0">{g.label}</p>
               <div className="mt-6 flex items-center gap-3 border-t border-white/10 pt-5">
                 <span className="hidden h-9 w-9 shrink-0 place-items-center rounded-full bg-white/[0.06] text-[#fa6a25] ring-1 ring-white/10 sm:grid">
                   <Icon name={g.icon} className="h-[18px] w-[18px]" />
                 </span>
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold leading-snug lg:truncate">{g.title}</p>
-                  <p className="mt-0.5 text-xs leading-snug text-white/55 lg:truncate">{g.body}</p>
+                  <p className="min-h-[2lh] text-sm font-semibold leading-snug sm:min-h-0">{g.title}</p>
+                  <p className="mt-0.5 text-xs leading-snug text-white/55 lg:min-h-[2lh]">{g.body}</p>
                 </div>
               </div>
             </li>
           ))}
-        </ul>
+          {/* D: a KH container lowers into its bay on the crane cable, then swings to rest */}
+          <li aria-hidden="true" className="relative hidden border-l border-white/10 xl:block">
+            {/* Cable runs off the top edge (section clips it), so it reads as hung from the crane above */}
+            <div className={`${s.dropHang} absolute -inset-x-2 bottom-4`}>
+              <div className="relative">
+                <span className="absolute bottom-[99%] left-1/2 h-[480px] w-[6px] -translate-x-1/2 border-x border-[#1b1f24]" />
+                <HangingContainer fadeCable={false} className="h-auto w-full" />
+              </div>
+            </div>
+          </li>
+        </Reveal>
       </section>
 
       {/* ───────────── SHIP · CLEAR · DELIVER ───────────── */}
@@ -447,29 +430,7 @@ export default function LandingV2Page() {
             </p>
           </div>
 
-          <ol className="relative mt-14 grid gap-10 lg:mt-20 lg:grid-cols-5 lg:gap-6">
-            {/* connecting line: vertical on phones, horizontal on desktop */}
-            <span aria-hidden="true" className="absolute bottom-2 left-[19px] top-2 w-px bg-white/15 lg:hidden" />
-            <span aria-hidden="true" className="absolute left-0 right-0 top-[19px] hidden h-px bg-white/15 lg:block" />
-            <span aria-hidden="true" className="absolute left-0 top-[19px] hidden h-px w-1/2 bg-gradient-to-r from-[#fa6a25] to-[#fa6a25]/0 lg:block" />
-            {process.map((step, i) => (
-              <li key={step.title} className="relative pl-14 lg:pl-0">
-                <span
-                  className={`absolute left-0 top-0 grid h-10 w-10 place-items-center rounded-full font-mono text-sm lg:relative ${
-                    i === 0 ? "bg-[#fa6a25] text-white" : "bg-[#0b2c3d] text-white ring-1 ring-white/25"
-                  }`}
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className={`${s.display} text-3xl lg:mt-8`}>{step.title}</h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-white/70 lg:min-h-[3lh]">{step.body}</p>
-                <p className="mt-4 flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-[#fa6a25]">
-                  <span className="h-px w-4 bg-[#fa6a25]" />
-                  {step.owner}
-                </p>
-              </li>
-            ))}
-          </ol>
+          <ProcessTrack />
         </div>
       </section>
 
@@ -519,7 +480,7 @@ export default function LandingV2Page() {
 
       {/* ───────────── SOURCING & COMPLIANCE ───────────── */}
       <section aria-labelledby="sourcing-heading" className="bg-[#f2f4f6] py-20 text-[#06131d] lg:py-28">
-        <div className={`${pad} grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20`}>
+        <div className={`${pad} grid gap-14 xl:grid-cols-[0.8fr_1.2fr] xl:items-end xl:gap-16`}>
           <div>
             <SectionHead
               dark
@@ -534,57 +495,115 @@ export default function LandingV2Page() {
                 </>
               }
             />
-            <p className="mt-6 max-w-lg text-[#06131d]/70">
-              We buy from mills, farms and packers we have vetted ourselves, and every lot ships with the certificates your
-              market asks for.
+            <p className="mt-6 max-w-md text-[#06131d]/70">
+              We buy from mills, farms and packers we have vetted ourselves. Every container in this yard is an origin
+              we trade with. Hover or tap one to see what we bring in from there.
             </p>
-            <ul className="mt-8 flex flex-wrap gap-2" aria-label="Origin countries">
-              {countries.map((c) => {
-                const code = flagCodeFor(c);
+            <dl className="mt-10 grid max-w-md grid-cols-3 gap-6 border-t border-[#06131d]/10 pt-6">
+              {[
+                { value: countries.length, label: "Origin countries" },
+                { value: products.length, label: "Product lines" },
+                { value: certs.length, label: "Certification schemes" },
+              ].map((f) => (
+                <div key={f.label} className="flex flex-col-reverse">
+                  <dt className="mt-1 text-xs text-[#06131d]/55">{f.label}</dt>
+                  <dd className={`${s.display} ${s.displayTight} text-4xl text-[#0b2c3d]`}>{f.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          {/* B: port yard — one container per origin, dropped in and stacked */}
+          <Reveal threshold={0.25}>
+            <ul aria-label="Origin countries" className="relative flex flex-wrap-reverse justify-center gap-2 pb-2">
+              {countries.map((c, i) => {
+                const code = flagCodeFor(c.name);
                 return (
                   <li
-                    key={c}
-                    className="flex items-center gap-2 rounded-full border border-[#06131d]/15 bg-white py-1.5 pl-2 pr-3.5 text-sm text-[#0b2c3d]"
+                    key={c.name}
+                    tabIndex={0}
+                    aria-label={`${c.name}: ${c.items.join(", ")}`}
+                    className={`${s.yardBox} group w-[calc((100%-0.5rem)/2)] outline-none sm:relative sm:w-[calc((100%-1.5rem)/4)] sm:hover:z-30 sm:focus:z-30 lg:w-[calc((100%-2rem)/5)] xl:w-[calc((100%-1.5rem)/4)]`}
+                    style={{ "--d": `${i * 75}ms` } as React.CSSProperties}
                   >
-                    {code && <Flag code={code} className="h-4 w-6" />}
-                    {c}
+                    <div
+                      className={`${s.box} flex h-11 items-center gap-2 px-3 transition-transform sm:h-12 duration-300 group-hover:-translate-y-1.5 group-focus:-translate-y-1.5`}
+                      style={{ "--c": YARD_COLOURS[i % YARD_COLOURS.length] } as React.CSSProperties}
+                    >
+                      {code && <Flag code={code} className="h-3 w-[18px] sm:h-3.5 sm:w-5" />}
+                      <span className={`${s.display} ${s.displayTight} truncate text-[13px] tracking-[0.04em] text-white sm:text-sm`}>
+                        {c.name}
+                      </span>
+                      <span className="ml-auto font-mono text-[11px] text-white/75">{c.items.length}</span>
+                    </div>
+                    <div
+                      role="tooltip"
+                      className="pointer-events-none absolute bottom-full z-40 mb-2 translate-y-1 rounded-xl bg-[#06131d] px-3.5 py-2.5 text-xs text-white opacity-0 shadow-xl transition duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus:translate-y-0 group-focus:opacity-100 max-sm:inset-x-0 sm:left-1/2 sm:w-max sm:max-w-[230px] sm:-translate-x-1/2"
+                    >
+                      <p className="flex items-center gap-2 font-semibold">
+                        {code && <Flag code={code} className="h-3 w-[18px]" />}
+                        {c.name}
+                      </p>
+                      <p className="mt-1 leading-relaxed text-white/70">{c.items.join(" · ")}</p>
+                    </div>
                   </li>
                 );
               })}
             </ul>
-          </div>
-
-          <div className="grid content-start gap-4">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-3xl">
-              <Image
-                src="/images/v3/modes-triptych.webp"
-                alt="Aerial views of a container ship, a truck and an aircraft side by side"
-                fill
-                sizes="(min-width: 1024px) 560px, 100vw"
-                className="object-cover"
-              />
-              <span className={`${s.glass} absolute bottom-4 left-4 rounded-full px-4 py-1.5 text-sm text-white`}>
-                Sea · Road · Air
-              </span>
+            {/* Quay edge with hazard striping */}
+            <div aria-hidden="true" className="relative h-4 overflow-hidden rounded-md bg-[#0b2c3d]">
+              <div className="absolute inset-x-0 top-0 h-1.5 bg-[repeating-linear-gradient(135deg,#f5c518_0_10px,#1b1f24_10px_20px)]" />
             </div>
-            <dl className="grid grid-cols-2 gap-4">
-              {certs.map(([name, count]) => {
-                const logo = certLogos[name];
-                return (
-                  <div key={name} className="flex flex-col rounded-3xl bg-white p-5 ring-1 ring-[#06131d]/[0.06]">
-                    <div className="relative h-14 w-full">
-                      <Image src={logo.src} alt={`${name} logo`} fill sizes="160px" className="object-contain object-left" />
-                    </div>
-                    <dt className="mt-4 text-sm font-semibold text-[#0b2c3d]">{name}</dt>
-                    <dd className="mt-1">
+            <p className="mt-3 text-right font-mono text-[11px] uppercase tracking-wider text-[#06131d]/45">
+              Number = product lines from that origin
+            </p>
+          </Reveal>
+        </div>
+
+        {/* Compliance band */}
+        <div className={`${pad} mt-20 lg:mt-24`}>
+          <div className="flex flex-col justify-between gap-4 border-t border-[#06131d]/10 pt-10 lg:flex-row lg:items-end">
+            <h3 className={`${s.display} text-[clamp(2rem,3.5vw,3rem)] text-[#0b2c3d]`}>Certified at origin</h3>
+            <p className="max-w-md text-[#06131d]/65">
+              Supplier certifications we hold our partners to, counted across the product lines they cover.
+            </p>
+          </div>
+          <dl className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {certs.map(([name, count]) => {
+              const logo = certLogos[name];
+              return (
+                <div
+                  key={name}
+                  className="group flex items-center gap-5 rounded-3xl bg-white p-5 ring-1 ring-[#06131d]/[0.06] transition hover:-translate-y-1 hover:shadow-[0_20px_40px_-24px_rgba(6,19,29,0.35)]"
+                >
+                  <div className="relative h-16 w-16 shrink-0">
+                    <Image src={logo.src} alt={`${name} logo`} fill sizes="64px" className="object-contain" />
+                  </div>
+                  <div className="min-w-0 flex flex-col-reverse">
+                    <dt className="text-xs leading-snug text-[#06131d]/55">
+                      <span className="block font-semibold text-[#0b2c3d]">{name}</span>
+                      {logo.note}
+                    </dt>
+                    <dd className="mb-1">
                       <span className={`${s.display} ${s.displayTight} text-3xl text-[#0b2c3d]`}>{count}</span>
-                      <span className="ml-2 text-sm text-[#06131d]/60">product lines</span>
-                      <p className="mt-1 text-xs text-[#06131d]/50">{logo.note}</p>
+                      <span className="ml-1.5 text-xs text-[#06131d]/55">lines</span>
                     </dd>
                   </div>
-                );
-              })}
-            </dl>
+                </div>
+              );
+            })}
+          </dl>
+          <div className="mt-6 flex flex-wrap items-center gap-2">
+            <span className="mr-2 font-mono text-[11px] uppercase tracking-wider text-[#06131d]/45">With every shipment</span>
+            {shipmentDocs.map((d) => (
+              <span
+                key={d}
+                className="inline-flex items-center gap-2 rounded-full border border-[#06131d]/12 bg-white px-3.5 py-1.5 text-sm text-[#0b2c3d]"
+              >
+                <Icon name="receipt" className="h-4 w-4 text-[#d9531a]" />
+                {d}
+              </span>
+            ))}
           </div>
         </div>
       </section>
@@ -602,7 +621,7 @@ export default function LandingV2Page() {
                 className="object-cover"
               />
             </div>
-            <figure className="absolute -top-6 left-4 w-[42%] max-w-[220px] rotate-[-3deg] overflow-hidden rounded-2xl bg-white p-2 shadow-2xl sm:left-8">
+            <figure className="absolute -top-6 left-3 w-[46%] min-w-[168px] max-w-[220px] rotate-[-3deg] overflow-hidden rounded-2xl bg-white p-2 shadow-2xl sm:left-8">
               <div className="relative aspect-[4/3]">
                 <Image
                   src="/images/potato-export/grading.webp"
@@ -612,11 +631,11 @@ export default function LandingV2Page() {
                   className="object-contain"
                 />
               </div>
-              <figcaption className="px-1 pb-1 pt-2 font-mono text-[10px] uppercase tracking-wider text-[#06131d]/60">
+              <figcaption className="whitespace-nowrap px-1 pb-1 pt-2 font-mono text-[11px] uppercase tracking-wide text-[#06131d]/60">
                 50 kg jute · Grade A
               </figcaption>
             </figure>
-            <div className={`${s.glass} absolute -bottom-6 right-4 w-[250px] rounded-2xl p-5 sm:right-8`}>
+            <div className={`${s.glass} mt-4 rounded-2xl p-5 sm:absolute sm:-bottom-6 sm:right-8 sm:mt-0 sm:w-[250px]`}>
               <p className="text-xs uppercase tracking-[0.14em] text-white/60">Export lane</p>
               <div className="mt-3 flex items-center gap-3">
                 <span className={`${s.display} text-3xl`}>BD</span>
@@ -688,14 +707,19 @@ export default function LandingV2Page() {
                       className="h-4 w-4 text-[#06131d]/30 transition group-hover:rotate-45 group-hover:text-white"
                     />
                   </span>
-                  <span className="mt-8 text-[#0b2c3d] group-hover:text-white">
-                    <Icon name={ind.icon} className="h-11 w-11" />
-                  </span>
-                  <h3 className="mt-8 text-xl font-semibold leading-tight tracking-tight">{ind.name}</h3>
-                  <p className="mt-2 min-h-[2lh] text-sm leading-relaxed text-[#06131d]/65 group-hover:text-white/90">
-                    {ind.body}
-                  </p>
-                  <p className="mt-auto border-t border-[#06131d]/10 pt-4 font-mono text-[11px] uppercase tracking-wider text-[#d9531a] group-hover:border-white/30 group-hover:text-white">
+                  {/* Phones: icon beside the text (compact rows). Desktop: stacked column. */}
+                  <div className="mt-4 flex items-start gap-4 lg:mt-8 lg:block">
+                    <span className="shrink-0 text-[#0b2c3d] group-hover:text-white">
+                      <Icon name={ind.icon} className="h-10 w-10 lg:h-11 lg:w-11" />
+                    </span>
+                    <div>
+                      <h3 className="text-xl font-semibold leading-tight tracking-tight lg:mt-8">{ind.name}</h3>
+                      <p className="mt-1.5 text-sm leading-relaxed text-[#06131d]/65 group-hover:text-white/90 lg:mt-2 lg:min-h-[2lh]">
+                        {ind.body}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-5 border-t border-[#06131d]/10 pt-4 font-mono text-[11px] uppercase tracking-wider text-[#d9531a] group-hover:border-white/30 group-hover:text-white lg:mt-auto">
                     {ind.products}
                   </p>
                 </Link>
@@ -773,8 +797,8 @@ export default function LandingV2Page() {
                 All trade routes <Icon name="arrow" className="h-4 w-4" />
               </Link>
             </div>
-            <div className="mt-10 grid gap-4">
-              {routes.map((r) => (
+            <Reveal className="mt-10 grid gap-4">
+              {routes.map((r, i) => (
                 <Link
                   key={r.href}
                   href={r.href}
@@ -787,9 +811,15 @@ export default function LandingV2Page() {
                   <div>
                     <div className="flex items-center gap-4">
                       <span className={`${s.display} text-4xl`}>{r.from.code}</span>
-                      <span className="relative h-px flex-1 bg-white/20">
-                        <span className="absolute inset-y-0 left-0 w-0 bg-[#fa6a25] transition-all duration-700 group-hover:w-full" />
-                        <span className="absolute -top-[5px] right-0 h-2.5 w-2.5 rounded-full border-2 border-[#fa6a25]" />
+                      {/* C: a ship sails the lane once the section is on screen, wake trailing */}
+                      <span className="relative h-px flex-1 bg-white/20" style={{ "--d": `${i * 350}ms` } as React.CSSProperties}>
+                        <span className={`${s.wake} absolute inset-y-0 left-0 bg-[#fa6a25]`} />
+                        <span className="absolute -top-[5px] right-0 h-2.5 w-2.5 rounded-full border-2 border-[#fa6a25] bg-[#0b2c3d]" />
+                        <span className={`${s.ship} absolute -top-[13px] w-[30px]`}>
+                          <span className={`${s.shipBob} block`}>
+                            <ShipIcon />
+                          </span>
+                        </span>
                       </span>
                       <span className={`${s.display} text-4xl text-[#fa6a25]`}>{r.to.code}</span>
                     </div>
@@ -800,9 +830,9 @@ export default function LandingV2Page() {
                   </div>
                 </Link>
               ))}
-            </div>
+            </Reveal>
           </div>
-          <div className="relative min-h-[420px] overflow-hidden rounded-3xl">
+          <div className="relative min-h-[300px] overflow-hidden rounded-3xl lg:min-h-[420px]">
             <Image
               src="/images/v3/tanker-sunset.webp"
               alt="Tanker sailing across calm water at sunset"
@@ -933,8 +963,7 @@ export default function LandingV2Page() {
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#06131d]/95 via-[#06131d]/75 to-[#06131d]/25" />
         <div className={`${pad} py-24 lg:py-36`}>
           <h2 id="cta-heading" className={`${s.display} max-w-4xl text-[clamp(3rem,7.5vw,7rem)]`}>
-            Ready to move your
-            <br />
+            Ready to move your <br className="hidden sm:block" />
             next <span className="text-[#fa6a25]">shipment?</span>
           </h2>
           <p className="mt-6 max-w-lg text-lg text-white/75">
@@ -1001,10 +1030,10 @@ export default function LandingV2Page() {
             {footerColumns(products).map((col) => (
               <div key={col.title}>
                 <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/40">{col.title}</p>
-                <ul className="mt-5 space-y-3 text-sm">
+                <ul className="mt-3 text-sm">
                   {col.links.map((l) => (
                     <li key={l.href}>
-                      <Link href={l.href} className={`text-white/75 transition-colors hover:text-[#fa6a25] ${focusRing}`}>
+                      <Link href={l.href} className={`inline-flex min-h-10 items-center text-white/75 transition-colors hover:text-[#fa6a25] ${focusRing}`}>
                         {l.label}
                       </Link>
                     </li>
@@ -1026,17 +1055,16 @@ export default function LandingV2Page() {
         <div className={`${pad} flex flex-wrap items-center justify-between gap-4 border-t border-white/10 py-6 text-xs text-white/45`}>
           <span>© K.H. Infinity · Trading the world since 2018</span>
           <span className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <Link href="/privacy" className="hover:text-white">
+            <Link href="/privacy" className="inline-flex min-h-10 items-center hover:text-white">
               Privacy
             </Link>
-            <Link href="/terms" className="hover:text-white">
+            <Link href="/terms" className="inline-flex min-h-10 items-center hover:text-white">
               Terms
             </Link>
             <span>ISO 22000 mark: Wikimedia Commons, CC BY-SA 4.0</span>
-            <span className="text-[#fa6a25]/80">v3 concept · not indexed</span>
             <a
               href="#top"
-              className={`grid h-9 w-9 place-items-center rounded-full border border-white/20 text-white transition-colors hover:border-[#fa6a25] hover:bg-[#fa6a25] ${focusRing}`}
+              className={`grid h-11 w-11 place-items-center rounded-full border border-white/20 text-white transition-colors hover:border-[#fa6a25] hover:bg-[#fa6a25] ${focusRing}`}
               aria-label="Back to top"
             >
               <Icon name="arrow" className="h-4 w-4 -rotate-45" />

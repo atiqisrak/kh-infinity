@@ -26,8 +26,6 @@ JOBS = {
     "tanker-sunset": ("ref (5).png", (700, 180, 1536, 1024), 836),
     # Sea / road / air aerial triptych
     "modes-triptych": ("ref (29).jpg", None, 736),
-    # Cargo jet being loaded (Worldbase shot: trimmed clear of its headline and glass card)
-    "air-cargo": ("ref (28).jpg", (830, 1600, 1600, 2760), 770),
     # Container ship, open sea, soft sky
     "ship-open-sea": ("ref (14).jpg", None, 1200),
 }

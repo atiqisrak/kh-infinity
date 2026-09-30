@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { heroModes } from "./content";
 import s from "./landing.module.css";
+import { NAV_HEIGHT } from "./SiteNav";
 
 // Full-bleed hero: three photo panels (sea / road / air). The active panel widens,
 // and the lane card and progress tabs follow it. Pauses on hover/focus and never
@@ -29,7 +30,7 @@ function usePrefersReducedMotion() {
   return reduce;
 }
 
-export default function HeroModes({ header, children }: { header: React.ReactNode; children: React.ReactNode }) {
+export default function HeroModes({ children }: { children: React.ReactNode }) {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const reduce = usePrefersReducedMotion();
@@ -81,7 +82,8 @@ export default function HeroModes({ header, children }: { header: React.ReactNod
       </div>
       <div className={`${s.heroShade} absolute inset-0 -z-10`} />
 
-      {header}
+      {/* Room for the fixed SiteNav */}
+      <div aria-hidden="true" className={`${NAV_HEIGHT} shrink-0`} />
 
       <div className="mx-auto flex w-full max-w-[1320px] flex-1 flex-col justify-center px-4 py-8 sm:px-6 lg:px-10">
         {children}

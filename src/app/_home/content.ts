@@ -32,8 +32,8 @@ export const heroModes = [
   {
     key: "air",
     label: "Air",
-    image: "/images/v3/air-cargo.webp",
-    alt: "Wrapped cargo pallet being loaded onto a wide-body aircraft",
+    image: "/images/v3/cargo-plane.jpg",
+    alt: "Forklift loading boxed pallets into the cargo hold of a blue aircraft",
     lane: { from: "AE", to: "BD", fromName: "Middle East", toName: "Bangladesh", mode: "Air freight", eta: "3–7 days" },
   },
 ] as const;
@@ -133,6 +133,15 @@ export const services = [
     body: "Planned lanes between China, the Middle East and Bangladesh, with one partner end to end.",
     href: "/services/trade-routes",
   },
+];
+
+// From the FAQ's import-documents answer and the potato-export docs list
+export const shipmentDocs = [
+  "Commercial invoice",
+  "Packing list",
+  "Bill of lading / AWB",
+  "Certificate of origin",
+  "Phytosanitary (produce)",
 ];
 
 export const potatoSpecs = [
