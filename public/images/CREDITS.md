@@ -13,3 +13,5 @@ Site-owned images are noted as existing assets.
 | `about\about-banner.webp` | [Pexels 262353](https://www.pexels.com/photo/262353/) | Container cargo ship at sunset — About page hero & OG |
 | `hubs\exports-hero.webp` | Site asset (from `potato-export\hero.webp`) | Existing KHI potato export hero — Export Operations (Bangladesh potato Gulf programme) |
 | `blog\blog-cover.webp` | Site asset (from `blog\bangladesh-imports-2025.webp`) | Existing trade editorial image — Blog index OG |
+| `v3\*.webp` | Owner-supplied images in `/assets`, cropped by `scripts/build-v3-images.py` | v3 design photography (hero, journey panels, CTA, trade lanes) |
+| `v3\road-and-sea.webp` | Owner-supplied (`assets/ref (10).png`, logo and text cropped off) | Truck convoy on a forest road beside a container ship — products CTA and quote band |

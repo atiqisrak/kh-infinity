@@ -3,7 +3,7 @@
 import { createElement, useEffect, useState } from "react";
 
 // Sets data-inview on its element the first time it scrolls into view. The motion
-// itself lives in landing.module.css under `[data-inview]`, and only runs for
+// itself lives in v3.module.css under `[data-inview]`, and only runs for
 // users without prefers-reduced-motion — otherwise everything renders settled.
 
 type Tag = "div" | "ul" | "ol" | "section";

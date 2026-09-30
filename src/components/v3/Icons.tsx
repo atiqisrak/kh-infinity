@@ -12,6 +12,10 @@ const paths = {
   factory: "M3 20V10l5 3V10l5 3V6l4-2v16M3 20h18M7 16h2m3 0h2m3 0h2",
   sprout: "M12 20v-8m0 0c0-3.3-2.7-6-6-6H4v1c0 3.3 2.7 5 6 5h2Zm0 0c0-2.8 2.2-5 5-5h3v1c0 2.8-2.2 4-5 4h-3M8 20h8",
   plus: "M12 5v14M5 12h14",
+  check: "m5 12.5 4.5 4.5L19 7.5",
+  box: "M20 7.5 12 3 4 7.5m16 0-8 4.5m8-4.5v9L12 21m0-9L4 7.5M12 12v9M4 7.5v9L12 21",
+  spark: "M12 3v4m0 10v4M3 12h4m10 0h4M6 6l2.5 2.5m7 7L18 18M6 18l2.5-2.5m7-7L18 6",
+  clipboard: "M9 4h6v3H9V4Zm0 1.5H6.5A1.5 1.5 0 0 0 5 7v12.5A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V7a1.5 1.5 0 0 0-1.5-1.5H15M9 12h6M9 16h4",
 } as const;
 
 export type IconName = keyof typeof paths;

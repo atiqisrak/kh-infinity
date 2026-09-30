@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { process } from "./content";
-import s from "./landing.module.css";
+import s from "@/components/v3/v3.module.css";
 
 // "How it works" steps with a KH container riding a rail above them. Progress is
 // tied to scroll position (the reader drives it), so each station lights up as the

@@ -4,6 +4,7 @@ Only regions without third-party UI, text or logos are kept. Outputs go to
 public/images/v3/ as WebP. Re-run after replacing a reference image.
 """
 
+import sys
 from pathlib import Path
 
 from PIL import Image
@@ -28,12 +29,18 @@ JOBS = {
     "modes-triptych": ("ref (29).jpg", None, 736),
     # Container ship, open sea, soft sky
     "ship-open-sea": ("ref (14).jpg", None, 1200),
+    # Truck convoy on a forest road beside a container ship (Marks Log logo/text cropped off)
+    "road-and-sea": ("ref (10).png", (0, 980, 2160, 2380), 2160),
 }
 
 
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
+    # Optional names on the command line rebuild only those images
+    only = set(sys.argv[1:])
     for name, (src, box, max_w) in JOBS.items():
+        if only and name not in only:
+            continue
         im = Image.open(SRC / src).convert("RGB")
         if box:
             im = im.crop(box)

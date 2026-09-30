@@ -1,272 +1,27 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Anton } from "next/font/google";
 import { getProducts } from "@/lib/products";
 import { getBlogPosts } from "@/lib/blog";
-import { contactEmail } from "@/lib/navigation";
-import Flag, { flagCodeFor } from "./Flag";
-import HangingContainer from "./HangingContainer";
+import HangingContainer from "@/components/v3/HangingContainer";
+import Reveal from "@/components/v3/Reveal";
+import Icon from "@/components/v3/Icons";
+import V3Shell from "@/components/v3/V3Shell";
+import { services, shipmentDocs } from "@/components/v3/site";
+import { Eyebrow, GhostButton, Pill, PillButton, ProductCard, SectionHead, ShipIcon, focusRing, pad } from "@/components/v3/ui";
+import s from "@/components/v3/v3.module.css";
+import CtaBand from "@/components/v3/CtaBand";
+import { CertCards, SourcingYard } from "@/components/v3/SourcingYard";
+import { sourcingFacts } from "@/components/v3/sourcing";
 import HeroModes from "./HeroModes";
 import ProcessTrack from "./ProcessTrack";
-import SiteNav from "./SiteNav";
-import Reveal from "./Reveal";
-import Icon from "./Icons";
-import {
-  certLogos,
-  faqs,
-  glance,
-  phone,
-  industries,
-  journey,
-  potatoSpecs,
-  shipmentDocs,
-  reasons,
-  routes,
-  services,
-  tickerWords,
-} from "./content";
-import s from "./landing.module.css";
+import { faqs, glance, industries, journey, potatoSpecs, reasons, routes } from "./content";
 
 // Homepage (v3 design): deep-sea navy base, KH orange as the only accent,
 // aerial photography, condensed display type, hanging-container motif.
 // Title, description, canonical and OG tags come from the root layout.
 
-const anton = Anton({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-display",
-});
-
-// ── data derived from the product catalogue ───────────────────────────────
-const COUNTRY_ALIASES: Record<string, string> = { "United States": "USA" };
-const CERT_ALIASES: Record<string, string> = {
-  "BSTI Certified": "BSTI",
-  "Halal Certified": "Halal",
-  "Halal available": "Halal",
-};
-function sourcingFacts(products: ReturnType<typeof getProducts>) {
-  const byCountry = new Map<string, Set<string>>();
-  const certs = new Map<string, number>();
-  for (const p of products) {
-    for (const c of p.sourcing.countries) {
-      const name = COUNTRY_ALIASES[c] ?? c;
-      if (name === "Bangladesh") continue;
-      if (!byCountry.has(name)) byCountry.set(name, new Set());
-      byCountry.get(name)!.add(p.name);
-    }
-    for (const c of new Set(p.sourcing.certifications.map((x) => CERT_ALIASES[x] ?? x))) {
-      if (c in certLogos) certs.set(c, (certs.get(c) ?? 0) + 1);
-    }
-  }
-  return {
-    // Biggest origins first, so they land at the bottom of the yard stack
-    countries: [...byCountry.entries()]
-      .map(([name, items]) => ({ name, items: [...items] }))
-      .sort((a, b) => b.items.length - a.items.length || a.name.localeCompare(b.name)),
-    certs: [...certs.entries()].sort((a, b) => b[1] - a[1]),
-  };
-}
-
-// Container liveries for the sourcing yard (white text stays legible on all of them)
-const YARD_COLOURS = ["#fa6a25", "#0b2c3d", "#12506a", "#b8440f", "#3d6b85", "#d9531a", "#1f3a4d", "#56697a"];
-
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
-
-// ── small building blocks ─────────────────────────────────────────────────
-function Eyebrow({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
-  return (
-    <span
-      className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${
-        dark ? "bg-[#06131d]/[0.06] text-[#0b2c3d]" : "bg-white/10 text-white/80"
-      }`}
-    >
-      <span className="h-1.5 w-1.5 rounded-full bg-[#fa6a25]" />
-      {children}
-    </span>
-  );
-}
-
-function SectionHead({
-  index,
-  eyebrow,
-  title,
-  id,
-  dark = false,
-  className = "",
-}: {
-  index: string;
-  eyebrow: string;
-  title: React.ReactNode;
-  id: string;
-  dark?: boolean;
-  className?: string;
-}) {
-  return (
-    <div className={className}>
-      <div className="flex items-center gap-3">
-        <span className={`font-mono text-xs ${dark ? "text-[#06131d]/45" : "text-white/40"}`}>({index})</span>
-        <Eyebrow dark={dark}>{eyebrow}</Eyebrow>
-      </div>
-      <h2
-        id={id}
-        className={`${s.display} mt-6 text-[clamp(2.8rem,6.4vw,5.75rem)] ${dark ? "text-[#0b2c3d]" : "text-white"}`}
-      >
-        {title}
-      </h2>
-    </div>
-  );
-}
-
-// Button system: text is always white on orange or ink. Hover deepens orange, or
-// fills ink/outline/glass buttons with orange. Every control gets a visible focus ring.
-const focusRing = "outline-none focus-visible:ring-2 focus-visible:ring-[#fa6a25] focus-visible:ring-offset-2 focus-visible:ring-offset-[#06131d]";
-const btnPrimary = `bg-[#fa6a25] text-white hover:bg-[#d9531a] ${focusRing}`;
-const btnInk = `bg-[#06131d] text-white hover:bg-[#fa6a25] ${focusRing}`;
-const btnGhost = `border border-white/30 text-white hover:border-[#fa6a25] hover:bg-[#fa6a25] ${focusRing}`;
-
-function PillButton({
-  href,
-  children,
-  tone = "orange",
-}: {
-  href: string;
-  children: React.ReactNode;
-  tone?: "orange" | "ink";
-}) {
-  return (
-    <Link
-      href={href}
-      className={`group inline-flex items-center gap-3 rounded-full py-2 pl-6 pr-2 font-semibold transition-colors duration-300 ${
-        tone === "orange" ? btnPrimary : btnInk
-      }`}
-    >
-      {children}
-      <span
-        className={`grid h-9 w-9 place-items-center rounded-full bg-white transition-transform duration-300 group-hover:rotate-45 ${
-          tone === "orange" ? "text-[#d9531a]" : "text-[#06131d]"
-        }`}
-      >
-        <Icon name="arrow" className="h-4 w-4" />
-      </span>
-    </Link>
-  );
-}
-
-function GhostButton({ href, children, glass = false }: { href: string; children: React.ReactNode; glass?: boolean }) {
-  const cls = `inline-flex items-center rounded-full px-6 py-3 font-semibold transition-colors duration-300 ${btnGhost} ${
-    glass ? s.glass : ""
-  }`;
-  return href.startsWith("tel:") || href.startsWith("mailto:") ? (
-    <a href={href} className={cls}>
-      {children}
-    </a>
-  ) : (
-    <Link href={href} className={cls}>
-      {children}
-    </Link>
-  );
-}
-
-function Pill({ src }: { src: string }) {
-  return (
-    <span className={s.pill} aria-hidden="true">
-      <Image src={src} alt="" fill sizes="96px" className="object-cover" />
-    </span>
-  );
-}
-
-type Product = ReturnType<typeof getProducts>[number];
-
-function ProductCard({ product: p, index, tabbable }: { product: Product; index: number; tabbable: boolean }) {
-  const origins = p.type === "export" ? ["Bangladesh"] : p.sourcing.countries.slice(0, 2);
-  return (
-    <Link
-      href={`/products/${p.id}`}
-      tabIndex={tabbable ? undefined : -1}
-      className="group relative flex h-full flex-col rounded-3xl bg-white/[0.04] p-3 ring-1 ring-white/10 transition hover:bg-white/[0.08] hover:ring-[#fa6a25]/60"
-    >
-      <div className="flex items-center justify-between px-2 pb-3 pt-1">
-        <span className="font-mono text-sm text-white/50">{String(index + 1).padStart(2, "0")}</span>
-        <span
-          className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider ${
-            p.type === "export" ? "bg-[#fa6a25] text-white" : "bg-white/10 text-white/80"
-          }`}
-        >
-          {p.type}
-        </span>
-      </div>
-      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-[#d5dee7]">
-        <Image src={p.image} alt={p.name} fill sizes="300px" className="object-cover transition duration-500 group-hover:scale-105" />
-      </div>
-      <div className="flex flex-1 items-end justify-between gap-3 px-2 pb-2 pt-4">
-        <div>
-          <p className="text-xs uppercase tracking-[0.14em] text-white/50">{p.category}</p>
-          <h3 className="mt-1 text-lg font-semibold leading-tight">{p.name}</h3>
-          <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-white/55">
-            {origins.map((c) => {
-              const code = flagCodeFor(c);
-              return (
-                <span key={c} className="inline-flex items-center gap-1.5">
-                  {code && <Flag code={code} className="h-3 w-[18px]" />}
-                  {c}
-                </span>
-              );
-            })}
-          </p>
-        </div>
-        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/10 transition group-hover:rotate-45 group-hover:bg-[#fa6a25] group-hover:text-white">
-          <Icon name="arrow" className="h-4 w-4" />
-        </span>
-      </div>
-    </Link>
-  );
-}
-
-function ShipIcon() {
-  return (
-    <svg viewBox="0 0 30 14" className="h-[14px] w-[30px]" aria-hidden="true">
-      <path d="M1 8h28l-4 5H4.5z" fill="#fff" />
-      <path d="M1 8h28l-.8 1H1.8z" fill="#fa6a25" />
-      <rect x="5" y="4" width="4" height="4" fill="#fa6a25" />
-      <rect x="9.5" y="4" width="4" height="4" fill="#12506a" />
-      <rect x="14" y="4" width="4" height="4" fill="#fa6a25" />
-      <rect x="9.5" y="1" width="4" height="3" fill="#d5dee7" />
-      <rect x="21" y="1.5" width="4" height="6.5" fill="#fff" />
-      <rect x="22" y="2.5" width="2" height="1.2" fill="#0b2c3d" />
-    </svg>
-  );
-}
-
-function footerColumns(products: Product[]) {
-  return [
-    {
-      title: "Company",
-      links: [
-        { label: "About", href: "/about" },
-        { label: "Industries", href: "/industries" },
-        { label: "Investors", href: "/investors" },
-        { label: "Careers", href: "/careers" },
-        { label: "Blog", href: "/blog" },
-        { label: "Contact", href: "/contact" },
-      ],
-    },
-    {
-      title: "Services",
-      links: services.map((svc) => ({ label: svc.title, href: svc.href })),
-    },
-    {
-      title: "Products",
-      links: [
-        ...products.slice(0, 5).map((p) => ({ label: p.name, href: `/products/${p.id}` })),
-        { label: "All products", href: "/products" },
-      ],
-    },
-  ];
-}
-
-const pad = "mx-auto max-w-[1320px] px-4 sm:px-6 lg:px-10";
 
 export default function HomePage() {
   const products = getProducts();
@@ -274,9 +29,7 @@ export default function HomePage() {
   const [featured, ...rest] = [...getBlogPosts()].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
 
   return (
-    <main id="top" className={`${s.root} ${anton.variable}`}>
-      <SiteNav />
-
+    <V3Shell>
       {/* ───────────── HERO (sea / road / air) ───────────── */}
       <HeroModes>
         <div className="max-w-3xl">
@@ -514,50 +267,7 @@ export default function HomePage() {
           </div>
 
           {/* B: port yard — one container per origin, dropped in and stacked */}
-          <Reveal threshold={0.25}>
-            <ul aria-label="Origin countries" className="relative flex flex-wrap-reverse justify-center gap-2 pb-2">
-              {countries.map((c, i) => {
-                const code = flagCodeFor(c.name);
-                return (
-                  <li
-                    key={c.name}
-                    tabIndex={0}
-                    aria-label={`${c.name}: ${c.items.join(", ")}`}
-                    className={`${s.yardBox} group w-[calc((100%-0.5rem)/2)] outline-none sm:relative sm:w-[calc((100%-1.5rem)/4)] sm:hover:z-30 sm:focus:z-30 lg:w-[calc((100%-2rem)/5)] xl:w-[calc((100%-1.5rem)/4)]`}
-                    style={{ "--d": `${i * 75}ms` } as React.CSSProperties}
-                  >
-                    <div
-                      className={`${s.box} flex h-11 items-center gap-2 px-3 transition-transform sm:h-12 duration-300 group-hover:-translate-y-1.5 group-focus:-translate-y-1.5`}
-                      style={{ "--c": YARD_COLOURS[i % YARD_COLOURS.length] } as React.CSSProperties}
-                    >
-                      {code && <Flag code={code} className="h-3 w-[18px] sm:h-3.5 sm:w-5" />}
-                      <span className={`${s.display} ${s.displayTight} truncate text-[13px] tracking-[0.04em] text-white sm:text-sm`}>
-                        {c.name}
-                      </span>
-                      <span className="ml-auto font-mono text-[11px] text-white/75">{c.items.length}</span>
-                    </div>
-                    <div
-                      role="tooltip"
-                      className="pointer-events-none absolute bottom-full z-40 mb-2 translate-y-1 rounded-xl bg-[#06131d] px-3.5 py-2.5 text-xs text-white opacity-0 shadow-xl transition duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus:translate-y-0 group-focus:opacity-100 max-sm:inset-x-0 sm:left-1/2 sm:w-max sm:max-w-[230px] sm:-translate-x-1/2"
-                    >
-                      <p className="flex items-center gap-2 font-semibold">
-                        {code && <Flag code={code} className="h-3 w-[18px]" />}
-                        {c.name}
-                      </p>
-                      <p className="mt-1 leading-relaxed text-white/70">{c.items.join(" · ")}</p>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-            {/* Quay edge with hazard striping */}
-            <div aria-hidden="true" className="relative h-4 overflow-hidden rounded-md bg-[#0b2c3d]">
-              <div className="absolute inset-x-0 top-0 h-1.5 bg-[repeating-linear-gradient(135deg,#f5c518_0_10px,#1b1f24_10px_20px)]" />
-            </div>
-            <p className="mt-3 text-right font-mono text-[11px] uppercase tracking-wider text-[#06131d]/45">
-              Number = product lines from that origin
-            </p>
-          </Reveal>
+          <SourcingYard countries={countries} />
         </div>
 
         {/* Compliance band */}
@@ -568,31 +278,7 @@ export default function HomePage() {
               Supplier certifications we hold our partners to, counted across the product lines they cover.
             </p>
           </div>
-          <dl className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {certs.map(([name, count]) => {
-              const logo = certLogos[name];
-              return (
-                <div
-                  key={name}
-                  className="group flex items-center gap-5 rounded-3xl bg-white p-5 ring-1 ring-[#06131d]/[0.06] transition hover:-translate-y-1 hover:shadow-[0_20px_40px_-24px_rgba(6,19,29,0.35)]"
-                >
-                  <div className="relative h-16 w-16 shrink-0">
-                    <Image src={logo.src} alt={`${name} logo`} fill sizes="64px" className="object-contain" />
-                  </div>
-                  <div className="min-w-0 flex flex-col-reverse">
-                    <dt className="text-xs leading-snug text-[#06131d]/55">
-                      <span className="block font-semibold text-[#0b2c3d]">{name}</span>
-                      {logo.note}
-                    </dt>
-                    <dd className="mb-1">
-                      <span className={`${s.display} ${s.displayTight} text-3xl text-[#0b2c3d]`}>{count}</span>
-                      <span className="ml-1.5 text-xs text-[#06131d]/55">lines</span>
-                    </dd>
-                  </div>
-                </div>
-              );
-            })}
-          </dl>
+          <CertCards certs={certs} className="mt-8" />
           <div className="mt-6 flex flex-wrap items-center gap-2">
             <span className="mr-2 font-mono text-[11px] uppercase tracking-wider text-[#06131d]/45">With every shipment</span>
             {shipmentDocs.map((d) => (
@@ -951,127 +637,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ───────────── CTA ───────────── */}
-      <section aria-labelledby="cta-heading" className="relative isolate overflow-hidden">
-        <Image
-          src="/images/v3/ship-open-sea.webp"
-          alt="Loaded container ship sailing through open sea"
-          fill
-          sizes="100vw"
-          className="-z-20 object-cover"
-        />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#06131d]/95 via-[#06131d]/75 to-[#06131d]/25" />
-        <div className={`${pad} py-24 lg:py-36`}>
-          <h2 id="cta-heading" className={`${s.display} max-w-4xl text-[clamp(3rem,7.5vw,7rem)]`}>
-            Ready to move your <br className="hidden sm:block" />
-            next <span className="text-[#fa6a25]">shipment?</span>
-          </h2>
-          <p className="mt-6 max-w-lg text-lg text-white/75">
-            Tell us the product, quantity and destination. We&apos;ll come back with a landed-cost quote.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <PillButton href="/quote">Request a quote</PillButton>
-            <GhostButton href={phone.href} glass>
-              {phone.display}
-            </GhostButton>
-          </div>
-        </div>
-      </section>
-
-      {/* ───────────── FOOTER ───────────── */}
-      <footer className={`${s.gridBg} relative overflow-hidden bg-[#06131d]`}>
-        <div className="overflow-hidden border-b border-white/10 py-5" aria-hidden="true">
-          <div className={s.marquee}>
-            {[0, 1].map((copy) => (
-              <div key={copy} className="flex shrink-0">
-                {tickerWords.map((w) => (
-                  <span
-                    key={`${copy}-${w}`}
-                    className={`${s.display} ${s.displayTight} flex items-center px-6 text-4xl text-white/85 sm:text-5xl`}
-                  >
-                    {w}
-                    <span className="ml-12 text-[#fa6a25]">✦</span>
-                  </span>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className={`${pad} grid gap-14 pb-10 pt-16 lg:grid-cols-12 lg:gap-10 lg:pt-24`}>
-          <div className="lg:col-span-6">
-            <p className={`${s.display} text-[clamp(2.8rem,6vw,5.5rem)]`}>
-              Let&apos;s move
-              <br />
-              <span className="text-[#fa6a25]">something.</span>
-            </p>
-            <div className="mt-8 flex flex-col gap-3">
-              <a
-                href={`mailto:${contactEmail}`}
-                className={`group inline-flex w-fit items-center gap-3 text-2xl font-semibold tracking-tight transition-colors hover:text-[#fa6a25] sm:text-3xl ${focusRing}`}
-              >
-                {contactEmail}
-                <Icon name="arrow" className="h-6 w-6 transition-transform group-hover:rotate-45" />
-              </a>
-              <a
-                href={phone.href}
-                className={`group inline-flex w-fit items-center gap-3 text-2xl font-semibold tracking-tight text-white/70 transition-colors hover:text-[#fa6a25] sm:text-3xl ${focusRing}`}
-              >
-                {phone.display}
-                <Icon name="arrow" className="h-6 w-6 transition-transform group-hover:rotate-45" />
-              </a>
-            </div>
-            <p className="mt-8 max-w-sm text-sm leading-relaxed text-white/50">
-              Kader Tropical Height, Shop G5, 10 Hatkhola Road, Tikatuli, Wari, Dhaka 1203, Bangladesh
-            </p>
-          </div>
-
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-6">
-            {footerColumns(products).map((col) => (
-              <div key={col.title}>
-                <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/40">{col.title}</p>
-                <ul className="mt-3 text-sm">
-                  {col.links.map((l) => (
-                    <li key={l.href}>
-                      <Link href={l.href} className={`inline-flex min-h-10 items-center text-white/75 transition-colors hover:text-[#fa6a25] ${focusRing}`}>
-                        {l.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </nav>
-        </div>
-
-        {/* Oversized wordmark, bleeding off both edges */}
-        <p
-          aria-hidden="true"
-          className={`${s.display} ${s.displayTight} pointer-events-none select-none whitespace-nowrap text-center text-[19vw] text-white/[0.05]`}
-        >
-          K.H. Infinity
-        </p>
-
-        <div className={`${pad} flex flex-wrap items-center justify-between gap-4 border-t border-white/10 py-6 text-xs text-white/45`}>
-          <span>© K.H. Infinity · Trading the world since 2018</span>
-          <span className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <Link href="/privacy" className="inline-flex min-h-10 items-center hover:text-white">
-              Privacy
-            </Link>
-            <Link href="/terms" className="inline-flex min-h-10 items-center hover:text-white">
-              Terms
-            </Link>
-            <span>ISO 22000 mark: Wikimedia Commons, CC BY-SA 4.0</span>
-            <a
-              href="#top"
-              className={`grid h-11 w-11 place-items-center rounded-full border border-white/20 text-white transition-colors hover:border-[#fa6a25] hover:bg-[#fa6a25] ${focusRing}`}
-              aria-label="Back to top"
-            >
-              <Icon name="arrow" className="h-4 w-4 -rotate-45" />
-            </a>
-          </span>
-        </div>
-      </footer>
-    </main>
+      <CtaBand />
+    </V3Shell>
   );
 }
