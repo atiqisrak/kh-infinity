@@ -25,7 +25,7 @@ export const blogPosts: BlogPost[] = [
     author: {
       name: "Farid Ahmed",
       role: "Senior China Trade Analyst",
-      image: "/images/team/farid-ahmed.webp",
+      image: "/images/blog/man.webp",
     },
     category: "Trade Insights",
     date: "2026-10-01",
@@ -122,7 +122,7 @@ export const blogPosts: BlogPost[] = [
     author: {
       name: "Nusrat Jahan",
       role: "India–Bangladesh Trade Specialist",
-      image: "/images/team/nusrat-jahan.webp",
+      image: "/images/blog/woman.webp",
     },
     category: "Trade Insights",
     date: "2026-10-01",
@@ -217,7 +217,7 @@ export const blogPosts: BlogPost[] = [
     author: {
       name: "Sarah Chen",
       role: "International Trade Specialist",
-      image: "/images/team/sarah-chen.webp",
+      image: "/images/blog/woman.webp",
     },
     category: "Product Spotlights",
     date: "2025-01-10",
@@ -244,7 +244,7 @@ export const blogPosts: BlogPost[] = [
     author: {
       name: "Michael Zhang",
       role: "Import-Export Compliance Manager",
-      image: "/images/team/michael-zhang.webp",
+      image: "/images/blog/man.webp",
     },
     category: "Guides",
     date: "2025-01-08",
@@ -271,7 +271,7 @@ export const blogPosts: BlogPost[] = [
     author: {
       name: "Emma Green",
       role: "Trade Finance Specialist",
-      image: "/images/team/emma-green.webp",
+      image: "/images/blog/woman.webp",
     },
     category: "Trade Insights",
     date: "2025-01-05",
@@ -298,7 +298,7 @@ export const blogPosts: BlogPost[] = [
     author: {
       name: "Rahul Sharma",
       role: "Sustainable Trade Analyst",
-      image: "/images/team/rahul-sharma.webp",
+      image: "/images/blog/man.webp",
     },
     category: "Sustainable Practices",
     date: "2025-01-03",
@@ -325,7 +325,7 @@ export const blogPosts: BlogPost[] = [
     author: {
       name: "James Wilson",
       role: "International Trade Documentation Specialist",
-      image: "/images/team/james-wilson.webp",
+      image: "/images/blog/man.webp",
     },
     category: "Trade Insights",
     date: "2024-12-28",
@@ -352,7 +352,7 @@ export const blogPosts: BlogPost[] = [
     author: {
       name: "Mohammad Hossain",
       role: "Strategic Sourcing Manager",
-      image: "/images/team/mohammad-hossain.webp",
+      image: "/images/blog/man.webp",
     },
     category: "Business Growth",
     date: "2024-12-25",
@@ -379,7 +379,7 @@ export const blogPosts: BlogPost[] = [
     author: {
       name: "Aisha Rahman",
       role: "Quality Assurance Director",
-      image: "/images/team/aisha-rahman.webp",
+      image: "/images/blog/woman.webp",
     },
     category: "Guides",
     date: "2024-12-20",
@@ -406,7 +406,7 @@ export const blogPosts: BlogPost[] = [
     author: {
       name: "Emma Green",
       role: "Trade Finance Specialist",
-      image: "/images/team/emma-green.webp",
+      image: "/images/blog/woman.webp",
     },
     category: "Trade Insights",
     date: "2024-12-18",
@@ -433,7 +433,7 @@ export const blogPosts: BlogPost[] = [
     author: {
       name: "James Wilson",
       role: "International Trade Documentation Specialist",
-      image: "/images/team/james-wilson.webp",
+      image: "/images/blog/man.webp",
     },
     category: "Business Growth",
     date: "2024-12-15",
@@ -460,7 +460,7 @@ export const blogPosts: BlogPost[] = [
     author: {
       name: "Farah Rahman",
       role: "Market Development Specialist",
-      image: "/images/team/farah-rahman.webp",
+      image: "/images/blog/woman.webp",
     },
     category: "Product Spotlights",
     date: "2024-12-12",
@@ -487,7 +487,7 @@ export const blogPosts: BlogPost[] = [
     author: {
       name: "James Wilson",
       role: "International Trade Documentation Specialist",
-      image: "/images/team/james-wilson.webp",
+      image: "/images/blog/man.webp",
     },
     category: "Guides",
     date: "2024-03-22",
