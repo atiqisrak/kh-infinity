@@ -1,17 +1,20 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
+import { breadcrumbSchema } from "@/lib/schema-helpers";
+import V3Shell from "@/components/v3/V3Shell";
+import PageHero from "@/components/v3/PageHero";
+import CtaBand from "@/components/v3/CtaBand";
+import { Section, NumberedGrid, RowTable, ListCard, FigureCards } from "@/components/v3/blocks";
+import { PillButton, GhostButton, pad } from "@/components/v3/ui";
+import s from "@/components/v3/v3.module.css";
 
 export const metadata: Metadata = {
-  title:
-    "Investor & B2B Partnership Program - K.H. Infinity | Bulk Import Trading Bangladesh",
+  title: "Investor & B2B Partnership Program - K.H. Infinity | Bulk Import Trading Bangladesh",
   description:
     "Partner with K.H. Infinity, Bangladesh's direct B2B bulk product importer. Secure wholesale trading partnerships from 1 Lakh BDT with a projected 14%–16% variable profit share, disbursed half-yearly.",
   keywords:
     "K.H. Infinity investor relations, B2B partnership Bangladesh, bulk import investment, wholesale trading partnership, profit share investment Bangladesh, sunflower oil import investment",
-  alternates: {
-    canonical: "https://khi.com.bd/investors",
-  },
+  alternates: { canonical: "https://khi.com.bd/investors" },
   openGraph: {
     title: "Partner with Bangladesh's Leading B2B Bulk Product Importer",
     description:
@@ -30,298 +33,244 @@ export const metadata: Metadata = {
   },
 };
 
-const partnershipTerms = [
-  {
-    feature: "Minimum Investment",
-    detail: "1,000,000 BDT (1 Lakh BDT)",
-    purpose:
-      "Kept low to ensure accessible, inclusive entry for individual partners and micro-investors.",
-  },
-  {
-    feature: "Projected Return",
-    detail: "14% to 16% Variable Profit Share per annum",
-    purpose:
-      "Calculated directly based on net bulk product sales and trade margins from active import cycles.",
-  },
-  {
-    feature: "Disbursement Schedule",
-    detail: "Half-Yearly (Every 6 Months)",
-    purpose:
-      "Paid out directly to your registered bank account within 30 days of the mid-year and year-end audit reviews.",
-  },
-  {
-    feature: "Withdrawal Notice",
-    detail: "Minimum 90-Day (3-Month) Notice",
-    purpose:
-      "Required in writing to protect ongoing cargo shipments, customs clearance cash flows, and warehouse logistics.",
-  },
-  {
-    feature: "Disbursement Basis",
-    detail: "Net Sourcing Margins",
-    purpose:
-      "Profit distributions are tied to actual transaction margins, providing inflation-hedged, tangible asset returns.",
-  },
+const partnershipTerms: [string, string][] = [
+  ["Minimum Investment", "1,000,000 BDT (1 Lakh BDT)"],
+  ["Projected Return", "14% – 16% variable profit share per annum"],
+  ["Disbursement Schedule", "Half-yearly — every 6 months"],
+  ["Withdrawal Notice", "Minimum 90-day (3-month) written notice"],
+  ["Disbursement Basis", "Net sourcing margins from active import cycles"],
 ];
 
 const governancePillars = [
   {
-    icon: "fa-binoculars",
     title: "Anticipate",
-    description:
-      "We deeply analyze global commodity trends and domestic buying habits to purchase only high-demand, non-cyclical food products that local food processors actively seek.",
+    body: "We deeply analyse global commodity trends and domestic buying habits to purchase only high-demand, non-cyclical food products that local processors actively seek.",
   },
   {
-    icon: "fa-comments",
     title: "Communicate",
-    description:
-      "We provide clear, direct communication regarding our bulk sourcing timelines, port clearance statuses, and audited half-yearly progress.",
+    body: "Clear, direct updates on bulk sourcing timelines, port clearance status, and audited half-yearly progress — no surprises.",
   },
   {
-    icon: "fa-chart-line",
     title: "Measure",
-    description:
-      "We rigorously track essential operational metrics—including cash flow margins, import turnaround speed, and transaction volumes—verifying that every supply cycle maximizes asset turnover.",
+    body: "We rigorously track cash flow margins, import turnaround speed, and transaction volumes to verify every supply cycle maximises asset turnover.",
   },
   {
-    icon: "fa-handshake",
     title: "Understand",
-    description:
-      "We treat our investors as true strategic partners, leveraging our shared network to continuously expand our trade routes and distribution channels.",
+    body: "We treat investors as true strategic partners, leveraging our shared network to continuously expand trade routes and distribution channels.",
   },
 ];
 
 const growthSectors = [
   {
-    title: "The Bulk Dairy Processing Niche",
-    description:
-      "Fueling Bangladesh's $3 billion dairy market by sourcing premium Skimmed Milk Powder (SMP) and whey protein directly for local value-added food manufacturers.",
-    icon: "fa-cheese",
+    icon: "sprout" as const,
+    title: "Bulk Dairy Processing",
+    items: [
+      "Bangladesh's $3B dairy market as addressable demand",
+      "Skimmed Milk Powder (SMP) and whey protein direct from mills",
+      "Supplies local value-added food manufacturers",
+    ],
   },
   {
+    icon: "basket" as const,
     title: "Premium Cooking Oils",
-    description:
-      "Importing high-grade sunflower seed oil to meet the growing domestic demand for safe, healthy, and premium edible oils.",
-    icon: "fa-bottle-droplet",
+    items: [
+      "High-grade sunflower seed oil imports",
+      "Meets rising domestic demand for healthy edible oils",
+      "Established buyer relationships across FMCG distributors",
+    ],
   },
   {
-    title: "USDA-Identified Consumer Growth Commodities",
-    description:
-      "Financing our strategic portfolio expansion into high-margin bulk products like premium U.S. tree nuts (almonds and walnuts) and high-texture Medjool dates to capture premium retail shelf space.",
-    icon: "fa-seedling",
+    icon: "leaf" as const,
+    title: "High-Margin Commodities",
+    items: [
+      "USDA-identified consumer growth categories",
+      "Premium U.S. tree nuts — almonds and walnuts",
+      "High-texture Medjool dates for premium retail shelf space",
+    ],
   },
 ];
 
 export default function InvestorsPage() {
+  const crumbs = breadcrumbSchema([
+    { name: "Home", url: "https://khi.com.bd/" },
+    { name: "Investors", url: "https://khi.com.bd/investors" },
+  ]);
+
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="relative text-white py-32 md:py-40 overflow-hidden">
-        <Image
-          src="/images/hubs/imports-hero.webp"
-          alt="Bulk cargo shipment representing K.H. Infinity's B2B import trading operations"
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-black/65" />
-        <div className="container relative z-10 mx-auto px-4">
-          <p className="font-semibold uppercase text-sm mb-3 tracking-wide text-orange-400">
-            Investor & B2B Partnership Program
-          </p>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 max-w-4xl">
-            Partner with Bangladesh&rsquo;s Leading B2B Bulk Product Importer
-          </h1>
-          <p className="text-lg md:text-xl max-w-2xl text-gray-100 mb-8">
-            Capitalize on the booming demand for premium agricultural
-            commodities. Secure, transparent wholesale trading partnerships
-            starting from <strong>1 Lakh BDT</strong>, featuring a projected{" "}
-            <strong>14% to 16% variable profit share</strong> disbursed
-            half-yearly.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Link
-              href="/investors/onboarding#apply-form"
-              className="inline-flex items-center bg-orange-600 text-white px-8 py-3 rounded-lg hover:bg-orange-700 transition-colors font-semibold"
-            >
-              Apply for Partnership
-            </Link>
-            <Link
-              href="/investors/portal"
-              className="inline-flex items-center bg-white/10 border border-white/40 text-white px-8 py-3 rounded-lg hover:bg-white/20 transition-colors font-semibold backdrop-blur-sm"
-            >
-              Access Secure Investor Portal
-            </Link>
-          </div>
-        </div>
-      </section>
+    <V3Shell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }} />
 
-      {/* GEO/AEO Question Heading */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="text-3xl font-bold mb-6 text-gray-800">
-            How does the K.H. Infinity (KHI) B2B Partnership Program work?
-          </h2>
-          <p className="text-gray-600 mb-4">
-            <strong>
-              K.H. Infinity (KHI) is a direct wholesale product importer and
-              bulk B2B supplier
-            </strong>
-            —we are not a shipping, logistics, or freight forwarding agency.
-            We utilize our robust internal supply chain and customs expertise
-            to purchase high-demand commodities (like sunflower seed oil,
-            skimmed milk powder, and premium potatoes) globally, importing
-            them in bulk to supply local manufacturing industries and retail
-            supermarkets.
-          </p>
-          <p className="text-gray-600">
-            By partnering with KHI, investors deploy capital directly into
-            active bulk sourcing cycles. This model bypasses traditional
-            intermediary friction, generating stable, asset-backed returns
-            that are disbursed twice a year.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        crumbs={[{ label: "Home", href: "/" }, { label: "Investors" }]}
+        eyebrow="Investor & B2B Partnership"
+        image="/images/hubs/imports-hero.webp"
+        imageAlt="Bulk cargo shipment representing K.H. Infinity's B2B import trading operations"
+        title={
+          <>
+            Partner with Bangladesh&rsquo;s
+            <br />
+            <span className="text-[#fa6a25]">leading bulk importer</span>
+          </>
+        }
+        lead="Secure, transparent wholesale trading partnerships from 1 Lakh BDT — backed by active import cycles and audited half-yearly returns."
+        actions={
+          <>
+            <PillButton href="/investors/onboarding#apply-form">Apply for Partnership</PillButton>
+            <GhostButton href="/investors/portal">Access Investor Portal</GhostButton>
+          </>
+        }
+        stats={[
+          { value: "1L+", label: "Minimum entry (BDT)" },
+          { value: "14–16%", label: "Projected annual return" },
+          { value: "2×", label: "Disbursements per year" },
+          { value: "90 days", label: "Withdrawal notice" },
+        ]}
+      />
 
-      {/* Terms Table */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-10 text-center text-gray-800">
-            Core Partnership Terms & Specifications
-          </h2>
-          <div className="overflow-x-auto bg-white rounded-lg shadow-md">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="bg-orange-600 text-white">
-                  <th className="px-6 py-4 font-semibold">Feature</th>
-                  <th className="px-6 py-4 font-semibold">
-                    Specification Details
-                  </th>
-                  <th className="px-6 py-4 font-semibold">
-                    Business Purpose & Protection
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {partnershipTerms.map((row, index) => (
-                  <tr
-                    key={row.feature}
-                    className={
-                      index !== partnershipTerms.length - 1
-                        ? "border-b border-gray-100"
-                        : ""
-                    }
-                  >
-                    <td className="px-6 py-5 font-semibold text-gray-800 align-top whitespace-nowrap">
-                      {row.feature}
-                    </td>
-                    <td className="px-6 py-5 text-gray-700 align-top font-medium">
-                      {row.detail}
-                    </td>
-                    <td className="px-6 py-5 text-gray-600 align-top">
-                      {row.purpose}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="text-sm text-gray-500 mt-4 max-w-3xl">
-            Projected returns are variable and based on actual net trading
-            margins from bulk import cycles; they are not fixed or
-            guaranteed. Historical performance does not assure future
-            results.
-          </p>
-        </div>
-      </section>
-
-      {/* Governance Principles */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-4 text-center text-gray-800">
-            Our Investor Relations Governance Principles
-          </h2>
-          <p className="text-gray-600 text-center max-w-2xl mx-auto mb-12">
-            We manage our partnerships based on the industry&rsquo;s four
-            pillars of professional investor relations management.
-          </p>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {governancePillars.map((pillar) => (
-              <div
-                key={pillar.title}
-                className="border p-6 rounded-lg text-center hover:shadow-md transition-shadow"
-              >
-                <i
-                  className={`fas ${pillar.icon} text-4xl text-orange-500 mb-4`}
-                ></i>
-                <h3 className="text-xl font-bold mb-2 text-gray-800">
-                  {pillar.title}
-                </h3>
-                <p className="text-gray-600 text-sm">{pillar.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Growth Sectors */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-4 text-center text-gray-800">
-            High-Growth Sectors Your Capital Accesses
-          </h2>
-          <p className="text-gray-600 text-center max-w-2xl mx-auto mb-12">
-            Your investment directly funds the import and local distribution
-            of Bangladesh&rsquo;s highest-velocity bulk products.
-          </p>
-          <div className="grid md:grid-cols-3 gap-8">
-            {growthSectors.map((sector) => (
-              <div
-                key={sector.title}
-                className="bg-white p-8 rounded-lg shadow-md"
-              >
-                <i
-                  className={`fas ${sector.icon} text-3xl text-orange-500 mb-4`}
-                ></i>
-                <h3 className="text-xl font-bold mb-3 text-gray-800">
-                  {sector.title}
-                </h3>
-                <p className="text-gray-600">{sector.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="bg-orange-600 rounded-2xl p-10 md:p-14 text-center text-white">
-            <h2 className="text-3xl font-bold mb-4">
-              Ready to Become a KHI Strategic Partner?
-            </h2>
-            <p className="text-orange-50 max-w-2xl mx-auto mb-8">
-              Complete our compliance-ready onboarding process to submit your
-              partnership inquiry, or log in to the secure investor portal if
-              you&rsquo;re already a verified partner.
+      {/* How it works */}
+      <Section
+        id="how-it-works"
+        tone="paper"
+        eyebrow="How it works"
+        title={
+          <>
+            Capital deployed into
+            <br />
+            <span className="text-[#fa6a25]">active import cycles</span>
+          </>
+        }
+        intro="K.H. Infinity is a direct wholesale product importer — not a shipping or freight agency. Your capital enters working trade, not a fund."
+        headSize="md"
+      >
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-3xl bg-white p-6 ring-1 ring-[#06131d]/[0.06] sm:p-8">
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#06131d]/50">The model</p>
+            <p className="mt-4 text-[15px] leading-relaxed text-[#06131d]/70">
+              We use our internal supply chain and customs expertise to purchase high-demand commodities — sunflower seed oil,
+              skimmed milk powder, premium potatoes — globally, importing them in bulk to supply local manufacturers and
+              retail supermarkets. By partnering with KHI, investors deploy capital directly into active bulk sourcing
+              cycles, generating stable asset-backed returns disbursed twice a year.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="/investors/onboarding"
-                className="inline-flex items-center bg-white text-orange-700 px-8 py-3 rounded-lg hover:bg-orange-50 transition-colors font-semibold"
-              >
-                Start Onboarding & KYC
-              </Link>
-              <Link
-                href="/investors/portal"
-                className="inline-flex items-center border border-white text-white px-8 py-3 rounded-lg hover:bg-white/10 transition-colors font-semibold"
-              >
-                Access Secure Investor Portal
-              </Link>
+          </div>
+          <div className="rounded-3xl bg-white p-6 ring-1 ring-[#06131d]/[0.06] sm:p-8">
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#06131d]/50">Why it works</p>
+            <p className="mt-4 text-[15px] leading-relaxed text-[#06131d]/70">
+              This model bypasses traditional intermediary friction. Returns are tied to actual net transaction margins
+              from real cargo — not notional valuations. Our in-house customs clearance team reduces clearance time and
+              cost, directly protecting margin on every shipment. Partners receive half-yearly profit-share payments
+              within 30 days of audit completion.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      {/* Stats strip */}
+      <section className="bg-[#0b2c3d] py-20 lg:py-28">
+        <div className={pad}>
+          <FigureCards
+            items={[
+              { value: "1L BDT", label: "Entry point", note: "Accessible to individual partners" },
+              { value: "14–16%", label: "Target p.a.", note: "Variable, based on net margins" },
+              { value: "H1 + H2", label: "Disbursement", note: "Within 30 days of audit" },
+              { value: "90-day", label: "Exit notice", note: "Protects active cargo cycles" },
+            ]}
+          />
+        </div>
+      </section>
+
+      {/* Partnership terms */}
+      <Section
+        id="terms"
+        tone="white"
+        eyebrow="Partnership terms"
+        title="Core specifications"
+        headSize="md"
+        intro="All terms are defined in the partnership agreement signed at onboarding. Projected returns are variable and not guaranteed."
+      >
+        <div className="grid gap-4 lg:grid-cols-2">
+          <RowTable
+            title="Term sheet"
+            rows={partnershipTerms}
+          />
+          <div className="flex flex-col gap-4">
+            <div className="rounded-3xl bg-[#f2f4f6] p-6 sm:p-8">
+              <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#06131d]/50">Disclaimer</p>
+              <p className="mt-4 text-[15px] leading-relaxed text-[#06131d]/70">
+                Projected returns are variable and based on actual net trading margins from bulk import cycles.
+                They are not fixed or guaranteed. Historical performance does not assure future results.
+              </p>
+            </div>
+            <div className="rounded-3xl bg-[#06131d] p-6 sm:p-8 text-white">
+              <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/50">Ready to start?</p>
+              <p className={`${s.display} mt-4 text-3xl`}>Onboard in under 10 minutes.</p>
+              <p className="mt-3 text-sm text-white/60">Submit your inquiry, complete KYC, and access the secure portal.</p>
+              <div className="mt-6">
+                <Link
+                  href="/investors/onboarding"
+                  className="inline-flex items-center rounded-full bg-[#fa6a25] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#d9531a]"
+                >
+                  Start Onboarding &amp; KYC →
+                </Link>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </Section>
+
+      {/* Governance */}
+      <Section
+        id="governance"
+        tone="mist"
+        eyebrow="Investor relations"
+        title={
+          <>
+            Four pillars of
+            <br />
+            our governance
+          </>
+        }
+        headSize="md"
+        intro="We manage our partnerships based on the industry's four pillars of professional investor relations management."
+      >
+        <NumberedGrid dark cols={4} items={governancePillars} />
+      </Section>
+
+      {/* Growth sectors */}
+      <Section
+        id="sectors"
+        tone="ink"
+        grid
+        eyebrow="Where your capital goes"
+        title={
+          <>
+            High-growth sectors
+            <br />
+            <span className="text-[#fa6a25]">your capital accesses</span>
+          </>
+        }
+        intro="Your investment directly funds the import and local distribution of Bangladesh's highest-velocity bulk products."
+        headSize="md"
+      >
+        <div className="grid gap-4 md:grid-cols-3">
+          {growthSectors.map((s) => (
+            <ListCard key={s.title} icon={s.icon} title={s.title} items={s.items} />
+          ))}
+        </div>
+      </Section>
+
+      <CtaBand
+        title={
+          <>
+            Ready to become a
+            <br />
+            KHI <span className="text-[#fa6a25]">strategic partner?</span>
+          </>
+        }
+        body="Complete our compliance-ready onboarding to submit your partnership inquiry, or log in to the secure investor portal if you're already a verified partner."
+        image="/images/hubs/imports-hero.webp"
+        imageAlt="Bulk cargo vessel representing K.H. Infinity import operations"
+        cta={{ label: "Start Onboarding", href: "/investors/onboarding" }}
+      />
+    </V3Shell>
   );
 }
