@@ -29,7 +29,7 @@ export const blogPosts: BlogPost[] = [
     },
     category: "Trade Insights",
     date: "2026-10-01",
-    image: "/images/blog/china-bangladesh-imports-2026.webp",
+    image: "/images/blog/bangladesh-imports-2025.webp",
     tags: [
       "china imports bangladesh",
       "importing from china",
@@ -126,7 +126,7 @@ export const blogPosts: BlogPost[] = [
     },
     category: "Trade Insights",
     date: "2026-10-01",
-    image: "/images/blog/india-bangladesh-trade-2026.webp",
+    image: "/images/blog/supplier-research-tools.webp",
     tags: [
       "india imports bangladesh",
       "importing from india",
