@@ -14,14 +14,14 @@ import { ArrowLink, GhostButton, PillButton, SectionHead, pad } from "@/componen
 import V3Shell from "@/components/v3/V3Shell";
 
 export const metadata: Metadata = {
-  title: "Import Operations | Bulk Commodity Imports | K.H. Infinity",
+  title: "Import Operations | Commodities, Electronics & Auto Parts | K.H. Infinity",
   description:
-    "Direct B2B import operations from K.H. Infinity: sunflower oil, skimmed milk powder, sugar, pulses, tree nuts, and condiments with NBR TTI transparency and BSTI compliance.",
+    "Direct B2B import operations from K.H. Infinity: food commodities, motorcycle parts from India, and consumer electronics & phone parts from China — with NBR TTI transparency and in-house customs clearance.",
   alternates: { canonical: "https://khi.com.bd/imports" },
   openGraph: {
-    title: "Import Operations | Bulk Commodity Imports | K.H. Infinity",
+    title: "Import Operations | Commodities, Electronics & Auto Parts | K.H. Infinity",
     description:
-      "Direct B2B commodity imports: sunflower oil, milk powder, sugar, pulses, tree nuts, and condiments with NBR TTI transparency and BSTI compliance from Dhaka, Bangladesh.",
+      "Direct B2B imports into Bangladesh: food commodities, motorcycle parts (India), and consumer electronics & phone displays (China) with NBR TTI transparency and BSTI compliance.",
     url: "https://khi.com.bd/imports",
     siteName: "K.H. Infinity",
     type: "website",
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Import Operations | Bulk Commodity Imports | K.H. Infinity",
+    title: "Import Operations | Commodities, Electronics & Auto Parts | K.H. Infinity",
     description:
-      "Direct B2B commodity imports: sunflower oil, milk powder, sugar, pulses, almonds, dates and condiments with NBR TTI transparency and BSTI compliance.",
+      "Direct B2B imports: food commodities, motorcycle parts from India, iPhone & Android displays, audio and charging accessories from China — in-house NBR customs clearance.",
     images: ["/images/hubs/imports-hero.webp"],
   },
 };
@@ -42,8 +42,15 @@ const LANES: Lane[] = [
     from: { code: "CN", flag: "CN", city: "China" },
     to: { code: "BD", flag: "BD", city: "Chattogram" },
     label: "Import from China",
-    note: "Consumer goods, industrial inputs",
+    note: "Consumer electronics, phone parts, industrial inputs",
     href: "/services/trade-routes/import-from-china",
+  },
+  {
+    from: { code: "IN", flag: "IN", city: "India" },
+    to: { code: "BD", flag: "BD", city: "Chattogram" },
+    label: "Import from India",
+    note: "Motorcycle parts, spices, agricultural goods",
+    href: "/services/trade-routes",
   },
   {
     from: { code: "AE", flag: "AE", city: "Middle East" },
@@ -95,9 +102,10 @@ export default function ImportsPage() {
         lead={
           <>
             <p className="geo-anchor" data-speakable>
-              K.H. Infinity is the direct wholesale importer of bulk commodities in Bangladesh. We own physical
-              inventory—not facilitate trades—and manage NBR customs clearance, TTI transparency, and BSTI compliance as
-              internal capabilities from our Tikatuli, Dhaka hub.
+              K.H. Infinity is the direct wholesale importer of bulk commodities, motorcycle parts from India, and consumer
+              electronics &amp; phone parts from China in Bangladesh. We own physical inventory—not facilitate trades—and
+              manage NBR customs clearance, TTI transparency, and BSTI compliance as internal capabilities from our
+              Tikatuli, Dhaka hub.
             </p>
             <p className="mt-5">
               <ArrowLink href="/services/customs">Customs clearance &amp; TTI support</ArrowLink>

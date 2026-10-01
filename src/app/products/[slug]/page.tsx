@@ -249,6 +249,23 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </Link>
       )}
 
+      {(slug === "iphone-displays" || slug === "android-displays") && (
+        <Link
+          href="/products/phone-parts-programme"
+          className={`group block bg-[#1d4ed8] text-white transition-colors hover:bg-[#1e40af] ${focusRing}`}
+        >
+          <span className={`${pad} flex flex-wrap items-center justify-between gap-3 py-5`}>
+            <span>
+              <span className="font-semibold">Sourcing at volume?</span>{" "}
+              <span className="text-white/85">Open the Phone Parts Programme for compatibility matrices, quality grades, and MOQ details.</span>
+            </span>
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-[#1d4ed8] transition group-hover:rotate-45">
+              <Icon name="arrow" className="h-4 w-4" />
+            </span>
+          </span>
+        </Link>
+      )}
+
       {/* ───────────── DETAILS ───────────── */}
       <section id="specifications" aria-labelledby="details-heading" className="bg-[#f2f4f6] py-20 text-[#06131d] lg:py-28">
         <div className={pad}>
