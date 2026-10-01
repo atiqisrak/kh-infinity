@@ -19,12 +19,15 @@ K.H. Infinity owns physical inventory for bulk commodities and manages NBR custo
 - https://khi.com.bd/imports
 - Sunflower Seed Oil (HS 1512.19.00): https://khi.com.bd/products/sunflower-oil
 - Skimmed Milk Powder (HS 0402.10.00): https://khi.com.bd/products/milk-powder
-- Sugar: https://khi.com.bd/products/sugar
-- Soyabean Oil: https://khi.com.bd/products/soyabean-oil
-- Pulses & Legumes: https://khi.com.bd/products/pulses
-- U.S. Almonds (HS 0802.12.00): https://khi.com.bd/products/almonds
-- Medjool Dates: https://khi.com.bd/products/medjool-dates
-- Condiments: https://khi.com.bd/products/soy-sauce
+- Sugar (HS 1701.99.00): https://khi.com.bd/products/sugar
+- Soyabean Oil (HS 1507.90.00): https://khi.com.bd/products/soyabean-oil
+- Pulses & Legumes (HS 0713.40.00): https://khi.com.bd/products/pulses
+- Chickpeas (HS 0713.20.00): https://khi.com.bd/products/chickpeas
+- Cumin (HS 0909.21.00): https://khi.com.bd/products/cumin
+- Tarpaulin (HS 6306.12.00): https://khi.com.bd/products/tarpaulin
+- U.S. Almonds (HS 0802.12.00, TTI 64.25–96.10%): https://khi.com.bd/products/almonds
+- Medjool Dates (HS 0804.10.00, TTI ~48.75%): https://khi.com.bd/products/medjool-dates
+- Soy Sauce & Condiments (HS 2103.10.00): https://khi.com.bd/products/soy-sauce
 
 ## Export Operations
 
@@ -37,7 +40,18 @@ K.H. Infinity owns physical inventory for bulk commodities and manages NBR custo
 
 - Customs Clearance & TTI: https://khi.com.bd/services/customs
 - Trade Routes: https://khi.com.bd/services/trade-routes
+  - Import from China: https://khi.com.bd/services/trade-routes/import-from-china
+  - Import from Middle East: https://khi.com.bd/services/trade-routes/import-from-middle-east
+  - Export to Middle East/Gulf: https://khi.com.bd/services/trade-routes/export-to-middle-east
 - SME Import Solutions: https://khi.com.bd/services/sme-import-solutions
+
+## Industries Served
+
+- FMCG: https://khi.com.bd/industries/fmcg
+- Agriculture & Food Processing: https://khi.com.bd/industries/agriculture
+- Hospitality & Food Service: https://khi.com.bd/industries/hospitality
+- Manufacturing & Industrial: https://khi.com.bd/industries/manufacturing
+- Retail & E-commerce: https://khi.com.bd/industries/retail
 
 ## Resources
 

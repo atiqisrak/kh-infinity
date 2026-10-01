@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getProduct, getProductsByType } from "@/lib/products";
-import { breadcrumbSchema } from "@/lib/schema-helpers";
+import { breadcrumbSchema, speakableWebPageSchema } from "@/lib/schema-helpers";
 import CtaBand from "@/components/v3/CtaBand";
 import PageHero from "@/components/v3/PageHero";
 import { ChipList, RowTable, Section, labelCls } from "@/components/v3/blocks";
@@ -18,7 +18,9 @@ export const metadata: Metadata = {
     "Direct B2B export operations from K.H. Infinity: premium potatoes, Gulf-market potato programmes, and Bangladeshi handicrafts with full export documentation.",
   alternates: { canonical: "https://khi.com.bd/exports" },
   openGraph: {
-    title: "Export Operations | K.H. Infinity",
+    title: "Export Operations | Premium Bangladesh Exports | K.H. Infinity",
+    description:
+      "B2B export programmes from Bangladesh: Gulf-market potatoes with SPS documentation and Bangladeshi handicrafts — graded, packed, and export-certified from Dhaka.",
     url: "https://khi.com.bd/exports",
     siteName: "K.H. Infinity",
     type: "website",
@@ -26,6 +28,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    title: "Export Operations | Premium Bangladesh Exports | K.H. Infinity",
+    description:
+      "B2B export programmes from Bangladesh: Gulf-market potatoes with SPS documentation and Bangladeshi handicrafts with full export certification.",
     images: ["/images/hubs/exports-hero.webp"],
   },
 };
@@ -73,10 +78,16 @@ export default function ExportsPage() {
     { name: "Home", url: "https://khi.com.bd/" },
     { name: "Export Operations", url: "https://khi.com.bd/exports" },
   ]);
+  const speakable = speakableWebPageSchema({
+    url: "https://khi.com.bd/exports",
+    name: "Export Operations | K.H. Infinity",
+    dateModified: "2026-10-01",
+  });
 
   return (
     <V3Shell>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakable) }} />
 
       {/* ───────────── HERO ───────────── */}
       <PageHero

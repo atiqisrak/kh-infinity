@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getProductsByType } from "@/lib/products";
-import { breadcrumbSchema } from "@/lib/schema-helpers";
+import { breadcrumbSchema, speakableWebPageSchema } from "@/lib/schema-helpers";
 import CtaBand from "@/components/v3/CtaBand";
 import PageHero from "@/components/v3/PageHero";
 import { ChipList, FigureCards, Section, labelCls } from "@/components/v3/blocks";
@@ -19,7 +19,9 @@ export const metadata: Metadata = {
     "Direct B2B import operations from K.H. Infinity: sunflower oil, skimmed milk powder, sugar, pulses, tree nuts, and condiments with NBR TTI transparency and BSTI compliance.",
   alternates: { canonical: "https://khi.com.bd/imports" },
   openGraph: {
-    title: "Import Operations | K.H. Infinity",
+    title: "Import Operations | Bulk Commodity Imports | K.H. Infinity",
+    description:
+      "Direct B2B commodity imports: sunflower oil, milk powder, sugar, pulses, tree nuts, and condiments with NBR TTI transparency and BSTI compliance from Dhaka, Bangladesh.",
     url: "https://khi.com.bd/imports",
     siteName: "K.H. Infinity",
     type: "website",
@@ -27,6 +29,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    title: "Import Operations | Bulk Commodity Imports | K.H. Infinity",
+    description:
+      "Direct B2B commodity imports: sunflower oil, milk powder, sugar, pulses, almonds, dates and condiments with NBR TTI transparency and BSTI compliance.",
     images: ["/images/hubs/imports-hero.webp"],
   },
 };
@@ -65,10 +70,16 @@ export default function ImportsPage() {
     { name: "Home", url: "https://khi.com.bd/" },
     { name: "Import Operations", url: "https://khi.com.bd/imports" },
   ]);
+  const speakable = speakableWebPageSchema({
+    url: "https://khi.com.bd/imports",
+    name: "Import Operations | K.H. Infinity",
+    dateModified: "2026-10-01",
+  });
 
   return (
     <V3Shell>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakable) }} />
 
       {/* ───────────── HERO ───────────── */}
       <PageHero
