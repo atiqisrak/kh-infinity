@@ -6,7 +6,12 @@ import { usePathname } from "next/navigation";
 // header/footer step aside. Add a route here when its page moves to V3Shell.
 // "/" is matched exactly: it is a prefix of every path.
 const V3_EXACT = new Set(["/"]);
-const V3_PREFIXES = ["/products", "/about", "/contact", "/quote", "/services", "/industries", "/imports", "/exports"];
+const V3_PREFIXES = [
+  "/products", "/about", "/contact", "/quote", "/services",
+  "/industries", "/imports", "/exports",
+  "/blog", "/careers", "/faq", "/news", "/events", "/awards",
+  "/privacy", "/terms", "/equal-opportunity",
+];
 // Under a v3 prefix but not migrated yet: keep the legacy chrome
 const LEGACY_EXCEPTIONS = new Set<string>([]);
 
