@@ -31,6 +31,8 @@ JOBS = {
     "ship-open-sea": ("ref (14).jpg", None, 1200),
     # Truck convoy on a forest road beside a container ship (Marks Log logo/text cropped off)
     "road-and-sea": ("ref (10).png", (0, 980, 2160, 2380), 2160),
+    # Aerial container stacks, left strip (the "WHY US?" lettering and Venus logo are further right)
+    "trade/container-stacks": ("ref (7).jpg", (0, 250, 640, 1850), 640),
 }
 
 
@@ -47,6 +49,7 @@ def main() -> None:
         if im.width > max_w:
             im = im.resize((max_w, round(im.height * max_w / im.width)), Image.LANCZOS)
         dest = OUT / f"{name}.webp"
+        dest.parent.mkdir(parents=True, exist_ok=True)
         im.save(dest, "WEBP", quality=80, method=6)
         print(f"{dest.relative_to(ROOT)}  {im.width}x{im.height}  {dest.stat().st_size // 1024}KB")
 

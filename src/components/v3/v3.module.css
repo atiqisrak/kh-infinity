@@ -307,3 +307,10 @@
 .chipRail::-webkit-scrollbar {
   display: none;
 }
+
+/* ProcessTrack columns: one per step on desktop (set --cols) */
+@media (min-width: 1024px) {
+  .trackCols {
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  }
+}

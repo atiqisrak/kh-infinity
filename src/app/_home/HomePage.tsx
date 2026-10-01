@@ -12,9 +12,9 @@ import s from "@/components/v3/v3.module.css";
 import CtaBand from "@/components/v3/CtaBand";
 import { CertCards, SourcingYard } from "@/components/v3/SourcingYard";
 import { sourcingFacts } from "@/components/v3/sourcing";
+import ProcessTrack from "@/components/v3/ProcessTrack";
 import HeroModes from "./HeroModes";
-import ProcessTrack from "./ProcessTrack";
-import { faqs, glance, industries, journey, potatoSpecs, reasons, routes } from "./content";
+import { faqs, glance, industries, journey, potatoSpecs, process, reasons, routes } from "./content";
 
 // Homepage (v3 design): deep-sea navy base, KH orange as the only accent,
 // aerial photography, condensed display type, hanging-container motif.
@@ -183,7 +183,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <ProcessTrack />
+          <ProcessTrack steps={process} />
         </div>
       </section>
 

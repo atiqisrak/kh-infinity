@@ -7,7 +7,8 @@ import { buildProductSchema, speakableWebPageSchema } from "@/lib/schema-helpers
 import Crumbs from "@/components/v3/Crumbs";
 import Flag, { flagCodeFor } from "@/components/v3/Flag";
 import HangingContainer from "@/components/v3/HangingContainer";
-import Icon, { type IconName } from "@/components/v3/Icons";
+import Icon from "@/components/v3/Icons";
+import { ListCard, fieldLabelDark, inputDark } from "@/components/v3/blocks";
 import ProductGallery from "@/components/v3/products/ProductGallery";
 import { certLogos, phone, shipmentDocs } from "@/components/v3/site";
 import { certKey, YARD_COLOURS } from "@/components/v3/sourcing";
@@ -98,28 +99,6 @@ function tradeFacts(product: Product) {
 
 const labelCls = "font-mono text-[11px] uppercase tracking-[0.16em]";
 
-// Light card with an icon disc, title and a check list
-function ListCard({ icon, title, items }: { icon: IconName; title: string; items: string[] }) {
-  return (
-    <div className="rounded-3xl bg-white p-6 ring-1 ring-[#06131d]/[0.06] sm:p-8">
-      <div className="flex items-center gap-3">
-        <span className="grid h-10 w-10 place-items-center rounded-full bg-[#fa6a25]/10 text-[#d9531a]">
-          <Icon name={icon} className="h-5 w-5" />
-        </span>
-        <h3 className="text-lg font-semibold tracking-tight text-[#0b2c3d]">{title}</h3>
-      </div>
-      <ul className="mt-5 grid gap-3">
-        {items.map((item) => (
-          <li key={item} className="flex items-start gap-3 text-[15px] leading-snug text-[#06131d]/75">
-            <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-[#fa6a25]" />
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
 function RowTable({ title, rows }: { title: string; rows: Record<string, string> }) {
   return (
     <div className="rounded-3xl bg-[#f2f4f6] p-6 sm:p-8">
@@ -135,9 +114,6 @@ function RowTable({ title, rows }: { title: string; rows: Record<string, string>
     </div>
   );
 }
-
-const inputCls =
-  "w-full rounded-2xl border border-white/15 bg-white/[0.06] px-4 py-3 text-[15px] text-white placeholder:text-white/35 outline-none transition focus:border-[#fa6a25] focus:bg-white/[0.09] focus:ring-4 focus:ring-[#fa6a25]/20";
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
@@ -497,29 +473,29 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <form className={`${s.glass} grid gap-5 rounded-[2rem] p-6 sm:p-8`}>
             <div className="grid gap-5 md:grid-cols-2">
               <div>
-                <label className={`${labelCls} mb-2 block text-white/55`} htmlFor="name">
+                <label className={fieldLabelDark} htmlFor="name">
                   Name
                 </label>
-                <input type="text" id="name" className={inputCls} required autoComplete="name" />
+                <input type="text" id="name" className={inputDark} required autoComplete="name" />
               </div>
               <div>
-                <label className={`${labelCls} mb-2 block text-white/55`} htmlFor="email">
+                <label className={fieldLabelDark} htmlFor="email">
                   Email
                 </label>
-                <input type="email" id="email" className={inputCls} required autoComplete="email" />
+                <input type="email" id="email" className={inputDark} required autoComplete="email" />
               </div>
             </div>
             <div>
-              <label className={`${labelCls} mb-2 block text-white/55`} htmlFor="quantity">
+              <label className={fieldLabelDark} htmlFor="quantity">
                 Required quantity
               </label>
-              <input type="text" id="quantity" className={inputCls} required placeholder="e.g. 2 × 20ft containers" />
+              <input type="text" id="quantity" className={inputDark} required placeholder="e.g. 2 × 20ft containers" />
             </div>
             <div>
-              <label className={`${labelCls} mb-2 block text-white/55`} htmlFor="message">
+              <label className={fieldLabelDark} htmlFor="message">
                 Additional requirements
               </label>
-              <textarea id="message" rows={4} className={inputCls} placeholder="Grade, packing, destination port…" />
+              <textarea id="message" rows={4} className={inputDark} placeholder="Grade, packing, destination port…" />
             </div>
             <button
               type="submit"

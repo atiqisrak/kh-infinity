@@ -1,5 +1,11 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Icon from "@/components/v3/Icons";
+import Crumbs from "@/components/v3/Crumbs";
+import { fieldLabelLight, inputLight, labelCls, submitCls, SubmitArrow } from "@/components/v3/blocks";
+import { Eyebrow, SectionHead, focusRing, pad } from "@/components/v3/ui";
+import V3Shell from "@/components/v3/V3Shell";
+import s from "@/components/v3/v3.module.css";
 
 export const metadata: Metadata = {
   title:
@@ -29,216 +35,183 @@ export const metadata: Metadata = {
   },
 };
 
+const EMAIL = "info@khi.com.bd";
+const PHONE = { display: "+880 1577081856", href: "tel:+8801577081856" };
+const ADDRESS = "Kader Tropical Height, Shop- G5, 10 Hatkhola Road, Tikatuli, Wari, Dhaka 1203, Bangladesh";
+
+const HOURS: [string, string][] = [
+  ["Thursday – Tuesday", "9:00 AM – 8:00 PM"],
+  ["Wednesday", "Closed"],
+];
+
+const SOCIAL = [
+  { label: "Facebook", href: "https://facebook.com/khinfinity" },
+  { label: "LinkedIn", href: "https://linkedin.com/company/khinfinity" },
+  { label: "Instagram", href: "https://instagram.com/khinfinity" },
+  { label: "Twitter", href: "https://twitter.com/khinfinity" },
+];
+
+const heroLink = `font-semibold text-white underline decoration-[#fa6a25] decoration-2 underline-offset-4 hover:text-[#fa6a25] ${focusRing}`;
+const bigLink = `group inline-flex w-fit max-w-full items-center gap-3 break-all text-2xl font-semibold tracking-tight transition-colors hover:text-[#fa6a25] sm:text-3xl ${focusRing}`;
+
 export default function ContactPage() {
   return (
-    <div>
-      {/* Contact Hero */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-b from-orange-50 to-white">
-        <div className="container mx-auto px-4">
-          <h1 className="text-5xl font-bold text-center mb-6 text-gray-800">
-            Contact Us
-          </h1>
-          <p className="text-xl text-center text-gray-600 max-w-3xl mx-auto mb-12">
-            Get in touch with us for any inquiries about our{" "}
-            <Link
-              href="/products"
-              className="text-orange-500 hover:text-orange-600 font-semibold"
-            >
-              products
-            </Link>{" "}
-            and{" "}
-            <Link
-              href="/services"
-              className="text-orange-500 hover:text-orange-600 font-semibold"
-            >
-              services
-            </Link>
-            . We&apos;re here to help you with your import/export needs.
-          </p>
-        </div>
-      </section>
+    <V3Shell>
+      {/* ───────────── HERO: contact details + message form ───────────── */}
+      <section aria-labelledby="contact-title" className={`${s.gridBg} relative overflow-hidden bg-[#06131d] pt-[104px] lg:pt-[124px]`}>
+        <div className={`${pad} grid gap-12 pb-20 lg:grid-cols-[1fr_1fr] lg:gap-16 lg:pb-28`}>
+          <div>
+            <Crumbs items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
+            <div className="mt-8">
+              <Eyebrow>Get in touch</Eyebrow>
+            </div>
+            <h1 id="contact-title" className={`${s.display} mt-5 text-[clamp(3rem,6.4vw,6rem)]`}>
+              Contact <span className="text-[#fa6a25]">us</span>
+            </h1>
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-white/75 sm:text-lg">
+              Get in touch with us for any inquiries about our{" "}
+              <Link href="/products" className={heroLink}>
+                products
+              </Link>{" "}
+              and{" "}
+              <Link href="/services" className={heroLink}>
+                services
+              </Link>
+              . We&apos;re here to help you with your import/export needs.
+            </p>
 
-      {/* Contact Information */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <h2 className="text-3xl font-bold mb-8 text-gray-800">
-                Send Us a Message
-              </h2>
-              <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-gray-700 mb-2" htmlFor="name">
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-gray-700 mb-2" htmlFor="email">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500"
-                      required
-                    />
-                  </div>
+            {/* Footer-style direct lines */}
+            <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-8">
+              <a href={`mailto:${EMAIL}`} className={bigLink}>
+                {EMAIL}
+                <Icon name="arrow" className="h-6 w-6 shrink-0 transition-transform group-hover:rotate-45" />
+              </a>
+              <a href={PHONE.href} className={`${bigLink} text-white/70`}>
+                {PHONE.display}
+                <Icon name="arrow" className="h-6 w-6 shrink-0 transition-transform group-hover:rotate-45" />
+              </a>
+            </div>
+            <div className="mt-8 flex items-start gap-3 text-white/60">
+              <Icon name="pin" className="mt-0.5 h-5 w-5 shrink-0 text-[#fa6a25]" />
+              <p className="max-w-sm text-sm leading-relaxed">
+                <span className={`${labelCls} mb-1 block text-white/40`}>Head office</span>
+                {ADDRESS}
+              </p>
+            </div>
+          </div>
+
+          {/* Message form (unchanged fields and behaviour) */}
+          <div className="rounded-[2rem] bg-[#f2f4f6] p-6 text-[#06131d] sm:p-8 lg:self-start">
+            <h2 className={`${s.display} text-[clamp(2rem,3.4vw,2.75rem)] text-[#0b2c3d]`}>Send us a message</h2>
+            <form className="mt-8 grid gap-5">
+              <div className="grid gap-5 md:grid-cols-2">
+                <div>
+                  <label className={fieldLabelLight} htmlFor="name">
+                    Name
+                  </label>
+                  <input type="text" id="name" className={inputLight} required autoComplete="name" />
                 </div>
                 <div>
-                  <label className="block text-gray-700 mb-2" htmlFor="subject">
-                    Subject
+                  <label className={fieldLabelLight} htmlFor="email">
+                    Email
                   </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-700 mb-2" htmlFor="message">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={6}
-                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-orange-500"
-                    required
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-orange-500 text-white px-8 py-3 rounded-lg hover:bg-orange-600 transition-colors"
-                >
-                  Send Message
-                </button>
-              </form>
-            </div>
-
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <h3 className="text-2xl font-bold mb-6 text-gray-800">
-                  Office Location
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex items-start">
-                    <i className="fas fa-map-marker-alt text-orange-500 mt-1 mr-4 text-xl"></i>
-                    <div>
-                      <h4 className="font-bold mb-1">Head Office</h4>
-                      <p className="text-gray-600">
-                        Kader Tropical Height, Shop- G5, 10 Hatkhola Road,
-                        Tikatuli, Wari, Dhaka 1203, Bangladesh
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <i className="fas fa-phone text-orange-500 mt-1 mr-4 text-xl"></i>
-                    <div>
-                      <h4 className="font-bold mb-1">Phone</h4>
-                      <p className="text-gray-600">+880 1577081856</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <i className="fas fa-envelope text-orange-500 mt-1 mr-4 text-xl"></i>
-                    <div>
-                      <h4 className="font-bold mb-1">Email</h4>
-                      <p className="text-gray-600">info@khi.com.bd</p>
-                    </div>
-                  </div>
+                  <input type="email" id="email" className={inputLight} required autoComplete="email" />
                 </div>
               </div>
-
-              {/* Business Hours */}
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <h3 className="text-2xl font-bold mb-6 text-gray-800">
-                  Business Hours
-                </h3>
-                <ul className="space-y-3">
-                  <li className="flex justify-between">
-                    <span className="text-gray-600">Thursday - Tuesday</span>
-                    <span className="font-bold">9:00 AM - 8:00 PM</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span className="text-gray-600">Wednesday</span>
-                    <span className="font-bold">Closed</span>
-                  </li>
-                </ul>
+              <div>
+                <label className={fieldLabelLight} htmlFor="subject">
+                  Subject
+                </label>
+                <input type="text" id="subject" className={inputLight} required />
               </div>
-
-              {/* Social Media */}
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <h3 className="text-2xl font-bold mb-6 text-gray-800">
-                  Connect With Us
-                </h3>
-                <div className="flex space-x-6">
-                  <a
-                    href="https://facebook.com/khinfinity"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-orange-500 transition-colors"
-                  >
-                    <i className="fab fa-facebook text-3xl"></i>
-                  </a>
-                  <a
-                    href="https://linkedin.com/company/khinfinity"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-orange-500 transition-colors"
-                  >
-                    <i className="fab fa-linkedin text-3xl"></i>
-                  </a>
-                  <a
-                    href="https://instagram.com/khinfinity"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-orange-500 transition-colors"
-                  >
-                    <i className="fab fa-instagram text-3xl"></i>
-                  </a>
-                  <a
-                    href="https://twitter.com/khinfinity"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-orange-500 transition-colors"
-                  >
-                    <i className="fab fa-twitter text-3xl"></i>
-                  </a>
-                </div>
+              <div>
+                <label className={fieldLabelLight} htmlFor="message">
+                  Message
+                </label>
+                <textarea id="message" rows={6} className={inputLight} required></textarea>
               </div>
-            </div>
+              <button type="submit" className={`${submitCls} w-full focus-visible:ring-offset-[#f2f4f6] sm:w-auto sm:justify-self-start`}>
+                Send message
+                <SubmitArrow />
+              </button>
+            </form>
           </div>
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center text-gray-800">
-            Find Us
-          </h2>
-          <div className="h-96 bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="w-full h-full">
+      {/* ───────────── FIND US ───────────── */}
+      <section aria-labelledby="find-heading" className="bg-[#d5dee7] py-20 text-[#06131d] lg:py-28">
+        <div className={pad}>
+          <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+            <SectionHead dark eyebrow="Office location" id="find-heading" title={<>Find us</>} />
+            <p className="max-w-md text-[#06131d]/70 lg:pb-3">
+              Visit our head office in Tikatuli, Wari, Dhaka. Check the business hours below before you come by.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-4 lg:grid-cols-12">
+            {/* Map in a rounded frame */}
+            <div className="relative min-h-[360px] overflow-hidden rounded-3xl bg-white ring-1 ring-[#06131d]/[0.06] lg:col-span-8 lg:min-h-[480px]">
               <iframe
+                title="Map showing the K.H. Infinity head office in Tikatuli, Dhaka"
                 src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=Kader Tropical Height, Shop- G5, 10 Hatkhola Road, Tikatuli, Wari, Dhaka 1203, Bangladesh&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-                width="100%"
-                height="450"
+                className="absolute inset-0 h-full w-full"
                 style={{ border: 0 }}
                 allowFullScreen={true}
                 loading="lazy"
               ></iframe>
             </div>
+
+            <div className="grid gap-4 lg:col-span-4">
+              <div className="rounded-3xl bg-white p-6 ring-1 ring-[#06131d]/[0.06] sm:p-8">
+                <div className="flex items-center gap-3">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#fa6a25]/10 text-[#d9531a]">
+                    <Icon name="pin" className="h-5 w-5" />
+                  </span>
+                  <h3 className="text-lg font-semibold tracking-tight text-[#0b2c3d]">Head office</h3>
+                </div>
+                <p className="mt-4 text-[15px] leading-relaxed text-[#06131d]/70">{ADDRESS}</p>
+              </div>
+
+              <div className="rounded-3xl bg-white p-6 ring-1 ring-[#06131d]/[0.06] sm:p-8">
+                <div className="flex items-center gap-3">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#fa6a25]/10 text-[#d9531a]">
+                    <Icon name="clock" className="h-5 w-5" />
+                  </span>
+                  <h3 className="text-lg font-semibold tracking-tight text-[#0b2c3d]">Business hours</h3>
+                </div>
+                <dl className="mt-4 divide-y divide-[#06131d]/10 border-y border-[#06131d]/10">
+                  {HOURS.map(([day, time]) => (
+                    <div key={day} className="flex items-baseline justify-between gap-4 py-3.5">
+                      <dt className="text-[15px] text-[#06131d]/65">{day}</dt>
+                      <dd className="text-right text-[15px] font-semibold text-[#0b2c3d]">{time}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+
+              <div className="rounded-3xl bg-[#06131d] p-6 text-white sm:p-8">
+                <h3 className={`${labelCls} text-white/50`}>Connect with us</h3>
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {SOCIAL.map((l) => (
+                    <li key={l.href}>
+                      <a
+                        href={l.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex min-h-10 items-center gap-2 rounded-full border border-white/20 px-4 text-sm font-semibold transition-colors hover:border-[#fa6a25] hover:bg-[#fa6a25] ${focusRing}`}
+                      >
+                        {l.label}
+                        <Icon name="arrow" className="h-3.5 w-3.5" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>
-    </div>
+    </V3Shell>
   );
 }

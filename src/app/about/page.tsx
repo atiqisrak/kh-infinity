@@ -1,6 +1,14 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import CtaBand from "@/components/v3/CtaBand";
+import Icon, { type IconName } from "@/components/v3/Icons";
+import PageHero from "@/components/v3/PageHero";
+import ProcessTrack from "@/components/v3/ProcessTrack";
+import { Section, labelCls } from "@/components/v3/blocks";
+import { GhostButton, Pill, PillButton, focusRing, pad } from "@/components/v3/ui";
+import V3Shell from "@/components/v3/V3Shell";
+import s from "@/components/v3/v3.module.css";
 
 export const metadata: Metadata = {
   title:
@@ -30,155 +38,277 @@ export const metadata: Metadata = {
   },
 };
 
+const STATS = [
+  { value: "5+", label: "Years of excellence" },
+  { value: "15+", label: "Countries served" },
+  { value: "70+", label: "Successful deliveries" },
+  { value: "10+", label: "Global partners" },
+];
+
+// Khatunganj heritage → KHI today. The KHI container rides the ProcessTrack rail.
+const HERITAGE = [
+  {
+    title: "1850s",
+    body: "Khatunganj market is established. Named after Khatun Bibi, it comes to be known as the “Wall Street of the East.”",
+    owner: "Khatunganj",
+  },
+  {
+    title: "Waterways",
+    body: "Its trade network connects Bangladesh to global commerce via the Karnaphuli River and the Chaktai, Rajakhali and Badarshah canals.",
+    owner: "Karnaphuli River",
+  },
+  {
+    title: "2018",
+    body: "K.H. Infinity is founded in Tikatuli, Dhaka, as a formalized, contract-backed alternative to informal trust-only trading.",
+    owner: "Tikatuli, Dhaka",
+  },
+  {
+    title: "Today",
+    body: "We serve clients across 15+ countries, facilitating seamless trade operations and delivering premium products.",
+    owner: "15+ countries",
+  },
+];
+
+// What we run ourselves as a direct B2B importer
+const IN_HOUSE: { icon: IconName; title: string; body: string }[] = [
+  { icon: "warehouse", title: "Physical inventory", body: "We own the stock we sell, as a direct B2B importer and wholesale distributor." },
+  { icon: "stamp", title: "NBR customs clearance", body: "Managed as an internal capability, not handed to a third-party facilitator." },
+  { icon: "calculator", title: "TTI transparency", body: "Total tax incidence is part of how we price, so duty is out in the open." },
+  { icon: "shield", title: "BSTI compliance", body: "Standards compliance is handled in-house, alongside clearance." },
+];
+
+const MISSION = [
+  {
+    icon: "target" as const,
+    label: "Our mission",
+    title: (
+      <>
+        Seamless
+        <br />
+        global <span className="text-[#fa6a25]">trade</span>
+      </>
+    ),
+    body: "To facilitate seamless global trade by providing reliable, efficient, and cost-effective import-export solutions while maintaining the highest standards of quality and customer service.",
+  },
+  {
+    icon: "eye" as const,
+    label: "Our vision",
+    title: (
+      <>
+        The most
+        <br />
+        <span className="text-[#fa6a25]">trusted</span> name
+      </>
+    ),
+    body: "To become the most trusted name in international trade, known for our integrity, innovation, and commitment to excellence in connecting businesses across borders.",
+  },
+];
+
+const CERTS: { icon: IconName; title: string; body: string }[] = [
+  { icon: "award", title: "ISO 9001:2015", body: "Quality Management System" },
+  { icon: "doc", title: "Trade License", body: "Registered Import-Export Company" },
+  { icon: "stamp", title: "Customs Compliance", body: "Authorized Economic Operator" },
+];
+
+const inlineLink = `font-semibold text-[#0b2c3d] underline decoration-[#fa6a25] decoration-2 underline-offset-4 hover:text-[#d9531a] ${focusRing}`;
+
 export default function AboutPage() {
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="relative text-white py-40 overflow-hidden">
-        <Image
-          src="/images/about/about-banner.webp"
-          alt="Container cargo ship at sunset, representing K.H. Infinity global trade operations"
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="container relative z-10 mx-auto px-4">
-          <h1 className="text-5xl font-bold mb-6">About K.H. Infinity</h1>
-          <p className="text-xl max-w-2xl">
-            Your Trusted Partner in Global Trade Since 2018
-          </p>
-        </div>
-      </section>
+    <V3Shell>
+      {/* ───────────── HERO ───────────── */}
+      <PageHero
+        image="/images/about/about-banner.webp"
+        imageAlt="Container cargo ship at sunset, representing K.H. Infinity global trade operations"
+        crumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
+        eyebrow="Since 2018"
+        title={
+          <>
+            About
+            <br />
+            K.H. <span className="text-[#fa6a25]">Infinity</span>
+          </>
+        }
+        lead="Your trusted partner in global trade since 2018."
+        actions={
+          <>
+            <PillButton href="/quote">Request a quote</PillButton>
+            <GhostButton href="/contact" glass>
+              Talk to our team
+            </GhostButton>
+          </>
+        }
+        stats={STATS}
+      />
 
-      {/* Company History */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-bold mb-6">Our Journey</h2>
-              <p className="text-gray-600 mb-4">
-                Founded in 2018, K.H. Infinity operates from Tikatuli, Dhaka—within
-                reach of the historic Khatunganj market, established in the 1850s and
-                known as the &ldquo;Wall Street of the East.&rdquo; Named after Khatun
-                Bibi, this trade network connects Bangladesh to global commerce via
-                the Karnaphuli River and the Chaktai, Rajakhali, and Badarshah
-                canals. KHI provides a formalized, contract-backed alternative to
-                informal trust-only trading.
+      {/* ───────────── OUR JOURNEY ───────────── */}
+      <section aria-labelledby="journey-heading" className="bg-[#d5dee7] py-20 text-[#06131d] lg:py-28">
+        <div className={pad}>
+          <h2 id="journey-heading" className="sr-only">
+            Our journey
+          </h2>
+          {/* Statement with photo pills, as in the homepage about block */}
+          <p className="max-w-5xl text-[1.65rem] font-medium leading-[1.4] tracking-tight text-[#0b2c3d] sm:text-3xl lg:text-[2.6rem] lg:leading-[1.3]">
+            Founded in 2018 in Tikatuli, Dhaka
+            <Pill src="/images/hubs/imports-hero.webp" /> within reach of Khatunganj, the historic market
+            <Pill src="/images/v3/ship-aerial.webp" /> known as the{" "}
+            <span className="relative whitespace-nowrap">
+              Wall Street of the East
+              <span aria-hidden="true" className="absolute inset-x-0 -bottom-1 h-[0.14em] rounded-full bg-[#fa6a25]" />
+            </span>
+            .
+          </p>
+
+          <div className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-12 lg:gap-16">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl lg:col-span-6">
+              <Image
+                src="/images/hubs/imports-hero.webp"
+                alt="Shipping containers at port representing KHI import and export logistics"
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 620px, 100vw"
+              />
+              <div className={`${s.glass} absolute bottom-4 left-4 rounded-2xl px-4 py-3 text-white sm:bottom-6 sm:left-6`}>
+                <p className={`${labelCls} text-white/60`}>Direct B2B</p>
+                <p className="mt-1 text-sm font-semibold">Importer &amp; wholesale distributor</p>
+              </div>
+            </div>
+            <div className="space-y-5 text-[17px] leading-relaxed text-[#06131d]/75 lg:col-span-6 lg:pt-2">
+              <p className={`${labelCls} text-[#06131d]/50`}>Our journey</p>
+              <p>
+                Established in the 1850s and named after Khatun Bibi, Khatunganj&apos;s trade network connects Bangladesh
+                to global commerce. KHI provides a formalized, contract-backed alternative to informal trust-only trading.
               </p>
-              <p className="text-gray-600 mb-4">
-                We are a <strong>direct B2B importer and wholesale distributor</strong>—we
-                own physical inventory and manage NBR customs clearance, TTI
-                transparency, and BSTI compliance as internal capabilities, not as a
-                third-party logistics facilitator.
+              <p>
+                We are a <strong className="font-semibold text-[#0b2c3d]">direct B2B importer and wholesale distributor</strong>.
+                We own physical inventory and manage NBR customs clearance, TTI transparency, and BSTI compliance as internal
+                capabilities, not as a third-party logistics facilitator.
               </p>
-              <p className="text-gray-600 mb-4">
-                Our commitment to quality, reliability, and customer satisfaction has
-                helped us build strong relationships with partners worldwide. Explore
-                our{" "}
-                <Link href="/imports" className="text-orange-500 hover:text-orange-600 font-semibold">
+              <p>
+                Our commitment to quality, reliability, and customer satisfaction has helped us build strong relationships
+                with partners worldwide. Explore our{" "}
+                <Link href="/imports" className={inlineLink}>
                   import operations
                 </Link>
                 ,{" "}
-                <Link href="/exports" className="text-orange-500 hover:text-orange-600 font-semibold">
+                <Link href="/exports" className={inlineLink}>
                   export programmes
                 </Link>
                 , and{" "}
-                <Link href="/services" className="text-orange-500 hover:text-orange-600 font-semibold">
+                <Link href="/services" className={inlineLink}>
                   internal trade services
                 </Link>
                 .
               </p>
-              <p className="text-gray-600">
-                Today, we serve clients across 15+ countries, facilitating
-                seamless trade operations and delivering premium products to
-                meet diverse market demands.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg">
-                <Image
-                  src="/images/hubs/imports-hero.webp"
-                  alt="Shipping containers at port representing KHI import and export logistics"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-              <div className="bg-orange-100 p-6 rounded-lg text-center">
-                <h3 className="text-4xl font-bold text-orange-500 mb-2">5+</h3>
-                <p className="text-gray-700">Years of Excellence</p>
-              </div>
-              <div className="bg-orange-100 p-6 rounded-lg text-center">
-                <h3 className="text-4xl font-bold text-orange-500 mb-2">15+</h3>
-                <p className="text-gray-700">Countries Served</p>
-              </div>
-              <div className="bg-orange-100 p-6 rounded-lg text-center">
-                <h3 className="text-4xl font-bold text-orange-500 mb-2">70+</h3>
-                <p className="text-gray-700">Successful Deliveries</p>
-              </div>
-              <div className="bg-orange-100 p-6 rounded-lg text-center">
-                <h3 className="text-4xl font-bold text-orange-500 mb-2">10+</h3>
-                <p className="text-gray-700">Global Partners</p>
-              </div>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="bg-gray-50 py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
-              <p className="text-gray-600">
-                To facilitate seamless global trade by providing reliable,
-                efficient, and cost-effective import-export solutions while
-                maintaining the highest standards of quality and customer
-                service.
+      {/* ───────────── HERITAGE TIMELINE ───────────── */}
+      <Section
+        id="heritage"
+        tone="sea"
+        grid
+        eyebrow="Khatunganj heritage"
+        title={
+          <>
+            From the canals
+            <br />
+            to <span className="text-[#fa6a25]">15+ countries</span>
+          </>
+        }
+        intro="The trade tradition we grew up beside, and the company we built on it."
+      >
+        <ProcessTrack steps={HERITAGE} />
+      </Section>
+
+      {/* ───────────── IN-HOUSE ───────────── */}
+      <Section
+        id="in-house"
+        tone="paper"
+        eyebrow="How we operate"
+        title={
+          <>
+            Owned, not
+            <br />
+            <span className="text-[#fa6a25]">outsourced</span>
+          </>
+        }
+        intro="Inventory, clearance and compliance sit inside KHI, so one team answers for your goods."
+      >
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {IN_HOUSE.map((c) => (
+            <li key={c.title} className="rounded-3xl bg-white p-6 ring-1 ring-[#06131d]/[0.06] sm:p-7">
+              <span className="grid h-11 w-11 place-items-center rounded-full bg-[#fa6a25]/10 text-[#d9531a]">
+                <Icon name={c.icon} className="h-5 w-5" />
+              </span>
+              <h3 className="mt-6 text-lg font-semibold tracking-tight text-[#0b2c3d]">{c.title}</h3>
+              <p className="mt-2 text-[15px] leading-relaxed text-[#06131d]/70">{c.body}</p>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      {/* ───────────── MISSION & VISION ───────────── */}
+      <section aria-label="Mission and vision" className={`${s.gridBg} bg-[#06131d] py-20 lg:py-28`}>
+        <div className={`${pad} grid gap-4 lg:grid-cols-2`}>
+          {MISSION.map((m) => (
+            <article key={m.label} className="flex flex-col rounded-[2rem] bg-white/[0.05] p-7 ring-1 ring-white/10 sm:p-10">
+              <div className="flex items-center justify-between gap-4">
+                <h2 className={`${labelCls} text-white/55`}>{m.label}</h2>
+                <span className="grid h-11 w-11 place-items-center rounded-full bg-[#fa6a25] text-white">
+                  <Icon name={m.icon} className="h-5 w-5" />
+                </span>
+              </div>
+              <p aria-hidden="true" className={`${s.display} mt-8 text-[clamp(2.4rem,4.6vw,4rem)]`}>
+                {m.title}
               </p>
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <h2 className="text-3xl font-bold mb-6">Our Vision</h2>
-              <p className="text-gray-600">
-                To become the most trusted name in international trade, known
-                for our integrity, innovation, and commitment to excellence in
-                connecting businesses across borders.
-              </p>
-            </div>
-          </div>
+              <p className="mt-6 max-w-lg text-[17px] leading-relaxed text-white/75">{m.body}</p>
+            </article>
+          ))}
         </div>
       </section>
 
-      {/* Certifications */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">
-            Our Certifications & Compliance
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="border p-6 rounded-lg text-center">
-              <i className="fas fa-certificate text-4xl text-orange-500 mb-4"></i>
-              <h3 className="text-xl font-bold mb-2">ISO 9001:2015</h3>
-              <p className="text-gray-600">Quality Management System</p>
-            </div>
-            <div className="border p-6 rounded-lg text-center">
-              <i className="fas fa-shield-alt text-4xl text-orange-500 mb-4"></i>
-              <h3 className="text-xl font-bold mb-2">Trade License</h3>
-              <p className="text-gray-600">Registered Import-Export Company</p>
-            </div>
-            <div className="border p-6 rounded-lg text-center">
-              <i className="fas fa-check-circle text-4xl text-orange-500 mb-4"></i>
-              <h3 className="text-xl font-bold mb-2">Customs Compliance</h3>
-              <p className="text-gray-600">Authorized Economic Operator</p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+      {/* ───────────── CERTIFICATIONS ───────────── */}
+      <Section
+        id="certifications"
+        tone="mist"
+        eyebrow="Certifications & compliance"
+        title={
+          <>
+            Registered &amp;
+            <br />
+            <span className="text-[#fa6a25]">compliant</span>
+          </>
+        }
+        intro="The registrations and standards behind every contract we sign."
+      >
+        <ul className="grid gap-4 md:grid-cols-3">
+          {CERTS.map((c) => (
+            <li key={c.title} className="flex items-center gap-5 rounded-3xl bg-white p-6 ring-1 ring-[#06131d]/[0.06] sm:p-7">
+              <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-[#0b2c3d] text-[#fa6a25]">
+                <Icon name={c.icon} className="h-6 w-6" />
+              </span>
+              <div className="min-w-0">
+                <h3 className={`${s.display} text-2xl text-[#0b2c3d]`}>{c.title}</h3>
+                <p className="mt-1 text-sm text-[#06131d]/65">{c.body}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <CtaBand
+        title={
+          <>
+            Trade with
+            <br />
+            <span className="text-[#fa6a25]">K.H. Infinity</span>
+          </>
+        }
+        image="/images/v3/ship-aerial.webp"
+        imageAlt="Aerial view of a container ship cutting through dark water"
+      />
+    </V3Shell>
   );
 }

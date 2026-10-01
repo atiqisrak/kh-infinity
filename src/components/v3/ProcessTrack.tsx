@@ -1,17 +1,23 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { process } from "./content";
-import s from "@/components/v3/v3.module.css";
+import s from "./v3.module.css";
 
 // "How it works" steps with a KH container riding a rail above them. Progress is
 // tied to scroll position (the reader drives it), so each station lights up as the
 // container passes. Desktop: horizontal rail + container. Phones: vertical line fill.
+// Use on dark sections. 3–6 steps read best; `owner` (who does the step) is optional.
+
+export interface ProcessStep {
+  title: string;
+  body: string;
+  owner?: string;
+}
 
 const GAP_PX = 24; // must match lg:gap-6 on the grid
-const COLS = process.length;
 
-export default function ProcessTrack() {
+export default function ProcessTrack({ steps }: { steps: ProcessStep[] }) {
+  const COLS = steps.length;
   const ref = useRef<HTMLDivElement>(null);
   const [p, setP] = useState(0);
 
@@ -62,7 +68,7 @@ export default function ProcessTrack() {
         </div>
       </div>
 
-      <ol className="relative grid gap-10 lg:grid-cols-5 lg:gap-6">
+      <ol className={`${s.trackCols} relative grid gap-10 lg:gap-6`} style={{ "--cols": COLS } as React.CSSProperties}>
         {/* Phone: vertical line with progress fill */}
         <span aria-hidden="true" className="absolute bottom-2 left-[19px] top-2 w-px bg-white/15 lg:hidden" />
         <span
@@ -70,7 +76,7 @@ export default function ProcessTrack() {
           className="absolute left-[19px] top-2 w-px bg-[#fa6a25] lg:hidden"
           style={{ height: `calc(${p.toFixed(4)} * (100% - 1rem))` }}
         />
-        {process.map((step, i) => (
+        {steps.map((step, i) => (
           <li key={step.title} className="relative pl-14 lg:pl-0">
             <span
               className={`absolute left-0 top-0 grid h-10 w-10 place-items-center rounded-full font-mono text-sm transition-colors duration-300 lg:relative ${
@@ -81,14 +87,16 @@ export default function ProcessTrack() {
             </span>
             <h3 className={`${s.display} text-3xl lg:mt-8`}>{step.title}</h3>
             <p className="mt-3 text-[15px] leading-relaxed text-white/70 lg:min-h-[3lh]">{step.body}</p>
-            <p
-              className={`mt-4 flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider transition-colors duration-300 ${
-                reached(i) ? "text-[#fa6a25]" : "text-white/40"
-              }`}
-            >
-              <span className="h-px w-4 bg-current" />
-              {step.owner}
-            </p>
+            {step.owner && (
+              <p
+                className={`mt-4 flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider transition-colors duration-300 ${
+                  reached(i) ? "text-[#fa6a25]" : "text-white/40"
+                }`}
+              >
+                <span className="h-px w-4 bg-current" />
+                {step.owner}
+              </p>
+            )}
           </li>
         ))}
       </ol>

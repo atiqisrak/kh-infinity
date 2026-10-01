@@ -1,5 +1,17 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import { getProducts } from "@/lib/products";
+import Icon from "@/components/v3/Icons";
+import PageHero from "@/components/v3/PageHero";
+import { ChipList, NumberedGrid, Section } from "@/components/v3/blocks";
+import IndustryCta from "@/components/v3/industries/IndustryCta";
+import SectorStack from "@/components/v3/industries/SectorStack";
+import { sectors } from "@/components/v3/industries/sectors";
+import { sourcingFacts } from "@/components/v3/sourcing";
+import { GhostButton, PillButton, focusRing } from "@/components/v3/ui";
+import V3Shell from "@/components/v3/V3Shell";
+import s from "@/components/v3/v3.module.css";
 
 export const metadata: Metadata = {
   title:
@@ -28,208 +40,135 @@ export const metadata: Metadata = {
   },
 };
 
+const reasons = [
+  {
+    title: "Industry Expertise",
+    body: "Deep knowledge of industry-specific requirements, regulations, and market dynamics.",
+  },
+  {
+    title: "Quality Guaranteed",
+    body: "Stringent quality control and compliance with international standards for every industry.",
+  },
+  {
+    title: "Customized Solutions",
+    body: "Tailored import-export solutions that align with your industry needs and business goals.",
+  },
+];
+
 export default function IndustriesPage() {
-  const industries = [
-    {
-      name: "FMCG (Fast-Moving Consumer Goods)",
-      description:
-        "Complete sourcing solutions for food products, beverages, and household essentials. Our FMCG division specializes in cooking oils, dairy products, sugar, pulses, and spices.",
-      image: "/images/products/sunflower-oil.webp",
-      link: "/industries/fmcg",
-      products: ["Sunflower Oil", "Milk Powder", "Sugar", "Pulses", "Cumin"],
-      icon: "fas fa-shopping-cart",
-    },
-    {
-      name: "Retail & E-commerce",
-      description:
-        "Supply chain solutions for retail businesses and online platforms. We help retailers source quality products at competitive prices with reliable delivery.",
-      image: "/images/products/handicrafts.webp",
-      link: "/industries/retail",
-      products: ["Handicrafts", "Textiles", "Consumer Goods"],
-      icon: "fas fa-store",
-    },
-    {
-      name: "Hospitality & Food Service",
-      description:
-        "Bulk food products and supplies for hotels, restaurants, and catering businesses. We provide everything from cooking ingredients to specialty food items.",
-      image: "/images/products/milk-powder.webp",
-      link: "/industries/hospitality",
-      products: ["Dairy Products", "Cooking Oils", "Spices"],
-      icon: "fas fa-utensils",
-    },
-    {
-      name: "Manufacturing & Industrial",
-      description:
-        "Industrial raw materials and supplies for manufacturing businesses. We source quality materials and equipment to support your production needs.",
-      image: "/images/products/tarpaulin.webp",
-      link: "/industries/manufacturing",
-      products: ["Industrial Materials", "Raw Materials"],
-      icon: "fas fa-industry",
-    },
-    {
-      name: "Agriculture & Food Processing",
-      description:
-        "Agricultural products and processing materials. We export fresh produce and import essential inputs for the agriculture and food processing industry.",
-      image: "/images/products/potato.webp",
-      link: "/industries/agriculture",
-      products: ["Fresh Potatoes", "Grains", "Pulses"],
-      icon: "fas fa-tractor",
-    },
-  ];
+  const products = getProducts();
+  const { countries } = sourcingFacts(products);
 
   return (
-    <div>
-      {/* Hero Section */}
-      <section
-        className="bg-gray-900 text-gray-600 py-40"
-        style={{
-          backgroundImage: "url(/images/cover/kh4.webp)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
+    <V3Shell>
+      {/* ───────────── HERO ───────────── */}
+      <PageHero
+        crumbs={[{ label: "Home", href: "/" }, { label: "Industries" }]}
+        eyebrow="Industries"
+        title={
+          <>
+            Industries
+            <br />
+            we <span className="text-[#fa6a25]">serve</span>
+          </>
+        }
+        lead="From FMCG to agriculture, we provide specialized import-export solutions tailored to your industry needs."
+        actions={
+          <>
+            <PillButton href="/quote">Request a quote</PillButton>
+            <GhostButton href="#expertise">Explore sectors</GhostButton>
+          </>
+        }
+        aside={<SectorStack />}
+        stats={[
+          { value: sectors.length, label: "Sectors supplied" },
+          { value: products.length, label: "Product lines" },
+          { value: countries.length, label: "Origin countries" },
+          { value: new Set(products.map((p) => p.category)).size, label: "Product categories" },
+        ]}
+      />
+
+      {/* ───────────── EXPERTISE ───────────── */}
+      <Section
+        id="expertise"
+        tone="paper"
+        eyebrow="Sectors"
+        title={
+          <>
+            Our industry
+            <br />
+            expertise
+          </>
+        }
+        intro="We have deep knowledge and experience across multiple industries, enabling us to provide specialized solutions that meet your unique requirements."
       >
-        <div className="container mx-auto px-4">
-          <h1 className="text-5xl font-bold mb-6">Industries We Serve</h1>
-          <p className="text-xl max-w-3xl">
-            From FMCG to agriculture, we provide specialized import-export
-            solutions tailored to your industry needs.
-          </p>
-        </div>
-      </section>
-
-      {/* Industries Overview */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6 text-gray-800">
-              Our Industry Expertise
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We have deep knowledge and experience across multiple industries,
-              enabling us to provide specialized solutions that meet your unique
-              requirements.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {industries.map((industry, index) => (
+        <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-6">
+          {sectors.map((sec, i) => (
+            <li key={sec.slug} className={i < 2 ? "lg:col-span-3" : "lg:col-span-2"}>
               <Link
-                key={index}
-                href={industry.link}
-                className="block bg-white rounded-lg shadow-md hover:shadow-xl transition-all overflow-hidden group"
+                href={sec.href}
+                className={`group flex h-full flex-col overflow-hidden rounded-3xl bg-white ring-1 ring-[#06131d]/[0.06] transition hover:ring-[#fa6a25]/60 ${focusRing}`}
               >
-                <div className="relative h-48 overflow-hidden">
-                  <div
-                    className="absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center"
-                    style={{
-                      backgroundImage: `url(${industry.image})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                    }}
-                  >
-                    <div className="absolute inset-0 bg-black/40"></div>
-                    <div className="relative text-6xl text-white opacity-80 group-hover:opacity-100 transition-opacity">
-                      <i className={industry.icon}></i>
-                    </div>
-                  </div>
+                <div className={`relative overflow-hidden bg-[#d5dee7] ${i < 2 ? "aspect-[16/9]" : "aspect-[4/3]"}`}>
+                  <Image
+                    src={sec.image}
+                    alt={sec.imageAlt}
+                    fill
+                    sizes={i < 2 ? "(min-width: 1024px) 640px, (min-width: 768px) 50vw, 100vw" : "(min-width: 1024px) 420px, (min-width: 768px) 50vw, 100vw"}
+                    className="object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#06131d]/60 via-transparent to-transparent" />
+                  <span className="absolute bottom-4 left-4 grid h-12 w-12 place-items-center rounded-full bg-[#fa6a25] text-white">
+                    <Icon name={sec.icon} className="h-6 w-6" />
+                  </span>
+                  <span className="absolute right-4 top-4 font-mono text-xs text-white/85">{String(i + 1).padStart(2, "0")}</span>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-3 text-gray-800 group-hover:text-orange-500 transition-colors">
-                    {industry.name}
+                <div className="flex flex-1 flex-col p-6 sm:p-7">
+                  <h3 className={`${s.display} text-[1.9rem] text-[#0b2c3d] transition-colors group-hover:text-[#d9531a]`}>
+                    {sec.name}
                   </h3>
-                  <p className="text-gray-600 mb-4">{industry.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {industry.products.map((product, idx) => (
-                      <span
-                        key={idx}
-                        className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm"
-                      >
-                        {product}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="mt-4 text-orange-500 font-semibold group-hover:text-orange-600 transition-colors">
-                    Learn More →
-                  </div>
+                  <p className="mt-3 text-[15px] leading-relaxed text-[#06131d]/70">{sec.description}</p>
+                  <ChipList items={sec.products} dark className="mt-5" />
+                  <span className="mt-auto flex items-center gap-2 pt-6 font-semibold text-[#0b2c3d] underline decoration-[#fa6a25] decoration-2 underline-offset-8 group-hover:text-[#d9531a]">
+                    Learn More <Icon name="arrow" className="h-4 w-4 transition group-hover:rotate-45" />
+                  </span>
                 </div>
               </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+            </li>
+          ))}
+        </ul>
+      </Section>
 
-      {/* Why Work With Us */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-12 text-center text-gray-800">
-            Why Industry Leaders Choose Us
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-lg shadow-md text-center">
-              <div className="text-orange-500 text-5xl mb-4">
-                <i className="fas fa-chart-line"></i>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-800">
-                Industry Expertise
-              </h3>
-              <p className="text-gray-600">
-                Deep knowledge of industry-specific requirements, regulations,
-                and market dynamics.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-md text-center">
-              <div className="text-orange-500 text-5xl mb-4">
-                <i className="fas fa-shield-alt"></i>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-800">
-                Quality Guaranteed
-              </h3>
-              <p className="text-gray-600">
-                Stringent quality control and compliance with international
-                standards for every industry.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-md text-center">
-              <div className="text-orange-500 text-5xl mb-4">
-                <i className="fas fa-users-cog"></i>
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-800">
-                Customized Solutions
-              </h3>
-              <p className="text-gray-600">
-                Tailored import-export solutions that align with your industry
-                needs and business goals.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ───────────── WHY US ───────────── */}
+      <Section
+        id="why"
+        tone="sea"
+        grid
+        eyebrow="Why KHI"
+        title={
+          <>
+            Why industry leaders
+            <br />
+            choose us
+          </>
+        }
+        headSize="md"
+      >
+        <NumberedGrid items={reasons} dark={false} cols={3} />
+      </Section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-orange-500 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Start Trading?</h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Whether you&apos;re in FMCG, retail, hospitality, or manufacturing,
-            we have the expertise to support your import-export needs.
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Link
-              href="/quote"
-              className="bg-white text-orange-500 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
-            >
-              Request a Quote
-            </Link>
-            <Link
-              href="/contact"
-              className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white/10 transition-colors font-semibold"
-            >
-              Contact Us
-            </Link>
-          </div>
-        </div>
-      </section>
-    </div>
+      <IndustryCta
+        title={
+          <>
+            Ready to start
+            <br />
+            <span className="text-[#fa6a25]">trading?</span>
+          </>
+        }
+        body="Whether you're in FMCG, retail, hospitality, or manufacturing, we have the expertise to support your import-export needs."
+        primary={{ label: "Request a Quote", href: "/quote" }}
+        secondary={{ label: "Contact Us", href: "/contact" }}
+      />
+    </V3Shell>
   );
 }

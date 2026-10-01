@@ -144,7 +144,7 @@ export function ArrowLink({ href, children, dark = false }: { href: string; chil
   return (
     <Link
       href={href}
-      className={`inline-flex items-center gap-2 font-semibold underline decoration-[#fa6a25] decoration-2 underline-offset-8 hover:text-[#fa6a25] ${
+      className={`inline-flex min-h-10 items-center gap-2 font-semibold underline decoration-[#fa6a25] decoration-2 underline-offset-8 hover:text-[#fa6a25] ${
         dark ? "text-[#0b2c3d]" : "text-white"
       } ${focusRing}`}
     >
