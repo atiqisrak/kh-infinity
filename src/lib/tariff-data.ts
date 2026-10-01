@@ -75,6 +75,41 @@ export const TARIFF_BY_PRODUCT_ID: Record<string, TariffEntry> = {
     ttiRange: "96.10%",
     bctReference: "Chapter 21, Bangladesh Customs Tariff",
   },
+  "motorcycle-fuel-tanks": {
+    hsCode: "8714.10.00",
+    hsSection: "Section XVII — Vehicles, Aircraft & Transport Equipment",
+    bctReference: "Chapter 87, Bangladesh Customs Tariff",
+  },
+  "motorcycle-body-panels": {
+    hsCode: "8714.10.00",
+    hsSection: "Section XVII — Vehicles, Aircraft & Transport Equipment",
+    bctReference: "Chapter 87, Bangladesh Customs Tariff",
+  },
+  "motorcycle-brake-parts": {
+    hsCode: "8714.10.00",
+    hsSection: "Section XVII — Vehicles, Aircraft & Transport Equipment",
+    bctReference: "Chapter 87, Bangladesh Customs Tariff",
+  },
+  "iphone-displays": {
+    hsCode: "8524.91.00",
+    hsSection: "Section XVI — Electrical Machinery and Equipment",
+    bctReference: "Chapter 85, Bangladesh Customs Tariff",
+  },
+  "android-displays": {
+    hsCode: "8524.91.00",
+    hsSection: "Section XVI — Electrical Machinery and Equipment",
+    bctReference: "Chapter 85, Bangladesh Customs Tariff",
+  },
+  "audio-accessories": {
+    hsCode: "8518.30.00",
+    hsSection: "Section XVI — Electrical Machinery and Equipment",
+    bctReference: "Chapter 85, Bangladesh Customs Tariff",
+  },
+  "charging-accessories": {
+    hsCode: "8504.40.00",
+    hsSection: "Section XVI — Electrical Machinery and Equipment",
+    bctReference: "Chapter 85, Bangladesh Customs Tariff",
+  },
 };
 
 export function getTariff(productId: string): TariffEntry | undefined {

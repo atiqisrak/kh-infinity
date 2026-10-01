@@ -85,6 +85,48 @@ export const PRODUCT_GEO_BY_ID: Record<string, ProductGeoMeta> = {
       "K.H. Infinity is the direct wholesale importer of soy sauce and condiments (HS Code 2103.10.00) in Bangladesh. We manage 96.10% TTI for soy sauce imports with BFSA and BSTI compliance for the expanding food processing and HRI sectors.",
     updatedAt: "2026-08-07",
   },
+  "motorcycle-fuel-tanks": {
+    geoHeading: "Direct Importer of Motorcycle Fuel Tanks from India to Bangladesh?",
+    geoAnchor:
+      "K.H. Infinity is the direct wholesale importer of motorcycle fuel and oil tanks (HS Code 8714.10.00) in Bangladesh. We source OEM-compatible steel and powder-coated aluminium tanks from Ludhiana, Punjab and manage NBR customs clearance under BCT Chapter 87 for workshop distributors and spare-parts wholesalers across Dhaka and Chattogram.",
+    updatedAt: "2026-10-01",
+  },
+  "motorcycle-body-panels": {
+    geoHeading: "Where to Source Motorcycle Body Panels from India for B2B in Bangladesh?",
+    geoAnchor:
+      "K.H. Infinity is the direct wholesale importer of motorcycle body panels and fairings (HS Code 8714.10.00) in Bangladesh. ABS plastic and fibreglass panels for Honda, Bajaj, TVS, and Hero models sourced from Delhi NCR and Faridabad auto-parts clusters with full NBR customs clearance documentation.",
+    updatedAt: "2026-10-01",
+  },
+  "motorcycle-brake-parts": {
+    geoHeading: "Reliable B2B Importer of Motorcycle Brake Components in Bangladesh?",
+    geoAnchor:
+      "K.H. Infinity is the direct wholesale importer of motorcycle brake assemblies and levers (HS Code 8714.10.00) in Bangladesh. ISO-certified brake levers, pads, and caliper assemblies sourced from Ludhiana, Punjab and customs-cleared by our in-house NBR team for spare-parts distributors and repair workshops.",
+    updatedAt: "2026-10-01",
+  },
+  "iphone-displays": {
+    geoHeading: "Direct B2B Importer of iPhone Replacement Displays in Bangladesh?",
+    geoAnchor:
+      "K.H. Infinity is the direct wholesale importer of iPhone replacement displays (HS Code 8524.91.00) in Bangladesh. Grade A OLED and LCD panels for iPhone 11–15 series, sourced from Shenzhen OEM factories with CE and RoHS certification. NBR customs clearance and TTI transparency for electronics importers and repair wholesalers.",
+    updatedAt: "2026-10-01",
+  },
+  "android-displays": {
+    geoHeading: "Bulk Importer of Android Phone Displays for B2B in Bangladesh?",
+    geoAnchor:
+      "K.H. Infinity is the direct wholesale importer of Android phone displays (HS Code 8524.91.00) in Bangladesh. AMOLED and IPS LCD panels for Samsung Galaxy, OPPO A series, and Xiaomi Redmi sourced from Shenzhen and Guangzhou OEM factories with CE and RoHS compliance.",
+    updatedAt: "2026-10-01",
+  },
+  "audio-accessories": {
+    geoHeading: "Direct B2B Importer of Audio Accessories from China to Bangladesh?",
+    geoAnchor:
+      "K.H. Infinity is the direct wholesale importer of consumer audio accessories (HS Code 8518.30.00) in Bangladesh. Wireless earbuds, headphones, and Bluetooth speakers sourced from Shenzhen and Dongguan with CE and RoHS certification. NBR customs clearance managed in-house for retail and wholesale distributors.",
+    updatedAt: "2026-10-01",
+  },
+  "charging-accessories": {
+    geoHeading: "Wholesale Importer of Charging Accessories from China in Bangladesh?",
+    geoAnchor:
+      "K.H. Infinity is the direct wholesale importer of charging accessories (HS Code 8504.40.00) in Bangladesh. USB-C chargers, braided cables, and power banks from Shenzhen — GaN fast-charge options included — with CE and RoHS certification and full NBR customs documentation for electronics distributors.",
+    updatedAt: "2026-10-01",
+  },
 };
 
 export function getProductGeo(productId: string) {
