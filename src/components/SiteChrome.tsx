@@ -11,6 +11,7 @@ const V3_PREFIXES = [
   "/industries", "/imports", "/exports",
   "/blog", "/careers", "/faq", "/news", "/events", "/awards",
   "/privacy", "/terms", "/equal-opportunity",
+  "/investors",
 ];
 // Under a v3 prefix but not migrated yet: keep the legacy chrome
 const LEGACY_EXCEPTIONS = new Set<string>([]);
