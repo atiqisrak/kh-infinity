@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { breadcrumbSchema } from "@/lib/schema-helpers";
 import Crumbs from "@/components/v3/Crumbs";
 import CtaBand from "@/components/v3/CtaBand";
 import Icon from "@/components/v3/Icons";
@@ -23,8 +24,15 @@ const REASONS = [
 ];
 
 export default function TradeRoutesPage() {
+  const crumbs = breadcrumbSchema([
+    { name: "Home", url: "https://khi.com.bd/" },
+    { name: "Services", url: "https://khi.com.bd/services" },
+    { name: "Trade Routes", url: "https://khi.com.bd/services/trade-routes" },
+  ]);
+
   return (
     <V3Shell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }} />
       {/* ───────────── HERO: lane board ───────────── */}
       <section aria-labelledby="routes-title" className={`${s.gridBg} relative overflow-hidden bg-[#06131d] pt-[104px] lg:pt-[124px]`}>
         <div className={`${pad} grid items-center gap-12 pb-16 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16 lg:pb-24`}>

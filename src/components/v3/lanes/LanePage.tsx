@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getProducts } from "@/lib/products";
+import { breadcrumbSchema } from "@/lib/schema-helpers";
 import Crumbs from "../Crumbs";
 import CtaBand from "../CtaBand";
 import Icon, { type IconName } from "../Icons";
@@ -114,6 +115,13 @@ function LaneHero({ c }: { c: LaneContent }) {
 export default function LanePage({ content: c }: { content: LaneContent }) {
   const others = lanes.filter((l) => l.slug !== c.slug);
   const all = getProducts();
+  const lane = getLane(c.slug);
+  const crumbs = breadcrumbSchema([
+    { name: "Home", url: "https://khi.com.bd/" },
+    { name: "Services", url: "https://khi.com.bd/services" },
+    { name: "Trade Routes", url: "https://khi.com.bd/services/trade-routes" },
+    { name: lane.label, url: `https://khi.com.bd/services/trade-routes/${c.slug}` },
+  ]);
   const products = (c.move.productIds ?? [])
     .map((id) => all.find((p) => p.id === id))
     .filter((p): p is NonNullable<typeof p> => Boolean(p));
@@ -327,6 +335,7 @@ export default function LanePage({ content: c }: { content: LaneContent }) {
 
   return (
     <V3Shell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }} />
       <LaneHero c={c} />
       {blocks.map((b, i) => b.render(toneAt(i)))}
       <CtaBand

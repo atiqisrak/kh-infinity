@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { getProducts } from "@/lib/products";
+import { breadcrumbSchema } from "@/lib/schema-helpers";
 import CtaBand from "@/components/v3/CtaBand";
 import Icon from "@/components/v3/Icons";
 import Crumbs from "@/components/v3/Crumbs";
@@ -47,6 +48,10 @@ const TERMS = [
 export default function ProductsPage() {
   const products = getProducts();
   const { countries, certs } = sourcingFacts(products);
+  const crumbs = breadcrumbSchema([
+    { name: "Home", url: "https://khi.com.bd/" },
+    { name: "Products", url: "https://khi.com.bd/products" },
+  ]);
   const categories = new Set(products.map((p) => p.category));
 
   const items: CatalogueItem[] = products.map((p) => ({
@@ -69,6 +74,7 @@ export default function ProductsPage() {
 
   return (
     <V3Shell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }} />
       {/* ── HERO ───────────────────────────────────────────────────── */}
       <section
         aria-labelledby="products-title"
