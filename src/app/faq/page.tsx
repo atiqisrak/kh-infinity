@@ -1,6 +1,10 @@
 import { Metadata } from "next";
-import FAQClient from "@/app/faq/FAQClient";
 import Script from "next/script";
+import V3Shell from "@/components/v3/V3Shell";
+import PageHero from "@/components/v3/PageHero";
+import { Section, FaqList, NumberedGrid } from "@/components/v3/blocks";
+import CtaBand from "@/components/v3/CtaBand";
+import { PillButton, GhostButton } from "@/components/v3/ui";
 
 export const metadata: Metadata = {
   title: "FAQ - K.H. Infinity Import Export",
@@ -156,7 +160,6 @@ const faqData = {
 };
 
 export default function FAQPage() {
-  // Generate FAQ structured data for SEO
   const faqStructuredData = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -175,7 +178,7 @@ export default function FAQPage() {
   };
 
   return (
-    <>
+    <V3Shell>
       <Script
         id="faq-structured-data"
         type="application/ld+json"
@@ -183,7 +186,101 @@ export default function FAQPage() {
           __html: JSON.stringify(faqStructuredData),
         }}
       />
-      <FAQClient faqData={faqData} />
-    </>
+
+      <PageHero
+        crumbs={[{ label: "FAQ" }]}
+        eyebrow="Trade knowledge base"
+        title={"Answers to your\nimport-export questions"}
+        lead="Everything you need to know about importing, exporting, shipping, and working with K.H. Infinity."
+      />
+
+      <Section id="faq-questions" tone="paper" label="Frequently asked questions">
+        <div className="space-y-14">
+          {Object.entries(faqData).map(([key, category]) => (
+            <div key={key}>
+              <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.16em] text-[#06131d]/50">
+                {category.title}
+              </p>
+              <FaqList
+                dark
+                items={category.questions.map((q) => ({
+                  q: q.question,
+                  a: (
+                    <>
+                      <p>{q.answer}</p>
+                      {"list" in q && q.list && (
+                        <ul className="mt-3 space-y-1 pl-4">
+                          {q.list.map((item) => (
+                            <li key={item} className="list-disc">{item}</li>
+                          ))}
+                        </ul>
+                      )}
+                      {"note" in q && q.note && (
+                        <p className="mt-3 font-medium text-[#0b2c3d]">{q.note}</p>
+                      )}
+                    </>
+                  ),
+                }))}
+              />
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section
+        id="faq-next-steps"
+        tone="sea"
+        eyebrow="Still have questions?"
+        title="We're here to help"
+        intro="Our team of trade specialists is ready to walk you through every step of your import or export journey."
+      >
+        <NumberedGrid
+          dark={false}
+          cols={3}
+          items={[
+            {
+              title: "Talk to us",
+              body: (
+                <>
+                  <p className="mb-6">Speak directly with an international trade specialist about your specific requirements.</p>
+                  <PillButton href="/contact">Contact us</PillButton>
+                </>
+              ),
+            },
+            {
+              title: "Explore services",
+              body: (
+                <>
+                  <p className="mb-6">Browse our full range of import, export, and logistics services tailored for B2B trade.</p>
+                  <PillButton href="/services">View services</PillButton>
+                </>
+              ),
+            },
+            {
+              title: "Get a quote",
+              body: (
+                <>
+                  <p className="mb-6">Request a landed-cost quote for your next shipment — product, quantity, and destination.</p>
+                  <PillButton href="/quote">Request quote</PillButton>
+                </>
+              ),
+            },
+          ]}
+        />
+      </Section>
+
+      <CtaBand
+        image="/images/v3/tanker-sunset.webp"
+        imageAlt="Tanker ship at sunset on open sea"
+        title={
+          <>
+            Ready to move your{" "}
+            <span className="text-[#fa6a25]">next shipment?</span>
+          </>
+        }
+        body="Tell us the product, quantity and destination. We'll come back with a landed-cost quote within 24 hours."
+        cta={{ label: "Get in touch", href: "/contact" }}
+      />
+    </V3Shell>
   );
 }

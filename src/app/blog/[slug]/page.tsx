@@ -2,6 +2,11 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { getBlogPost, getBlogPosts } from "@/lib/blog";
+import V3Shell from "@/components/v3/V3Shell";
+import PageHero from "@/components/v3/PageHero";
+import { Section } from "@/components/v3/blocks";
+import CtaBand from "@/components/v3/CtaBand";
+import { ArrowLink } from "@/components/v3/ui";
 
 interface BlogPageProps {
   params: Promise<{
@@ -68,7 +73,6 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
     day: "numeric",
   });
 
-  // Structured data for blog post
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -97,149 +101,132 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
     },
   };
 
+  const allPosts = getBlogPosts();
+  const related = allPosts.filter((p) => p.id !== post.id).slice(0, 3);
+
   return (
-    <div>
+    <V3Shell>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredData),
         }}
       />
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-gradient-to-b from-white to-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <span className="text-orange-500 font-semibold mb-4 block">
-              {post.category}
-            </span>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800">
-              {post.title}
-            </h1>
-            <p className="text-xl text-gray-600 mb-8">{post.excerpt}</p>
 
-            {/* Author Info */}
-            <div className="flex items-center gap-4 mb-8">
-              <Image
-                src={post.author.image}
-                alt={post.author.name}
-                width={64}
-                height={64}
-                className="w-16 h-16 rounded-full"
-              />
-              <div>
-                <p className="font-semibold text-gray-800">
-                  {post.author.name}
-                </p>
-                <p className="text-gray-600 text-sm">{post.author.role}</p>
-                <p className="text-gray-500 text-sm">{date}</p>
-              </div>
-            </div>
+      <PageHero
+        crumbs={[{ label: "Insights", href: "/blog" }, { label: post.title }]}
+        eyebrow={post.category}
+        title={post.title}
+        lead={post.excerpt}
+        image={post.image}
+        imageAlt={post.title}
+        titleClassName="text-[clamp(2rem,4.8vw,4.5rem)]"
+      />
 
-            {/* Featured Image */}
-            <div className="relative w-full h-96 mb-12 rounded-2xl overflow-hidden">
-              <Image
-                src={post.image}
-                alt={post.title}
-                width={1200}
-                height={400}
-                className="w-full h-full object-cover"
-              />
+      {/* Article body */}
+      <Section id="post-content" tone="white" label="Article content">
+        <div className="mx-auto max-w-3xl">
+          {/* Author & date bar */}
+          <div className="mb-10 flex items-center gap-4 border-b border-[#06131d]/10 pb-8">
+            <Image
+              src={post.author.image}
+              alt={post.author.name}
+              width={48}
+              height={48}
+              className="h-12 w-12 rounded-full object-cover"
+            />
+            <div>
+              <p className="font-semibold text-[#0b2c3d]">{post.author.name}</p>
+              <p className="text-sm text-[#06131d]/60">{post.author.role}</p>
+              <p className="font-mono text-xs text-[#06131d]/45">{date}</p>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Content */}
-      <article className="container mx-auto px-4 pb-20">
-        <div className="max-w-4xl mx-auto">
+          {/* Post content rendered as HTML */}
           <div
+            className="prose prose-lg prose-headings:font-semibold prose-headings:text-[#0b2c3d] prose-p:text-[#06131d]/75 prose-li:text-[#06131d]/75 max-w-none"
             dangerouslySetInnerHTML={{ __html: post.content }}
-            className="prose prose-lg max-w-none"
-            style={{
-              color: "#374151",
-            }}
           />
 
           {/* Tags */}
           {post.tags.length > 0 && (
-            <div className="mt-12 pt-8 border-t">
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="bg-orange-100 text-orange-600 px-4 py-2 rounded-full text-sm font-semibold"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
+            <div className="mt-12 flex flex-wrap gap-2 border-t border-[#06131d]/10 pt-8">
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full bg-[#f2f4f6] px-3.5 py-1.5 text-sm font-medium text-[#0b2c3d]"
+                >
+                  #{tag}
+                </span>
+              ))}
             </div>
           )}
-
-          {/* Author Bio */}
-          <div className="mt-12 bg-gray-50 p-8 rounded-2xl">
-            <div className="flex items-start gap-6">
-              <Image
-                src={post.author.image}
-                alt={post.author.name}
-                width={96}
-                height={96}
-                className="w-24 h-24 rounded-full"
-              />
-              <div>
-                <h3 className="text-2xl font-bold mb-2">{post.author.name}</h3>
-                <p className="text-orange-500 font-semibold mb-4">
-                  {post.author.role}
-                </p>
-                <p className="text-gray-600">
-                  Expert insights and analysis from our team of international
-                  trade specialists.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Share Section */}
-          <div className="mt-12 pt-8 border-t">
-            <h4 className="text-xl font-bold mb-4">Share this article</h4>
-            <div className="flex gap-4">
-              <a
-                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
-                  `https://khi.com.bd/blog/${post.id}`
-                )}&text=${encodeURIComponent(post.title)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors"
-              >
-                <i className="fab fa-twitter mr-2"></i>
-                Twitter
-              </a>
-              <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                  `https://khi.com.bd/blog/${post.id}`
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-blue-700 text-white px-6 py-3 rounded-lg hover:bg-blue-800 transition-colors"
-              >
-                <i className="fab fa-facebook mr-2"></i>
-                Facebook
-              </a>
-              <a
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-                  `https://khi.com.bd/blog/${post.id}`
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                <i className="fab fa-linkedin mr-2"></i>
-                LinkedIn
-              </a>
-            </div>
-          </div>
         </div>
-      </article>
-    </div>
+      </Section>
+
+      {/* Related articles */}
+      {related.length > 0 && (
+        <Section
+          id="related-articles"
+          tone="paper"
+          eyebrow="Keep reading"
+          title="Related articles"
+        >
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((p) => (
+              <article key={p.id} className="overflow-hidden rounded-3xl bg-white ring-1 ring-black/5">
+                <div className="relative aspect-[16/10] w-full overflow-hidden">
+                  <Image
+                    src={p.image}
+                    alt={p.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-4">
+                    <span className="rounded-full bg-[#06131d] px-3 py-1 text-xs font-semibold text-white">
+                      {p.category}
+                    </span>
+                    <time className="font-mono text-xs text-[#06131d]/50">
+                      {new Date(p.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </time>
+                  </div>
+                  <h3 className="mt-4 text-lg font-semibold leading-snug tracking-tight text-[#0b2c3d]">
+                    {p.title}
+                  </h3>
+                  <p className="mt-3 line-clamp-2 text-[15px] leading-relaxed text-[#06131d]/70">
+                    {p.excerpt}
+                  </p>
+                  <div className="mt-5">
+                    <ArrowLink href={`/blog/${p.id}`} dark>
+                      Read article
+                    </ArrowLink>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </Section>
+      )}
+
+      <CtaBand
+        image="/images/v3/road-and-sea.webp"
+        imageAlt="Road leading to sea port"
+        title={
+          <>
+            Ready to start your{" "}
+            <span className="text-[#fa6a25]">next trade?</span>
+          </>
+        }
+        body="Get a landed-cost quote for your import or export shipment within 24 hours."
+        cta={{ label: "Request a quote", href: "/quote" }}
+      />
+    </V3Shell>
   );
 }

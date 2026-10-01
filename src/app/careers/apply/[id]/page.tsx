@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { getJob, jobPositions } from "@/lib/jobs";
 import { notFound } from "next/navigation";
-import JobApplicationForm from "@/components/JobApplicationForm";
+import V3Shell from "@/components/v3/V3Shell";
+import PageHero from "@/components/v3/PageHero";
+import { Section, CheckList, RowTable, inputLight, fieldLabelLight, submitCls, SubmitArrow } from "@/components/v3/blocks";
 
 interface ApplyPageProps {
   params: Promise<{ id: string }>;
@@ -47,6 +48,12 @@ export async function generateMetadata({
   };
 }
 
+const typeLabel: Record<string, string> = {
+  remote: "Remote",
+  hybrid: "Hybrid",
+  onsite: "On-Site",
+};
+
 export default async function ApplyPage({ params }: ApplyPageProps) {
   const { id } = await params;
   const job = getJob(id);
@@ -56,78 +63,161 @@ export default async function ApplyPage({ params }: ApplyPageProps) {
   }
 
   return (
-    <div>
-      {/* Hero Section */}
-      <section className="bg-gray-900 text-white py-24">
-        <div className="container mx-auto px-4">
-          <Link
-            href={`/careers/${id}`}
-            className="inline-flex items-center text-white hover:text-orange-300 transition-colors mb-6"
-          >
-            <i className="fas fa-arrow-left mr-2"></i>
-            Back to Job Details
-          </Link>
-          <h1 className="text-4xl font-bold mb-4">Apply for {job.title}</h1>
-          <p className="text-xl text-gray-300">
-            {job.department} • {job.location} •{" "}
-            {job.type === "remote"
-              ? "🌐 Remote"
-              : job.type === "hybrid"
-              ? "🔄 Hybrid"
-              : "🏢 On-Site"}
-          </p>
-        </div>
-      </section>
+    <V3Shell>
+      <PageHero
+        crumbs={[
+          { label: "Careers", href: "/careers" },
+          { label: job.title, href: `/careers/${job.id}` },
+          { label: "Apply" },
+        ]}
+        eyebrow="Application"
+        title={
+          <>
+            Apply for
+            <br />
+            {job.title}
+          </>
+        }
+        lead="We review every application personally."
+      />
 
-      {/* Application Form */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <JobApplicationForm jobTitle={job.title} jobId={job.id} />
-          </div>
-        </div>
-      </section>
+      <Section id="apply-form" tone="white" label="Application form">
+        <div className="grid gap-10 lg:grid-cols-[7fr_5fr] lg:gap-16">
+          {/* Left: the form */}
+          <div className="rounded-3xl bg-[#f2f4f6] p-8 ring-1 ring-black/5">
+            <h2 className="mb-6 text-xl font-semibold tracking-tight text-[#0b2c3d]">
+              Your application
+            </h2>
+            <form action="" method="POST" encType="multipart/form-data" className="space-y-5">
+              <input type="hidden" name="jobId" value={job.id} />
+              <input type="hidden" name="jobTitle" value={job.title} />
 
-      {/* Additional Information */}
-      <section className="py-12 bg-gray-50">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <div className="bg-orange-50 p-6 rounded-lg mb-6">
-            <h3 className="font-bold text-lg mb-4 text-gray-800">
-              <i className="fas fa-info-circle text-orange-500 mr-2"></i>
-              Application Process
-            </h3>
-            <ul className="space-y-2 text-gray-700">
-              <li className="flex items-start">
-                <i className="fas fa-check-circle text-orange-500 mr-3 mt-1"></i>
-                <span>
-                  We review all applications within 2 weeks of submission
-                </span>
-              </li>
-              <li className="flex items-start">
-                <i className="fas fa-check-circle text-orange-500 mr-3 mt-1"></i>
-                <span>Shortlisted candidates will be contacted via email</span>
-              </li>
-              <li className="flex items-start">
-                <i className="fas fa-check-circle text-orange-500 mr-3 mt-1"></i>
-                <span>The interview process typically takes 2-4 weeks</span>
-              </li>
-              <li className="flex items-start">
-                <i className="fas fa-check-circle text-orange-500 mr-3 mt-1"></i>
-                <span>All candidates will receive a status update</span>
-              </li>
-            </ul>
+              <div>
+                <label htmlFor="fullName" className={fieldLabelLight}>
+                  Full name
+                </label>
+                <input
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  required
+                  autoComplete="name"
+                  placeholder="Jane Smith"
+                  className={inputLight}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="email" className={fieldLabelLight}>
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  placeholder="jane@example.com"
+                  className={inputLight}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="phone" className={fieldLabelLight}>
+                  Phone
+                </label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  autoComplete="tel"
+                  placeholder="+1 555 000 0000"
+                  className={inputLight}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="linkedin" className={fieldLabelLight}>
+                  LinkedIn URL
+                </label>
+                <input
+                  id="linkedin"
+                  name="linkedin"
+                  type="url"
+                  placeholder="https://linkedin.com/in/yourprofile"
+                  className={inputLight}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="coverLetter" className={fieldLabelLight}>
+                  Cover letter
+                </label>
+                <textarea
+                  id="coverLetter"
+                  name="coverLetter"
+                  rows={5}
+                  placeholder="Tell us why you're a great fit for this role…"
+                  className={inputLight}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="cv" className={fieldLabelLight}>
+                  CV / Resume
+                </label>
+                <input
+                  id="cv"
+                  name="cv"
+                  type="file"
+                  accept=".pdf,.doc,.docx"
+                  required
+                  className={`${inputLight} file:mr-4 file:rounded-full file:border-0 file:bg-[#fa6a25] file:px-4 file:py-1 file:text-sm file:font-semibold file:text-white hover:file:bg-[#d9531a]`}
+                />
+                <p className="mt-1.5 text-xs text-[#06131d]/45">
+                  PDF, DOC or DOCX · Max 10 MB
+                </p>
+              </div>
+
+              <div className="pt-2">
+                <button type="submit" className={submitCls}>
+                  Submit application
+                  <SubmitArrow />
+                </button>
+              </div>
+            </form>
           </div>
-          <div className="text-center">
-            <Link
-              href={`/careers/${id}`}
-              className="inline-block text-orange-500 hover:text-orange-600 font-semibold"
-            >
-              <i className="fas fa-arrow-left mr-2"></i>
-              Back to Job Details
-            </Link>
+
+          {/* Right: role summary + process */}
+          <div className="space-y-6 lg:sticky lg:top-28 lg:self-start">
+            <RowTable
+              title="Role summary"
+              rows={[
+                ["Title", job.title],
+                ["Department", job.department],
+                ["Location", job.location],
+                ["Work type", typeLabel[job.type] ?? job.type],
+                ["Experience", job.experience],
+                ["Salary", job.salary],
+              ]}
+            />
+            <div className="rounded-3xl bg-[#f2f4f6] p-6 ring-1 ring-black/5 sm:p-8">
+              <h3 className="mb-5 font-mono text-[11px] uppercase tracking-[0.16em] text-[#06131d]/50">
+                What to expect
+              </h3>
+              <CheckList
+                dark
+                items={[
+                  "We review all applications within two weeks",
+                  "Shortlisted candidates are contacted by email",
+                  "The interview process takes 2–4 weeks",
+                  "All applicants receive a status update",
+                ]}
+              />
+            </div>
           </div>
         </div>
-      </section>
-    </div>
+      </Section>
+    </V3Shell>
   );
 }
