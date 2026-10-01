@@ -54,12 +54,6 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.khi.com.bd" }],
-        destination: "https://khi.com.bd/:path*",
-        permanent: true,
-      },
-      {
         source: "/landing-v2",
         destination: "/",
         permanent: true,
