@@ -71,7 +71,7 @@ export default function QuotePage() {
       {/* ───────────── HERO ───────────── */}
       <section aria-labelledby="quote-title" className="relative isolate overflow-hidden bg-[#06131d] pt-[104px] lg:pt-[124px]">
         <Image
-          src="/images/v3/quote/yard-road.webp"
+          src="/images/v3/quote-bg.webp"
           alt=""
           fill
           priority

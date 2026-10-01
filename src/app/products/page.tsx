@@ -103,29 +103,21 @@ export default function ProductsPage() {
             </div>
           </div>
 
-          {/* Right: video hero placeholder */}
+          {/* Right: video hero */}
           <div className="relative">
-            {/* Main video placeholder */}
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-[#0b2c3d]">
-              <Image
-                src="/images/v3/ship-open-sea.webp"
-                alt=""
-                fill
-                priority
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover opacity-40"
-              />
-              {/* Play button */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
-                <div className="grid h-20 w-20 place-items-center rounded-full bg-white/15 ring-2 ring-white/25 backdrop-blur-sm transition hover:bg-white/25">
-                  <svg viewBox="0 0 24 24" className="h-8 w-8 translate-x-0.5 fill-white" aria-hidden="true">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
-                  Video · Container port aerial · 0:45
-                </p>
-              </div>
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster="/images/v3/ship-open-sea.webp"
+                className="absolute inset-0 h-full w-full object-cover"
+              >
+                <source src="/videos/hero-loop.mp4" type="video/mp4" />
+              </video>
+              {/* Vignette for chip legibility */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#06131d]/60 via-transparent to-transparent" />
               {/* Glass stat chips in the lower corners */}
               <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
                 <div className={`${s.glass} rounded-2xl px-4 py-3`}>

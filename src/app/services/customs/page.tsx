@@ -537,7 +537,7 @@ export default function CustomsClearanceServicePage() {
           </>
         }
         body="Share shipment mode, HS chapter, and destination—we will outline documents, timelines, and how our team plugs into your broker and bank."
-        image="/images/hubs/imports-hero.webp"
+        image="/images/v3/customs-cta.webp"
         imageAlt="Stacked shipping containers at port"
         cta={{ label: "Request quote", href: "/quote" }}
       />

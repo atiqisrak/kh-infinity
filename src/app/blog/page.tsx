@@ -132,7 +132,7 @@ export default function BlogPage() {
       </Section>
 
       <CtaBand
-        image="/images/v3/ship-open-sea.webp"
+        image="/images/v3/blog-cta.webp"
         imageAlt="Container ship sailing open sea"
         title={
           <>

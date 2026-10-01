@@ -96,7 +96,7 @@ export default function EventsPage() {
       </Section>
 
       <CtaBand
-        image="/images/v3/cargo-plane.jpg"
+        image="/images/v3/events-cta.webp"
         title="Meet us at the next show"
         body="Our team attends leading trade shows to meet partners and stay ahead of industry trends. Reach out to arrange a meeting."
         cta={{ label: "Contact us", href: "/contact" }}

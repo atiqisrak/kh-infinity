@@ -270,7 +270,7 @@ export default function FAQPage() {
       </Section>
 
       <CtaBand
-        image="/images/v3/tanker-sunset.webp"
+        image="/images/v3/faq-cta.webp"
         imageAlt="Tanker ship at sunset on open sea"
         title={
           <>

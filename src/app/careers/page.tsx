@@ -62,7 +62,7 @@ export default function CareersPage() {
             <GhostButton href="/about" glass>About KH Infinity</GhostButton>
           </>
         }
-        image="/images/v3/truck-apron.webp"
+        image="/images/v3/careers-hero.webp"
         imageAlt="Truck on the apron of a busy port"
       />
 

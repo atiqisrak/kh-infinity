@@ -91,7 +91,7 @@ export default function NewsPage() {
       </Section>
 
       <CtaBand
-        image="/images/v3/ship-open-sea.webp"
+        image="/images/v3/news-cta.webp"
         title="Stay informed"
         body="Connect with our trade team for market insights and updates tailored to your business."
         cta={{ label: "Contact us", href: "/contact" }}

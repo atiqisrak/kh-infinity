@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { getProducts } from "@/lib/products";
 import Icon from "@/components/v3/Icons";
@@ -52,14 +51,6 @@ const reasons = [
   },
 ];
 
-// Video placeholder per sector — swap in real footage paths when available
-const SECTOR_VIDEO: Record<string, string> = {
-  fmcg: "FMCG warehouse operations · 0:30",
-  retail: "Retail supply chain · 0:25",
-  hospitality: "Commercial kitchen supply · 0:20",
-  manufacturing: "Factory floor sourcing · 0:35",
-  agriculture: "Field-to-port export · 0:40",
-};
 
 export default function IndustriesPage() {
   const products = getProducts();
@@ -124,19 +115,18 @@ export default function IndustriesPage() {
                     i < 2 ? "min-h-[380px]" : "min-h-[500px]"
                   } ${focusRing}`}
                 >
-                  {/* Background photo */}
+                  {/* Background video */}
                   <div className="absolute inset-0 z-[1]">
-                    <Image
-                      src={sec.image}
-                      alt={sec.imageAlt}
-                      fill
-                      sizes={
-                        i < 2
-                          ? "(min-width: 1024px) 640px, (min-width: 768px) 50vw, 100vw"
-                          : "(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw"
-                      }
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
+                    <video
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      poster={sec.image}
+                      className="h-full w-full object-cover"
+                    >
+                      <source src={`/videos/${sec.slug}-loop.mp4`} type="video/mp4" />
+                    </video>
                   </div>
 
                   {/* Permanent dark gradient (text legibility) */}
@@ -150,14 +140,6 @@ export default function IndustriesPage() {
                     {/* Corner index */}
                     <span className="absolute right-5 top-5 font-mono text-xs text-white/35 transition group-hover:opacity-0">
                       {String(i + 1).padStart(2, "0")}
-                    </span>
-
-                    {/* Video placeholder badge — top-left, visible before hover */}
-                    <span className="absolute left-5 top-5 flex items-center gap-1.5 rounded-full bg-black/30 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-white/60 backdrop-blur-sm transition group-hover:opacity-0">
-                      <svg viewBox="0 0 24 24" className="h-3 w-3 fill-current" aria-hidden="true">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                      {SECTOR_VIDEO[sec.slug]}
                     </span>
 
                     {/* Icon disc — fades on hover */}
