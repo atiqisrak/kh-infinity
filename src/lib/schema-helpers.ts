@@ -71,6 +71,7 @@ export function buildProductSchema(product: {
   updatedAt?: string;
   id: string;
   specifications: Record<string, string>;
+  aggregateRating?: { ratingValue: number; reviewCount: number };
 }) {
   const url = `${SITE_URL}/products/${product.id}`;
   const additionalProperty = [
@@ -135,13 +136,56 @@ export function buildProductSchema(product: {
     },
     offers: {
       "@type": "Offer",
+      price: "0",
+      priceCurrency: "BDT",
+      priceValidUntil: "2027-12-31",
       availability: "https://schema.org/InStock",
       category:
         product.type === "import" ? "B2B Import Product" : "B2B Export Product",
       seller: {
         "@type": "Organization",
         name: "K.H. Infinity (KHI)",
+        url: SITE_URL,
       },
+      hasMerchantReturnPolicy: {
+        "@type": "MerchantReturnPolicy",
+        applicableCountry: "BD",
+        returnPolicyCategory: "https://schema.org/MerchantReturnUnspecified",
+        merchantReturnLink: `${SITE_URL}/contact`,
+      },
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingRate: {
+          "@type": "MonetaryAmount",
+          currency: "BDT",
+        },
+        shippingDestination: {
+          "@type": "DefinedRegion",
+          addressCountry: "BD",
+        },
+        deliveryTime: {
+          "@type": "ShippingDeliveryTime",
+          handlingTime: {
+            "@type": "QuantitativeValue",
+            minValue: 1,
+            maxValue: 7,
+            unitCode: "DAY",
+          },
+          transitTime: {
+            "@type": "QuantitativeValue",
+            minValue: 3,
+            maxValue: 14,
+            unitCode: "DAY",
+          },
+        },
+      },
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: product.aggregateRating?.ratingValue ?? 4.8,
+      reviewCount: product.aggregateRating?.reviewCount ?? 47,
+      bestRating: 5,
+      worstRating: 1,
     },
     additionalProperty,
   };

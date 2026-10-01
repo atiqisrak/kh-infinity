@@ -54,10 +54,15 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        // v3 homepage concept was previewed here before it replaced "/"
+        source: "/:path*",
+        has: [{ type: "host", value: "www.khi.com.bd" }],
+        destination: "https://khi.com.bd/:path*",
+        permanent: true,
+      },
+      {
         source: "/landing-v2",
         destination: "/",
-        permanent: false,
+        permanent: true,
       },
       {
         source: "/potato-export",

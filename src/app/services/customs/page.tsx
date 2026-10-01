@@ -8,6 +8,7 @@ import { CheckList, ChipList, Section, labelCls } from "@/components/v3/blocks";
 import { GhostButton, PillButton, SectionHead, focusRing, pad } from "@/components/v3/ui";
 import V3Shell from "@/components/v3/V3Shell";
 import s from "@/components/v3/v3.module.css";
+import { speakableWebPageSchema } from "@/lib/schema-helpers";
 
 const canonical = "https://khi.com.bd/services/customs";
 const orgName = "K.H. Infinity";
@@ -146,6 +147,12 @@ function CustomsJsonLd() {
     ],
   };
 
+  const speakable = speakableWebPageSchema({
+    url: canonical,
+    name: "Customs Clearance Service Bangladesh",
+    dateModified: "2026-08-07",
+  });
+
   return (
     <>
       <script
@@ -161,6 +168,10 @@ function CustomsJsonLd() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(breadcrumbSchema),
         }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakable) }}
       />
     </>
   );
@@ -269,7 +280,7 @@ export default function CustomsClearanceServicePage() {
         }
         titleClassName="text-[clamp(2.75rem,5.4vw,5.25rem)]"
         lead={
-          <p>
+          <p className="geo-anchor" data-speakable>
             Practical customs clearance support: document packs, HS and duty coordination with your advisers, fewer
             preventable delays, and a clear checklist for buyers and shippers—backed by K.H. Infinity&apos;s
             import-export operations experience.

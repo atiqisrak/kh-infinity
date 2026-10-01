@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { breadcrumbSchema } from "@/lib/schema-helpers";
 import CtaBand from "@/components/v3/CtaBand";
 import Icon, { type IconName } from "@/components/v3/Icons";
 import PageHero from "@/components/v3/PageHero";
@@ -14,18 +15,18 @@ import { process, routes } from "@/app/_home/content";
 
 export const metadata: Metadata = {
   title:
-    "Import Export Services - K.H. Infinity | Global Trade Solutions Bangladesh",
+    "B2B Import Export Services Bangladesh | K.H. Infinity — Trade, Customs & SME Solutions",
   description:
-    "Professional import-export services including product sourcing, quality assurance, documentation support, market access, and trade compliance. Your trusted partner in global trade.",
+    "K.H. Infinity's B2B trade services: global commodity sourcing, NBR customs clearance, TTI-transparent landed-cost quoting, SME consolidated imports, and Gulf export programmes. All managed in-house from Dhaka.",
   keywords:
-    "import export services, trade services, global trade solutions, product sourcing, quality assurance, trade documentation, market access, K.H. Infinity, Bangladesh",
+    "import export services Bangladesh, customs clearance service Bangladesh, B2B trade services Dhaka, landed cost quote Bangladesh, SME import solutions, Gulf export Bangladesh, commodity sourcing Bangladesh, K.H. Infinity services",
   alternates: {
     canonical: "https://khi.com.bd/services",
   },
   openGraph: {
-    title: "Import Export Services - K.H. Infinity | Global Trade Solutions",
+    title: "B2B Import Export Services | K.H. Infinity Bangladesh",
     description:
-      "Professional import-export services including product sourcing, quality assurance, documentation support, market access, and trade compliance. Your trusted partner in global trade.",
+      "Global sourcing, in-house NBR customs clearance, TTI-transparent landed-cost quoting, SME consolidated imports, and Gulf export programmes — all managed from Dhaka.",
     images: ["/images/cover/kh1.webp"],
     url: "https://khi.com.bd/services",
     siteName: "K.H. Infinity",
@@ -33,9 +34,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Import Export Services - K.H. Infinity | Global Trade Solutions",
+    title: "B2B Import Export Services | K.H. Infinity Bangladesh",
     description:
-      "Professional import-export services including product sourcing, quality assurance, documentation support, market access, and trade compliance. Your trusted partner in global trade.",
+      "In-house customs clearance, NBR TTI transparency, SME import solutions, and Gulf export programmes from Dhaka, Bangladesh.",
     images: ["/images/cover/kh1.webp"],
   },
 };
@@ -193,8 +194,17 @@ function ServiceGroup({ label, items, start, openFirst }: { label: string; items
 }
 
 export default function ServicesPage() {
+  const crumbs = breadcrumbSchema([
+    { name: "Home", url: "https://khi.com.bd/" },
+    { name: "Services", url: "https://khi.com.bd/services" },
+  ]);
+
   return (
     <V3Shell>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }}
+      />
       <PageHero
         crumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
         eyebrow="Import · Export · Customs"

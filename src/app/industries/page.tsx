@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { getProducts } from "@/lib/products";
+import { breadcrumbSchema, speakableWebPageSchema } from "@/lib/schema-helpers";
 import Icon from "@/components/v3/Icons";
 import PageHero from "@/components/v3/PageHero";
 import { ChipList, NumberedGrid, Section } from "@/components/v3/blocks";
@@ -31,7 +32,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Industries We Serve - K.H. Infinity",
-    description: "Specialized import-export solutions for multiple industries.",
+    description:
+      "Specialized B2B import-export solutions for FMCG, retail, hospitality, manufacturing, and agriculture sectors in Bangladesh.",
     images: ["/images/cover/kh1.webp"],
   },
 };
@@ -56,8 +58,27 @@ export default function IndustriesPage() {
   const products = getProducts();
   const { countries } = sourcingFacts(products);
 
+  const crumbs = breadcrumbSchema([
+    { name: "Home", url: "https://khi.com.bd/" },
+    { name: "Industries", url: "https://khi.com.bd/industries" },
+  ]);
+
+  const speakable = speakableWebPageSchema({
+    url: "https://khi.com.bd/industries",
+    name: "Industries We Serve — K.H. Infinity",
+    dateModified: "2026-08-07",
+  });
+
   return (
     <V3Shell>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakable) }}
+      />
       {/* ── HERO ──────────────────────────────────────────────────── */}
       <PageHero
         crumbs={[{ label: "Home", href: "/" }, { label: "Industries" }]}

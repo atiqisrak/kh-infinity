@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { breadcrumbSchema, speakableWebPageSchema } from "@/lib/schema-helpers";
 import CtaBand from "@/components/v3/CtaBand";
 import Icon, { type IconName } from "@/components/v3/Icons";
 import PageHero from "@/components/v3/PageHero";
@@ -12,18 +13,18 @@ import s from "@/components/v3/v3.module.css";
 
 export const metadata: Metadata = {
   title:
-    "About Us - K.H. Infinity | Leading Import Export Company in Bangladesh",
+    "About K.H. Infinity | Direct B2B Importer, Dhaka — Since 2018",
   description:
-    "Learn about K.H. Infinity's journey as a trusted import-export company in Bangladesh. Discover our mission, values, and commitment to excellence in global trade.",
+    "K.H. Infinity, founded 2018 in Tikatuli, Dhaka, is a direct B2B importer rooted in Khatunganj's trade legacy. We own inventory and handle NBR customs clearance, TTI transparency, and BSTI compliance in-house.",
   keywords:
-    "K.H. Infinity, import export company Bangladesh, global trade partner, international business, trade certifications, customs expertise",
+    "K.H. Infinity about, KHI Dhaka, B2B importer Bangladesh, Khatunganj trade, import export company Dhaka, NBR customs clearance, TTI transparency, BSTI compliance, direct importer Bangladesh",
   alternates: {
     canonical: "https://khi.com.bd/about",
   },
   openGraph: {
-    title: "About K.H. Infinity - Your Trusted Global Trade Partner",
+    title: "About K.H. Infinity | Direct B2B Importer — Dhaka Since 2018",
     description:
-      "Learn about K.H. Infinity's journey as a trusted import-export company in Bangladesh. Discover our mission, values, and commitment to excellence in global trade.",
+      "Founded in 2018 in Tikatuli, Dhaka. K.H. Infinity owns physical inventory, manages NBR customs clearance in-house, and provides TTI transparency for B2B buyers across 15+ countries.",
     images: ["/images/about/about-banner.webp"],
     url: "https://khi.com.bd/about",
     siteName: "K.H. Infinity",
@@ -31,9 +32,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "About K.H. Infinity - Your Trusted Global Trade Partner",
+    title: "About K.H. Infinity | Direct B2B Importer — Dhaka Since 2018",
     description:
-      "Learn about K.H. Infinity's journey as a trusted import-export company in Bangladesh. Discover our mission, values, and commitment to excellence in global trade.",
+      "Founded 2018 in Tikatuli, Dhaka. Owned inventory, in-house NBR customs clearance, TTI transparency, and BSTI compliance. Roots in Khatunganj — the Wall Street of the East.",
     images: ["/images/about/about-banner.webp"],
   },
 };
@@ -112,9 +113,81 @@ const CERTS: { icon: IconName; title: string; body: string }[] = [
 
 const inlineLink = `font-semibold text-[#0b2c3d] underline decoration-[#fa6a25] decoration-2 underline-offset-4 hover:text-[#d9531a] ${focusRing}`;
 
+function AboutJsonLd() {
+  const crumbs = breadcrumbSchema([
+    { name: "Home", url: "https://khi.com.bd/" },
+    { name: "About", url: "https://khi.com.bd/about" },
+  ]);
+
+  const speakable = speakableWebPageSchema({
+    url: "https://khi.com.bd/about",
+    name: "About K.H. Infinity — Direct B2B Importer Dhaka Since 2018",
+    dateModified: "2026-08-07",
+  });
+
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://khi.com.bd/#organization",
+    name: "K.H. Infinity",
+    alternateName: "KHI",
+    url: "https://khi.com.bd",
+    telephone: "+880 1577081856",
+    email: "info@khi.com.bd",
+    foundingDate: "2018",
+    description:
+      "Direct B2B importer and wholesale distributor in Bangladesh. Founded in 2018 in Tikatuli, Dhaka, with operational ties to Khatunganj — the historic wholesale market known as the Wall Street of the East. We own physical inventory and manage NBR customs clearance, Total Tax Incidence (TTI) transparency, and BSTI compliance in-house.",
+    image: "https://khi.com.bd/images/about/about-banner.webp",
+    logo: "https://khi.com.bd/images/logo.png",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Kader Tropical Height, Shop-G5, 10 Hatkhola Road, Tikatuli, Wari",
+      addressLocality: "Dhaka",
+      postalCode: "1203",
+      addressCountry: "BD",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 23.7227,
+      longitude: 90.4113,
+    },
+    areaServed: [
+      { "@type": "Country", name: "Bangladesh" },
+      { "@type": "Place", name: "Gulf Cooperation Council" },
+    ],
+    sameAs: [
+      "https://facebook.com/khinfinity",
+      "https://linkedin.com/company/khinfinity",
+      "https://instagram.com/khinfinity",
+    ],
+    hasCredential: [
+      { "@type": "EducationalOccupationalCredential", name: "Trade License" },
+      { "@type": "EducationalOccupationalCredential", name: "ISO 9001:2015" },
+    ],
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakable) }}
+      />
+    </>
+  );
+}
+
 export default function AboutPage() {
   return (
     <V3Shell>
+      <AboutJsonLd />
       {/* ───────────── HERO ───────────── */}
       <PageHero
         image="/images/about/about-banner.webp"
@@ -128,7 +201,7 @@ export default function AboutPage() {
             K.H. <span className="text-[#fa6a25]">Infinity</span>
           </>
         }
-        lead="Your trusted partner in global trade since 2018."
+        lead={<p className="geo-anchor" data-speakable>Your trusted partner in global trade since 2018. Founded in Tikatuli, Dhaka, K.H. Infinity is a direct B2B importer with in-house NBR customs clearance, TTI transparency, and BSTI compliance.</p>}
         actions={
           <>
             <PillButton href="/quote">Request a quote</PillButton>

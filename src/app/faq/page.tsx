@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Script from "next/script";
+import { breadcrumbSchema, speakableWebPageSchema } from "@/lib/schema-helpers";
 import V3Shell from "@/components/v3/V3Shell";
 import PageHero from "@/components/v3/PageHero";
 import { Section, FaqList, NumberedGrid } from "@/components/v3/blocks";
@@ -7,18 +8,18 @@ import CtaBand from "@/components/v3/CtaBand";
 import { PillButton, GhostButton } from "@/components/v3/ui";
 
 export const metadata: Metadata = {
-  title: "FAQ - K.H. Infinity Import Export",
+  title: "Import Export FAQ — Bangladesh Trade, Customs & TTI | K.H. Infinity",
   description:
-    "Frequently asked questions about import/export services, documentation, shipping, and payment processes at K.H. Infinity. Get answers about international trade, customs, and logistics.",
+    "Answers to common B2B trade questions: Bangladesh customs clearance timelines, NBR TTI calculation, required import documents, payment terms (L/C vs T/T), and Gulf export logistics. From K.H. Infinity, direct B2B importer in Dhaka.",
   keywords:
-    "FAQ, import export FAQ, shipping FAQ, customs documentation, international trade questions, logistics FAQ, freight forwarding",
+    "import export FAQ Bangladesh, customs clearance FAQ, TTI calculation Bangladesh, how to import Bangladesh, Gulf potato export FAQ, L/C vs T/T Bangladesh, NBR customs documentation, BSTI FAQ",
   alternates: {
     canonical: "https://khi.com.bd/faq",
   },
   openGraph: {
-    title: "FAQ - K.H. Infinity Import Export",
+    title: "Import Export FAQ — Bangladesh Trade, Customs & TTI | K.H. Infinity",
     description:
-      "Frequently asked questions about import/export services, documentation, shipping, and payment processes at K.H. Infinity.",
+      "Customs clearance timelines, TTI calculation, required import documents, payment terms, and Gulf export logistics — answered by K.H. Infinity, direct B2B importer in Dhaka.",
     type: "website",
     url: "https://khi.com.bd/faq",
     siteName: "K.H. Infinity",
@@ -26,9 +27,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "FAQ - K.H. Infinity Import Export",
+    title: "Import Export FAQ — Bangladesh Trade & Customs | K.H. Infinity",
     description:
-      "Frequently asked questions about import/export services, documentation, shipping, and payment processes at K.H. Infinity.",
+      "Customs timelines, NBR TTI calculation, required import docs, L/C vs T/T, and Gulf potato export logistics — answered from Dhaka.",
     images: ["/images/cover/kh1.webp"],
   },
 };
@@ -177,6 +178,17 @@ export default function FAQPage() {
     ),
   };
 
+  const crumbs = breadcrumbSchema([
+    { name: "Home", url: "https://khi.com.bd/" },
+    { name: "FAQ", url: "https://khi.com.bd/faq" },
+  ]);
+
+  const speakable = speakableWebPageSchema({
+    url: "https://khi.com.bd/faq",
+    name: "Import Export FAQ — Bangladesh Trade, Customs & TTI",
+    dateModified: "2026-08-07",
+  });
+
   return (
     <V3Shell>
       <Script
@@ -186,9 +198,17 @@ export default function FAQPage() {
           __html: JSON.stringify(faqStructuredData),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(speakable) }}
+      />
 
       <PageHero
-        crumbs={[{ label: "FAQ" }]}
+        crumbs={[{ label: "Home", href: "/" }, { label: "FAQ" }]}
         eyebrow="Trade knowledge base"
         title={"Answers to your\nimport-export questions"}
         lead="Everything you need to know about importing, exporting, shipping, and working with K.H. Infinity."

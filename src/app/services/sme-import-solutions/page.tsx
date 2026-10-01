@@ -7,7 +7,7 @@ import { CheckList, NumberedGrid, Section } from "@/components/v3/blocks";
 import { GhostButton, PillButton } from "@/components/v3/ui";
 import V3Shell from "@/components/v3/V3Shell";
 import s from "@/components/v3/v3.module.css";
-import { speakableWebPageSchema } from "@/lib/schema-helpers";
+import { breadcrumbSchema, speakableWebPageSchema } from "@/lib/schema-helpers";
 
 export const metadata: Metadata = {
   title: "SME Import Solutions | Consolidated Shipping & LC Support | K.H. Infinity",
@@ -79,10 +79,17 @@ export default function SmeImportSolutionsPage() {
     dateModified: "2026-08-07",
   });
 
+  const crumbs = breadcrumbSchema([
+    { name: "Home", url: "https://khi.com.bd/" },
+    { name: "Services", url: "https://khi.com.bd/services" },
+    { name: "SME Import Solutions", url: "https://khi.com.bd/services/sme-import-solutions" },
+  ]);
+
   return (
     <V3Shell>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakable) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }} />
 
       <PageHero
         crumbs={[
