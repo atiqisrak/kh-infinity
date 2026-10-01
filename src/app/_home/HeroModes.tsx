@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { heroModes } from "./content";
-import s from "./landing.module.css";
-import { NAV_HEIGHT } from "./SiteNav";
+import s from "@/components/v3/v3.module.css";
+import { NAV_HEIGHT } from "@/components/v3/SiteNav";
 
 // Full-bleed hero: three photo panels (sea / road / air). The active panel widens,
 // and the lane card and progress tabs follow it. Pauses on hover/focus and never

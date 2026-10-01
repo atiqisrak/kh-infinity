@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import CtaBand from "@/components/v3/CtaBand";
+import Icon, { type IconName } from "@/components/v3/Icons";
+import PageHero from "@/components/v3/PageHero";
+import ProcessTrack from "@/components/v3/ProcessTrack";
+import { CheckList, ChipList, Section, labelCls } from "@/components/v3/blocks";
+import { GhostButton, PillButton, SectionHead, focusRing, pad } from "@/components/v3/ui";
+import V3Shell from "@/components/v3/V3Shell";
+import s from "@/components/v3/v3.module.css";
 
 const canonical = "https://khi.com.bd/services/customs";
 const orgName = "K.H. Infinity";
@@ -159,379 +166,381 @@ function CustomsJsonLd() {
   );
 }
 
+const included: { icon: IconName; title: string; body: string }[] = [
+  {
+    icon: "doc",
+    title: "Document preparation",
+    body: "Commercial invoices, packing lists, certificates of origin, and permit copies organised for submission.",
+  },
+  {
+    icon: "search",
+    title: "Tariff classification support",
+    body: "HS code alignment and liaison with your technical or legal advisers on duty preferences and SRO context.",
+  },
+  {
+    icon: "calculator",
+    title: "Duty, tax, and VAT coordination",
+    body: "Structured handoffs to your finance and banking partners for assessment and payment milestones.",
+  },
+  {
+    icon: "ship",
+    title: "Import and export lanes",
+    body: "Same discipline for inbound industrial and FMCG cargo and outbound agricultural and general exports.",
+  },
+];
+
+const documentGroups: { icon: IconName; title: string; items: string[] }[] = [
+  {
+    icon: "receipt",
+    title: "Commercial core",
+    items: [
+      "Commercial invoice",
+      "Packing list",
+      "Bill of lading / airway bill",
+      "Letter of credit or purchase order (as applicable)",
+    ],
+  },
+  {
+    icon: "shield",
+    title: "Origin and compliance",
+    items: [
+      "Certificate of origin",
+      "Phytosanitary / product-specific certificates",
+      "Insurance certificates",
+      "Import registration or IRC references (imports)",
+    ],
+  },
+  {
+    icon: "handshake",
+    title: "Partner handoffs",
+    items: [
+      "Freight forwarder instructions",
+      "Delivery order coordination",
+      "Bond or warehouse paperwork when relevant",
+      "Export incentives documentation (exports)",
+    ],
+  },
+];
+
+const steps = [
+  { title: "Intake", body: "Checklist of HS, values, incoterms, permits, and carrier documents." },
+  { title: "Pre-arrival", body: "Resolve discrepancies early; pre-advise bank and insurer if needed." },
+  { title: "Assessment", body: "Coordinate duty, VAT, and ancillary charges with your treasury." },
+  { title: "Release", body: "Examination scheduling, query response, and handoff to delivery." },
+];
+
+const delayPoints = [
+  "Invoice vs packing list quantity or weight mismatches",
+  "HS code changes or SRO eligibility not reflected on documents",
+  "Late or incomplete certificate sets for regulated products",
+  "Bank or L/C discrepancies holding release",
+  "Last-minute changes to consignee or notify party",
+];
+
+const buyerChecklist = [
+  "Final commercial invoice in the name required by customs",
+  "Accurate gross/net weights and carton counts",
+  "HS codes agreed with your technical team",
+  "Copies of registration, IRC, or export permits ready",
+  "Named customs broker or agent contact (if appointed)",
+  "Preferred incoterm and discharge port confirmed in writing",
+];
+
+const contactLink = `font-semibold text-[#0b2c3d] underline decoration-[#fa6a25] decoration-2 underline-offset-4 hover:text-[#d9531a] ${focusRing}`;
+
 export default function CustomsClearanceServicePage() {
   return (
-    <div>
+    <V3Shell>
       <CustomsJsonLd />
 
-      <section
-        className="bg-gray-900 text-white py-28 md:py-40"
-        style={{
-          backgroundImage: "url(/images/cover/kh2.webp)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div className="container mx-auto px-4">
-          <div className="bg-black/60 p-6 md:p-8 rounded-lg max-w-3xl">
-            <p className="text-orange-400 font-semibold text-sm uppercase tracking-wide mb-2">
-              Trade support
-            </p>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Customs clearance service for Bangladesh trade
-            </h1>
-            <p className="text-lg md:text-xl text-gray-100 mb-8">
-              Practical customs clearance support: document packs, HS and duty
-              coordination with your advisers, fewer preventable delays, and a
-              clear checklist for buyers and shippers—backed by K.H.
-              Infinity&apos;s import-export operations experience.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/quote"
-                className="inline-block text-center bg-orange-500 text-white px-8 py-3 rounded-lg hover:bg-orange-600 transition-colors font-semibold"
-              >
-                Request customs support quote
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-block text-center bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white/10 transition-colors font-semibold"
-              >
-                Speak to our desk
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <nav
-        className="bg-white border-b border-gray-200 py-3 text-sm text-gray-600"
-        aria-label="Breadcrumb"
-      >
-        <div className="container mx-auto px-4">
-          <Link href="/" className="hover:text-orange-500">
-            Home
-          </Link>
-          <span className="mx-2" aria-hidden>
-            /
-          </span>
-          <Link href="/services" className="hover:text-orange-500">
-            Services
-          </Link>
-          <span className="mx-2" aria-hidden>
-            /
-          </span>
-          <span className="text-gray-900 font-medium">
-            Customs clearance service
-          </span>
-        </div>
-      </nav>
-
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-bold mb-6 text-gray-800">
-                What our customs clearance support includes
-              </h2>
-              <p className="text-lg text-gray-600 mb-4">
-                We help trading teams prepare complete, consistent paperwork and
-                timelines around Bangladesh National Board of Revenue (NBR)
-                processes. Where Bangladesh law requires a{" "}
-                <strong className="text-gray-800">
-                  licensed customs agent or broker
-                </strong>{" "}
-                to file declarations on your behalf, you retain that
-                relationship—we align our document set and milestones with their
-                filing workflow.
-              </p>
-              <ul className="text-gray-600 space-y-3">
-                <li className="flex gap-2">
-                  <i className="fas fa-check text-orange-500 mt-1" aria-hidden />
-                  <span>
-                    <strong className="text-gray-800">Document preparation</strong>{" "}
-                    — commercial invoices, packing lists, certificates of origin,
-                    and permit copies organised for submission.
-                  </span>
-                </li>
-                <li className="flex gap-2">
-                  <i className="fas fa-check text-orange-500 mt-1" aria-hidden />
-                  <span>
-                    <strong className="text-gray-800">
-                      Tariff classification support
-                    </strong>{" "}
-                    — HS code alignment and liaison with your technical or legal
-                    advisers on duty preferences and SRO context.
-                  </span>
-                </li>
-                <li className="flex gap-2">
-                  <i className="fas fa-check text-orange-500 mt-1" aria-hidden />
-                  <span>
-                    <strong className="text-gray-800">
-                      Duty, tax, and VAT coordination
-                    </strong>{" "}
-                    — structured handoffs to your finance and banking partners for
-                    assessment and payment milestones.
-                  </span>
-                </li>
-                <li className="flex gap-2">
-                  <i className="fas fa-check text-orange-500 mt-1" aria-hidden />
-                  <span>
-                    <strong className="text-gray-800">
-                      Import and export lanes
-                    </strong>{" "}
-                    — same discipline for inbound industrial and FMCG cargo and
-                    outbound agricultural and general exports.
-                  </span>
-                </li>
-              </ul>
-            </div>
-            <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-lg">
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: "Services", href: "/services" },
+          { label: "Customs clearance service" },
+        ]}
+        eyebrow="Trade support"
+        title={
+          <>
+            Customs clearance
+            <br />
+            service for <span className="text-[#fa6a25]">Bangladesh</span> trade
+          </>
+        }
+        titleClassName="text-[clamp(2.75rem,5.4vw,5.25rem)]"
+        lead={
+          <p>
+            Practical customs clearance support: document packs, HS and duty coordination with your advisers, fewer
+            preventable delays, and a clear checklist for buyers and shippers—backed by K.H. Infinity&apos;s
+            import-export operations experience.
+          </p>
+        }
+        actions={
+          <>
+            <PillButton href="/quote">Request customs support quote</PillButton>
+            <GhostButton href="/contact">Speak to our desk</GhostButton>
+          </>
+        }
+        aside={
+          <figure className="relative">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-[#0b2c3d] ring-1 ring-white/10">
               <Image
                 src="/images/cover/kh2.webp"
                 alt="Shipping containers and logistics supporting customs clearance for international trade"
                 fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
                 priority
+                sizes="(min-width: 1024px) 560px, 100vw"
+                className="object-cover"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#06131d]/70 via-transparent to-transparent" />
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-12 text-center text-gray-800">
-            Documents we routinely support
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {[
-              {
-                title: "Commercial core",
-                items: [
-                  "Commercial invoice",
-                  "Packing list",
-                  "Bill of lading / airway bill",
-                  "Letter of credit or purchase order (as applicable)",
-                ],
-              },
-              {
-                title: "Origin and compliance",
-                items: [
-                  "Certificate of origin",
-                  "Phytosanitary / product-specific certificates",
-                  "Insurance certificates",
-                  "Import registration or IRC references (imports)",
-                ],
-              },
-              {
-                title: "Partner handoffs",
-                items: [
-                  "Freight forwarder instructions",
-                  "Delivery order coordination",
-                  "Bond or warehouse paperwork when relevant",
-                  "Export incentives documentation (exports)",
-                ],
-              },
-            ].map((block) => (
-              <div
-                key={block.title}
-                className="bg-white p-6 rounded-lg shadow-md border border-gray-100"
-              >
-                <div className="text-orange-500 text-3xl mb-3">
-                  <i className="fas fa-folder-open" aria-hidden />
-                </div>
-                <h3 className="text-xl font-bold mb-4 text-gray-800">
-                  {block.title}
-                </h3>
-                <ul className="text-gray-600 text-sm space-y-2 list-disc list-inside">
-                  {block.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+            {/* Clearance docket: the four stages as a stamped checklist */}
+            <div
+              className={`${s.glass} relative -mt-16 ml-4 mr-4 rounded-2xl p-5 sm:ml-auto sm:mr-6 sm:w-[300px]`}
+              aria-hidden="true"
+            >
+              <div className="flex items-center justify-between">
+                <p className="text-xs uppercase tracking-[0.14em] text-white/60">Clearance docket</p>
+                <span className="grid h-9 w-9 -rotate-12 place-items-center rounded-full border-2 border-[#fa6a25] text-[#fa6a25]">
+                  <Icon name="stamp" className="h-4 w-4" />
+                </span>
               </div>
-            ))}
+              <ol className="mt-3 grid grid-cols-4 gap-2">
+                {steps.map((st, i) => (
+                  <li key={st.title} className="text-center">
+                    <span className="mx-auto grid h-8 w-8 place-items-center rounded-full bg-[#fa6a25] font-mono text-xs text-white">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="mt-1.5 block text-[11px] leading-tight text-white/75">{st.title}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </figure>
+        }
+      />
+
+      {/* ───────────── WHAT'S INCLUDED ───────────── */}
+      <section aria-labelledby="included-heading" className="bg-white py-20 text-[#06131d] lg:py-28">
+        <div className={`${pad} grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20`}>
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <SectionHead
+              dark
+              eyebrow="What's included"
+              id="included-heading"
+              size="md"
+              title={
+                <>
+                  What our customs
+                  <br />
+                  clearance support <span className="text-[#fa6a25]">includes</span>
+                </>
+              }
+            />
+            <p className="mt-6 max-w-md leading-relaxed text-[#06131d]/70">
+              We help trading teams prepare complete, consistent paperwork and timelines around Bangladesh National
+              Board of Revenue (NBR) processes. Where Bangladesh law requires a{" "}
+              <strong className="font-semibold text-[#0b2c3d]">licensed customs agent or broker</strong> to file
+              declarations on your behalf, you retain that relationship—we align our document set and milestones with
+              their filing workflow.
+            </p>
           </div>
+          <ul className="grid gap-4 sm:grid-cols-2">
+            {included.map((it) => (
+              <li key={it.title} className="rounded-3xl bg-[#f2f4f6] p-6 sm:p-8">
+                <span className="grid h-11 w-11 place-items-center rounded-full bg-[#fa6a25]/10 text-[#d9531a]">
+                  <Icon name={it.icon} className="h-5 w-5" />
+                </span>
+                <h3 className="mt-5 text-lg font-semibold tracking-tight text-[#0b2c3d]">{it.title}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-[#06131d]/70">{it.body}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <section id="process" className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-4 text-center text-gray-800">
-            From paperwork to release
-          </h2>
-          <p className="text-center text-gray-600 max-w-2xl mx-auto mb-12">
-            A practical workflow we coordinate with you and your logistics
-            partners. Exact sequencing depends on port, mode, and product.
+      {/* ───────────── DOCUMENTS ───────────── */}
+      <Section
+        id="documents"
+        tone="paper"
+        eyebrow="Paperwork"
+        title={
+          <>
+            Documents we
+            <br />
+            routinely support
+          </>
+        }
+        intro={<p>Grouped the way we check them: the commercial core, origin and compliance papers, and the handoffs to your logistics partners.</p>}
+      >
+        <div className="grid gap-4 lg:grid-cols-3">
+          {documentGroups.map((g) => (
+            <div key={g.title} className="rounded-3xl bg-white p-6 ring-1 ring-[#06131d]/[0.06] sm:p-8">
+              <div className="flex items-center gap-3">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#06131d] text-[#fa6a25]">
+                  <Icon name={g.icon} className="h-5 w-5" />
+                </span>
+                <h3 className="text-lg font-semibold tracking-tight text-[#0b2c3d]">{g.title}</h3>
+              </div>
+              <ChipList items={g.items} dark icon="doc" className="mt-6" />
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* ───────────── PROCESS ───────────── */}
+      <Section
+        id="process"
+        tone="sea"
+        grid
+        eyebrow="Clearance timeline"
+        title={
+          <>
+            From paperwork
+            <br />
+            to <span className="text-[#fa6a25]">release</span>
+          </>
+        }
+        intro={
+          <p>
+            A practical workflow we coordinate with you and your logistics partners. Exact sequencing depends on port,
+            mode, and product.
           </p>
-          <div className="grid md:grid-cols-4 gap-8">
-            {[
-              {
-                n: "1",
-                t: "Intake",
-                d: "Checklist of HS, values, incoterms, permits, and carrier documents.",
-              },
-              {
-                n: "2",
-                t: "Pre-arrival",
-                d: "Resolve discrepancies early; pre-advise bank and insurer if needed.",
-              },
-              {
-                n: "3",
-                t: "Assessment",
-                d: "Coordinate duty, VAT, and ancillary charges with your treasury.",
-              },
-              {
-                n: "4",
-                t: "Release",
-                d: "Examination scheduling, query response, and handoff to delivery.",
-              },
-            ].map((step) => (
-              <div key={step.n} className="text-center">
-                <div className="bg-orange-500 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  {step.n}
-                </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-800">
-                  {step.t}
-                </h3>
-                <p className="text-gray-600 text-sm">{step.d}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        }
+      >
+        <ProcessTrack steps={steps} />
+      </Section>
 
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <h2 className="text-2xl font-bold mb-4 text-gray-800 flex items-center gap-2">
-                <i
-                  className="fas fa-exclamation-triangle text-orange-500"
-                  aria-hidden
-                />
-                Common delay points we help mitigate
-              </h2>
-              <ul className="text-gray-600 space-y-3 list-disc list-inside">
-                <li>Invoice vs packing list quantity or weight mismatches</li>
-                <li>
-                  HS code changes or SRO eligibility not reflected on documents
+      {/* ───────────── DELAYS + CHECKLIST ───────────── */}
+      <section aria-labelledby="delays-heading" className="bg-[#06131d] py-20 text-white lg:py-28">
+        <div className={`${pad} grid gap-4 lg:grid-cols-2`}>
+          <div className="rounded-3xl bg-white/[0.05] p-6 ring-1 ring-white/10 sm:p-8">
+            <span className="grid h-11 w-11 place-items-center rounded-full bg-[#fa6a25] text-white">
+              <Icon name="clock" className="h-5 w-5" />
+            </span>
+            <h2 id="delays-heading" className={`${s.display} mt-6 text-[clamp(2rem,3.4vw,3rem)]`}>
+              Common delay points we help mitigate
+            </h2>
+            <ul className="mt-8 divide-y divide-white/10 border-y border-white/10">
+              {delayPoints.map((d, i) => (
+                <li key={d} className="flex gap-4 py-4 text-[15px] leading-snug text-white/80">
+                  <span className="font-mono text-sm text-[#fa6a25]">{String(i + 1).padStart(2, "0")}</span>
+                  {d}
                 </li>
-                <li>Late or incomplete certificate sets for regulated products</li>
-                <li>Bank or L/C discrepancies holding release</li>
-                <li>Last-minute changes to consignee or notify party</li>
-              </ul>
-              <p className="mt-4 text-sm text-gray-500">
-                We emphasise parallel workstreams—finance, forwarder, and
-                compliance—so one gap does not idle the whole clearance clock.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-md">
-              <h2 className="text-2xl font-bold mb-4 text-gray-800 flex items-center gap-2">
-                <i className="fas fa-clipboard-list text-orange-500" aria-hidden />
-                Buyer preparation checklist
-              </h2>
-              <ul className="text-gray-600 space-y-3 list-disc list-inside">
-                <li>Final commercial invoice in the name required by customs</li>
-                <li>Accurate gross/net weights and carton counts</li>
-                <li>HS codes agreed with your technical team</li>
-                <li>Copies of registration, IRC, or export permits ready</li>
-                <li>Named customs broker or agent contact (if appointed)</li>
-                <li>Preferred incoterm and discharge port confirmed in writing</li>
-              </ul>
-              <p className="mt-4 text-sm text-gray-500">
-                Sending this pack 48–72 hours before arrival materially improves
-                first-pass acceptance rates.
+              ))}
+            </ul>
+            <p className="mt-6 text-sm leading-relaxed text-white/55">
+              We emphasise parallel workstreams—finance, forwarder, and compliance—so one gap does not idle the whole
+              clearance clock.
+            </p>
+          </div>
+
+          <div className="rounded-3xl bg-[#f2f4f6] p-6 text-[#06131d] sm:p-8">
+            <span className="grid h-11 w-11 place-items-center rounded-full bg-[#06131d] text-[#fa6a25]">
+              <Icon name="clipboard" className="h-5 w-5" />
+            </span>
+            <h2 className={`${s.display} mt-6 text-[clamp(2rem,3.4vw,3rem)] text-[#0b2c3d]`}>Buyer preparation checklist</h2>
+            <CheckList items={buyerChecklist} className="mt-8" />
+            <div className="mt-8 flex items-center gap-5 rounded-2xl bg-white p-5 ring-1 ring-[#06131d]/[0.06]">
+              <span className={`${s.display} ${s.displayTight} shrink-0 text-5xl text-[#d9531a]`}>48–72h</span>
+              <p className="text-sm leading-relaxed text-[#06131d]/70">
+                Sending this pack 48–72 hours before arrival materially improves first-pass acceptance rates.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-8 text-center text-gray-800">
-            Office and contact
-          </h2>
-          <div className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md border border-gray-100">
-            <div className="grid md:grid-cols-2 gap-8 text-gray-600">
-              <div>
-                <h3 className="font-bold text-gray-800 mb-3">Head office</h3>
-                <p>
-                  Kader Tropical Height, Shop- G5, 10 Hatkhola Road, Tikatuli,
-                  Wari, Dhaka 1203, Bangladesh
-                </p>
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-800 mb-3">Hours</h3>
-                <p>Thursday–Tuesday: 9:00 AM – 8:00 PM</p>
-                <p>Wednesday: Closed</p>
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-800 mb-3">Phone</h3>
-                <a
-                  href="tel:+8801577081856"
-                  className="text-orange-600 font-semibold hover:text-orange-700"
-                >
+      {/* ───────────── OFFICE & CONTACT ───────────── */}
+      <Section
+        id="contact"
+        tone="mist"
+        eyebrow="Office and contact"
+        title={
+          <>
+            Talk to the
+            <br />
+            customs desk
+          </>
+        }
+        intro={
+          <div className="flex flex-wrap gap-3">
+            <PillButton href="/contact" tone="ink">
+              Full contact page
+            </PillButton>
+            <GhostButton href="/faq" dark>
+              Trade FAQ
+            </GhostButton>
+            <GhostButton href="/services" dark>
+              All services
+            </GhostButton>
+          </div>
+        }
+      >
+        <dl className="grid overflow-hidden rounded-3xl bg-white ring-1 ring-[#06131d]/[0.06] sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            {
+              icon: "pin" as const,
+              label: "Head office",
+              value: <>Kader Tropical Height, Shop- G5, 10 Hatkhola Road, Tikatuli, Wari, Dhaka 1203, Bangladesh</>,
+            },
+            {
+              icon: "clock" as const,
+              label: "Hours",
+              value: (
+                <>
+                  Thursday–Tuesday: 9:00 AM – 8:00 PM
+                  <br />
+                  Wednesday: Closed
+                </>
+              ),
+            },
+            {
+              icon: "phone" as const,
+              label: "Phone",
+              value: (
+                <a href="tel:+8801577081856" className={contactLink}>
                   +880 1577081856
                 </a>
-              </div>
-              <div>
-                <h3 className="font-bold text-gray-800 mb-3">Email</h3>
-                <a
-                  href="mailto:info@khi.com.bd"
-                  className="text-orange-600 font-semibold hover:text-orange-700"
-                >
+              ),
+            },
+            {
+              icon: "mail" as const,
+              label: "Email",
+              value: (
+                <a href="mailto:info@khi.com.bd" className={contactLink}>
                   info@khi.com.bd
                 </a>
-              </div>
+              ),
+            },
+          ].map((c) => (
+            <div
+              key={c.label}
+              className="flex flex-col gap-3 border-[#06131d]/10 p-6 max-lg:border-b sm:p-8 sm:max-lg:odd:border-r lg:border-r lg:last:border-r-0"
+            >
+              <dt className={`${labelCls} flex items-center gap-2 text-[#06131d]/50`}>
+                <Icon name={c.icon} className="h-4 w-4 text-[#d9531a]" />
+                {c.label}
+              </dt>
+              <dd className="text-[15px] leading-relaxed text-[#0b2c3d]">{c.value}</dd>
             </div>
-            <div className="mt-8 flex flex-wrap gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-block bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 font-semibold"
-              >
-                Full contact page
-              </Link>
-              <Link
-                href="/faq"
-                className="inline-block border border-gray-300 text-gray-800 px-6 py-2 rounded-lg hover:bg-gray-50 font-semibold"
-              >
-                Trade FAQ
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+          ))}
+        </dl>
+      </Section>
 
-      <section className="py-20 bg-orange-500 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">
-            Ready to streamline your next clearance?
-          </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-orange-50">
-            Share shipment mode, HS chapter, and destination—we will outline
-            documents, timelines, and how our team plugs into your broker and
-            bank.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/quote"
-              className="bg-white text-orange-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
-            >
-              Request quote
-            </Link>
-            <Link
-              href="/services"
-              className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white/10 transition-colors font-semibold"
-            >
-              All services
-            </Link>
-          </div>
-        </div>
-      </section>
-    </div>
+      <CtaBand
+        title={
+          <>
+            Ready to streamline
+            <br />
+            your next <span className="text-[#fa6a25]">clearance?</span>
+          </>
+        }
+        body="Share shipment mode, HS chapter, and destination—we will outline documents, timelines, and how our team plugs into your broker and bank."
+        image="/images/v3/customs-cta.webp"
+        imageAlt="Stacked shipping containers at port"
+        cta={{ label: "Request quote", href: "/quote" }}
+      />
+    </V3Shell>
   );
 }

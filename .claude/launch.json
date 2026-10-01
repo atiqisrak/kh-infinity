@@ -1,0 +1,42 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "khi-dev",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "exec",
+        "next",
+        "dev",
+        "--turbo",
+        "-p",
+        "3077"
+      ],
+      "port": 3077
+    },
+    {
+      "name": "khi-prod",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "exec",
+        "next",
+        "start",
+        "-p",
+        "3077"
+      ],
+      "port": 3077
+    },
+    {
+      "name": "khi-dev-auto",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "exec",
+        "next",
+        "dev",
+        "--turbo"
+      ],
+      "port": 3078,
+      "autoPort": true
+    }
+  ]
+}

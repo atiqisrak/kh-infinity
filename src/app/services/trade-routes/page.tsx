@@ -1,387 +1,159 @@
-"use client";
-
-import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import Crumbs from "@/components/v3/Crumbs";
+import CtaBand from "@/components/v3/CtaBand";
+import Icon from "@/components/v3/Icons";
+import { NumberedGrid, Section } from "@/components/v3/blocks";
+import LaneCard from "@/components/v3/lanes/LaneCard";
+import LaneLine from "@/components/v3/lanes/LaneLine";
+import RouteFinder from "@/components/v3/lanes/RouteFinder";
+import { lanes } from "@/components/v3/lanes/lanes";
+import Reveal from "@/components/v3/Reveal";
+import { Eyebrow, GhostButton, PillButton, focusRing, pad } from "@/components/v3/ui";
+import V3Shell from "@/components/v3/V3Shell";
+import s from "@/components/v3/v3.module.css";
+
+// Metadata lives in ./layout.tsx. The route finder is the only client island.
+
+const REASONS = [
+  { title: "Established Routes", body: "Well-established connections and partnerships across the globe" },
+  { title: "Fast Delivery", body: "Optimized logistics for timely delivery" },
+  { title: "Documentation", body: "Complete handling of all trade documentation" },
+  { title: "Competitive Rates", body: "Best-in-market pricing for all routes" },
+];
 
 export default function TradeRoutesPage() {
-  const [formData, setFormData] = useState({
-    origin: "",
-    destination: "",
-  });
-
-  const [showResult, setShowResult] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setShowResult(true);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-    setShowResult(false);
-  };
-
-  const getRouteInfo = () => {
-    if (formData.origin && formData.destination) {
-      if (
-        formData.origin === "China" &&
-        formData.destination === "Bangladesh"
-      ) {
-        return {
-          link: "/services/trade-routes/import-from-china",
-          message:
-            "We specialize in importing industrial products from China to Bangladesh.",
-          products: ["Tarpaulin", "Industrial Equipment"],
-        };
-      }
-      if (
-        formData.origin === "Middle East" &&
-        formData.destination === "Bangladesh"
-      ) {
-        return {
-          link: "/services/trade-routes/import-from-middle-east",
-          message:
-            "We import premium food products from Middle East to Bangladesh.",
-          products: ["Cooking Oils", "Dairy Products", "Spices"],
-        };
-      }
-      if (
-        formData.origin === "Bangladesh" &&
-        formData.destination === "Middle East"
-      ) {
-        return {
-          link: "/services/trade-routes/export-to-middle-east",
-          message: "We export fresh produce and handicrafts to Middle East.",
-          products: ["Potatoes", "Handicrafts", "Agricultural Products"],
-        };
-      }
-    }
-    return null;
-  };
-
-  const countries = [
-    "Bangladesh",
-    "China",
-    "India",
-    "Middle East",
-    "USA",
-    "UK",
-    "Australia",
-    "Thailand",
-    "Malaysia",
-    "Singapore",
-  ];
-
   return (
-    <div>
-      {/* Hero Section */}
-      <section
-        className="bg-gray-900 text-white py-40"
-        style={{
-          backgroundImage: "url(/images/cover/kh3.webp)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div className="container mx-auto px-4">
-          <h1 className="text-5xl font-bold mb-6">
-            Trade Routes & Connections
-          </h1>
-          <p className="text-xl max-w-3xl">
-            Discover our global trade network and find the right route for your
-            import-export needs.
-          </p>
-        </div>
-      </section>
-
-      {/* Route Finder Tool */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold mb-6 text-center text-gray-800">
-              Find Your Trade Route
-            </h2>
-            <p className="text-center text-gray-600 mb-12 text-lg">
-              Select origin and destination to find available trade routes,
-              products, and services.
+    <V3Shell>
+      {/* ───────────── HERO: lane board ───────────── */}
+      <section aria-labelledby="routes-title" className={`${s.gridBg} relative overflow-hidden bg-[#06131d] pt-[104px] lg:pt-[124px]`}>
+        <div className={`${pad} grid items-center gap-12 pb-16 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16 lg:pb-24`}>
+          <div>
+            <Crumbs items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Trade routes" }]} />
+            <div className="mt-8">
+              <Eyebrow>Trade routes</Eyebrow>
+            </div>
+            <h1 id="routes-title" className={`${s.display} mt-5 text-[clamp(3rem,6vw,5.75rem)]`}>
+              Trade routes
+              <br />
+              &amp; <span className="text-[#fa6a25]">connections</span>
+            </h1>
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-white/75 sm:text-lg">
+              Discover our global trade network and find the right route for your import-export needs.
             </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <PillButton href="#finder">Find your route</PillButton>
+              <GhostButton href="/contact">Contact us</GhostButton>
+            </div>
+          </div>
 
-            <form
-              onSubmit={handleSubmit}
-              className="bg-white p-8 rounded-lg shadow-md space-y-6"
-            >
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-gray-700 mb-2" htmlFor="origin">
-                    Origin Country
-                  </label>
-                  <select
-                    id="origin"
-                    name="origin"
-                    value={formData.origin}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-orange-500"
+          {/* Lane board: each planned lane with a ship sailing it */}
+          <div className="relative isolate overflow-hidden rounded-[2rem] p-4 sm:p-6">
+            <Image
+              src="/images/v3/hero-ship-tall.webp"
+              alt=""
+              fill
+              priority
+              sizes="(min-width: 1024px) 640px, 100vw"
+              className="-z-20 object-cover"
+            />
+            <div className="absolute inset-0 -z-10 bg-[#06131d]/55" />
+            <div className="flex items-center justify-between px-2 pb-4 pt-1">
+              <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/70">Lane board</span>
+              <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/70">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#fa6a25]" />
+                {lanes.length} planned lanes
+              </span>
+            </div>
+            <Reveal as="ul" threshold={0.2} className="grid gap-3" aria-label="Planned trade lanes">
+              {lanes.map((l, i) => (
+                <li key={l.slug}>
+                  <Link
+                    href={l.href}
+                    className={`${s.glass} group grid items-center gap-4 rounded-3xl p-5 transition hover:border-[#fa6a25]/70 sm:grid-cols-[0.9fr_1.4fr] sm:p-6 ${focusRing}`}
                   >
-                    <option value="">Select origin</option>
-                    {countries.map((country) => (
-                      <option key={country} value={country}>
-                        {country}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label
-                    className="block text-gray-700 mb-2"
-                    htmlFor="destination"
-                  >
-                    Destination Country
-                  </label>
-                  <select
-                    id="destination"
-                    name="destination"
-                    value={formData.destination}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-orange-500"
-                  >
-                    <option value="">Select destination</option>
-                    {countries.map((country) => (
-                      <option key={country} value={country}>
-                        {country}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={!formData.origin || !formData.destination}
-                className="w-full bg-orange-500 text-white px-8 py-3 rounded-lg hover:bg-orange-600 transition-colors font-semibold disabled:bg-gray-400 disabled:cursor-not-allowed"
-              >
-                Find Route
-              </button>
-            </form>
-
-            {showResult && getRouteInfo() && (
-              <div className="mt-8 bg-green-50 border border-green-500 p-6 rounded-lg">
-                <h3 className="text-2xl font-bold mb-4 text-gray-800">
-                  Route Found!
-                </h3>
-                <p className="text-gray-700 mb-4">{getRouteInfo()!.message}</p>
-                <div className="mb-4">
-                  <strong className="text-gray-800">Products Available:</strong>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {getRouteInfo()!.products.map((product, idx) => (
-                      <span
-                        key={idx}
-                        className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm"
-                      >
-                        {product}
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="font-semibold">{l.label}</p>
+                        <p className="mt-1 text-sm text-white/60">{l.note}</p>
+                      </div>
+                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/10 transition group-hover:rotate-45 group-hover:bg-[#fa6a25] sm:hidden">
+                        <Icon name="arrow" className="h-4 w-4" />
                       </span>
-                    ))}
-                  </div>
-                </div>
-                <Link
-                  href={getRouteInfo()!.link}
-                  className="inline-block bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition-colors font-semibold"
-                >
-                  Learn More →
-                </Link>
-              </div>
-            )}
-
-            {!formData.origin || !formData.destination ? (
-              <div className="mt-8 bg-orange-50 p-6 rounded-lg">
-                <h3 className="text-xl font-bold mb-4 text-gray-800">
-                  How It Works
-                </h3>
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-start">
-                    <i className="fas fa-check-circle text-orange-500 mt-1 mr-3"></i>
-                    <span>
-                      Select your origin and destination countries above
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <i className="fas fa-check-circle text-orange-500 mt-1 mr-3"></i>
-                    <span>View available trade routes and products</span>
-                  </li>
-                  <li className="flex items-start">
-                    <i className="fas fa-check-circle text-orange-500 mt-1 mr-3"></i>
-                    <span>
-                      Get detailed information about the route and services
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <i className="fas fa-check-circle text-orange-500 mt-1 mr-3"></i>
-                    <span>Request a quote or contact us for assistance</span>
-                  </li>
-                </ul>
-              </div>
-            ) : null}
+                    </div>
+                    <LaneLine from={l.from} to={l.to} delay={400 + i * 350} />
+                  </Link>
+                </li>
+              ))}
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Popular Routes */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-12 text-center text-gray-800">
-            Popular Trade Routes
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <Link
-              href="/services/trade-routes/import-from-china"
-              className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all overflow-hidden group"
-            >
-              <div className="relative h-48 bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center">
-                <i className="fas fa-map-marked-alt text-white text-6xl opacity-80 group-hover:opacity-100 transition-opacity"></i>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-gray-800 group-hover:text-orange-500 transition-colors">
-                  Import from China
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  Industrial products, equipment, and raw materials sourced from
-                  China.
-                </p>
-                <div className="text-orange-500 font-semibold group-hover:text-orange-600">
-                  Learn More →
-                </div>
-              </div>
-            </Link>
+      {/* ───────────── POPULAR ROUTES ───────────── */}
+      <Section
+        id="lanes"
+        tone="paper"
+        eyebrow="Our lanes"
+        title="Popular trade routes"
+        intro="Three planned lanes between China, the Middle East and Bangladesh, with one partner end to end."
+      >
+        <Reveal as="ul" threshold={0.2} className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {lanes.map((l, i) => (
+            <li key={l.slug}>
+              <LaneCard lane={l} index={i} />
+            </li>
+          ))}
+        </Reveal>
+      </Section>
 
-            <Link
-              href="/services/trade-routes/import-from-middle-east"
-              className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all overflow-hidden group"
-            >
-              <div className="relative h-48 bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
-                <i className="fas fa-map-marked-alt text-white text-6xl opacity-80 group-hover:opacity-100 transition-opacity"></i>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-gray-800 group-hover:text-orange-500 transition-colors">
-                  Import from Middle East
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  Premium food products and commodities from Middle Eastern
-                  countries.
-                </p>
-                <div className="text-orange-500 font-semibold group-hover:text-orange-600">
-                  Learn More →
-                </div>
-              </div>
-            </Link>
+      {/* ───────────── ROUTE FINDER ───────────── */}
+      <Section
+        id="finder"
+        tone="sea"
+        grid
+        eyebrow="Route finder"
+        title="Find your trade route"
+        intro="Select origin and destination to find available trade routes, products, and services."
+      >
+        <RouteFinder />
+      </Section>
 
-            <Link
-              href="/services/trade-routes/export-to-middle-east"
-              className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all overflow-hidden group"
-            >
-              <div className="relative h-48 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
-                <i className="fas fa-map-marked-alt text-white text-6xl opacity-80 group-hover:opacity-100 transition-opacity"></i>
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-gray-800 group-hover:text-orange-500 transition-colors">
-                  Export to Middle East
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  Fresh produce, handicrafts, and agricultural products from
-                  Bangladesh.
-                </p>
-                <div className="text-orange-500 font-semibold group-hover:text-orange-600">
-                  Learn More →
-                </div>
-              </div>
-            </Link>
+      {/* ───────────── WHY ───────────── */}
+      <Section id="why" tone="mist" eyebrow="Why KHI" title="Why choose our trade routes?" headSize="md">
+        <div className="relative isolate mb-14 overflow-hidden rounded-3xl">
+          <div className="relative aspect-[16/9] sm:aspect-[16/6] lg:aspect-[16/5]">
+            <Image
+              src="/images/v3/lanes/ship-broadside.webp"
+              alt="Container ship stacked with containers sailing past a coastline"
+              fill
+              sizes="(min-width: 1320px) 1240px, 100vw"
+              className="object-cover"
+            />
           </div>
-        </div>
-      </section>
-
-      {/* Why Choose Our Routes */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-12 text-center text-gray-800">
-            Why Choose Our Trade Routes?
-          </h2>
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-orange-500 text-5xl mb-4">
-                <i className="fas fa-route"></i>
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-800">
-                Established Routes
-              </h3>
-              <p className="text-gray-600">
-                Well-established connections and partnerships across the globe
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="text-orange-500 text-5xl mb-4">
-                <i className="fas fa-clock"></i>
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-800">
-                Fast Delivery
-              </h3>
-              <p className="text-gray-600">
-                Optimized logistics for timely delivery
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="text-orange-500 text-5xl mb-4">
-                <i className="fas fa-file-invoice"></i>
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-800">
-                Documentation
-              </h3>
-              <p className="text-gray-600">
-                Complete handling of all trade documentation
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="text-orange-500 text-5xl mb-4">
-                <i className="fas fa-tag"></i>
-              </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-800">
-                Competitive Rates
-              </h3>
-              <p className="text-gray-600">
-                Best-in-market pricing for all routes
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-orange-500 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">
-            Need Help Finding Your Route?
-          </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Our trade experts can help you find the best route and solution for
-            your needs.
+          <div className="absolute inset-0 bg-gradient-to-r from-[#06131d]/85 via-[#06131d]/35 to-transparent" />
+          <p className={`${s.display} absolute bottom-5 left-5 text-3xl text-white sm:bottom-8 sm:left-8 sm:text-5xl`}>
+            Planned lanes.
+            <br />
+            <span className="text-[#fa6a25]">One partner.</span>
           </p>
-          <div className="flex gap-4 justify-center">
-            <Link
-              href="/quote"
-              className="bg-white text-orange-500 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
-            >
-              Request Quote
-            </Link>
-            <Link
-              href="/contact"
-              className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white/10 transition-colors font-semibold"
-            >
-              Contact Us
-            </Link>
-          </div>
         </div>
-      </section>
-    </div>
+        <NumberedGrid items={REASONS} />
+      </Section>
+
+      <CtaBand
+        title={
+          <>
+            Need help finding
+            <br />
+            your <span className="text-[#fa6a25]">route?</span>
+          </>
+        }
+        body="Our trade experts can help you find the best route and solution for your needs."
+        image="/images/v3/ship-open-sea.webp"
+        imageAlt="Loaded container ship sailing through open sea"
+        cta={{ label: "Request quote", href: "/quote" }}
+      />
+    </V3Shell>
   );
 }

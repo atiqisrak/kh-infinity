@@ -1,22 +1,29 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
-import { getProductsByType } from "@/lib/products";
+import Link from "next/link";
+import { getProducts } from "@/lib/products";
+import CtaBand from "@/components/v3/CtaBand";
+import Icon from "@/components/v3/Icons";
+import Crumbs from "@/components/v3/Crumbs";
+import ProductCatalogue, { type CatalogueItem } from "@/components/v3/products/ProductCatalogue";
+import { CertCards, SourcingYard } from "@/components/v3/SourcingYard";
+import { sourcingFacts } from "@/components/v3/sourcing";
+import { shipmentDocs } from "@/components/v3/site";
+import { Eyebrow, GhostButton, PillButton, SectionHead, pad, productOrigins } from "@/components/v3/ui";
+import V3Shell from "@/components/v3/V3Shell";
+import s from "@/components/v3/v3.module.css";
 
 export const metadata: Metadata = {
-  title:
-    "Premium Import & Export Products - K.H. Infinity | Global Trade Solutions",
+  title: "Premium Import & Export Products - K.H. Infinity | Global Trade Solutions",
   description:
     "Explore our premium range of import and export products including sunflower oil, milk powder, pulses, sugar, and more. High-quality products sourced from trusted global suppliers.",
   keywords:
     "import products, export products, sunflower oil, milk powder, pulses, sugar, chickpeas, cumin, tarpaulin, K.H. Infinity, Bangladesh trade",
-  alternates: {
-    canonical: "https://khi.com.bd/products",
-  },
+  alternates: { canonical: "https://khi.com.bd/products" },
   openGraph: {
     title: "Premium Import & Export Products - K.H. Infinity",
     description:
-      "Explore our premium range of import and export products including sunflower oil, milk powder, pulses, sugar, and more. High-quality products sourced from trusted global suppliers.",
+      "Explore our premium range of import and export products including sunflower oil, milk powder, pulses, sugar, and more.",
     images: ["/images/cover/kh1.webp"],
     url: "https://khi.com.bd/products",
     siteName: "K.H. Infinity",
@@ -25,201 +32,296 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Premium Import & Export Products - K.H. Infinity",
-    description:
-      "Explore our premium range of import and export products including sunflower oil, milk powder, pulses, sugar, and more. High-quality products sourced from trusted global suppliers.",
+    description: "Explore our premium range of import and export products.",
     images: ["/images/cover/kh1.webp"],
   },
 };
 
+const PAYMENT_TERMS = ["Letter of Credit (L/C)", "Wire transfer", "Documentary collection", "Advance payment"];
+const TERMS = [
+  { label: "Sea freight", value: "20–45 days", note: "Depending on origin port" },
+  { label: "Air freight", value: "3–7 days", note: "For urgent or high-value lots" },
+  { label: "Customs clearance", value: "2–5 days", note: "Working days, in-house team" },
+];
+
 export default function ProductsPage() {
-  const importProducts = getProductsByType("import");
-  const exportProducts = getProductsByType("export");
+  const products = getProducts();
+  const { countries, certs } = sourcingFacts(products);
+  const categories = new Set(products.map((p) => p.category));
+
+  const items: CatalogueItem[] = products.map((p) => ({
+    id: p.id,
+    name: p.name,
+    image: p.image,
+    type: p.type,
+    category: p.category,
+    description: p.description,
+    origins: productOrigins(p),
+    hsCode: p.hsCode,
+  }));
+
+  const stats = [
+    { value: products.filter((p) => p.type === "import").length, label: "Import lines" },
+    { value: products.filter((p) => p.type === "export").length, label: "Export lines" },
+    { value: countries.length, label: "Origin countries" },
+    { value: categories.size, label: "Categories" },
+  ];
 
   return (
-    <div>
-      {/* Products Hero */}
-      <section className="relative pt-20 md:pt-32 pb-12 md:pb-16 bg-gradient-to-b from-white to-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <span className="text-orange-500 font-medium tracking-wider uppercase text-xs sm:text-sm mb-3 md:mb-4 block">
-              Our Collection
-            </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-gray-800 leading-tight">
-              Premium Import & Export Products
+    <V3Shell>
+      {/* ── HERO ───────────────────────────────────────────────────── */}
+      <section
+        aria-labelledby="products-title"
+        className={`${s.gridBg} relative overflow-hidden bg-[#06131d] pt-[104px] lg:pt-[124px]`}
+      >
+        <div className={`${pad} grid items-center gap-12 pb-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-20`}>
+          {/* Left: copy */}
+          <div>
+            <Crumbs items={[{ label: "Home", href: "/" }, { label: "Products" }]} />
+            <div className="mt-8">
+              <Eyebrow>Our collection</Eyebrow>
+            </div>
+            <h1 id="products-title" className={`${s.display} mt-5 text-[clamp(3rem,5.6vw,5.25rem)]`}>
+              Premium import
+              <br />
+              &amp; export{" "}
+              <span className="text-[#fa6a25]">products</span>
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed">
-              Discover our carefully curated selection of premium products,
-              sourced from and delivered to global markets. Our{" "}
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-white/75 sm:text-lg">
+              Carefully curated from mills, farms and packers we have vetted ourselves. Our{" "}
               <Link
                 href="/services"
-                className="text-orange-500 hover:text-orange-600 font-semibold"
+                className="font-semibold text-white underline decoration-[#fa6a25] decoration-2 underline-offset-4 hover:text-[#fa6a25]"
               >
                 import-export services
               </Link>{" "}
-              ensure quality and reliability for all products.
+              ensure quality and reliability at every step.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Import Products */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="py-12">
-            <span className="text-orange-500 font-medium tracking-wider uppercase text-sm block mb-2">
-              Import Products
-            </span>
-            <h2 className="text-3xl font-bold text-gray-800">
-              Global Selections
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {importProducts.map((product) => (
-              <Link
-                key={product.id}
-                href={`/products/${product.id}`}
-                className="group cursor-pointer"
-              >
-                <div className="relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 h-full">
-                  <div className="relative aspect-square">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      quality={85}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <span className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-orange-600 text-xs font-medium px-3 py-1.5 rounded-full z-10">
-                      Import
-                    </span>
-                  </div>
-                  <div className="p-4 md:p-6">
-                    <h4 className="text-base md:text-lg font-bold text-gray-800 mb-2">
-                      {product.name}
-                    </h4>
-                    <p className="text-gray-600 text-xs md:text-sm mb-3 md:mb-4">
-                      {product.description}
-                    </p>
-                    <div className="inline-flex items-center text-orange-500 font-medium text-xs md:text-sm group-hover:text-orange-600 transition-colors">
-                      View Details
-                      <svg
-                        className="w-3 h-3 md:w-4 md:h-4 ml-1"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        ></path>
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Export Products */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-12">
-            <div>
-              <span className="text-orange-500 font-medium tracking-wider uppercase text-sm block mb-2">
-                Export Products
-              </span>
-              <h2 className="text-3xl font-bold text-gray-800">
-                Local Excellence
-              </h2>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <PillButton href="/quote">Request a quote</PillButton>
+              <GhostButton href="#catalogue">Browse the catalogue</GhostButton>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {exportProducts.map((product) => (
-              <Link
-                key={product.id}
-                href={`/products/${product.id}`}
-                className="group cursor-pointer"
+          {/* Right: video hero */}
+          <div className="relative">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-[#0b2c3d]">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster="/images/v3/ship-open-sea.webp"
+                className="absolute inset-0 h-full w-full object-cover"
               >
-                <div className="relative bg-gray-50 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 h-full">
-                  <div className="relative aspect-square">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      quality={85}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <span className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-green-600 text-xs font-medium px-3 py-1.5 rounded-full z-10">
-                      Export
-                    </span>
-                  </div>
-                  <div className="p-4 md:p-6">
-                    <h4 className="text-base md:text-lg font-bold text-gray-800 mb-2">
-                      {product.name}
-                    </h4>
-                    <p className="text-gray-600 text-xs md:text-sm mb-3 md:mb-4">
-                      {product.description}
-                    </p>
-                    <div className="inline-flex items-center text-orange-500 font-medium text-xs md:text-sm group-hover:text-orange-600 transition-colors">
-                      View Details
-                      <svg
-                        className="w-3 h-3 md:w-4 md:h-4 ml-1"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        ></path>
-                      </svg>
-                    </div>
-                  </div>
+                <source src="/videos/hero-loop.mp4" type="video/mp4" />
+              </video>
+              {/* Vignette for chip legibility */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#06131d]/60 via-transparent to-transparent" />
+              {/* Glass stat chips in the lower corners */}
+              <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
+                <div className={`${s.glass} rounded-2xl px-4 py-3`}>
+                  <p className={`${s.display} ${s.displayTight} text-4xl text-[#fa6a25]`}>
+                    {products.length}
+                  </p>
+                  <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-white/55">
+                    Product lines
+                  </p>
+                </div>
+                <div className={`${s.glass} rounded-2xl px-4 py-3 text-right`}>
+                  <p className={`${s.display} ${s.displayTight} text-4xl text-white`}>
+                    {countries.length}
+                  </p>
+                  <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-white/55">
+                    Origin countries
+                  </p>
+                </div>
+              </div>
+            </div>
+            {/* Orange accent bar below the video card */}
+            <div className="mt-3 flex gap-2">
+              <div className="h-1 flex-1 rounded-full bg-[#fa6a25]" />
+              <div className="h-1 w-12 rounded-full bg-white/15" />
+              <div className="h-1 w-6 rounded-full bg-white/10" />
+            </div>
+          </div>
+        </div>
+
+        {/* Stat strip */}
+        <dl className={`${pad} grid grid-cols-2 lg:grid-cols-4`}>
+          {stats.map((st, i) => (
+            <div
+              key={st.label}
+              className={`flex flex-col-reverse border-t border-white/10 py-7 ${i > 0 ? "lg:border-l lg:pl-8" : ""} ${
+                i % 2 === 1 ? "max-lg:border-l max-lg:pl-5" : ""
+              }`}
+            >
+              <dt className="mt-2 font-mono text-xs uppercase tracking-[0.14em] text-white/55">{st.label}</dt>
+              <dd className={`${s.display} ${s.displayTight} text-5xl`}>{st.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      {/* ── MARQUEE PREVIEW RAIL ─────────────────────────────────── */}
+      <div className="overflow-hidden bg-[#0b2c3d] py-8">
+        <div className={`${pad} mb-5 flex items-center justify-between`}>
+          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/40">
+            All {products.length} lines — scroll to preview
+          </p>
+          <Link
+            href="#catalogue"
+            className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#fa6a25] underline underline-offset-4 hover:text-white"
+          >
+            Filter &amp; browse →
+          </Link>
+        </div>
+        <div className={`${s.productViewport} overflow-hidden`} aria-hidden="true">
+          <div className={s.productTrack}>
+            {[...products, ...products].map((p, i) => (
+              <Link
+                key={i}
+                href={`/products/${p.id}`}
+                tabIndex={-1}
+                className="mx-2 flex w-52 shrink-0 flex-col gap-3 rounded-2xl bg-white/[0.06] p-3 ring-1 ring-white/10 transition hover:ring-[#fa6a25]/50"
+              >
+                <div className="relative aspect-square overflow-hidden rounded-xl bg-[#12506a]">
+                  <Image
+                    src={p.image}
+                    alt={p.name}
+                    fill
+                    sizes="208px"
+                    className="object-cover transition duration-300 hover:scale-105"
+                  />
+                  <span
+                    className={`absolute right-2 top-2 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
+                      p.type === "export"
+                        ? "bg-[#fa6a25] text-white"
+                        : "bg-white/15 text-white/80"
+                    }`}
+                  >
+                    {p.type}
+                  </span>
+                </div>
+                <div>
+                  <p className="font-mono text-[10px] uppercase tracking-wider text-white/40">{p.category}</p>
+                  <p className="text-sm font-semibold leading-snug">{p.name}</p>
                 </div>
               </Link>
             ))}
           </div>
         </div>
+      </div>
+
+      {/* ── CATALOGUE ────────────────────────────────────────────── */}
+      <section id="catalogue" aria-label="Product catalogue" className="bg-[#f2f4f6] pb-20 text-[#06131d] lg:pb-28">
+        <div className={pad}>
+          <ProductCatalogue items={items} />
+        </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-12 md:py-20 bg-orange-500 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">
-            Ready to Source These Products?
-          </h2>
-          <p className="text-base sm:text-lg md:text-xl mb-6 md:mb-8 max-w-2xl mx-auto">
-            Get competitive pricing and reliable delivery for any of our premium
-            import or export products.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <Link
-              href="/quote"
-              className="bg-white text-orange-500 px-6 sm:px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors font-semibold text-sm sm:text-base"
-            >
-              Request a Quote
-            </Link>
-            <Link
-              href="/industries/fmcg"
-              className="bg-transparent border-2 border-white text-white px-6 sm:px-8 py-3 rounded-lg hover:bg-white/10 transition-colors font-semibold text-sm sm:text-base"
-            >
-              View Industries
-            </Link>
+      {/* ── SOURCING & COMPLIANCE ────────────────────────────────── */}
+      <section aria-labelledby="sourcing-heading" className="bg-white py-20 text-[#06131d] lg:py-28">
+        <div className={`${pad} grid gap-14 xl:grid-cols-[0.8fr_1.2fr] xl:items-end xl:gap-16`}>
+          <div>
+            <SectionHead
+              dark
+              eyebrow="Sourcing & compliance"
+              id="sourcing-heading"
+              title={
+                <>
+                  Sourced from
+                  <br />
+                  <span className="text-[#fa6a25]">{countries.length}</span> countries
+                </>
+              }
+            />
+            <p className="mt-6 max-w-md text-[#06131d]/70">
+              We buy from mills, farms and packers we have vetted ourselves. Every container in this yard is an
+              origin we trade with. Hover or tap one to see what we bring in from there.
+            </p>
+          </div>
+          <SourcingYard countries={countries} />
+        </div>
+        <div className={`${pad} mt-16`}>
+          <CertCards certs={certs} />
+        </div>
+      </section>
+
+      {/* ── BUYING TERMS ─────────────────────────────────────────── */}
+      <section aria-labelledby="terms-heading" className={`${s.gridBg} bg-[#0b2c3d] py-20 lg:py-28`}>
+        <div className={pad}>
+          <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+            <SectionHead
+              eyebrow="Buying with KHI"
+              id="terms-heading"
+              title={
+                <>
+                  How orders
+                  <br />
+                  move
+                </>
+              }
+            />
+            <p className="max-w-md text-white/70 lg:pb-3">
+              Every product ships with the same paperwork and the same clearance team. Here is what to expect
+              once you confirm an order.
+            </p>
+          </div>
+
+          <dl className="mt-12 grid gap-4 md:grid-cols-3">
+            {TERMS.map((t) => (
+              <div key={t.label} className="flex flex-col-reverse rounded-3xl bg-white/[0.05] p-6 ring-1 ring-white/10">
+                <dt>
+                  <span className="block font-semibold">{t.label}</span>
+                  <span className="mt-1 block text-sm text-white/55">{t.note}</span>
+                </dt>
+                <dd className={`${s.display} mb-4 text-5xl text-[#fa6a25]`}>{t.value}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
+            <div className="rounded-3xl bg-white/[0.05] p-6 ring-1 ring-white/10">
+              <h3 className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/50">Payment terms</h3>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {PAYMENT_TERMS.map((t) => (
+                  <li key={t} className="rounded-full border border-white/15 px-3.5 py-1.5 text-sm text-white/85">
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-3xl bg-white/[0.05] p-6 ring-1 ring-white/10">
+              <h3 className="font-mono text-[11px] uppercase tracking-[0.16em] text-white/50">With every shipment</h3>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {shipmentDocs.map((d) => (
+                  <li
+                    key={d}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/15 px-3.5 py-1.5 text-sm text-white/85"
+                  >
+                    <Icon name="receipt" className="h-4 w-4 text-[#fa6a25]" />
+                    {d}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
-    </div>
+
+      <CtaBand
+        title={
+          <>
+            Ready to source
+            <br />
+            these <span className="text-[#fa6a25]">products?</span>
+          </>
+        }
+        body="Get competitive pricing and reliable delivery for any of our premium import or export products."
+        image="/images/v3/road-and-sea.webp"
+        imageAlt="Aerial view of a truck convoy on a forest road beside a loaded container ship"
+      />
+    </V3Shell>
   );
 }
