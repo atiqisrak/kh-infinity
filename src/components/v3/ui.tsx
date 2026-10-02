@@ -213,24 +213,42 @@ export function ProductCard({
     <Link
       href={`/products/${p.id}`}
       tabIndex={tabbable ? undefined : -1}
-      className={`group relative flex h-full flex-col rounded-3xl bg-white/[0.04] p-3 ring-1 ring-white/10 transition hover:bg-white/[0.08] hover:ring-[#fa6a25]/60 ${focusRing}`}
+      className={`group relative block overflow-hidden rounded-2xl ring-1 ring-white/10 transition duration-300 hover:ring-2 hover:ring-[#fa6a25] hover:shadow-[0_0_40px_-8px_rgba(250,106,37,0.4)] ${focusRing}`}
     >
-      <div className="flex items-center justify-between px-2 pb-3 pt-1">
-        <span className="font-mono text-sm text-white/50">{index !== undefined ? String(index + 1).padStart(2, "0") : p.category}</span>
-        <TypeBadge type={p.type} />
-      </div>
-      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-[#d5dee7]">
-        <Image src={p.image} alt={p.name} fill sizes={sizes} className="object-cover transition duration-500 group-hover:scale-105" />
-      </div>
-      <div className="flex flex-1 items-end justify-between gap-3 px-2 pb-2 pt-4">
-        <div>
-          {index !== undefined && <p className="text-xs uppercase tracking-[0.14em] text-white/50">{p.category}</p>}
-          <h3 className="mt-1 text-lg font-semibold leading-tight">{p.name}</h3>
-          <OriginList countries={productOrigins(p)} className="mt-2 text-xs text-white/55" />
+      <div className="relative aspect-[3/4]">
+        <Image
+          src={p.image}
+          alt={p.name}
+          fill
+          sizes={sizes}
+          className="object-cover transition duration-700 group-hover:scale-110"
+        />
+        {/* Strong bottom-up gradient for text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#06131d] via-[#06131d]/50 to-transparent" />
+
+        {/* Ghost index — editorial oversized number */}
+        {index !== undefined && (
+          <span className={`${s.display} pointer-events-none absolute right-3 top-2 select-none text-5xl leading-none text-white/[0.12]`}>
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        )}
+
+        {/* Type badge */}
+        <div className="absolute left-3 top-3">
+          <TypeBadge type={p.type} />
         </div>
-        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/10 transition group-hover:rotate-45 group-hover:bg-[#fa6a25] group-hover:text-white">
-          <Icon name="arrow" className="h-4 w-4" />
-        </span>
+
+        {/* Category + name + origin overlaid on gradient */}
+        <div className="absolute bottom-0 left-0 right-0 p-4">
+          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#fa6a25]">{p.category}</p>
+          <h3 className="mt-1 text-xl font-bold leading-snug text-white">{p.name}</h3>
+          <div className="mt-3 flex items-center justify-between gap-3">
+            <OriginList countries={productOrigins(p)} className="text-xs text-white/55" />
+            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#fa6a25] text-white transition duration-300 group-hover:rotate-45">
+              <Icon name="arrow" className="h-3.5 w-3.5" />
+            </span>
+          </div>
+        </div>
       </div>
     </Link>
   );

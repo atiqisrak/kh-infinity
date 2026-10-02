@@ -165,6 +165,36 @@
   to { transform: translateX(-50%); }
 }
 
+/* Products showcase: copy rises in line by line, photo settles in (see Reveal.tsx) */
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 900ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms),
+      transform 900ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0ms);
+  }
+  .riseImg {
+    opacity: 0;
+    transform: scale(0.97);
+    transition:
+      opacity 1200ms ease,
+      transform 1400ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  [data-inview] .rise,
+  [data-inview].riseImg,
+  [data-inview] .riseImg {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Outlined display type for the products ticker */
+.strokeText {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.55);
+}
+
 /* Remove the default disclosure triangle on the service accordion */
 .accordion summary {
   list-style: none;

@@ -61,8 +61,10 @@ export default function ProductsPage() {
     type: p.type,
     category: p.category,
     description: p.description,
-    origins: productOrigins(p),
+    origins: productOrigins(p, 3),
     hsCode: p.hsCode,
+    packaging: p.packaging[0],
+    certifications: p.sourcing.certifications.slice(0, 3),
   }));
 
   const stats = [
@@ -169,61 +171,33 @@ export default function ProductsPage() {
         </dl>
       </section>
 
-      {/* ── MARQUEE PREVIEW RAIL ─────────────────────────────────── */}
-      <div className="overflow-hidden bg-[#0b2c3d] py-8">
-        <div className={`${pad} mb-5 flex items-center justify-between`}>
-          <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/40">
-            All {products.length} lines — scroll to preview
-          </p>
-          <Link
-            href="#catalogue"
-            className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#fa6a25] underline underline-offset-4 hover:text-white"
-          >
-            Filter &amp; browse →
-          </Link>
-        </div>
-        <div className={`${s.productViewport} overflow-hidden`} aria-hidden="true">
-          <div className={s.productTrack}>
-            {[...products, ...products].map((p, i) => (
-              <Link
-                key={i}
-                href={`/products/${p.id}`}
-                tabIndex={-1}
-                className="mx-2 flex w-52 shrink-0 flex-col gap-3 rounded-2xl bg-white/[0.06] p-3 ring-1 ring-white/10 transition hover:ring-[#fa6a25]/50"
-              >
-                <div className="relative aspect-square overflow-hidden rounded-xl bg-[#12506a]">
-                  <Image
-                    src={p.image}
-                    alt={p.name}
-                    fill
-                    sizes="208px"
-                    className="object-cover transition duration-300 hover:scale-105"
-                  />
+      {/* ── KINETIC NAME TICKER (decorative) ─────────────────────── */}
+      <div aria-hidden="true" className="overflow-hidden border-y border-white/10 bg-[#0b2c3d] py-6 lg:py-8">
+        <div className={s.marquee} style={{ animationDuration: "120s" }}>
+          {[0, 1].map((copy) => (
+            <div key={copy} className="flex shrink-0 items-center">
+              {products.map((p, i) => (
+                <span key={p.id} className="flex items-center">
                   <span
-                    className={`absolute right-2 top-2 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
-                      p.type === "export"
-                        ? "bg-[#fa6a25] text-white"
-                        : "bg-white/15 text-white/80"
+                    className={`${s.display} ${s.displayTight} whitespace-nowrap px-5 text-[clamp(2.5rem,6vw,5rem)] ${
+                      i % 2 ? s.strokeText : "text-white"
                     }`}
                   >
-                    {p.type}
+                    {p.name}
                   </span>
-                </div>
-                <div>
-                  <p className="font-mono text-[10px] uppercase tracking-wider text-white/40">{p.category}</p>
-                  <p className="text-sm font-semibold leading-snug">{p.name}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
+                  <span className="relative h-[clamp(2.4rem,4.6vw,4rem)] w-[clamp(4.2rem,8.5vw,7rem)] shrink-0 overflow-hidden rounded-full bg-[#d5dee7] ring-2 ring-[#fa6a25]">
+                    <Image src={p.image} alt="" fill sizes="112px" className="object-cover" />
+                  </span>
+                </span>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
 
       {/* ── CATALOGUE ────────────────────────────────────────────── */}
-      <section id="catalogue" aria-label="Product catalogue" className="bg-[#f2f4f6] pb-20 text-[#06131d] lg:pb-28">
-        <div className={pad}>
-          <ProductCatalogue items={items} />
-        </div>
+      <section id="catalogue" aria-label="Product catalogue" className="bg-[#f2f4f6] text-[#06131d]">
+        <ProductCatalogue items={items} />
       </section>
 
       {/* ── SOURCING & COMPLIANCE ────────────────────────────────── */}
