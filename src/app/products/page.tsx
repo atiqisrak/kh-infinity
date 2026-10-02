@@ -120,7 +120,7 @@ export default function ProductsPage() {
                 poster="/images/v3/ship-open-sea.webp"
                 className="absolute inset-0 h-full w-full object-cover"
               >
-                <source src="/videos/hero-loop.mp4" type="video/mp4" />
+                <source src="/images/new/Hero-Loop.mp4" type="video/mp4" />
               </video>
               {/* Vignette for chip legibility */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#06131d]/60 via-transparent to-transparent" />
