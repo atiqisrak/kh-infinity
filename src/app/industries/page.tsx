@@ -146,7 +146,7 @@ export default function IndustriesPage() {
                       poster={sec.image}
                       className="h-full w-full object-cover"
                     >
-                      <source src={`/videos/${sec.slug}-loop.mp4`} type="video/mp4" />
+                      <source src={`/images/new/${sec.slug.charAt(0).toUpperCase() + sec.slug.slice(1)}-Loop.mp4`} type="video/mp4" />
                     </video>
                   </div>
 
