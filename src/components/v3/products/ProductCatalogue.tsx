@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { isRemoteImage } from "@/lib/image-src";
 import Link from "next/link";
 import { Fragment, useState } from "react";
 import Flag, { flagCodeFor } from "../Flag";
@@ -190,7 +191,7 @@ function SplitRow({ p, index, total, cycle }: RowProps) {
         <PhotoLink p={p} className={`md:col-span-6 lg:col-span-7 ${flip ? "md:order-2" : ""}`}>
           <div className={`${s.riseImg} rounded-[2.25rem] bg-white p-3 shadow-[0_40px_80px_-50px_rgba(6,19,29,0.45)] sm:p-4`}>
             <div className="relative aspect-[4/3] overflow-hidden rounded-[1.6rem]">
-              <Image src={p.image} alt="" fill sizes="(min-width: 1024px) 680px, 100vw" className="object-cover transition duration-[1.4s] ease-out group-hover:scale-[1.04]" />
+              <Image src={p.image} unoptimized={isRemoteImage(p.image)} alt="" fill sizes="(min-width: 1024px) 680px, 100vw" className="object-cover transition duration-[1.4s] ease-out group-hover:scale-[1.04]" />
             </div>
           </div>
         </PhotoLink>
@@ -212,7 +213,7 @@ function CinemaRow({ p, index, total }: RowProps) {
     <Band p={p} bg="#f2f4f6">
       <PhotoLink p={p}>
         <div className={`${s.riseImg} relative aspect-[4/3] overflow-hidden rounded-[2.25rem] sm:aspect-[16/9] lg:aspect-[21/9]`}>
-          <Image src={p.image} alt="" fill sizes="(min-width: 1320px) 1240px, 100vw" className="object-cover transition duration-[1.6s] ease-out group-hover:scale-[1.03]" />
+          <Image src={p.image} unoptimized={isRemoteImage(p.image)} alt="" fill sizes="(min-width: 1320px) 1240px, 100vw" className="object-cover transition duration-[1.6s] ease-out group-hover:scale-[1.03]" />
         </div>
       </PhotoLink>
       <div className="relative mx-3 -mt-16 grid gap-10 rounded-[2rem] bg-white p-6 shadow-[0_40px_90px_-50px_rgba(6,19,29,0.5)] ring-1 ring-[#06131d]/[0.05] sm:mx-8 sm:p-10 lg:mx-0 lg:-mt-40 lg:ml-12 lg:max-w-[1000px] lg:grid-cols-[1.15fr_1fr] lg:gap-14 lg:p-12">
@@ -244,7 +245,7 @@ function PosterRow({ p, index, total }: RowProps) {
           <div className={`${s.riseImg}`}>
             <div className="-rotate-2 rounded-[1.75rem] bg-white p-3 shadow-[0_50px_100px_-40px_rgba(0,0,0,0.8)] transition duration-700 group-hover:rotate-0 sm:p-4">
               <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem]">
-                <Image src={p.image} alt="" fill sizes="(min-width: 1024px) 620px, 100vw" className="object-cover" />
+                <Image src={p.image} unoptimized={isRemoteImage(p.image)} alt="" fill sizes="(min-width: 1024px) 620px, 100vw" className="object-cover" />
               </div>
               <p className="flex items-center justify-between px-1 pb-1 pt-3 font-mono text-[11px] uppercase tracking-wider text-[#06131d]/55">
                 <span>{p.category}</span>
@@ -280,7 +281,7 @@ function SpotRow({ p, index, total, cycle }: RowProps) {
         <PhotoLink p={p} className={`md:col-span-6 ${flip ? "md:order-2" : ""}`}>
           <div className={`${s.riseImg} relative mx-auto aspect-square w-full max-w-[520px]`}>
             <div className="absolute inset-[6%] overflow-hidden rounded-full bg-white ring-[10px] ring-white shadow-[0_50px_90px_-50px_rgba(6,19,29,0.55)]">
-              <Image src={p.image} alt="" fill sizes="(min-width: 1024px) 480px, 90vw" className="object-cover transition duration-[1.4s] ease-out group-hover:scale-[1.06]" />
+              <Image src={p.image} unoptimized={isRemoteImage(p.image)} alt="" fill sizes="(min-width: 1024px) 480px, 90vw" className="object-cover transition duration-[1.4s] ease-out group-hover:scale-[1.06]" />
             </div>
             {/* Dashed orbit ring */}
             <div className="pointer-events-none absolute inset-0 rounded-full border border-dashed border-[#06131d]/20" />
@@ -330,7 +331,7 @@ function UpNext({ items }: { items: CatalogueItem[] }) {
                 className={`group inline-flex items-center gap-3 rounded-full ${focusRing}`}
               >
                 <span className="relative h-12 w-20 shrink-0 overflow-hidden rounded-full ring-2 ring-transparent transition group-hover:ring-[#fa6a25] sm:h-14 sm:w-24">
-                  <Image src={p.image} alt="" fill sizes="96px" className="object-cover" />
+                  <Image src={p.image} unoptimized={isRemoteImage(p.image)} alt="" fill sizes="96px" className="object-cover" />
                 </span>
                 <span className={`${s.display} text-2xl text-[#0b2c3d] transition group-hover:text-[#d9531a] sm:text-3xl`}>{p.name}</span>
               </a>

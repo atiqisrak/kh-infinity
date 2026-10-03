@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
+import { isRemoteImage } from "@/lib/image-src";
 import Link from "next/link";
 import { getProducts } from "@/lib/products";
 import { breadcrumbSchema } from "@/lib/schema-helpers";
@@ -186,7 +187,7 @@ export default function ProductsPage() {
                     {p.name}
                   </span>
                   <span className="relative h-[clamp(2.4rem,4.6vw,4rem)] w-[clamp(4.2rem,8.5vw,7rem)] shrink-0 overflow-hidden rounded-full bg-[#d5dee7] ring-2 ring-[#fa6a25]">
-                    <Image src={p.image} alt="" fill sizes="112px" className="object-cover" />
+                    <Image src={p.image} unoptimized={isRemoteImage(p.image)} alt="" fill sizes="112px" className="object-cover" />
                   </span>
                 </span>
               ))}

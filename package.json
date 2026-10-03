@@ -9,7 +9,8 @@
     "perf": "pnpm build && pnpm start & sleep 5 && node scripts/lighthouse-check.js && pkill -f 'next start'",
     "perf:dev": "pnpm dev & sleep 8 && node scripts/lighthouse-check.js && pkill -f 'next dev'",
     "kill-port": "npx kill-port 3076",
-    "seed:investors": "node scripts/seed-investor-demo-data.mjs"
+    "seed:investors": "node scripts/seed-investor-demo-data.mjs",
+    "catalog:displays": "node scripts/build-display-catalog.mjs"
   },
   "private": true,
   "packageManager": "pnpm@10.15.0",

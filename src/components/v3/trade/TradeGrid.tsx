@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { isRemoteImage } from "@/lib/image-src";
 import Link from "next/link";
 import type { Product } from "@/lib/products";
 import Icon from "../Icons";
@@ -20,6 +21,7 @@ function Tile({ p }: { p: Product }) {
       <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-[#d5dee7]">
         <Image
           src={p.image}
+          unoptimized={isRemoteImage(p.image)}
           alt={p.name}
           fill
           sizes="(min-width: 1280px) 300px, (min-width: 640px) 45vw, 100vw"

@@ -9,7 +9,9 @@ import Flag, { flagCodeFor } from "@/components/v3/Flag";
 import HangingContainer from "@/components/v3/HangingContainer";
 import Icon from "@/components/v3/Icons";
 import { ListCard, fieldLabelDark, inputDark } from "@/components/v3/blocks";
+import ApplicationsGrid from "@/components/v3/products/ApplicationsGrid";
 import ProductGallery from "@/components/v3/products/ProductGallery";
+import DisplayCatalog from "@/components/v3/products/DisplayCatalog";
 import { certLogos, phone, shipmentDocs } from "@/components/v3/site";
 import { certKey, YARD_COLOURS } from "@/components/v3/sourcing";
 import { ArrowLink, Eyebrow, GhostButton, PillButton, ProductCard, SectionHead, focusRing, pad } from "@/components/v3/ui";
@@ -231,6 +233,154 @@ export default async function ProductPage({ params }: ProductPageProps) {
           ))}
         </dl>
       </section>
+
+      {/* ───────────── ORIGIN STORY ───────────── */}
+      {(product.originStory || product.marketContext) && (
+        <section aria-labelledby="origin-heading" className="bg-white py-20 text-[#06131d] lg:py-28">
+          <div className={pad}>
+            <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20 lg:items-start">
+
+              {/* Left: story + video */}
+              <div>
+                <Eyebrow>Where it comes from</Eyebrow>
+                <h2
+                  id="origin-heading"
+                  className={`${s.display} mt-4 text-3xl text-[#0b2c3d] sm:text-4xl`}
+                >
+                  Origin story
+                </h2>
+                {product.originStory && (
+                  <p className="mt-6 text-[15px] leading-relaxed text-[#06131d]/75 sm:text-base">
+                    {product.originStory}
+                  </p>
+                )}
+
+                {/* Video placeholder */}
+                {product.videoSrc && (
+                  <div className="mt-8 overflow-hidden rounded-2xl bg-[#06131d] shadow-xl">
+                    <video
+                      src={product.videoSrc}
+                      poster={`/images/products/v2/${product.id}-video-poster.webp`}
+                      controls
+                      preload="none"
+                      className="w-full"
+                      aria-label={`${product.name} origin journey video`}
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                )}
+
+                {/* Placeholder card when video not yet available */}
+                {!product.videoSrc && (
+                  <div className="mt-8 flex items-center gap-4 rounded-2xl border border-[#06131d]/10 bg-[#f2f4f6] p-5">
+                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#fa6a25]/10">
+                      <Icon name="arrow" className="h-5 w-5 text-[#fa6a25]" />
+                    </span>
+                    <div>
+                      <p className="text-sm font-semibold text-[#0b2c3d]">Origin journey video</p>
+                      <p className="text-sm text-[#06131d]/55">Coming soon — tracing {product.name.toLowerCase()} from source to Chattogram.</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Right: market context */}
+              <div>
+                <Eyebrow>Bangladesh market</Eyebrow>
+                <h2 className={`${s.display} mt-4 text-3xl text-[#0b2c3d] sm:text-4xl`}>
+                  Why it matters here
+                </h2>
+                {product.marketContext && (
+                  <p className="mt-6 text-[15px] leading-relaxed text-[#06131d]/75 sm:text-base">
+                    {product.marketContext}
+                  </p>
+                )}
+
+                {/* Origin country chips */}
+                <div className="mt-8">
+                  <p className={`${labelCls} text-[#06131d]/45`}>{isImport ? "Sourced from" : "Exported from"}</p>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {origins.map((c) => {
+                      const code = flagCodeFor(c);
+                      return (
+                        <li
+                          key={c}
+                          className="inline-flex items-center gap-2 rounded-full border border-[#06131d]/12 bg-[#f2f4f6] px-4 py-2 text-sm font-medium text-[#0b2c3d]"
+                        >
+                          {code && <Flag code={code} className="h-3.5 w-[21px]" />}
+                          {c}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+
+                {/* CTA */}
+                <div className="mt-10 flex flex-wrap gap-3">
+                  <PillButton href="#contact">Request a quote</PillButton>
+                  <GhostButton href="#specifications">View specifications</GhostButton>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ───────────── APPLICATIONS ───────────── */}
+      {product.applications && product.applications.length > 0 && (
+        <section aria-labelledby="applications-heading" className="bg-[#06131d] py-20 lg:py-28">
+          <div className={pad}>
+            <Eyebrow>Real-world use cases</Eyebrow>
+            <h2
+              id="applications-heading"
+              className={`${s.display} mt-4 text-3xl text-white sm:text-4xl`}
+            >
+              Where it&rsquo;s used
+            </h2>
+            <p className="mt-4 max-w-2xl text-[15px] text-white/60 sm:text-base">
+              How buyers across Bangladesh source and deploy {product.name.toLowerCase()}.
+            </p>
+
+            {/* Client component — handles lightbox, watermark, broken-image fallback */}
+            <ApplicationsGrid
+              applications={product.applications}
+              productName={product.name}
+            />
+
+            <div className="mt-12 flex flex-wrap gap-3">
+              <PillButton href="#contact">Enquire about this product</PillButton>
+              <GhostButton href="#specifications">View specifications</GhostButton>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ───────────── MODEL CATALOGUE ───────────── */}
+      {product.displayCatalog && product.displayCatalog.length > 0 && (
+        <section aria-labelledby="catalogue-heading" className="border-t border-white/10 bg-[#06131d] py-20 lg:py-28">
+          <div className={pad}>
+            <Eyebrow>Model-by-model stock</Eyebrow>
+            <h2
+              id="catalogue-heading"
+              className={`${s.display} mt-4 text-3xl text-white sm:text-4xl`}
+            >
+              Browse the catalogue
+            </h2>
+            <p className="mt-4 max-w-2xl text-[15px] text-white/60 sm:text-base">
+              {product.displayCatalog.length} {product.name.toLowerCase()} by supplier brand and panel grade.
+              Click any model to view it full size.
+            </p>
+
+            <DisplayCatalog items={product.displayCatalog} />
+
+            <div className="mt-12 flex flex-wrap gap-3">
+              <PillButton href="#contact">Request a price list</PillButton>
+            </div>
+          </div>
+        </section>
+      )}
 
       {slug === "potato" && (
         <Link

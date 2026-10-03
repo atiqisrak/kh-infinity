@@ -22,6 +22,19 @@ const nextConfig = {
     dangerouslyAllowLocalIP: false,
     // Limit redirect chains to 3 (reduces complexity)
     maximumRedirects: 3,
+    // Allow external supplier product images
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.jltarpaulin.com",
+        pathname: "/jltarpaulin/**",
+      },
+      {
+        protocol: "https",
+        hostname: "dbx.com.cn",
+        pathname: "/wp-content/**",
+      },
+    ],
   },
 
   async headers() {
