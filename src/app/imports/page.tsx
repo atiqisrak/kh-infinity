@@ -92,7 +92,7 @@ export default function ImportsPage() {
       <PageHero
         image="/images/hubs/imports-hero.webp"
         imageAlt="Colourful shipping containers stacked at a port, representing bulk import logistics"
-        crumbs={[{ label: "Home", href: "/" }, { label: "Import operations" }]}
+        crumbs={[{ label: "Home", href: "/" }, { label: "Import operations", href: "/imports" }]}
         eyebrow="Direct B2B Importer"
         title={
           <>

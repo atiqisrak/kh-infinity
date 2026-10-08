@@ -70,7 +70,7 @@ function LaneHero({ c }: { c: LaneContent }) {
             { label: "Home", href: "/" },
             { label: "Services", href: "/services" },
             { label: "Trade routes", href: "/services/trade-routes" },
-            { label: lane.label },
+            { label: lane.label, href: `/services/trade-routes/${c.slug}` },
           ]}
         />
       </div>

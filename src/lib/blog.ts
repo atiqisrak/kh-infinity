@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { parseFrontmatter, markdownToHtml } from "./markdown";
+import { autolink } from "./autolink";
 
 export interface BlogAuthor {
   name: string;
@@ -18,6 +19,8 @@ export interface BlogPost {
   image: string;
   tags: string[];
   content: string;
+  /** Q&A pairs from a markdown post's "Frequently Asked Questions" section, for FAQPage schema */
+  faqs?: { question: string; answer: string }[];
 }
 
 export const blogPosts: BlogPost[] = [
@@ -613,6 +616,31 @@ function resolveImage(slug: string): string {
   return "/images/blog/trade-regulations-2025.webp";
 }
 
+/** Strips markdown emphasis, links and code so FAQ answers read as plain text */
+function plainText(md: string): string {
+  return md
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[*_`]+/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/** "## Frequently Asked Questions" followed by "### Question?" + answer paragraphs */
+function extractFaqs(md: string): BlogPost["faqs"] {
+  const section = md.split(/^## +(?:Frequently Asked Questions|FAQs?)\s*$/im)[1];
+  if (!section) return undefined;
+  const body = section.split(/^## /m)[0];
+  const faqs = body
+    .split(/^### +/m)
+    .slice(1)
+    .map((block) => {
+      const [first, ...rest] = block.split(/\r?\n/);
+      return { question: plainText(first), answer: plainText(rest.join(" ")) };
+    })
+    .filter((f) => f.question && f.answer);
+  return faqs.length ? faqs : undefined;
+}
+
 function loadMarkdownPosts(): BlogPost[] {
   if (!fs.existsSync(BLOG_DIR)) return [];
 
@@ -642,9 +670,10 @@ function loadMarkdownPosts(): BlogPost[] {
           author: resolveAuthor(data.author),
           category: (data.category as string) ?? "Trade Insights",
           date: (data.date as string) ?? "2026-01-01",
-          image: resolveImage(slug),
+          image: (data.image as string) || resolveImage(slug),
           tags,
           content: markdownToHtml(content),
+          faqs: extractFaqs(content),
         },
       ];
     } catch {
@@ -670,7 +699,8 @@ let _cachedPosts: BlogPost[] | null = null;
 function getAllPosts(): BlogPost[] {
   if (_cachedPosts) return _cachedPosts;
   const mdPosts = loadMarkdownPosts();
-  _cachedPosts = mergePostLists(mdPosts, blogPosts);
+  // Add contextual product, service and regulator links to every post
+  _cachedPosts = mergePostLists(mdPosts, blogPosts).map((p) => ({ ...p, content: autolink(p.content, `/blog/${p.id}`) }));
   return _cachedPosts;
 }
 

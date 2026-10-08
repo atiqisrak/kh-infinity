@@ -18,6 +18,8 @@ export interface CatalogItem {
   group: string
   /** Second filter facet — panel grade, battery grade or model family */
   variant: string
+  /** One or two sentences shown under the photo in the catalogue modal */
+  description: string
   images: string[]
 }
 
@@ -86,6 +88,18 @@ function titleCaseWord(w: string) {
 
 const COMPLETE_LAST = /^(\d+[A-Za-z]?|\d+G|Pro|Max|Plus|Lite|Mini|mini|Air|Ultra|Fold|Flip|Black|White|Silver|Gold)$/
 
+// Fragments a cut-off filename can end on: partial years ("20", "201" — not model
+// numbers like "Pixel 10"), partial
+// A-numbers ("A12"), and words that only make sense with what followed
+const DANGLING = /^(20\d?|A\d{1,3}|Mid|Late|Early|w\/|for|and|with|to|the|of|or|in|on|\+|&)$/i
+
+/** Drops trailing cut-off fragments so a truncated name ends on a complete word */
+function trimDangling(name: string) {
+  const tokens = name.split(' ')
+  while (tokens.length > 3 && DANGLING.test(tokens.at(-1)!)) tokens.pop()
+  return tokens.join(' ')
+}
+
 /** Hyphenated stem → readable name; truncated names lose their partial last word */
 function humanize(key: string, truncated: boolean) {
   let tokens = key
@@ -101,7 +115,7 @@ function humanize(key: string, truncated: boolean) {
   s = s.replace(/\b(\d{1,2}) (\d) ?inch(es)?\b/gi, '$1.$2-inch').replace(/\b(\d{1,2}) ?inch(es)?\b/gi, '$1-inch')
   s = s.replace(/\bw\b/g, 'w/')
   for (const [re, fix] of TYPO_FIXES) s = s.replace(re, fix)
-  return truncated ? `${s}…` : s
+  return truncated ? trimDangling(s) : s
 }
 
 function slugify(s: string) {
@@ -109,10 +123,19 @@ function slugify(s: string) {
 }
 
 type Parsed = Pick<CatalogItem, 'title' | 'group' | 'variant'> & Partial<Pick<CatalogItem, 'id' | 'name'>>
+type Undescribed = Omit<CatalogItem, 'description'>
 
-/** Groups photos into items; `parse` returns null for photos to leave out */
-function buildCatalog(prefix: string, urls: string[], parse: (key: string, name: string) => Parsed | null): CatalogItem[] {
-  const byId = new Map<string, CatalogItem>()
+/**
+ * Groups photos into items; `parse` returns null for photos to leave out.
+ * `describe` writes each item's modal description from its parsed fields.
+ */
+function buildCatalog(
+  prefix: string,
+  urls: string[],
+  parse: (key: string, name: string) => Parsed | null,
+  describe: (item: Undescribed) => string,
+): CatalogItem[] {
+  const byId = new Map<string, Undescribed>()
   for (const url of urls) {
     const stem = stemOf(url)
     if (!isNamed(stem)) continue
@@ -125,10 +148,14 @@ function buildCatalog(prefix: string, urls: string[], parse: (key: string, name:
     if (existing) existing.images.push(url)
     else byId.set(id, { name: fallbackName, ...parsed, id, images: [url] })
   }
-  return [...byId.values()].sort(
-    (a, b) => a.group.localeCompare(b.group) || a.title.localeCompare(b.title, 'en', { numeric: true }),
-  )
+  return [...byId.values()]
+    .sort((a, b) => a.group.localeCompare(b.group) || a.title.localeCompare(b.title, 'en', { numeric: true }))
+    .map((item) => ({ ...item, description: describe(item) }))
 }
+
+/** Looks up the note for the first pattern that matches, or the fallback */
+const noteFor = (notes: [RegExp, string][], value: string, fallback: string) =>
+  notes.find(([re]) => re.test(value))?.[1] ?? fallback
 
 /** Tokens from the first `start` match up to the first stop word */
 function takeModel(name: string, start: RegExp, stop: RegExp) {
@@ -144,6 +171,15 @@ function takeModel(name: string, start: RegExp, stop: RegExp) {
 }
 
 // ─── iPhone displays ───────────────────────────────────────────────────────
+
+const IPHONE_PANEL_NOTES: [RegExp, string][] = [
+  [/Soft OLED/i, 'Flexible OLED panel — the closest aftermarket match to the original screen for thinness, brightness and colour. Premium repair grade.'],
+  [/Hard OLED/i, 'Rigid OLED panel — true OLED blacks and colour at a lower price than Soft OLED, with a slightly thicker glass stack. Mid-to-high repair grade.'],
+  [/Incell FHD/i, 'In-cell LCD with the touch layer built into the panel, at full-HD resolution. Value grade for high-volume repair.'],
+  [/Incell HD|^HD$/i, 'LCD panel at HD resolution — the lowest-cost grade for budget repairs where price matters most.'],
+  [/Incell/i, 'In-cell LCD with the touch layer built into the panel. Value grade for high-volume repair.'],
+]
+const IPHONE_PANEL_FALLBACK = 'Aftermarket replacement screen assembly.'
 // e.g. DD-Soft-OLED-Screen-Replacement-For-iPhone-17-Pro-Max.webp
 //   → brand "DD", panel "Soft OLED", model "iPhone 17 Pro Max"
 
@@ -171,11 +207,13 @@ export const iphoneDisplayCatalog: CatalogItem[] = buildCatalog('iphone', GALLER
   const [, brand, panelRaw, modelRaw] =
     key.match(/^([A-Z]+)-(.+?)-(?:Display-)?Screen-.*?(?:For|with)-(iPhone-.+)$/i) ?? []
   if (!brand) throw new Error(`Unrecognised iPhone display filename: ${key}`)
-  const model = parseIphoneModel(modelRaw)
+  // Drop a trailing single-digit photo index ("-XS-Max-3", "-12-Pro-Max-1")
+  const model = parseIphoneModel(modelRaw.replace(/-\d$/, ''))
   const panel = panelRaw.replace(/-/g, ' ')
   const b = brand.toUpperCase()
   return { id: slugify(`${b} ${panel} ${model}`), name: `${b} ${panel} Screen — ${model}`, title: model, group: b, variant: panel }
-})
+}, (item) =>
+  `Replacement screen for the ${item.title} from supplier brand ${item.group}. ${noteFor(IPHONE_PANEL_NOTES, item.variant, IPHONE_PANEL_FALLBACK)} Drop-in assembly with digitizer and flex attached.`)
 
 // ─── Android displays ──────────────────────────────────────────────────────
 
@@ -210,6 +248,12 @@ function tidyPhoneTitle(title: string, brand: string) {
     .replace(/\b(A\d\d) (A\d\ds)\b/, '$1 / $2')
 }
 
+const ANDROID_PANEL_NOTES: [RegExp, string][] = [
+  [/OLED/i, 'OLED / AMOLED panel with deep blacks and in-display fingerprint support where the phone has it.'],
+  [/Incell/i, 'In-cell TFT LCD — cheaper than OLED; in-display fingerprint sensors usually do not work through it.'],
+  [/LCD/i, 'LCD replacement panel — the value option; on phones that shipped with OLED it gives a little less contrast than the original.'],
+]
+
 const DISPLAY_STOP = /^(ORG|OLED|LCD|AMOLED|Screen|Service|Display|Assembly|With|with|Digitizer|Premium|OEM|Touch|Black|Wholes|Comp|Complete|External|SKU\d+|Aftermarket|Supp|and)$/
 
 export const androidDisplayCatalog: CatalogItem[] = buildCatalog('android', GALLERY_FILES.androidDisplays, (key, name) => {
@@ -220,8 +264,12 @@ export const androidDisplayCatalog: CatalogItem[] = buildCatalog('android', GALL
   if (title.split(' ').length < 2) return null
   const variant = /OLED/i.test(key) ? 'OLED / AMOLED' : /Incell|TFT/i.test(key) ? 'Incell / TFT' : 'LCD'
   // One card per model and panel type, however many listings show it
-  return { id: slugify(`android ${title} ${variant}`), title, group: brand, variant }
-})
+  const frame = /with-frame|frame-compatible|-frame-/i.test(key) && !/no-frame/i.test(key)
+  const screenName = `${title} ${variant} replacement screen${frame ? ' with frame' : ''}`
+  return { id: slugify(`android ${title} ${variant}`), name: screenName, title, group: brand, variant }
+}, (item) =>
+  `${item.variant} replacement screen for the ${item.title}. ${noteFor(ANDROID_PANEL_NOTES, item.variant, '')}` +
+  (/with frame$/.test(item.name) ? ' Comes pre-mounted in the middle frame for faster fitting — confirm frame or no-frame when ordering.' : ''))
 
 // ─── iPad displays (filed under Display/android) ───────────────────────────
 
@@ -239,12 +287,23 @@ export const ipadDisplayCatalog: CatalogItem[] = buildCatalog('ipad', GALLERY_FI
     .replace(/^(.+) \/ \1$/, '$1')
   const series = /iPad Pro/.test(title) ? 'iPad Pro' : /iPad Air/.test(title) ? 'iPad Air' : /iPad mini/.test(title) ? 'iPad mini' : 'iPad'
   const variant = /Assembly|Digitizer/i.test(key) ? 'LCD + digitizer' : 'LCD only'
-  return { id: slugify(`ipad ${title} ${variant}`), title, group: series, variant }
-})
+  const part = variant === 'LCD only' ? 'LCD panel' : 'LCD + digitizer assembly'
+  return { id: slugify(`ipad ${title} ${variant}`), name: `${title} ${part}`, title, group: series, variant }
+}, (item) =>
+  item.variant === 'LCD only'
+    ? `LCD panel only for the ${item.title}. Fit it under the existing or a new touch glass — the lower-cost option for shops that refit digitizers.`
+    : `LCD and digitizer assembly for the ${item.title}, laminated and ready to fit. The faster drop-in repair. Check WiFi or Cellular version against the A-number before ordering.`)
 
 // ─── Phone batteries ───────────────────────────────────────────────────────
 
 const BATTERY_STOP = /^(ORG|Battery|Service|TI|Replacement|Pack|SKU\d+|USA|AAA|Quality|High|Shows|G\d{3}\w*)$/i
+
+const BATTERY_GRADE_NOTES: [RegExp, string][] = [
+  [/Genuine/i, 'Genuine service-pack cell — the premium grade for repairs that must match the original.'],
+  [/Diagnostic/i, 'Diagnostic-compatible (TI solution) cell that reports battery health and cycle count in iOS Settings.'],
+  [/Aftermarket/i, 'High-capacity aftermarket cell — more mAh than stock at a budget price.'],
+  [/ORG/i, 'ORG-grade cell built to the original capacity and connector spec.'],
+]
 
 function batteryVariant(key: string) {
   if (/Diagnostic|TI-Solution/i.test(key)) return 'Diagnostic (TI)'
@@ -271,8 +330,14 @@ export const batteryCatalog: CatalogItem[] = buildCatalog('battery', GALLERY_FIL
   }
   if (title.split(' ').length < 2) return null
   const variant = batteryVariant(key)
-  return { id: slugify(`battery ${title} ${variant}`), title, group: brand === 'iPhone' ? 'Apple iPhone' : brand, variant }
-})
+  return {
+    id: slugify(`battery ${title} ${variant}`),
+    name: `${title} replacement battery — ${variant}`,
+    title,
+    group: brand === 'iPhone' ? 'Apple iPhone' : brand,
+    variant,
+  }
+}, (item) => `Replacement lithium-ion battery for the ${item.title}. ${noteFor(BATTERY_GRADE_NOTES, item.variant, '')} Ships with UN38.3 test summary and MSDS.`)
 
 // ─── MacBook parts ─────────────────────────────────────────────────────────
 
@@ -294,6 +359,24 @@ const MACBOOK_PART_TYPES: [RegExp, string][] = [
   [/Stencil|Tool|Nerdtool|Sensor/i, 'Tools & sensors'],
 ]
 
+const MACBOOK_PART_NOTES: [RegExp, string][] = [
+  [/Display/, 'Display part (LCD assembly or panel)'],
+  [/Top case/, 'Top case with keyboard, palm rest and battery mount'],
+  [/Bottom case/, 'Bottom case'],
+  [/Keyboard/, 'Keyboard part'],
+  [/Trackpad/, 'Trackpad part'],
+  [/Battery/, 'Battery or battery accessory'],
+  [/Flex/, 'Flex cable'],
+  [/Boards/, 'Board or connector'],
+  [/Audio/, 'Speaker or microphone'],
+  [/Cooling/, 'Cooling part (fan or heat sink)'],
+  [/Storage/, 'Storage part'],
+  [/ICs/, 'Board-level IC or component'],
+  [/Screws/, 'Screw set'],
+  [/Protection/, 'Protective accessory'],
+  [/Tools/, 'Repair tool or sensor'],
+]
+
 function macbookFamily(key: string) {
   if (/Air/i.test(key)) return 'MacBook Air'
   if (/Pro/i.test(key)) return 'MacBook Pro'
@@ -306,7 +389,9 @@ export const macbookPartsCatalog: CatalogItem[] = buildCatalog('macbook', GALLER
   // Fix "op-Case" style clipped first letters
   const title = name.replace(/^op Case/, 'Top Case').replace(/\bMacbook\b/g, 'MacBook')
   return { name: title, title, group, variant: macbookFamily(key) }
-})
+}, (item) =>
+  `${noteFor(MACBOOK_PART_NOTES, item.group, 'MacBook replacement part')} for ${item.variant === 'All MacBooks' ? 'several MacBook models' : item.variant}. ` +
+  'MacBook parts are model-specific — match the A-number printed on the bottom case before ordering.')
 
 // ─── lookups ───────────────────────────────────────────────────────────────
 

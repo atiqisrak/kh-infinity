@@ -268,7 +268,7 @@ export default function CustomsClearanceServicePage() {
         crumbs={[
           { label: "Home", href: "/" },
           { label: "Services", href: "/services" },
-          { label: "Customs clearance service" },
+          { label: "Customs clearance service", href: "/services/customs" },
         ]}
         eyebrow="Trade support"
         title={

@@ -95,7 +95,7 @@ export default function SmeImportSolutionsPage() {
         crumbs={[
           { label: "Home", href: "/" },
           { label: "Services", href: "/services" },
-          { label: "SME import solutions" },
+          { label: "SME import solutions", href: "/services/sme-import-solutions" },
         ]}
         image="/images/services/sme-import-hero.webp"
         imageAlt="Warehouse worker inspecting labelled parcel shelves for consolidated SME import delivery"

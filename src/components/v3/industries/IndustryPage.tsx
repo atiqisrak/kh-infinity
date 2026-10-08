@@ -137,7 +137,7 @@ export default function IndustryPage({ data, children }: { data: IndustryData; c
 
       {/* ───────────── HERO ───────────── */}
       <PageHero
-        crumbs={[{ label: "Home", href: "/" }, { label: "Industries", href: "/industries" }, { label: sector.short }]}
+        crumbs={[{ label: "Home", href: "/" }, { label: "Industries", href: "/industries" }, { label: sector.short, href: `/industries/${sector.slug}` }]}
         eyebrow={hero.eyebrow}
         title={hero.title}
         titleClassName="text-[clamp(2.75rem,5.4vw,5rem)]"

@@ -2,13 +2,13 @@
 
 import Image from "next/image";
 import { useState, useMemo, useCallback } from "react";
-import Lightbox, { type LightboxImage } from "@/components/v3/Lightbox";
+import CatalogModal from "@/components/v3/products/CatalogModal";
 import type { Catalog } from "@/lib/parts-catalog";
 
 // ─── DisplayCatalog ───────────────────────────────────────────────────────
 // Named, filterable grid of individual SKUs (model · group · variant).
 // • Two rows of filter chips (e.g. brand + panel grade, part type + model family)
-// • Click any card → lightbox across every photo in the current filter
+// • Click any card → detail modal (big photo, full name, description), ← / → through the filter
 // • Photos load directly (pre-optimized), skipping the Next.js image optimizer
 // • Broken images keep the card and its name, just without the photo
 
@@ -20,14 +20,13 @@ export default function DisplayCatalog({ catalog }: { catalog: Catalog }) {
   const [group, setGroup] = useState(ALL);
   const [variant, setVariant] = useState(ALL);
   const [expanded, setExpanded] = useState(false);
-  // Track the open photo by src, not index: late load/error events reshape the list
-  const [lbSrc, setLbSrc] = useState<string | null>(null);
+  // Track the open item by id, not index: late image errors reshape the list
+  const [openId, setOpenId] = useState<string | null>(null);
   const [failed, setFailed] = useState<Set<string>>(new Set());
-  const [loaded, setLoaded] = useState<Set<string>>(new Set());
 
-  const addTo = useCallback(
-    (setter: typeof setFailed) => (src: string) =>
-      setter((prev) => {
+  const markFailed = useCallback(
+    (src: string) =>
+      setFailed((prev) => {
         if (prev.has(src)) return prev;
         const next = new Set(prev);
         next.add(src);
@@ -35,8 +34,6 @@ export default function DisplayCatalog({ catalog }: { catalog: Catalog }) {
       }),
     [],
   );
-  const markFailed = useMemo(() => addTo(setFailed), [addTo]);
-  const markLoaded = useMemo(() => addTo(setLoaded), [addTo]);
 
   const groups = useMemo(() => [ALL, ...new Set(items.map((i) => i.group))], [items]);
   const variants = useMemo(() => [ALL, ...new Set(items.map((i) => i.variant))].sort((a, b) => (a === ALL ? -1 : b === ALL ? 1 : a.localeCompare(b))), [items]);
@@ -46,20 +43,20 @@ export default function DisplayCatalog({ catalog }: { catalog: Catalog }) {
   );
   const visible = expanded ? filtered : filtered.slice(0, PAGE);
 
-  // Photos of every filtered item whose cover photo has actually loaded,
-  // so the lightbox only pages through images that render
-  const lightboxImages: LightboxImage[] = filtered.flatMap((item) => {
-    const photos = item.images.filter((src) => !failed.has(src));
-    if (!photos.some((src) => loaded.has(src))) return [];
-    return photos.map((src, n) => ({
-      src,
-      alt: photos.length > 1 ? `${item.name} (photo ${n + 1} of ${photos.length})` : item.name,
-    }));
-  });
-
-  const lbIndex = lbSrc ? lightboxImages.findIndex((img) => img.src === lbSrc) : -1;
-  const step = (delta: number) =>
-    setLbSrc(lightboxImages[(lbIndex + delta + lightboxImages.length) % lightboxImages.length].src);
+  // Items in the current filter that still have a photo that loads, minus broken photos
+  const viewable = useMemo(
+    () =>
+      filtered
+        .map((item) => ({ ...item, images: item.images.filter((src) => !failed.has(src)) }))
+        .filter((item) => item.images.length > 0),
+    [filtered, failed],
+  );
+  const openIndex = openId ? viewable.findIndex((i) => i.id === openId) : -1;
+  const close = useCallback(() => setOpenId(null), []);
+  const step = useCallback(
+    (delta: number) => setOpenId(viewable[(openIndex + delta + viewable.length) % viewable.length].id),
+    [viewable, openIndex],
+  );
 
   const chip = (active: boolean) =>
     `rounded-full px-3.5 py-1.5 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fa6a25] ${
@@ -99,11 +96,11 @@ export default function DisplayCatalog({ catalog }: { catalog: Catalog }) {
             <li key={item.id}>
               <button
                 type="button"
-                onClick={() => src && loaded.has(src) && setLbSrc(src)}
+                onClick={() => src && setOpenId(item.id)}
                 disabled={!src}
-                aria-label={src ? `View ${item.name} full size` : item.name}
+                aria-haspopup="dialog"
+                aria-label={src ? `View details: ${item.name}` : item.name}
                 className="group flex w-full flex-col gap-3 rounded-2xl bg-white/5 p-3 text-left ring-1 ring-white/10 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fa6a25]"
-                style={{ cursor: src && loaded.has(src) ? "zoom-in" : "default" }}
               >
                 <div
                   className={`relative aspect-square overflow-hidden rounded-xl ${src ? "bg-white" : "bg-white/[0.06]"}`}
@@ -121,7 +118,6 @@ export default function DisplayCatalog({ catalog }: { catalog: Catalog }) {
                         loading="lazy"
                         sizes="(min-width: 1280px) 200px, (min-width: 640px) 30vw, 45vw"
                         className="select-none object-contain p-2 transition duration-500 group-hover:scale-105"
-                        onLoad={() => markLoaded(src)}
                         onError={() => markFailed(src)}
                         draggable={false}
                       />
@@ -132,7 +128,7 @@ export default function DisplayCatalog({ catalog }: { catalog: Catalog }) {
                       )}
                       <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                         <span className="rounded-full bg-black/50 px-2.5 py-1 text-[10px] font-medium text-white backdrop-blur-sm">
-                          Enlarge
+                          Details
                         </span>
                       </div>
                     </>
@@ -171,13 +167,14 @@ export default function DisplayCatalog({ catalog }: { catalog: Catalog }) {
         </div>
       )}
 
-      {lbIndex >= 0 && (
-        <Lightbox
-          images={lightboxImages}
-          index={lbIndex}
-          onClose={() => setLbSrc(null)}
-          onPrev={() => step(-1)}
-          onNext={() => step(1)}
+      {openIndex >= 0 && (
+        <CatalogModal
+          items={viewable}
+          index={openIndex}
+          groupLabel={groupLabel}
+          variantLabel={variantLabel}
+          onClose={close}
+          onStep={step}
         />
       )}
     </>

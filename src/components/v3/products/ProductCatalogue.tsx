@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { isRemoteImage } from "@/lib/image-src";
 import Link from "next/link";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Flag, { flagCodeFor } from "../Flag";
 import Icon from "../Icons";
 import Reveal from "../Reveal";
@@ -426,6 +426,12 @@ export default function ProductCatalogue({ items }: { items: CatalogueItem[] }) 
   const [type, setType] = useState<TypeFilter>("all");
   const [category, setCategory] = useState("");
   const [query, setQuery] = useState("");
+
+  // Deep link: /products?category=Phone%20Parts (used by product-page breadcrumbs)
+  useEffect(() => {
+    const wanted = new URLSearchParams(window.location.search).get("category");
+    if (wanted && items.some((p) => p.category === wanted)) setCategory(wanted);
+  }, [items]);
 
   const q = query.trim().toLowerCase();
   const matches = (p: CatalogueItem) =>

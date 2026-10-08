@@ -41,7 +41,7 @@ export default function BlogPage() {
   return (
     <V3Shell>
       <PageHero
-        crumbs={[{ label: "Insights" }]}
+        crumbs={[{ label: "Insights", href: "/blog" }]}
         eyebrow="Trade insights"
         title={"News, trends &\nmarket intelligence"}
         lead="Stay informed with the latest updates on international trade, industry trends, and expert insights from K.H. Infinity."

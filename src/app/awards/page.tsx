@@ -41,7 +41,7 @@ export default function AwardsPage() {
   return (
     <V3Shell>
       <PageHero
-        crumbs={[{ label: "Awards & Certifications" }]}
+        crumbs={[{ label: "About", href: "/about" }, { label: "Awards & Certifications", href: "/awards" }]}
         eyebrow="Our credentials"
         title={
           <>

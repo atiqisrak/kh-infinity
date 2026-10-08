@@ -61,7 +61,7 @@ export default function ContactPage() {
       <section aria-labelledby="contact-title" className={`${s.gridBg} relative overflow-hidden bg-[#06131d] pt-[104px] lg:pt-[124px]`}>
         <div className={`${pad} grid gap-12 pb-20 lg:grid-cols-[1fr_1fr] lg:gap-16 lg:pb-28`}>
           <div>
-            <Crumbs items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
+            <Crumbs items={[{ label: "Home", href: "/" }, { label: "Contact", href: "/contact" }]} />
             <div className="mt-8">
               <Eyebrow>Get in touch</Eyebrow>
             </div>

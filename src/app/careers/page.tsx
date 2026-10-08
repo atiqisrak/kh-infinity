@@ -46,7 +46,7 @@ export default function CareersPage() {
   return (
     <V3Shell>
       <PageHero
-        crumbs={[{ label: "Careers" }]}
+        crumbs={[{ label: "Careers", href: "/careers" }]}
         eyebrow="Join the team"
         title={
           <>

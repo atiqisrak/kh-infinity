@@ -68,7 +68,7 @@ export default async function ApplyPage({ params }: ApplyPageProps) {
         crumbs={[
           { label: "Careers", href: "/careers" },
           { label: job.title, href: `/careers/${job.id}` },
-          { label: "Apply" },
+          { label: "Apply", href: `/careers/apply/${job.id}` },
         ]}
         eyebrow="Application"
         title={

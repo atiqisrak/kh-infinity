@@ -73,7 +73,7 @@ export default function EventsPage() {
   return (
     <V3Shell>
       <PageHero
-        crumbs={[{ label: "Events" }]}
+        crumbs={[{ label: "News", href: "/news" }, { label: "Events", href: "/events" }]}
         eyebrow="Trade shows &amp; exhibitions"
         title={
           <>

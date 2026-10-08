@@ -81,7 +81,7 @@ export default function IndustriesPage() {
       />
       {/* ── HERO ──────────────────────────────────────────────────── */}
       <PageHero
-        crumbs={[{ label: "Home", href: "/" }, { label: "Industries" }]}
+        crumbs={[{ label: "Home", href: "/" }, { label: "Industries", href: "/industries" }]}
         eyebrow="Industries"
         title={
           <>

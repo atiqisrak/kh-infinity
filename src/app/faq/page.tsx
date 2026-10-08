@@ -208,7 +208,7 @@ export default function FAQPage() {
       />
 
       <PageHero
-        crumbs={[{ label: "Home", href: "/" }, { label: "FAQ" }]}
+        crumbs={[{ label: "Home", href: "/" }, { label: "FAQ", href: "/faq" }]}
         eyebrow="Trade knowledge base"
         title={"Answers to your\nimport-export questions"}
         lead="Everything you need to know about importing, exporting, shipping, and working with K.H. Infinity."

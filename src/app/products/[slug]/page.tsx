@@ -5,7 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProduct, getRelatedProducts, type Product } from "@/lib/products";
-import { buildProductSchema, speakableWebPageSchema } from "@/lib/schema-helpers";
+import { breadcrumbSchema, buildProductSchema, speakableWebPageSchema } from "@/lib/schema-helpers";
+import { getBlogPosts } from "@/lib/blog";
+import { getProductExtras } from "@/lib/product-faqs";
 import Crumbs from "@/components/v3/Crumbs";
 import Flag, { flagCodeFor } from "@/components/v3/Flag";
 import HangingContainer from "@/components/v3/HangingContainer";
@@ -145,6 +147,25 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   const productUrl = `https://khi.com.bd/products/${product.id}`;
   const structuredData = buildProductSchema(product);
+  const { faqs, references } = getProductExtras(product.id);
+  // Guides: blog posts that link to this product page
+  const guides = getBlogPosts()
+    .filter((p) => p.content.includes(`href="/products/${product.id}"`))
+    .slice(0, 6);
+  const crumbsSchema = breadcrumbSchema([
+    { name: "Home", url: "https://khi.com.bd" },
+    { name: "Products", url: "https://khi.com.bd/products" },
+    { name: product.name, url: productUrl },
+  ]);
+  const faqSchema = faqs.length > 0 && {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  };
   const speakableData = speakableWebPageSchema({
     url: productUrl,
     name: product.name,
@@ -165,6 +186,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
           __html: JSON.stringify(speakableData),
         }}
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsSchema) }} />
+      {faqSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      )}
 
       {/* ───────────── HERO ───────────── */}
       <section className={`${s.gridBg} relative overflow-hidden bg-[#06131d] pt-[104px] lg:pt-[124px]`}>
@@ -173,8 +198,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
             items={[
               { label: "Home", href: "/" },
               { label: "Products", href: "/products" },
-              { label: product.category },
-              { label: product.name },
+              { label: product.category, href: `/products?category=${encodeURIComponent(product.category)}#catalogue` },
+              { label: product.name, href: `/products/${product.id}` },
             ]}
           />
         </div>
@@ -689,6 +714,87 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </form>
         </div>
       </section>
+
+      {/* ───────────── BUYER QUESTIONS, GUIDES & REFERENCES ───────────── */}
+      {(faqs.length > 0 || guides.length > 0 || references.length > 0) && (
+        <section aria-labelledby="faq-heading" className="bg-white py-20 text-[#06131d] lg:py-28">
+          <div className={`${pad} grid gap-14 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20`}>
+            {faqs.length > 0 ? (
+              <div>
+                <Eyebrow>Buyer questions</Eyebrow>
+                <h2 id="faq-heading" className={`${s.display} mt-4 text-3xl text-[#0b2c3d] sm:text-4xl`}>
+                  {product.name}: quick answers
+                </h2>
+                <dl className="mt-8 divide-y divide-[#06131d]/10 border-y border-[#06131d]/10">
+                  {faqs.map((f) => (
+                    <div key={f.question} className="py-6">
+                      <dt className="text-lg font-semibold text-[#0b2c3d]">{f.question}</dt>
+                      <dd className="mt-2 text-[15px] leading-relaxed text-[#06131d]/70">{f.answer}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            ) : (
+              <h2 id="faq-heading" className="sr-only">Guides and references</h2>
+            )}
+
+            <div className="space-y-12">
+              {guides.length > 0 && (
+                <div>
+                  <Eyebrow>Guides</Eyebrow>
+                  <ul className="mt-5 space-y-3">
+                    {guides.map((g) => (
+                      <li key={g.id}>
+                        <Link
+                          href={`/blog/${g.id}`}
+                          className={`group block rounded-2xl bg-[#f2f4f6] p-5 transition hover:bg-[#e8ebee] ${focusRing}`}
+                        >
+                          <span className="font-mono text-[10px] uppercase tracking-wider text-[#b8440f]">{g.category}</span>
+                          <span className="mt-1 block font-semibold leading-snug text-[#0b2c3d] group-hover:underline">{g.title}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {references.length > 0 && (
+                <div>
+                  <Eyebrow>References</Eyebrow>
+                  <ul className="mt-5 space-y-3 text-[15px]">
+                    {references.map((r) => (
+                      <li key={r.href}>
+                        <a
+                          href={r.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#b8440f] underline decoration-[#fa6a25]/40 underline-offset-4 hover:decoration-[#fa6a25]"
+                        >
+                          {r.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <div className="rounded-2xl bg-[#06131d] p-6 text-white">
+                <p className="font-semibold">Need a landed-cost price?</p>
+                <p className="mt-2 text-sm text-white/65">
+                  We quote duty, VAT and freight together, with{" "}
+                  <Link href="/services/customs" className="underline underline-offset-4 hover:text-white">
+                    in-house customs clearance
+                  </Link>
+                  .
+                </p>
+                <div className="mt-4">
+                  <PillButton href="/quote">Request a quote</PillButton>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ───────────── RELATED ───────────── */}
       {relatedProducts.length > 0 && (

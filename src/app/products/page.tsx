@@ -86,7 +86,7 @@ export default function ProductsPage() {
         <div className={`${pad} grid items-center gap-12 pb-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-20`}>
           {/* Left: copy */}
           <div>
-            <Crumbs items={[{ label: "Home", href: "/" }, { label: "Products" }]} />
+            <Crumbs items={[{ label: "Home", href: "/" }, { label: "Products", href: "/products" }]} />
             <div className="mt-8">
               <Eyebrow>Our collection</Eyebrow>
             </div>
