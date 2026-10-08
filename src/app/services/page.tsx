@@ -206,7 +206,7 @@ export default function ServicesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }}
       />
       <PageHero
-        crumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
+        crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }]}
         eyebrow="Import · Export · Customs"
         title={
           <>

@@ -28,6 +28,12 @@ K.H. Infinity owns physical inventory for bulk commodities and manages NBR custo
 - U.S. Almonds (HS 0802.12.00, TTI 64.25–96.10%): https://khi.com.bd/products/almonds
 - Medjool Dates (HS 0804.10.00, TTI ~48.75%): https://khi.com.bd/products/medjool-dates
 - Soy Sauce & Condiments (HS 2103.10.00): https://khi.com.bd/products/soy-sauce
+- iPhone Replacement Displays (HS 8524.91.00): https://khi.com.bd/products/iphone-displays
+- Android Phone Displays (HS 8524.91.00): https://khi.com.bd/products/android-displays
+- Phone Replacement Batteries (HS 8507.60.00): https://khi.com.bd/products/phone-batteries
+- iPad Replacement Displays (HS 8524.91.00): https://khi.com.bd/products/ipad-displays
+- MacBook Replacement Parts (HS 8473.30.00): https://khi.com.bd/products/macbook-parts
+- Phone Parts Programme (compatibility, grades, MOQ): https://khi.com.bd/products/phone-parts-programme
 
 ## Export Operations
 
@@ -57,6 +63,15 @@ K.H. Infinity owns physical inventory for bulk commodities and manages NBR custo
 
 - FAQ: https://khi.com.bd/faq
 - Blog & SRO Updates: https://khi.com.bd/blog
+- Phone & laptop parts guides:
+  - iPhone display grades: Soft OLED vs Hard OLED vs Incell: https://khi.com.bd/blog/iphone-display-grades-soft-oled-hard-oled-incell
+  - Android display sourcing: Samsung, Pixel, Redmi, Realme: https://khi.com.bd/blog/android-display-sourcing-samsung-pixel-redmi-realme
+  - Importing phone batteries: UN38.3, dangerous goods and grades: https://khi.com.bd/blog/phone-battery-import-bangladesh-un38-3-grades
+  - iPhone battery health and diagnostic (TI) batteries: https://khi.com.bd/blog/iphone-battery-health-diagnostic-ti-batteries
+  - Importing phone chargers: GaN, USB PD and safety: https://khi.com.bd/blog/phone-charger-import-bangladesh-gan-safety
+  - Sourcing MacBook parts by A-number: https://khi.com.bd/blog/macbook-parts-a-number-sourcing-guide
+  - iPad screen replacement parts guide: https://khi.com.bd/blog/ipad-screen-replacement-parts-guide
+  - HS codes and import duty for phone and laptop parts: https://khi.com.bd/blog/phone-parts-hs-codes-import-duty-bangladesh
 - Full entity map: https://khi.com.bd/llms-full.txt
 
 ## Key Facts

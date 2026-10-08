@@ -1,20 +1,31 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProduct, getRelatedProducts, type Product } from "@/lib/products";
-import { buildProductSchema, speakableWebPageSchema } from "@/lib/schema-helpers";
+import { breadcrumbSchema, buildProductSchema, speakableWebPageSchema } from "@/lib/schema-helpers";
+import { getBlogPosts } from "@/lib/blog";
+import { getProductExtras } from "@/lib/product-faqs";
 import Crumbs from "@/components/v3/Crumbs";
 import Flag, { flagCodeFor } from "@/components/v3/Flag";
 import HangingContainer from "@/components/v3/HangingContainer";
 import Icon from "@/components/v3/Icons";
 import { ListCard, fieldLabelDark, inputDark } from "@/components/v3/blocks";
+import ApplicationsGrid from "@/components/v3/products/ApplicationsGrid";
 import ProductGallery from "@/components/v3/products/ProductGallery";
+import DisplayCatalog from "@/components/v3/products/DisplayCatalog";
+import PausableVideo from "@/components/v3/products/PausableVideo";
+import YouTubeVideo from "@/components/v3/products/YouTubeVideo";
 import { certLogos, phone, shipmentDocs } from "@/components/v3/site";
 import { certKey, YARD_COLOURS } from "@/components/v3/sourcing";
 import { ArrowLink, Eyebrow, GhostButton, PillButton, ProductCard, SectionHead, focusRing, pad } from "@/components/v3/ui";
 import V3Shell from "@/components/v3/V3Shell";
 import s from "@/components/v3/v3.module.css";
+
+/** True when a site-relative path like "/videos/x.mp4" exists in public/ */
+const inPublic = (path: string) => existsSync(join(process.cwd(), "public", path));
 
 interface ProductPageProps {
   params: Promise<{
@@ -126,11 +137,35 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const relatedProducts = getRelatedProducts(product);
   const isImport = product.type === "import";
   const gallery = product.images && product.images.length > 0 ? product.images : [product.image];
+  const { youtube } = product;
+  // Self-hosted videos and posters are optional: skip any that haven't been added to public/ yet
+  const videoSrc = product.videoSrc && inPublic(product.videoSrc) ? product.videoSrc : undefined;
+  const posterPath = `/images/products/v2/${product.id}-video-poster.webp`;
+  const videoPoster = inPublic(posterPath) ? posterPath : undefined;
   const facts = tradeFacts(product);
   const origins = product.sourcing.countries;
 
   const productUrl = `https://khi.com.bd/products/${product.id}`;
   const structuredData = buildProductSchema(product);
+  const { faqs, references } = getProductExtras(product.id);
+  // Guides: blog posts that link to this product page
+  const guides = getBlogPosts()
+    .filter((p) => p.content.includes(`href="/products/${product.id}"`))
+    .slice(0, 6);
+  const crumbsSchema = breadcrumbSchema([
+    { name: "Home", url: "https://khi.com.bd" },
+    { name: "Products", url: "https://khi.com.bd/products" },
+    { name: product.name, url: productUrl },
+  ]);
+  const faqSchema = faqs.length > 0 && {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  };
   const speakableData = speakableWebPageSchema({
     url: productUrl,
     name: product.name,
@@ -151,6 +186,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
           __html: JSON.stringify(speakableData),
         }}
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsSchema) }} />
+      {faqSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      )}
 
       {/* ───────────── HERO ───────────── */}
       <section className={`${s.gridBg} relative overflow-hidden bg-[#06131d] pt-[104px] lg:pt-[124px]`}>
@@ -159,8 +198,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
             items={[
               { label: "Home", href: "/" },
               { label: "Products", href: "/products" },
-              { label: product.category },
-              { label: product.name },
+              { label: product.category, href: `/products?category=${encodeURIComponent(product.category)}#catalogue` },
+              { label: product.name, href: `/products/${product.id}` },
             ]}
           />
         </div>
@@ -232,6 +271,155 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </dl>
       </section>
 
+      {/* ───────────── ORIGIN STORY ───────────── */}
+      {(product.originStory || product.marketContext) && (
+        <section aria-labelledby="origin-heading" className="bg-white py-20 text-[#06131d] lg:py-28">
+          <div className={pad}>
+            <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20 lg:items-start">
+
+              {/* Left: story + video */}
+              <div>
+                <Eyebrow>Where it comes from</Eyebrow>
+                <h2
+                  id="origin-heading"
+                  className={`${s.display} mt-4 text-3xl text-[#0b2c3d] sm:text-4xl`}
+                >
+                  Origin story
+                </h2>
+                {product.originStory && (
+                  <p className="mt-6 text-[15px] leading-relaxed text-[#06131d]/75 sm:text-base">
+                    {product.originStory}
+                  </p>
+                )}
+
+                {/* Origin video: YouTube embed, or a self-hosted file once it exists */}
+                {youtube ? (
+                  <div className="mt-8 overflow-hidden rounded-2xl shadow-xl">
+                    <YouTubeVideo id={youtube.id} title={youtube.title} />
+                  </div>
+                ) : videoSrc ? (
+                  <div className="mt-8 overflow-hidden rounded-2xl bg-[#06131d] shadow-xl">
+                    <PausableVideo
+                      src={videoSrc}
+                      poster={videoPoster}
+                      controls
+                      preload={videoPoster ? "none" : "metadata"}
+                      className="w-full"
+                      aria-label={`${product.name} origin journey video`}
+                    >
+                      Your browser does not support the video tag.
+                    </PausableVideo>
+                  </div>
+                ) : (
+                  <div className="mt-8 flex items-center gap-4 rounded-2xl border border-[#06131d]/10 bg-[#f2f4f6] p-5">
+                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#fa6a25]/10">
+                      <Icon name="arrow" className="h-5 w-5 text-[#fa6a25]" />
+                    </span>
+                    <div>
+                      <p className="text-sm font-semibold text-[#0b2c3d]">Origin journey video</p>
+                      <p className="text-sm text-[#06131d]/55">Coming soon — tracing {product.name.toLowerCase()} from source to Chattogram.</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Right: market context */}
+              <div>
+                <Eyebrow>Bangladesh market</Eyebrow>
+                <h2 className={`${s.display} mt-4 text-3xl text-[#0b2c3d] sm:text-4xl`}>
+                  Why it matters here
+                </h2>
+                {product.marketContext && (
+                  <p className="mt-6 text-[15px] leading-relaxed text-[#06131d]/75 sm:text-base">
+                    {product.marketContext}
+                  </p>
+                )}
+
+                {/* Origin country chips */}
+                <div className="mt-8">
+                  <p className={`${labelCls} text-[#06131d]/45`}>{isImport ? "Sourced from" : "Exported from"}</p>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {origins.map((c) => {
+                      const code = flagCodeFor(c);
+                      return (
+                        <li
+                          key={c}
+                          className="inline-flex items-center gap-2 rounded-full border border-[#06131d]/12 bg-[#f2f4f6] px-4 py-2 text-sm font-medium text-[#0b2c3d]"
+                        >
+                          {code && <Flag code={code} className="h-3.5 w-[21px]" />}
+                          {c}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+
+                {/* CTA */}
+                <div className="mt-10 flex flex-wrap gap-3">
+                  <PillButton href="#contact">Request a quote</PillButton>
+                  <GhostButton href="#specifications">View specifications</GhostButton>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ───────────── APPLICATIONS ───────────── */}
+      {product.applications && product.applications.length > 0 && (
+        <section aria-labelledby="applications-heading" className="bg-[#06131d] py-20 lg:py-28">
+          <div className={pad}>
+            <Eyebrow>Real-world use cases</Eyebrow>
+            <h2
+              id="applications-heading"
+              className={`${s.display} mt-4 text-3xl text-white sm:text-4xl`}
+            >
+              Where it&rsquo;s used
+            </h2>
+            <p className="mt-4 max-w-2xl text-[15px] text-white/60 sm:text-base">
+              How buyers across Bangladesh source and deploy {product.name.toLowerCase()}.
+            </p>
+
+            {/* Client component — handles lightbox, watermark, broken-image fallback */}
+            <ApplicationsGrid
+              applications={product.applications}
+              productName={product.name}
+            />
+
+            <div className="mt-12 flex flex-wrap gap-3">
+              <PillButton href="#contact">Enquire about this product</PillButton>
+              <GhostButton href="#specifications">View specifications</GhostButton>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ───────────── MODEL CATALOGUE ───────────── */}
+      {product.catalog && product.catalog.items.length > 0 && (
+        <section aria-labelledby="catalogue-heading" className="border-t border-white/10 bg-[#06131d] py-20 lg:py-28">
+          <div className={pad}>
+            <Eyebrow>Model-by-model stock</Eyebrow>
+            <h2
+              id="catalogue-heading"
+              className={`${s.display} mt-4 text-3xl text-white sm:text-4xl`}
+            >
+              Browse the catalogue
+            </h2>
+            <p className="mt-4 max-w-2xl text-[15px] text-white/60 sm:text-base">
+              {product.catalog.items.length} {product.catalog.noun}, filterable by {product.catalog.groupLabel.toLowerCase()} and{" "}
+              {product.catalog.variantLabel.toLowerCase()}. Click any card to view it full size.
+            </p>
+
+            <DisplayCatalog catalog={product.catalog} />
+
+            <div className="mt-12 flex flex-wrap gap-3">
+              <PillButton href="#contact">Request a price list</PillButton>
+            </div>
+          </div>
+        </section>
+      )}
+
       {slug === "potato" && (
         <Link
           href="/products/potato-gulf"
@@ -249,7 +437,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </Link>
       )}
 
-      {(slug === "iphone-displays" || slug === "android-displays") && (
+      {product.category === "Phone Parts" && (
         <Link
           href="/products/phone-parts-programme"
           className={`group block bg-[#1d4ed8] text-white transition-colors hover:bg-[#1e40af] ${focusRing}`}
@@ -526,6 +714,87 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </form>
         </div>
       </section>
+
+      {/* ───────────── BUYER QUESTIONS, GUIDES & REFERENCES ───────────── */}
+      {(faqs.length > 0 || guides.length > 0 || references.length > 0) && (
+        <section aria-labelledby="faq-heading" className="bg-white py-20 text-[#06131d] lg:py-28">
+          <div className={`${pad} grid gap-14 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20`}>
+            {faqs.length > 0 ? (
+              <div>
+                <Eyebrow>Buyer questions</Eyebrow>
+                <h2 id="faq-heading" className={`${s.display} mt-4 text-3xl text-[#0b2c3d] sm:text-4xl`}>
+                  {product.name}: quick answers
+                </h2>
+                <dl className="mt-8 divide-y divide-[#06131d]/10 border-y border-[#06131d]/10">
+                  {faqs.map((f) => (
+                    <div key={f.question} className="py-6">
+                      <dt className="text-lg font-semibold text-[#0b2c3d]">{f.question}</dt>
+                      <dd className="mt-2 text-[15px] leading-relaxed text-[#06131d]/70">{f.answer}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            ) : (
+              <h2 id="faq-heading" className="sr-only">Guides and references</h2>
+            )}
+
+            <div className="space-y-12">
+              {guides.length > 0 && (
+                <div>
+                  <Eyebrow>Guides</Eyebrow>
+                  <ul className="mt-5 space-y-3">
+                    {guides.map((g) => (
+                      <li key={g.id}>
+                        <Link
+                          href={`/blog/${g.id}`}
+                          className={`group block rounded-2xl bg-[#f2f4f6] p-5 transition hover:bg-[#e8ebee] ${focusRing}`}
+                        >
+                          <span className="font-mono text-[10px] uppercase tracking-wider text-[#b8440f]">{g.category}</span>
+                          <span className="mt-1 block font-semibold leading-snug text-[#0b2c3d] group-hover:underline">{g.title}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {references.length > 0 && (
+                <div>
+                  <Eyebrow>References</Eyebrow>
+                  <ul className="mt-5 space-y-3 text-[15px]">
+                    {references.map((r) => (
+                      <li key={r.href}>
+                        <a
+                          href={r.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#b8440f] underline decoration-[#fa6a25]/40 underline-offset-4 hover:decoration-[#fa6a25]"
+                        >
+                          {r.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <div className="rounded-2xl bg-[#06131d] p-6 text-white">
+                <p className="font-semibold">Need a landed-cost price?</p>
+                <p className="mt-2 text-sm text-white/65">
+                  We quote duty, VAT and freight together, with{" "}
+                  <Link href="/services/customs" className="underline underline-offset-4 hover:text-white">
+                    in-house customs clearance
+                  </Link>
+                  .
+                </p>
+                <div className="mt-4">
+                  <PillButton href="/quote">Request a quote</PillButton>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ───────────── RELATED ───────────── */}
       {relatedProducts.length > 0 && (

@@ -50,6 +50,15 @@ K.H. Infinity is a **direct B2B importer and wholesale distributor**. We source,
 | U.S. Almonds | /products/almonds | 0802.12.00 | Section 2 (TTI 64.25–96.10%) |
 | Medjool Dates | /products/medjool-dates | 0804.10.00 | Section 2 (TTI ~48.75%) |
 | Soy Sauce | /products/soy-sauce | 2103.10.00 | Section 4 (TTI 96.10%) |
+| iPhone Replacement Displays | /products/iphone-displays | 8524.91.00 | Section XVI |
+| Android Phone Displays | /products/android-displays | 8524.91.00 | Section XVI |
+| Phone Replacement Batteries | /products/phone-batteries | 8507.60.00 | Section XVI |
+| iPad Replacement Displays | /products/ipad-displays | 8524.91.00 | Section XVI |
+| MacBook Replacement Parts | /products/macbook-parts | 8473.30.00 | Section XVI |
+| Charging Accessories | /products/charging-accessories | 8504.40.00 | Section XVI |
+| Audio Accessories | /products/audio-accessories | 8518.30.00 | Section XVI |
+
+Phone Parts Programme (compatibility matrix, grades, MOQ): /products/phone-parts-programme
 
 ### Export Hub
 - https://khi.com.bd/exports
@@ -110,6 +119,21 @@ A: Yes. KHI imports Tarpaulin (HS 6306.12.00, BCT Section 11) for Bangladesh's c
 **Q: What trade routes does KHI operate?**
 A: KHI manages three primary B2B trade lanes — import from China, import from the Middle East, and export to the Gulf/GCC — plus commodity-specific lanes for potatoes (Bangladesh → Gulf) and oils/dairy (Middle East → Bangladesh).
 
+**Q: Who imports iPhone and Android replacement screens wholesale in Bangladesh?**
+A: K.H. Infinity is a direct B2B importer of iPhone displays (iPhone X–17 Pro Max; Soft OLED, Hard OLED, Incell) and Android displays (Samsung, Google Pixel, OnePlus, Realme, Xiaomi, Honor, Huawei, Motorola) under HS 8524.91.00, with in-house NBR customs clearance. See https://khi.com.bd/products/iphone-displays and https://khi.com.bd/products/android-displays
+
+**Q: What is the difference between Soft OLED, Hard OLED and Incell iPhone screens?**
+A: Soft OLED uses a flexible OLED panel and is the closest aftermarket match to the original. Hard OLED uses a rigid OLED panel at a lower price. Incell is an LCD with built-in touch — the lowest-cost grade. Guide: https://khi.com.bd/blog/iphone-display-grades-soft-oled-hard-oled-incell
+
+**Q: Where can a Bangladesh repair shop buy replacement phone batteries with UN38.3 documents?**
+A: K.H. Infinity imports phone batteries (HS 8507.60.00) for iPhone 11–17 and major Android brands in genuine service-pack, diagnostic (TI), aftermarket high-capacity and ORG grades, shipped with UN38.3 test summaries and MSDS. See https://khi.com.bd/products/phone-batteries
+
+**Q: Does K.H. Infinity supply MacBook and iPad parts?**
+A: Yes. MacBook parts (HS 8473.30.00) are listed by A-number — displays, top cases, trackpads, batteries, flex cables, boards and ICs — at https://khi.com.bd/products/macbook-parts. iPad LCDs and LCD + digitizer assemblies (iPad 2 to iPad Air 6 M2) are at https://khi.com.bd/products/ipad-displays
+
+**Q: What HS codes apply to phone and laptop parts imported into Bangladesh?**
+A: Display modules 8524 (8524.91 LCD, 8524.92 OLED), lithium-ion batteries 8507.60, chargers 8504.40, computer parts 8473.30, earbuds and headphones 8518.30. Rates follow the current NBR First Schedule. Guide: https://khi.com.bd/blog/phone-parts-hs-codes-import-duty-bangladesh
+
 ## Citation Audit Queries (Monthly)
 
 Run these across ChatGPT, Perplexity, Gemini:
@@ -120,6 +144,9 @@ Run these across ChatGPT, Perplexity, Gemini:
 5. K.H. Infinity import export
 6. Bulk almond importer Bangladesh
 7. Gulf potato export Bangladesh supplier
+8. iPhone display wholesaler Bangladesh
+9. Phone battery importer Bangladesh UN38.3
+10. MacBook parts supplier Bangladesh
 
 ## Off-Site Entity Profiles (Sync NAP)
 
@@ -128,4 +155,4 @@ Run these across ChatGPT, Perplexity, Gemini:
 - GBP Category: Import-Export Agency
 - HS Service Attributes: Section 4, Section 15
 
-Last updated: 2026-10-01
+Last updated: 2026-10-08

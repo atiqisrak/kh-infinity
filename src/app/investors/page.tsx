@@ -101,7 +101,7 @@ export default function InvestorsPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs) }} />
 
       <PageHero
-        crumbs={[{ label: "Home", href: "/" }, { label: "Investors" }]}
+        crumbs={[{ label: "Home", href: "/" }, { label: "Investors", href: "/investors" }]}
         eyebrow="Investor & B2B Partnership"
         image="/images/hubs/imports-hero.webp"
         imageAlt="Bulk cargo shipment representing K.H. Infinity's B2B import trading operations"

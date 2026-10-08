@@ -192,7 +192,7 @@ export default function AboutPage() {
       <PageHero
         image="/images/about/about-banner.webp"
         imageAlt="Container cargo ship at sunset, representing K.H. Infinity global trade operations"
-        crumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
+        crumbs={[{ label: "Home", href: "/" }, { label: "About", href: "/about" }]}
         eyebrow="Since 2018"
         title={
           <>

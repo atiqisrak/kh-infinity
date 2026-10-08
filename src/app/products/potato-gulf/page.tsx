@@ -190,7 +190,7 @@ export default function PotatoExportPage() {
       <section aria-labelledby="potato-title" className={`${s.gridBg} relative overflow-hidden bg-[#06131d] pt-[104px] lg:pt-[124px]`}>
         <div className={`${pad} grid items-center gap-12 pb-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:pb-20`}>
           <div>
-            <Crumbs items={[{ label: "Home", href: "/" }, { label: "Potato export (Gulf)" }]} />
+            <Crumbs items={[{ label: "Home", href: "/" }, { label: "Products", href: "/products" }, { label: "Potato", href: "/products/potato" }, { label: "Potato export (Gulf)", href: "/products/potato-gulf" }]} />
             <div className="mt-8">
               <Eyebrow>Gulf &amp; GCC buyers</Eyebrow>
             </div>

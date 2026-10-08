@@ -34,7 +34,7 @@ export default function EqualOpportunityPage() {
   return (
     <V3Shell>
       <PageHero
-        crumbs={[{ label: "Home", href: "/" }, { label: "Equal Opportunity" }]}
+        crumbs={[{ label: "Home", href: "/" }, { label: "Equal Opportunity", href: "/equal-opportunity" }]}
         eyebrow="Legal"
         title="Equal Opportunity"
       />

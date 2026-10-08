@@ -121,7 +121,7 @@ export default async function JobDetailPage({ params }: PageProps) {
       <PageHero
         crumbs={[
           { label: "Careers", href: "/careers" },
-          { label: job.title },
+          { label: job.title, href: `/careers/${job.id}` },
         ]}
         eyebrow={job.department}
         title={job.title}

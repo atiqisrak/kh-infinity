@@ -37,7 +37,7 @@ export default function TradeRoutesPage() {
       <section aria-labelledby="routes-title" className={`${s.gridBg} relative overflow-hidden bg-[#06131d] pt-[104px] lg:pt-[124px]`}>
         <div className={`${pad} grid items-center gap-12 pb-16 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16 lg:pb-24`}>
           <div>
-            <Crumbs items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Trade routes" }]} />
+            <Crumbs items={[{ label: "Home", href: "/" }, { label: "Services", href: "/services" }, { label: "Trade routes", href: "/services/trade-routes" }]} />
             <div className="mt-8">
               <Eyebrow>Trade routes</Eyebrow>
             </div>

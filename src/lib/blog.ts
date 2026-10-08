@@ -1,3 +1,8 @@
+import fs from "fs";
+import path from "path";
+import { parseFrontmatter, markdownToHtml } from "./markdown";
+import { autolink } from "./autolink";
+
 export interface BlogAuthor {
   name: string;
   role: string;
@@ -14,6 +19,8 @@ export interface BlogPost {
   image: string;
   tags: string[];
   content: string;
+  /** Q&A pairs from a markdown post's "Frequently Asked Questions" section, for FAQPage schema */
+  faqs?: { question: string; answer: string }[];
 }
 
 export const blogPosts: BlogPost[] = [
@@ -560,12 +567,149 @@ export const blogCategories = [
   },
 ];
 
+// ─── Filesystem-based markdown blog loader ───────────────────────────────────
+
+const BLOG_DIR = path.join(process.cwd(), "blog");
+
+const AUTHOR_MAP: Record<string, BlogAuthor> = {
+  "KH Infinity Trade Desk": {
+    name: "KH Infinity Trade Desk",
+    role: "Trade Research & Analysis",
+    image: "/images/blog/man.webp",
+  },
+  "Farid Ahmed": {
+    name: "Farid Ahmed",
+    role: "Senior Trade Analyst",
+    image: "/images/blog/man.webp",
+  },
+  "Nusrat Jahan": {
+    name: "Nusrat Jahan",
+    role: "Trade & Regulatory Specialist",
+    image: "/images/blog/woman.webp",
+  },
+};
+
+const DEFAULT_AUTHOR: BlogAuthor = AUTHOR_MAP["KH Infinity Trade Desk"];
+
+function resolveAuthor(name: unknown): BlogAuthor {
+  if (typeof name !== "string") return DEFAULT_AUTHOR;
+  return AUTHOR_MAP[name] ?? { name, role: "Trade Analyst", image: "/images/blog/man.webp" };
+}
+
+function resolveImage(slug: string): string {
+  if (/china|phone|display|electron|smartphone/.test(slug))
+    return "/images/blog/china-bangladesh-imports-2026.webp";
+  if (/india|safta|ludhiana/.test(slug))
+    return "/images/blog/india-bangladesh-trade-2026.webp";
+  if (/milk|dairy|smp/.test(slug))
+    return "/images/blog/milk-powder-import.webp";
+  if (/oil|sunflower|soyabean|almond|cumin/.test(slug))
+    return "/images/blog/sunflower-oil-guide.webp";
+  if (/potato|handicraft|gulf|epb/.test(slug))
+    return "/images/blog/potato-export.webp";
+  if (/sugar|ramadan|eid|halal|date/.test(slug))
+    return "/images/blog/sugar-import.webp";
+  if (/tarpaulin|dhaka|clearance/.test(slug))
+    return "/images/blog/bangladesh-imports-2025.webp";
+  if (/haccp|iso|bfsa|bsti|sustainable/.test(slug))
+    return "/images/blog/sustainable-sourcing-bangladesh.webp";
+  return "/images/blog/trade-regulations-2025.webp";
+}
+
+/** Strips markdown emphasis, links and code so FAQ answers read as plain text */
+function plainText(md: string): string {
+  return md
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[*_`]+/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/** "## Frequently Asked Questions" followed by "### Question?" + answer paragraphs */
+function extractFaqs(md: string): BlogPost["faqs"] {
+  const section = md.split(/^## +(?:Frequently Asked Questions|FAQs?)\s*$/im)[1];
+  if (!section) return undefined;
+  const body = section.split(/^## /m)[0];
+  const faqs = body
+    .split(/^### +/m)
+    .slice(1)
+    .map((block) => {
+      const [first, ...rest] = block.split(/\r?\n/);
+      return { question: plainText(first), answer: plainText(rest.join(" ")) };
+    })
+    .filter((f) => f.question && f.answer);
+  return faqs.length ? faqs : undefined;
+}
+
+function loadMarkdownPosts(): BlogPost[] {
+  if (!fs.existsSync(BLOG_DIR)) return [];
+
+  const files = fs
+    .readdirSync(BLOG_DIR)
+    .filter((f: string) => f.endsWith(".md"))
+    .sort()
+    .reverse(); // newest filename first (files are named with dates in frontmatter)
+
+  return files.flatMap((file: string): BlogPost[] => {
+    try {
+      const raw = fs.readFileSync(path.join(BLOG_DIR, file), "utf-8");
+      const { data, content } = parseFrontmatter(raw);
+
+      const slug = (data.slug as string) ?? file.replace(/\.md$/, "");
+      const tags = Array.isArray(data.tags)
+        ? (data.tags as string[])
+        : typeof data.tags === "string"
+        ? [data.tags]
+        : [];
+
+      return [
+        {
+          id: slug,
+          title: (data.title as string) ?? slug,
+          excerpt: (data.excerpt as string) ?? "",
+          author: resolveAuthor(data.author),
+          category: (data.category as string) ?? "Trade Insights",
+          date: (data.date as string) ?? "2026-01-01",
+          image: (data.image as string) || resolveImage(slug),
+          tags,
+          content: markdownToHtml(content),
+          faqs: extractFaqs(content),
+        },
+      ];
+    } catch {
+      return [];
+    }
+  });
+}
+
+// Merge: markdown posts first (newest dates), then legacy hardcoded posts
+// de-duplicate by id so legacy posts don't shadow markdown ones
+function mergePostLists(mdPosts: BlogPost[], legacy: BlogPost[]): BlogPost[] {
+  const seen = new Set(mdPosts.map((p) => p.id));
+  const filtered = legacy.filter((p) => !seen.has(p.id));
+  const all = [...mdPosts, ...filtered];
+  // Sort by date descending
+  return all.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+}
+
+let _cachedPosts: BlogPost[] | null = null;
+
+function getAllPosts(): BlogPost[] {
+  if (_cachedPosts) return _cachedPosts;
+  const mdPosts = loadMarkdownPosts();
+  // Add contextual product, service and regulator links to every post
+  _cachedPosts = mergePostLists(mdPosts, blogPosts).map((p) => ({ ...p, content: autolink(p.content, `/blog/${p.id}`) }));
+  return _cachedPosts;
+}
+
 export function getBlogPost(id: string): BlogPost | undefined {
-  return blogPosts.find(post => post.id === id);
+  return getAllPosts().find((post) => post.id === id);
 }
 
 export function getBlogPosts() {
-  return blogPosts;
+  return getAllPosts();
 }
 
 export function getBlogCategories() {

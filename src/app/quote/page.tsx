@@ -81,7 +81,7 @@ export default function QuotePage() {
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#06131d] via-[#06131d]/90 to-[#06131d]/55" />
         <div className={`${pad} grid items-center gap-12 pb-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-24`}>
           <div>
-            <Crumbs items={[{ label: "Home", href: "/" }, { label: "Request a quote" }]} />
+            <Crumbs items={[{ label: "Home", href: "/" }, { label: "Request a quote", href: "/quote" }]} />
             <div className="mt-8">
               <Eyebrow>Response within 24 hours</Eyebrow>
             </div>

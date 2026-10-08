@@ -34,7 +34,7 @@ export default function PrivacyPage() {
   return (
     <V3Shell>
       <PageHero
-        crumbs={[{ label: "Home", href: "/" }, { label: "Privacy Policy" }]}
+        crumbs={[{ label: "Home", href: "/" }, { label: "Privacy Policy", href: "/privacy" }]}
         eyebrow="Legal"
         title="Privacy Policy"
       />

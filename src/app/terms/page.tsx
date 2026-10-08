@@ -31,7 +31,7 @@ export default function TermsPage() {
   return (
     <V3Shell>
       <PageHero
-        crumbs={[{ label: "Home", href: "/" }, { label: "Terms of Service" }]}
+        crumbs={[{ label: "Home", href: "/" }, { label: "Terms of Service", href: "/terms" }]}
         eyebrow="Legal"
         title="Terms of Service"
       />

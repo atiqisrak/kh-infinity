@@ -68,7 +68,7 @@ export default function NewsPage() {
   return (
     <V3Shell>
       <PageHero
-        crumbs={[{ label: "News" }]}
+        crumbs={[{ label: "News", href: "/news" }]}
         eyebrow="Market intelligence"
         title={
           <>

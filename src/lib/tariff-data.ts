@@ -100,6 +100,21 @@ export const TARIFF_BY_PRODUCT_ID: Record<string, TariffEntry> = {
     hsSection: "Section XVI — Electrical Machinery and Equipment",
     bctReference: "Chapter 85, Bangladesh Customs Tariff",
   },
+  "phone-batteries": {
+    hsCode: "8507.60.00",
+    hsSection: "Section XVI — Electrical Machinery and Equipment",
+    bctReference: "Chapter 85, Bangladesh Customs Tariff",
+  },
+  "ipad-displays": {
+    hsCode: "8524.91.00",
+    hsSection: "Section XVI — Electrical Machinery and Equipment",
+    bctReference: "Chapter 85, Bangladesh Customs Tariff",
+  },
+  "macbook-parts": {
+    hsCode: "8473.30.00",
+    hsSection: "Section XVI — Electrical Machinery and Equipment",
+    bctReference: "Chapter 84, Bangladesh Customs Tariff",
+  },
   "audio-accessories": {
     hsCode: "8518.30.00",
     hsSection: "Section XVI — Electrical Machinery and Equipment",

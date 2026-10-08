@@ -1,4 +1,19 @@
 import { getProductGeo } from './product-geo'
+import {
+  androidDisplayCatalog,
+  batteryCatalog,
+  catalogImage,
+  ipadDisplayCatalog,
+  iphoneDisplayCatalog,
+  macbookPartsCatalog,
+  type Catalog,
+} from './parts-catalog'
+
+const iphone = (id: string) => catalogImage(iphoneDisplayCatalog, id)
+const android = (id: string) => catalogImage(androidDisplayCatalog, id)
+const ipad = (id: string) => catalogImage(ipadDisplayCatalog, id)
+const battery = (id: string) => catalogImage(batteryCatalog, id)
+const macbook = (id: string) => catalogImage(macbookPartsCatalog, id)
 
 export interface Product {
   id: string
@@ -33,6 +48,18 @@ export interface Product {
     certifications: string[]
   }
   relatedProducts: string[]
+  originStory?: string
+  marketContext?: string
+  videoSrc?: string
+  /** YouTube video shown in place of a self-hosted file */
+  youtube?: { id: string; title: string }
+  applications?: {
+    label: string
+    image: string
+    description: string
+  }[]
+  /** Individually named SKUs shown as a filterable catalogue grid */
+  catalog?: Catalog
 }
 
 export const products: Product[] = [
@@ -87,7 +114,10 @@ export const products: Product[] = [
       countries: ['Ukraine', 'Russia', 'Argentina'],
       certifications: ['ISO 22000', 'HACCP', 'BSTI Certified']
     },
-    relatedProducts: ['soyabean-oil', 'milk-powder', 'sugar']
+    relatedProducts: ['soyabean-oil', 'milk-powder', 'sugar'],
+    originStory: "Ukraine's Black Sea steppe produces 40–45% of the world's sunflower oil — fields stretching horizon to horizon through Kharkiv and Dnipropetrovsk oblasts. The seeds are cold-pressed at regional crush plants and loaded at Burgas, Constanta, or Odessa ports for transit to Chattogram. KHI sources from ISO 22000 certified crushers with full phytosanitary documentation, delivering refined and crude grades to Bangladeshi food manufacturers and institutional buyers.",
+    marketContext: "Bangladesh imports 500,000–700,000 MT of edible oil annually, with sunflower and soyabean oil the dominant imports. Bangladesh Bank's foreign currency allocation prioritises essential food commodities — edible oil is Category 1 priority. Consumer pack demand (1L, 5L) surges 30–40% in Ramadan.",
+    videoSrc: '/videos/products/sunflower-oil.mp4',
   },
   {
     id: 'milk-powder',
@@ -117,7 +147,10 @@ export const products: Product[] = [
       countries: ['New Zealand', 'Australia', 'Netherlands'],
       certifications: ['ISO 22000', 'HACCP', 'Halal Certified']
     },
-    relatedProducts: ['sugar', 'sunflower-oil']
+    relatedProducts: ['sugar', 'sunflower-oil'],
+    originStory: "New Zealand's grass-fed dairy farms produce milk powder at the highest natural protein levels in the world — year-round pasture feeding creates a compositional consistency that barn-based systems cannot match. Fonterra cooperative members in Waikato and Canterbury supply SMP that meets EU, Codex Alimentarius, and Bangladesh BSTI standards in one specification. KHI imports 25kg multi-wall bags directly from New Zealand and EU origin for food manufacturers, bakeries, and dairy processors.",
+    marketContext: "Bangladesh's dairy processing industry — condensed milk, flavoured milk, ice cream, sweets — depends almost entirely on imported SMP. Local fresh milk production covers less than 20% of nutritional need. SMP import demand runs 80,000–120,000 MT/year. Ramadan demand for kheer, firni, and halwa drives a 25–35% spike in SMP consumption through January–March.",
+    videoSrc: '/videos/products/milk-powder.mp4',
   },
   {
     id: 'potato',
@@ -153,7 +186,10 @@ export const products: Product[] = [
       countries: ['Bangladesh'],
       certifications: ['BSTI', 'Export Quality', 'Organic Available']
     },
-    relatedProducts: ['tarpaulin', 'handicrafts']
+    relatedProducts: ['tarpaulin', 'handicrafts'],
+    originStory: "Munshiganj — called 'Aaloo district' — sits at the confluence of the Padma and Meghna rivers. Its loamy alluvial soil produces Grade A Diamant, Cardinal, and Granola potatoes with consistent 50–80mm sizing and under 2% defect rates. From December harvest through May export, each lot is cold-stored at 4–8°C, graded at cooperatives, and loaded into reefer containers at Chattogram for UAE's Jebel Ali and Saudi Arabia's Dammam. KHI manages the full chain: DAE phytosanitary inspection, EPB export documentation, and cold chain continuity.",
+    marketContext: "Bangladesh exports 350,000–500,000 MT of potatoes annually, with Gulf/GCC markets as the primary destination. The 10+ million South Asian expatriates in GCC create authentic demand for Bangladesh-origin produce. EPB classifies potato as a priority export product with 15–20% cash incentive on FOB value — a structural profit advantage for compliant exporters.",
+    videoSrc: '/videos/products/potato.mp4',
   },
   {
     id: 'handicrafts',
@@ -189,7 +225,10 @@ export const products: Product[] = [
       countries: ['Bangladesh'],
       certifications: ['Fair Trade', 'Handmade', 'Cultural Heritage']
     },
-    relatedProducts: ['potato']
+    relatedProducts: ['potato'],
+    originStory: "Jamdani woven in Narayanganj. Nakshi Kantha embroidered in Rajshahi. Bamboo crafted in the Chittagong Hill Tracts. Jute braided in Khulna. Bangladesh's handicraft tradition spans the length of the country and 3,000 years of history — Jamdani weaving is UNESCO Intangible Cultural Heritage, and every piece is made by hand by artisans who learned from their mothers. KHI consolidates from verified artisan cooperatives and inspects quality at the Chattogram consolidation point before container loading.",
+    marketContext: "Gulf's 10M+ South Asian diaspora creates authentic demand for Bangladeshi cultural goods. The EU and North American sustainable-luxury market is a structural tailwind — jute, bamboo, and natural cotton align with ESG and 'slow fashion' purchasing. EPB offers 15% cash incentive on FOB value for registered handicraft exports. WFTO-member cooperative sourcing available for Fair Trade buyers.",
+    videoSrc: '/videos/products/handicrafts.mp4',
   },
   {
     id: 'pulses',
@@ -224,42 +263,113 @@ export const products: Product[] = [
       countries: ['Australia', 'Canada', 'Turkey', 'India'],
       certifications: ['ISO 22000', 'HACCP', 'BSTI Certified']
     },
-    relatedProducts: ['chickpeas', 'cumin']
+    relatedProducts: ['chickpeas', 'cumin'],
+    originStory: "Australia's wide-row dryland farming produces some of the world's cleanest pulses — harvested by GPS-guided combines, stored in sealed silos, and exported through Port Adelaide with AQIS phytosanitary inspection. Canadian Saskatchewan lentils benefit from similar scale and documentation infrastructure. KHI sources from both origins to give Bangladeshi importers competitive pricing and supply chain redundancy against India's periodic export bans.",
+    marketContext: "Bangladesh imports 900,000–1,200,000 MT of pulses annually — the largest per-capita pulse consumer market in the world. Dal is the daily protein for 95% of Bangladeshis. India's pulse export bans in 2023–2024 exposed the risk of single-origin sourcing; Australian and Canadian dual-sourcing is supply chain protection, not just preference.",
+    videoSrc: '/videos/products/pulses.mp4',
   },
   {
     id: 'tarpaulin',
-    name: 'Tarpaulin',
-    image: '/images/products/tarpaulin.webp',
+    name: 'PVC Tarpaulin',
+    image: 'https://www.jltarpaulin.com/jltarpaulin/2023/12/26/288a0325.png',
     images: [
-      '/images/products/tarpaulin.webp',
-      '/images/products/tarpaulin-3.jpg',
-      '/images/products/tarpaulin-2.jpg',
+      'https://www.jltarpaulin.com/jltarpaulin/2023/12/26/288a0325.png',
+      'https://www.jltarpaulin.com/jltarpaulin/2023/12/26/288a0419-1.png',
+      'https://www.jltarpaulin.com/jltarpaulin/2023/12/26/2-5.png',
+      'https://www.jltarpaulin.com/jltarpaulin/2023/12/26/288a0383-1.png',
+      'https://www.jltarpaulin.com/jltarpaulin/2026/06/08/SYVRu5.jpg',
+      'https://www.jltarpaulin.com/jltarpaulin/2026/05/16/SZMk19.jpg',
     ],
-    description: 'Durable and weather-resistant tarpaulin for various industrial and commercial applications.',
+    description: 'Industrial-grade PVC tarpaulin sourced directly from Hubei Jinlong New Materials Co., Ltd. — one of Asia\'s largest tarpaulin producers with 300M sq.m annual capacity. Available in 220–1,500 GSM with custom widths up to 5.5m without welding. Truck tarps, agricultural covers, construction sheeting, event tent fabric, and disaster-relief grades all available.',
     type: 'import',
     category: 'Industrial Products',
     specifications: {
-      'Material': 'Reinforced PE/PVC',
-      'Thickness': '12-16 GSM',
-      'Sizes': 'Custom sizes available',
-      'Waterproof': '100% Waterproof'
+      'Material': 'PVC Coated / Laminated Polyester Canvas',
+      'Weight Range': '220–1,500 GSM',
+      'Standard Grades': '650 GSM (1000D UV Resistant), 750 GSM (0.6mm Coated Canvas), 18oz Fire Retardant',
+      'Max Width': 'Up to 5.5m without welding (single-piece cover)',
+      'Tensile Strength': '≥2,000 N/5cm (warp and weft)',
+      'Waterproof Rating': '≥2,000mm hydrostatic head pressure — 100% waterproof',
+      'UV Resistance': 'UV stabilizer compounds throughout; 5–7 year outdoor service life',
+      'Temperature Range': '-30°C to +70°C operational range',
+      'Fire Retardant Option': '18oz 1000D — FMVSS 302 / B1-grade on request',
+      'Colors Available': 'Blue, green, orange, silver, black; custom RAL on MOQ',
+      'Finishing': 'Eyelets, rope hem, heat-weld strips, custom print available (OEM/ODM)',
     },
     benefits: [
-      'Weather-resistant',
-      'Long-lasting durability',
-      'UV protection',
-      'Cost-effective protection'
+      'Full application range — truck tarps, agricultural grain covers, event tents, construction scaffolding sheets',
+      'Fire-retardant grades for NGO disaster-relief procurement and construction site compliance',
+      '100% waterproof with ≥2,000mm hydrostatic head — monsoon-grade protection',
+      'UV-stabilized throughout for 5–7 year outdoor service life in tropical climates',
+      'Factory width up to 5.5m without welding — ideal for wide-span bale and machinery covers',
+      'OEM/ODM: custom logo, eyelet spacing, rope hem, size, and colour at container-load MOQ',
     ],
     packaging: [
-      'Rolled packaging',
-      'Custom folded packaging',
-      'Bulk container loads'
+      'Rolled on cardboard core (50m, 100m rolls) with polybag wrap',
+      'Folded finished packs (grommeted, roped, corner-reinforced) per piece',
+      '20\' FCL ≈ 18,000–22,000 sq.m depending on GSM grade',
+      '40\' FCL ≈ 38,000–45,000 sq.m depending on GSM grade',
     ],
     sourcing: {
-      countries: ['China', 'India', 'Thailand'],
-      certifications: ['ISO 9001', 'CE Certified']
+      countries: ['China'],
+      certifications: ['ISO 9001:2015', 'SGS Tested', 'CE Certified', 'REACH Compliant'],
     },
-    relatedProducts: ['potato']
+    relatedProducts: ['potato'],
+    originStory: "Hubei Jinlong New Materials Co., Ltd. occupies 40 hectares in Suizhou, Hubei Province — a city that has grown into one of China's industrial fabric heartlands. Jinlong's campus runs 50+ coating and laminating lines, 100+ intelligent weaving machines, and its own calendering, lacquering, UV printing, and heat-welding facilities under one roof. Annual output exceeds 300 million sq.m of coated technical fabric. A key production advantage: tarpaulin width reaches 5.5m without welding — a capability rare among global suppliers — making it ideal for wide-span agricultural covers, truck curtain-siders, and event tent panels that Bangladesh's construction and logistics sectors require. KHI sources PVC coated and laminated grades in 650–1,500 GSM directly from Jinlong's production floor, with full SGS quality certification and phytosanitary documentation for Chattogram customs clearance.",
+    marketContext: "Bangladesh's tarpaulin market absorbs 30–40 million square metres annually across three structural demand channels: agriculture (paddy and grain storage through monsoon season), disaster relief (UNICEF and government agencies procured over 3 million pieces after the 2022 floods that displaced 7.2 million people), and the Dhaka–Chittagong construction corridor. PVC grades command premium pricing from NGO procurement officers, RMG factory shed contractors, and the growing event-management sector. KHI's direct-from-Jinlong sourcing — bypassing Singapore or Dubai intermediaries — delivers 15–20% landed cost advantage while maintaining ISO-certified quality documentation that institutional buyers require.",
+    videoSrc: '/videos/products/tarpaulin.mp4',
+    applications: [
+      {
+        label: 'Truck Tarpaulin',
+        image: 'https://www.jltarpaulin.com/jltarpaulin/2026/05/14/nivuelfd1778726635.jpg',
+        description: 'Covers cargo beds on highway lorries and CNG trucks — the most common use case in Bangladesh\'s road freight network.',
+      },
+      {
+        label: 'Truck Side Curtain',
+        image: 'https://www.jltarpaulin.com/jltarpaulin/2025/05/14/trucksidecurtain.jpg',
+        description: '650–750 GSM curtain panels for covered lorry bodies and refrigerated sideboards traversing the Dhaka–Chittagong corridor.',
+      },
+      {
+        label: 'Cargo & Container Cover',
+        image: 'https://www.jltarpaulin.com/jltarpaulin/2024/01/03/12.jpg',
+        description: 'Heavy-duty covers protecting port-side cargo, construction materials, and industrial goods from monsoon rain and UV exposure.',
+      },
+      {
+        label: 'Grain & Crop Storage',
+        image: 'https://www.jltarpaulin.com/jltarpaulin/2026/05/14/wuhkalgh1778726828.jpg',
+        description: 'Open-air paddy, jute, and raw material storage across Bangladesh\'s agricultural belt — monsoon-proof and UV-stabilised.',
+      },
+      {
+        label: 'Hay & Bale Cover',
+        image: 'https://www.jltarpaulin.com/jltarpaulin/2026/05/14/uquhilql1778726695.jpg',
+        description: 'Breathable PVC covers for baled hay, straw, and livestock feed stored in open farmyards year-round.',
+      },
+      {
+        label: 'Event & Wedding Tent',
+        image: 'https://www.jltarpaulin.com/jltarpaulin/2024/01/03/5.png',
+        description: 'PVC canopy and tent fabric for wedding venues, trade fair pavilions, and seasonal event shelters across Bangladesh.',
+      },
+      {
+        label: 'Construction Safety Sheet',
+        image: 'https://www.jltarpaulin.com/jltarpaulin/2024/01/03/48.jpg',
+        description: 'Fire-retardant B1-grade mesh sheets for scaffolding wraps, debris containment, and building-site safety compliance.',
+      },
+      {
+        label: 'Machine & Equipment Cover',
+        image: 'https://www.jltarpaulin.com/jltarpaulin/2024/01/03/62.jpg',
+        description: 'Industrial machinery covers for factory yards, garment unit rooftops, and construction sites exposed to tropical weather.',
+      },
+      {
+        label: 'Disaster Relief Shelter',
+        image: 'https://www.jltarpaulin.com/jltarpaulin/2024/01/03/66.jpg',
+        description: 'Emergency shelter tarps and inflatable tent fabric for NGO and government relief operations during Bangladesh\'s flood season.',
+      },
+      {
+        label: 'Tensile Membrane Structure',
+        image: 'https://www.jltarpaulin.com/jltarpaulin/2024/01/03/29.jpg',
+        description: 'Architectural membrane for permanent tensile canopies over markets, bus terminals, and public plazas.',
+      },
+    ],
   },
   {
     id: 'cumin',
@@ -294,7 +404,10 @@ export const products: Product[] = [
       countries: ['India', 'Iran', 'Turkey', 'Egypt'],
       certifications: ['ISO 22000', 'HACCP', 'Halal Certified']
     },
-    relatedProducts: ['chickpeas', 'pulses']
+    relatedProducts: ['chickpeas', 'pulses'],
+    originStory: "Rajasthan's semi-arid plains produce 70–80% of India's cumin under a blazing sun that concentrates volatile oils to levels no other origin replicates. The aroma is not a commodity specification — it is a terroir. KHI sources from Gujarat and Rajasthan aggregators with full aflatoxin testing, moisture certification, and Halal documentation for Bangladesh's spice processors, masala manufacturers, and institutional buyers who need the same lot quality in every container.",
+    marketContext: "Bangladesh consumes 30,000–40,000 MT of cumin annually — used in every commercial kitchen, every biryani restaurant, every home that cooks Bengali or Mughlai cuisine. Cumin is one of Bangladesh's most price-sensitive spice categories; processors and wholesalers benchmark against Kawran Bazar spot prices. KHI's direct-from-Rajasthan sourcing bypasses Chattogram re-traders, offering 8–12% landed cost advantage.",
+    videoSrc: '/videos/products/cumin.mp4',
   },
   {
     id: 'sugar',
@@ -329,7 +442,10 @@ export const products: Product[] = [
       countries: ['Brazil', 'India', 'Thailand'],
       certifications: ['ISO 22000', 'HACCP', 'BSTI Certified']
     },
-    relatedProducts: ['milk-powder']
+    relatedProducts: ['milk-powder'],
+    originStory: "Brazil's São Paulo state produces raw sugar at the world's lowest cost — a combination of scale, year-round harvest cycles, and integrated ethanol-sugar production that no other origin can replicate. ICUMSA 45 refined white sugar from Brazil meets the technical specification Bangladesh's food manufacturers demand: 99.9% sucrose purity, max 0.04% moisture, consistent crystal size. KHI imports on CIF Chattogram terms with all BSTI documentation, LC or TT payment structures, and flexible sizing from 20-foot containers to full bulk vessel lots.",
+    marketContext: "Bangladesh consumes 2.5–3 million MT of sugar annually, importing 1.2–1.5 million MT/year. Ramadan consumption spikes 40–50% — sweets, sherbets, and processed food manufacturing consume massively through the Ramadan window. Importers who book October–January capture forward pricing; those booking in February–March pay the Ramadan premium.",
+    videoSrc: '/videos/products/sugar.mp4',
   },
   {
     id: 'soyabean-oil',
@@ -364,7 +480,10 @@ export const products: Product[] = [
       countries: ['USA', 'Brazil', 'Argentina'],
       certifications: ['ISO 22000', 'HACCP', 'BSTI Certified']
     },
-    relatedProducts: ['sunflower-oil']
+    relatedProducts: ['sunflower-oil'],
+    originStory: "Argentina's Pampas region and Brazil's Mato Grosso state are the world's largest soybean production zones — flat, fertile, and mechanized at continental scale. Crushed at export-country facilities and shipped as refined soyabean oil in bulk, the oil arrives at Chattogram with full phytosanitary, fumigation, and analytical certificates. Bangladesh's consumer market runs on soyabean oil — it is the dominant household cooking oil by volume, priced at the accessible end of the market.",
+    marketContext: "Soyabean oil accounts for 55–60% of Bangladesh's total edible oil consumption by volume — higher than sunflower oil and palm oil combined. Annual imports run 700,000–900,000 MT. Bangladesh Bank prioritises essential food commodity FX allocation; soyabean oil is Category 1. Consumer pack (1L, 5L) demand drives the retail market; drum formats serve institutional and processing buyers.",
+    videoSrc: '/videos/products/soyabean-oil.mp4',
   },
   {
     id: 'chickpeas',
@@ -399,7 +518,10 @@ export const products: Product[] = [
       countries: ['Australia', 'Canada', 'Turkey'],
       certifications: ['ISO 22000', 'HACCP', 'Halal Certified']
     },
-    relatedProducts: ['pulses']
+    relatedProducts: ['pulses'],
+    originStory: "Australia's Kabuli #1 chickpeas — screen-graded to 9mm+ under AQIS inspection at Port Adelaide — are among the world's most traceable pulses. Canada's Saskatchewan Desi chickpeas supply Bangladesh's besan flour and dal milling industries. KHI sources both varieties to match Bangladesh's Ramadan procurement cycle: Kabuli for the whole-chickpea and restaurant trade, Desi for the flour and dal processing sector that runs year-round.",
+    marketContext: "Chickpeas are Bangladesh's Ramadan staple — chana curry, halim, and chola spike 50–60% in demand through the month of fasting. Annual imports run 150,000–250,000 MT, with 50–60% arriving in the pre-Ramadan October–January window. Australia and Canada supply 60–70% of Bangladesh's needs; aflatoxin-tested AQIS-inspected chickpeas are the safe import choice versus uncertified origins.",
+    videoSrc: '/videos/products/chickpeas.mp4',
   },
   {
     id: 'almonds',
@@ -434,7 +556,10 @@ export const products: Product[] = [
       countries: ['United States'],
       certifications: ['BSTI', 'Halal Certified', 'ISO 22000']
     },
-    relatedProducts: ['medjool-dates', 'milk-powder', 'sugar']
+    relatedProducts: ['medjool-dates', 'milk-powder', 'sugar'],
+    originStory: "California's Central Valley — a 450-mile agricultural corridor — produces 80% of the world's almond supply. Every February, half of the United States' commercial honeybee colonies are trucked in to pollinate the almond bloom. The Almond Board of California requires mandatory pasteurization under USDA protocol; every US almond entering international trade is PPO or steam-treated and USDA-inspected. KHI imports Nonpareil Extra No.1 grade in vacuum-sealed 25kg bags with BSTI compliance documentation.",
+    marketContext: "Bangladesh's premium nut market is growing with the urban middle class. Almonds are a high-status gifting item — Eid-ul-Adha and Eid-ul-Fitr gifting peaks drive 3–5x markup over bulk input cost in premium retail tins. Key buyers: snack manufacturers, mithai producers, supermarket chains (Shwapno, Meena Bazar, Agora), 5-star hotels, and corporate gifting suppliers. USDA pasteurization means zero BFSA rejection risk.",
+    videoSrc: '/videos/products/almonds.mp4',
   },
   {
     id: 'medjool-dates',
@@ -469,7 +594,10 @@ export const products: Product[] = [
       countries: ['Saudi Arabia', 'Jordan', 'UAE'],
       certifications: ['BSTI', 'Halal Certified', 'ISO 22000']
     },
-    relatedProducts: ['almonds', 'sugar']
+    relatedProducts: ['almonds', 'sugar'],
+    originStory: "Jordan's Wadi Araba valley — where the Dead Sea's mineral-rich air meets Rift Valley desert heat — has produced Medjool dates for decades. The same combination of mineral soil and extreme dry heat creates a caramel depth and jumbo-size that no other origin replicates. Saudi Arabia's Ajwa dates carry an additional dimension: mentioned in Hadith as spiritually significant, they are inseparable from Ramadan observance. KHI sources Jumbo-grade Medjool (28g+) from Jordan and premium Ajwa from Medina, with cold chain from origin to Chattogram.",
+    marketContext: "Bangladesh imports 100,000–150,000 MT of dates annually; 70–80% of annual volume is sold in 30 Ramadan days. Saudi Ajwa commands 3–5x premium over regular dates — religious significance drives the market. Jordan Medjool commands the premium gifting tier. The order window is October–December; importers who miss it pay the Ramadan scarcity premium and risk stockouts during peak demand.",
+    videoSrc: '/videos/products/medjool-dates.mp4',
   },
   {
     id: 'soy-sauce',
@@ -504,7 +632,10 @@ export const products: Product[] = [
       countries: ['China', 'Thailand', 'Japan'],
       certifications: ['BSTI', 'ISO 22000', 'Halal available']
     },
-    relatedProducts: ['sunflower-oil', 'sugar', 'cumin']
+    relatedProducts: ['sunflower-oil', 'sugar', 'cumin'],
+    originStory: "Guangdong Province's Haitian Seasoning has been fermenting soy sauce since 1888 — the world's largest soy sauce brand, producing 600,000 MT annually. Lee Kum Kee invented oyster sauce in the same province the same year and exports it to professional kitchens in 100+ countries. Japan's Kikkoman naturally brews for 6–12 months in temperature-controlled vats — the gold standard for fine dining worldwide. KHI imports from these three tiers: Haitian for volume HRI buyers, Lee Kum Kee for mid-tier restaurants, Kikkoman for five-star hotels.",
+    marketContext: "Dhaka's restaurant count grew 200%+ between 2015 and 2023. The HRI sector is growing 15–20% annually. 500,000+ Chinese and Asian workers in Bangladesh's construction and RMG sectors drive demand for authentic Asian condiments. Modern trade retail (Shwapno, Meena Bazar, UNIMART) is actively expanding its Asian condiment sections. One KHI supply relationship covers all three brand tiers — simplifying buyer procurement.",
+    videoSrc: '/videos/products/soy-sauce.mp4',
   },
   {
     id: 'motorcycle-fuel-tanks',
@@ -537,6 +668,9 @@ export const products: Product[] = [
       certifications: ['ISO 9001', 'BIS Certified'],
     },
     relatedProducts: ['motorcycle-body-panels', 'motorcycle-brake-parts'],
+    originStory: "Ludhiana, Punjab — called the 'Sheffield of India' for its dense concentration of metalworking units — is where 5,000+ registered auto-component manufacturers supply India's largest motorcycle brands. The fuel tank cluster grew organically as Hero Honda established nearby assembly in the 1980s and hundreds of ancillary suppliers followed. Today, Ludhiana tanks are OEM-compatible with Hero, Bajaj, TVS, and Honda — the brands that account for 85–90% of Bangladesh's 4M+ registered motorcycle fleet. KHI sources from ISO 9001-certified Ludhiana manufacturers with full BIS certification and brings containers CIF Chittagong.",
+    marketContext: "Bangladesh has 4M+ registered motorcycles (BRTA 2024), with 350,000–450,000 new registrations annually. Hero and Bajaj hold 60–65% market share — highest tank replacement volume. Aftermarket distribution hubs in Keraniganj (Dhaka) and Agrabad (Chittagong) serve the workshop network. Counterfeit thin-gauge tanks with poor weld quality are a persistent market problem — ISO-certified OEM-equivalent sourcing is a genuine differentiator.",
+    videoSrc: '/videos/products/motorcycle-fuel-tanks.mp4',
   },
   {
     id: 'motorcycle-body-panels',
@@ -569,6 +703,9 @@ export const products: Product[] = [
       certifications: ['ISO 9001', 'BIS Certified'],
     },
     relatedProducts: ['motorcycle-fuel-tanks', 'motorcycle-brake-parts'],
+    originStory: "Faridabad, Haryana — India's largest cluster for plastic injection-moulded automotive components — is where ABS panels for Bangladesh's top-selling motorcycles are made. The 1,000+ auto-component units in this corridor supply body panels to Hero, Bajaj, TVS, and Honda assembly lines with the same OEM-grade tooling that produces aftermarket replacement panels. KHI maps every SKU to the model-year it fits — Hero Splendor Plus, Bajaj Discover, Bajaj Pulsar 150, TVS Apache RTR, Hero Glamour — so workshop buyers get the exact panel, not an approximation.",
+    marketContext: "Bangladesh's roads are hard on motorcycles — the country has one of South Asia's higher accident rates. Body panel damage drives consistent aftermarket demand. A growing style-upgrade culture among young riders replacing stock panels with sportier variants adds an incremental demand channel. Pre-painted panels reduce workshop preparation time, a labour efficiency that distributors can monetize over unpainted alternatives.",
+    videoSrc: '/videos/products/motorcycle-body-panels.mp4',
   },
   {
     id: 'motorcycle-brake-parts',
@@ -601,70 +738,312 @@ export const products: Product[] = [
       certifications: ['ISO 9001', 'BIS Certified'],
     },
     relatedProducts: ['motorcycle-fuel-tanks', 'motorcycle-body-panels'],
+    originStory: "Brake parts are where cost-cutting stops. Ludhiana's IATF 16949-certified brake component manufacturers supply the same OEM specifications that come out of Hero and Bajaj assembly lines — asbestos-free friction linings, hardened steel pivot pins, documented friction coefficient ratings. BSTI has flagged substandard brake parts in Bangladesh multiple times. KHI sources from these certified Ludhiana factories and provides the BIS and IATF documentation that protects distributors from BSTI rejection and, more critically, from workshop liability.",
+    marketContext: "A typical Bangladeshi motorcycle covers 15,000–30,000 km/year — brake shoe replacement cycles run 12–18 months for average users. Growing disc brake adoption on newer Bajaj Pulsar and TVS Apache models is expanding disc pad demand. Counterfeit brake parts are a documented safety concern; certified sourcing with asbestos-free certification is a market differentiator that high-quality distributors actively seek.",
+    videoSrc: '/videos/products/motorcycle-brake-parts.mp4',
   },
   {
     id: 'iphone-displays',
     name: 'iPhone Replacement Displays',
-    image: '/images/new/iphone-displays.webp',
-    images: ['/images/new/iphone-displays.webp'],
-    description: 'Grade A OLED and LCD replacement displays for iPhone 11 through iPhone 15 series. Sourced direct from Shenzhen OEM factories with CE and RoHS compliance. Supplied to Bangladesh repair shops, distributors, and electronics importers.',
+    image: iphone('dd-soft-oled-iphone-17-pro-max'),
+    images: [
+      iphone('dd-soft-oled-iphone-17-pro-max'),
+      iphone('gx-hard-oled-iphone-17-pro'),
+      iphone('rj-incell-fhd-iphone-16-pro-max'),
+      iphone('jk-hard-oled-iphone-15-pro'),
+      iphone('zy-hd-iphone-14-pro'),
+    ],
+    description: 'iPhone replacement displays sourced from DBX Electronic Technology Co., Ltd. — Shenzhen\'s leading B2B phone parts supplier since 1998, serving 20,000 repair shops across 180+ countries. Available in three quality tiers: ANGO Soft OLED (top-tier, original TCLCSOT panels), ANGO Hard OLED (COG technology, XL glass), and ANGO Incell (highest-volume, cost-effective). Coverage from iPhone X through iPhone 17 Pro Max. Return rate never exceeds 0.48% — backed by 43-point QC on every unit.',
     type: 'import',
     category: 'Phone Parts',
     specifications: {
-      'Compatible models': 'iPhone 11, 12, 12 Pro, 13, 13 Pro, 14, 14 Pro, 15, 15 Pro',
-      'Panel types': 'Grade A OLED · Grade A LCD · Grade B (refurb)',
-      'Resolution': 'OEM-equivalent per model specification',
-      'Connector': 'Original-spec flex connector, solderless assembly',
-      'Warranty': '90 days from delivery on Grade A',
+      'Coverage': 'iPhone X / XS / XS Max / XR through iPhone 17 / 17 Pro / 17 Pro Max',
+      'Tier 1 — ANGO Soft OLED': 'Original TCLCSOT OLED panel · highest brightness & colour accuracy · refurb chain grade',
+      'Tier 2 — ANGO Hard OLED': 'COG technology · XL glass · seamless body like Soft OLED · high-end repair grade',
+      'Tier 3 — ANGO Incell': 'In-cell LCD · COG packaging · original FPC · highest market volume · budget-repair grade',
+      'Other brands stocked': 'DD, RJ, JK, GX, ZY — additional iPhone LCD grades for wholesale flexibility',
+      'QC Process': '43-point inspection + 2nd first-class check before shipment',
+      'Return Rate': '<0.48% annually — 40% higher qualification threshold than industry average',
+      'Certifications': 'CE, FCC, RoHS — meets international regulatory standards',
+      'Connector': 'Original-spec flex connector, solderless drop-in assembly',
+      'Warranty': '90 days on Grade A units',
     },
     benefits: [
-      'OEM-equivalent brightness and touch response on Grade A OLED',
-      'Competitive Grade B refurb tier for budget repair market',
-      'CE and RoHS certified — meets import compliance requirements',
-      'Part of our Phone Parts Programme for bulk pricing and compatibility matrix',
+      'Three quality tiers (Soft OLED / Hard OLED / Incell) cover every price point from premium refurb to volume budget repair',
+      'ANGO brand: defective rate <0.48% — significantly lower than generic Shenzhen alternatives flooding the market',
+      'CE, FCC, RoHS certified — meets Bangladesh customs documentation requirements for electronics imports',
+      'DBX\'s 28-year track record: 7 factories, 15,000+ SKUs, 35 distribution channels, 20,000 direct repair shop customers globally',
+      'Coverage from iPhone X through iPhone 17 series — future-proof stock for Bangladesh\'s growing iPhone user base',
+      'OEM-spec connectors and flex cables for drop-in installation — no soldering required for standard repair workflows',
     ],
     packaging: [
-      'Individual anti-static foam insert boxes',
-      'Carton of 10 units per model',
-      'Mixed-model orders accepted at programme MOQs',
+      'Individual anti-static foam insert boxes per unit',
+      'Carton of 10 units per model and per grade tier',
+      'Mixed-model orders accepted — compatible matrix provided per shipment',
+      'ESD-safe packaging throughout — dust-free workshop assembled',
     ],
     sourcing: {
       countries: ['China'],
-      certifications: ['CE Certified', 'RoHS Compliant', 'ISO 9001'],
+      certifications: ['CE Certified', 'FCC Certified', 'RoHS Compliant', 'ISO 9001'],
     },
-    relatedProducts: ['android-displays', 'charging-accessories', 'audio-accessories'],
+    relatedProducts: ['android-displays', 'phone-batteries', 'ipad-displays'],
+    originStory: "DBX Electronic Technology Co., Ltd. (operated by Shenzhen Eclinking Electronic Technology Co., Limited) has operated from Shenzhen since 1998 — first from Guangzhou, then moving its supply chain to Huaqiangbei as the district became the world's largest aftermarket electronics wholesale hub. Over 28 years, DBX built seven factories, a 15,000-SKU catalogue, and direct supply relationships with 20,000 repair shops across 180 countries. Their proprietary ANGO brand sets the benchmark for iPhone LCD quality in the aftermarket: every unit goes through 43 inspection steps plus a second full-class inspection before shipment, holding defective rates below 0.48% annually — a standard 40% above the industry average. KHI sources ANGO Soft OLED, Hard OLED, and Incell tiers directly through DBX, with full CE, FCC, and RoHS documentation for clean import into Chattogram.",
+    marketContext: "Bangladesh has 30–35 million active smartphone users, with iPhone market share at 5–8% and growing — concentrated among Dhaka's urban middle class, returning diaspora, and the premium second-hand market. Elephant Road, Dhaka: 2,000+ repair shops and component traders — the beating heart of the national repair economy. iPhone 11 and 12 are the highest-volume models at accessible second-hand price points; screen damage is the single most common repair. Chain repair workshops are expanding beyond Dhaka into Chittagong, Sylhet, and Rajshahi — creating demand for certified, consistently graded display supply. The price gap between a new iPhone and a screen repair (BDT 3,000–8,000 versus BDT 80,000+) makes the repair market structurally resilient even in economic downturns.",
+    youtube: { id: 'BKc-cBeJMMs', title: 'Inside the DBX phone-parts factory, Shenzhen' },
+    applications: [
+      {
+        label: 'Chain Repair Shops',
+        image: iphone('rj-soft-oled-iphone-16-pro'),
+        description: 'Multi-branch repair chains in Dhaka and Chittagong requiring consistent grade-certified iPhone screen stock across all locations.',
+      },
+      {
+        label: 'Street Repair Workshops',
+        image: iphone('gx-incell-hd-iphone-16'),
+        description: 'Independent technicians on Elephant Road and Bashundhara City who need reliable Incell-grade screens at competitive wholesale pricing.',
+      },
+      {
+        label: 'Soft OLED Refurb Grade',
+        image: iphone('dd-soft-oled-iphone-16-pro-max'),
+        description: 'Premium TCLCSOT OLED panels for refurbishment chains and insurance repair partners who guarantee original-quality visual experience.',
+      },
+      {
+        label: 'Hard OLED Mid-Tier',
+        image: iphone('zy-hard-oled-iphone-17-pro-max'),
+        description: 'COG-technology Hard OLED for high-end repair shops offering a quality alternative between original and budget screens.',
+      },
+      {
+        label: 'Incell Volume Supply',
+        image: iphone('gx-incell-fhd-iphone-17-pro'),
+        description: 'Highest-volume iPhone LCD grade for wholesalers and distributors supplying upcountry repair markets across Bangladesh.',
+      },
+      {
+        label: 'Electronics Importers',
+        image: iphone('zy-hd-iphone-15-pro-max'),
+        description: 'Wholesale distributors building iPhone display catalogues for regional electronics retailers and repair supply networks.',
+      },
+    ],
+    catalog: { items: iphoneDisplayCatalog, groupLabel: 'Brand', variantLabel: 'Panel', noun: 'models' },
   },
   {
     id: 'android-displays',
     name: 'Android Phone Displays',
-    image: '/images/new/android-displays.webp',
-    images: ['/images/new/android-displays.webp'],
-    description: 'Replacement AMOLED and LCD displays for Samsung Galaxy A and S series, OPPO A series, and Xiaomi Redmi series — the dominant Android brands in Bangladesh. Sourced from Shenzhen and Guangzhou OEM factories.',
+    image: android('android-samsung-galaxy-s23-oled-amoled'),
+    images: [
+      android('android-samsung-galaxy-s23-oled-amoled'),
+      android('android-samsung-galaxy-a56-5g-a566-oled-amoled'),
+      android('android-google-pixel-9a-5g-oled-amoled'),
+      android('android-oneplus-15-oled-amoled'),
+      android('android-xiaomi-redmi-note-12-pro-lcd'),
+      android('android-realme-c55-lcd'),
+    ],
+    description: 'Android replacement displays — OLED, AMOLED, and IPS LCD — for Samsung Galaxy, OPPO, Xiaomi Redmi, Huawei/Honor, Motorola, Realme, and OnePlus. Sourced from DBX Electronic Technology Co., Ltd., Shenzhen\'s leading B2B aftermarket supplier since 1998 with a 15,000-SKU catalogue, 7 factories, and supply to 20,000 repair shops globally. Grade A and Grade B tiers available — CE and RoHS certified for compliant import into Bangladesh.',
     type: 'import',
     category: 'Phone Parts',
     specifications: {
-      'Compatible brands': 'Samsung Galaxy · OPPO · Xiaomi · Realme',
-      'Popular models': 'Galaxy A14, A34, A54, S23; OPPO A57, A77; Redmi Note 12, 13',
-      'Panel types': 'AMOLED · IPS LCD · Grade A and Grade B',
-      'Connector': 'Model-specific flex connector with pre-installed frame option',
-      'Warranty': '90 days from delivery on Grade A',
+      'Samsung Galaxy coverage': 'Galaxy S25 / S24 / S23 series · A54 / A34 / A14 / A15 · A series full range · J series',
+      'Xiaomi / Redmi': 'Redmi Note 13 / 12 / 11 · Poco X-series · Mi series · POCO F series',
+      'OPPO / Realme': 'OPPO A78 / A58 / A57 / A17 · Realme C35 / C33 / 10 / 9 · OnePlus Nord series',
+      'Huawei / Honor': 'Honor X8 / X7 / 90 Lite · Huawei Nova and Y-series',
+      'Motorola': 'Moto G54 / G52 / G32 / Edge series',
+      'Panel types': 'OLED / AMOLED · IPS LCD (Incell) · Grade A and Grade B tiers',
+      'Assembly options': 'Screen only · Screen + frame pre-installed (reduces workshop handling)',
+      'QC process': 'Dust-free workshop assembly · automated production · 43-point inspection',
+      'Certifications': 'CE Certified · RoHS Compliant · ISO 9001',
+      'Warranty': '90 days on Grade A units from delivery',
     },
     benefits: [
-      'Covers Bangladesh\'s top-selling Android models in one supply relationship',
-      'AMOLED and IPS LCD options match brand spec and price tier',
-      'Grade B refurb tier available for cost-sensitive workshop segments',
-      'Part of our Phone Parts Programme — see compatibility matrix and MOQ table',
+      'Single supplier for all Android brands dominant in Bangladesh — Samsung, OPPO, Xiaomi, Realme, Huawei/Honor, Motorola',
+      'OLED and IPS LCD tiers match exact brand spec and price point — no guesswork on quality tier for each model',
+      'DBX\'s 28-year reputation: <0.48% return rate on iPhone line translates to same quality discipline across Android range',
+      'CE and RoHS certification on all units — compliant documentation for Chattogram customs clearance',
+      'Pre-installed frame option available — reduces workshop handling time and training requirements for repair technicians',
+      'Bangladesh\'s largest Android model catalogue — Samsung Galaxy A-series, Redmi Note series, and OPPO A-series all covered',
     ],
     packaging: [
-      'Individual anti-static foam insert boxes',
-      'Carton of 10 units per model',
-      'Pre-installed frame option reduces workshop handling time',
+      'Individual anti-static foam insert boxes per unit',
+      'Carton of 10 units per model per grade tier',
+      'Pre-installed frame option: each unit bubble-wrapped inside rigid carton',
+      'Mixed-brand, mixed-model orders accepted — compatibility matrix provided per shipment',
     ],
     sourcing: {
       countries: ['China'],
       certifications: ['CE Certified', 'RoHS Compliant', 'ISO 9001'],
     },
-    relatedProducts: ['iphone-displays', 'charging-accessories', 'audio-accessories'],
+    relatedProducts: ['iphone-displays', 'phone-batteries', 'charging-accessories'],
+    originStory: "Android display supply is more complex than iPhone — each brand runs its own panel specifications, connector designs, and assembly formats across hundreds of model variants. DBX Electronic Technology Co., Ltd. (Shenzhen) has mapped this complexity over 28 years: 7 factories, 15,000 SKUs, and supply to 20,000 direct repair shops across 180 countries. Their catalogue covers Samsung Galaxy from the S25 series down to J-series legacy models, Xiaomi Redmi from Note 13 back, OPPO and Realme A-series, Huawei/Honor, Motorola, and OnePlus. BOE and Visionox OLED panels increasingly compete with Samsung Display quality at lower cost — DBX selects verified production batches in dust-free automated facilities. KHI brings this catalogue into Bangladesh with CE/RoHS documentation for clean customs clearance at Chattogram.",
+    marketContext: "Android commands over 95% of Bangladesh's smartphone market. Samsung holds 25–30% by volume; OPPO, Vivo, and Xiaomi collectively hold 25–30% more. Screen damage accounts for 60–65% of all phone repairs — the single largest repair category. Average Android mid-range display repair costs BDT 1,500–4,000 versus a new phone at BDT 15,000–25,000: repair is economically rational across every income tier. Beyond Dhaka and Chittagong, every district town now has repair workshops — creating a distributed demand chain that stretches from Sylhet to Cox's Bazar. Bangladesh's repair market is growing as smartphone penetration pushes into lower-income tiers where screen repair is the only viable alternative to upgrade.",
+    videoSrc: '/videos/products/android-displays.mp4',
+    applications: [
+      {
+        label: 'Samsung Galaxy Repair',
+        image: android('android-samsung-galaxy-a56-5g-a566-oled-amoled'),
+        description: 'OLED and IPS LCD screens for Bangladesh\'s most popular Android brand — Galaxy A14, A34, A54, S23, and S24 are the dominant repair models.',
+      },
+      {
+        label: 'OLED Display Supply',
+        image: '/images/products/phone-parts/oled-display.webp',
+        description: 'Grade A OLED panels for premium Android models — Samsung S-series, OPPO Find X, and Xiaomi Mi series requiring top-tier colour and brightness.',
+      },
+      {
+        label: 'Hard OLED Mid-Range',
+        image: '/images/products/phone-parts/hard-oled-mid-range.webp',
+        description: 'Mid-range OLED for repair shops serving budget-conscious customers who want better-than-LCD quality without premium pricing.',
+      },
+      {
+        label: 'IPS LCD Volume Grade',
+        image: '/images/products/phone-parts/ips-lcd-display.webp',
+        description: 'High-volume Incell IPS LCD for OPPO A-series, Redmi Note series, and Realme C-series — the mass-market repair tier across Bangladesh.',
+      },
+      {
+        label: 'Wholesale Distribution',
+        image: '/images/products/phone-parts/wholesale-distribution.webp',
+        description: 'Bulk Android display orders for regional electronics distributors supplying repair shops across Dhaka, Chittagong, Sylhet, and Rajshahi.',
+      },
+      {
+        label: 'Online Parts Retailers',
+        image: '/images/products/phone-parts/online-parts-retailer.webp',
+        description: 'E-commerce phone parts sellers sourcing mixed-model Android display catalogues for next-day delivery across Bangladesh.',
+      },
+    ],    catalog: { items: androidDisplayCatalog, groupLabel: 'Brand', variantLabel: 'Panel', noun: 'models' },
+  },
+  {
+    id: 'phone-batteries',
+    name: 'Phone Replacement Batteries',
+    image: battery('battery-iphone-16-pro-max-genuine-service-pack'),
+    images: [
+      battery('battery-iphone-16-pro-max-genuine-service-pack'),
+      battery('battery-samsung-galaxy-s23-s23-org-grade'),
+      battery('battery-google-pixel-9-pro-org-grade'),
+      battery('battery-xiaomi-redmi-note-13-org-grade'),
+      battery('battery-iphone-15-pro-max-diagnostic-ti'),
+      battery('battery-oneplus-12-org-grade'),
+    ],
+    description: 'Replacement lithium-ion batteries for iPhone, Samsung Galaxy, Google Pixel, Xiaomi / Redmi / POCO, OPPO, Realme, OnePlus, Huawei, Honor, and Motorola. Four grades: genuine service-pack iPhone batteries, diagnostic-compatible (TI solution) cells that report battery health in iOS, high-capacity aftermarket cells, and ORG-grade Android batteries. Shipped with UN38.3 test summaries and MSDS for compliant freight into Bangladesh.',
+    type: 'import',
+    category: 'Phone Parts',
+    specifications: {
+      'iPhone coverage': 'iPhone 11 through iPhone 17 Pro Max — service pack, diagnostic (TI) and high-capacity grades',
+      'Android coverage': 'Samsung Galaxy A / M / S / Note / Z Flip · Google Pixel 2–10 · Xiaomi, Redmi & POCO · OPPO A / Reno / Find · Realme · OnePlus · Huawei · Honor · Motorola',
+      'Grades': 'Genuine service pack · Diagnostic-compatible (TI) · Aftermarket high-capacity · ORG grade',
+      'Cell chemistry': 'Lithium-ion polymer',
+      'Diagnostic (TI) cells': 'Report cycle count and battery health in iOS Settings',
+      'Foldables': 'Main and secondary cells for Galaxy Z Flip and Pixel Fold',
+      'Shipping documents': 'UN38.3 test summary · MSDS · Class 9 dangerous-goods labelling',
+      'Certifications': 'CE · RoHS',
+    },
+    benefits: [
+      'One supplier for iPhone and every major Android brand sold in Bangladesh',
+      'Four grades let repair shops match price to customer — from genuine service pack down to ORG grade',
+      'Diagnostic-compatible iPhone cells avoid the iOS battery-health warning that drives customer complaints',
+      'UN38.3 and MSDS paperwork prepared for every shipment, so lithium batteries clear freight and customs without delays',
+      'Mixed-model cartons accepted — stock the fast movers without buying a full carton per model',
+    ],
+    packaging: [
+      'Individual anti-static bag per cell, with adhesive strips where the model needs them',
+      'Inner boxes of 10 cells per model and grade',
+      'Class 9 lithium-battery labelled outer cartons',
+      'Mixed-model orders accepted — compatibility list provided per shipment',
+    ],
+    sourcing: {
+      countries: ['China'],
+      certifications: ['CE Certified', 'RoHS Compliant', 'UN38.3 Tested', 'MSDS'],
+    },
+    relatedProducts: ['iphone-displays', 'android-displays', 'charging-accessories'],
+    originStory: "Battery replacement is one of the most common phone repairs, and grade matters more here than for almost any other part: a weak cell comes back within weeks, and an iPhone cell without diagnostic support shows the owner a warning in Settings. KHI's battery programme keeps the grades clearly separated — genuine service-pack cells for premium repair, TI-solution diagnostic cells that report health and cycle count in iOS, high-capacity aftermarket cells for budget repair, and ORG-grade cells across the Android range. Lithium batteries are regulated dangerous goods, so every KHI shipment carries UN38.3 test summaries, MSDS and Class 9 labelling to move through Chattogram without hold-ups.",
+    marketContext: "Phone batteries wear out on a predictable cycle, which makes replacement demand steady and recurring. Bangladesh's large second-hand iPhone market and long Android ownership cycles outside the big cities both push owners to replace the battery rather than the phone. Repair shops need dependable stock across many models, with clear grading so they can quote each customer correctly.",
+    youtube: { id: 'F0x4pJw2mww', title: 'How phone batteries are made — factory tour' },
+    catalog: { items: batteryCatalog, groupLabel: 'Brand', variantLabel: 'Grade', noun: 'batteries' },
+  },
+  {
+    id: 'ipad-displays',
+    name: 'iPad Replacement Displays',
+    image: ipad('ipad-ipad-air-5-10-9-inch-lcd-digitizer'),
+    images: [
+      ipad('ipad-ipad-air-5-10-9-inch-lcd-digitizer'),
+      ipad('ipad-ipad-pro-12-9-inch-5th-6th-lcd-digitizer'),
+      ipad('ipad-ipad-mini-6-lcd-digitizer'),
+      ipad('ipad-ipad-10-2022-lcd-digitizer'),
+    ],
+    description: 'Replacement LCD panels and LCD + digitizer assemblies for iPad, iPad Air, iPad mini, and iPad Pro — from iPad 2 and iPad mini 2 through iPad Air 6 (M2), iPad mini 7, and the 6th-generation 12.9-inch iPad Pro. LCD-only panels for workshops that refit glass, or full assemblies for drop-in repair.',
+    type: 'import',
+    category: 'Tablet & Laptop Parts',
+    specifications: {
+      'iPad': 'iPad 2 through iPad 10 (2022), including the 10.2-inch 7th / 8th / 9th generation',
+      'iPad Air': 'iPad Air 1 through iPad Air 6 11-inch (M2, 2024) — WiFi and Cellular versions',
+      'iPad mini': 'iPad mini 2 / 3 through iPad mini 7 (2024)',
+      'iPad Pro': '9.7-inch · 11-inch 1st–3rd generation · 12.9-inch 1st–6th generation',
+      'Formats': 'LCD only · LCD + digitizer assembly (with sticker / sleep-wake sensor where fitted)',
+      'Colours': 'Black and white bezels where the model has both',
+      'Certifications': 'CE · RoHS',
+    },
+    benefits: [
+      'More than a decade of iPad models covered — education and business fleets in Bangladesh run many older iPads',
+      'LCD-only and full-assembly formats, so shops can choose between a cheaper glass refit and a fast drop-in repair',
+      'WiFi and Cellular versions identified per listing — fewer returns from wrong-version orders',
+      'Ships with iPhone and Android displays in one consolidated parts consignment',
+    ],
+    packaging: [
+      'Individual anti-static foam box per panel',
+      'Rigid outer carton with corner protection — tablet panels are larger and more fragile than phone screens',
+      'Mixed-model orders accepted — compatibility list provided per shipment',
+    ],
+    sourcing: {
+      countries: ['China'],
+      certifications: ['CE Certified', 'RoHS Compliant'],
+    },
+    relatedProducts: ['macbook-parts', 'iphone-displays', 'android-displays'],
+    originStory: "iPad screens are a different job from phone screens: the panels are larger, the LCD and touch glass are often separate parts, and one model name can hide WiFi and Cellular versions with different connectors. KHI lists every iPad panel by generation, screen size and version, and offers both LCD-only panels and full LCD + digitizer assemblies, so a workshop can quote either the cheaper refit or the faster drop-in replacement.",
+    marketContext: "iPads are widely used in Bangladesh's schools, coaching centres, clinics and retail point-of-sale, and these fleets often stay in service for years. Older models such as the iPad Air 2 and the 10.2-inch iPads are still common, so repair shops need panels for older generations as well as current ones.",
+    youtube: { id: 'kmkTmVRqxbM', title: 'iPad screen replacement, step by step' },
+    catalog: { items: ipadDisplayCatalog, groupLabel: 'Series', variantLabel: 'Format', noun: 'displays' },
+  },
+  {
+    id: 'macbook-parts',
+    name: 'MacBook Replacement Parts',
+    image: macbook('macbook-lcd-assembly-space-gray-premium-for-macbook-pro-13-a2338-lat'),
+    images: [
+      macbook('macbook-lcd-assembly-space-gray-premium-for-macbook-pro-13-a2338-lat'),
+      macbook('macbook-top-case-w-us-keyboard-space-gray-for-macbook-air-13-a2337-l'),
+      macbook('macbook-trackpad-space-gray-for-macbook-pro-14-a2442-a2779'),
+      macbook('macbook-battery-replacement-a1965-for-macbook-air-13-retina-a1932-la'),
+      macbook('macbook-left-right-cooling-fan-for-macbook-pro-13-a2251-mid-2020'),
+      macbook('macbook-usb-c-board-for-macbook-air-13-retina-a1932-late-2018-early'),
+    ],
+    description: 'Replacement parts for MacBook Air, MacBook Pro, and the 12-inch MacBook — LCD assemblies, top cases with keyboard, bottom cases, trackpads, batteries, flex cables, USB-C and DC-in boards, speakers, cooling fans, SSDs, screws, and board-level ICs. Listed by A-number and year, from the 2009 unibody MacBook Pro to the M3 MacBook Air.',
+    type: 'import',
+    category: 'Tablet & Laptop Parts',
+    specifications: {
+      'Model coverage': 'MacBook Air 11 / 13 / 15-inch · MacBook Pro 13 / 14 / 15 / 16 / 17-inch · MacBook 12-inch Retina',
+      'Display': 'Full LCD assemblies (premium, refurbished and OEM-pull grades) and LCD panels only',
+      'Chassis': 'Top case with US keyboard · bottom case · keyboards · keycaps · Touch Bar',
+      'Input': 'Trackpads in every finish · trackpad flex cables',
+      'Power': 'Batteries by A-number · battery cables · DC-in and USB-C boards',
+      'Internal': 'Flex cables · speakers · microphones · cooling fans · heat sinks · SSDs · antennas',
+      'Board level': 'ICs, regulators, fuses and capacitors · BGA reballing stencils · repair tools',
+      'Finishes': 'Silver · Space Gray · Space Black · Midnight · Starlight · Gold · Rose Gold',
+      'Identification': 'Every part listed by A-number and model year',
+    },
+    benefits: [
+      'Hundreds of MacBook parts from one source, listed by A-number — the identifier technicians actually work from',
+      'Everything from cosmetic parts (bottom cases, keycaps) to board-level ICs for logic-board repair',
+      'Display grades from premium new to OEM pull let shops quote at several price points',
+      'Colour-matched chassis parts in every Apple finish',
+      'Consolidates with phone and tablet parts in one shipment to cut freight cost per unit',
+    ],
+    packaging: [
+      'Displays and top cases in rigid foam-lined cartons',
+      'Small parts and ICs in labelled anti-static bags',
+      'Batteries packed and labelled to lithium-battery shipping rules (UN38.3 / MSDS)',
+      'Mixed-part orders accepted — packing list by A-number provided per shipment',
+    ],
+    sourcing: {
+      countries: ['China'],
+      certifications: ['CE Certified', 'RoHS Compliant'],
+    },
+    relatedProducts: ['ipad-displays', 'phone-batteries', 'charging-accessories'],
+    originStory: "MacBook repair runs on A-numbers. A 13-inch MacBook Pro from 2020 can be one of several different machines, and a top case or display from the wrong one will not fit. KHI's MacBook range is listed the way technicians search for it — part type, A-number, model year and colour — covering displays, top and bottom cases, trackpads, batteries, flex cables and boards, down to the ICs and stencils used for logic-board repair.",
+    marketContext: "MacBooks are common among Bangladesh's students, freelancers, designers and developers, and many are bought second-hand or brought back from abroad without local warranty. With little authorised Apple service outside Dhaka, independent repair shops handle most MacBook repairs and need a dependable parts supply.",
+    catalog: { items: macbookPartsCatalog, groupLabel: 'Part', variantLabel: 'Model', noun: 'parts' },
   },
   {
     id: 'audio-accessories',
@@ -697,6 +1076,9 @@ export const products: Product[] = [
       certifications: ['CE Certified', 'RoHS Compliant'],
     },
     relatedProducts: ['charging-accessories', 'iphone-displays', 'android-displays'],
+    originStory: "Dongguan has the highest concentration of audio hardware factories globally — Sony, JBL, and Bose manufacture there alongside hundreds of OEM/ODM factories. The TWS boom post-AirPods transformed this region; Bluetooth 5.0 SoC chips from Qualcomm and MediaTek made quality wireless audio affordable. KHI sources from CE-certified Dongguan and Shenzhen ODM factories with documented Bluetooth specifications, tested battery life, and 90-day warranty — covering the BDT 800–5,000 retail tier that Bangladesh's market has adopted.",
+    marketContext: "TWS earbuds are a lifestyle product for young urban Bangladeshis — university students, young professionals, remote workers. 4G coverage expansion and smartphone penetration are driving audio accessories adoption rapidly. Post-COVID home working and e-learning permanently elevated headphone demand. Gaming headsets are an emerging sub-category aligned with mobile gaming growth — PUBG Mobile and Free Fire dominate Bangladesh's gaming culture.",
+    youtube: { id: '29kPe_GJmHk', title: 'Inside an audio accessories factory' },
   },
   {
     id: 'charging-accessories',
@@ -729,6 +1111,9 @@ export const products: Product[] = [
       certifications: ['CE Certified', 'RoHS Compliant'],
     },
     relatedProducts: ['audio-accessories', 'iphone-displays', 'android-displays'],
+    originStory: "Shenzhen invented GaN charging. The same city that built the factory ecosystem for Anker, Baseus, and UGREEN now supplies KHI's charging programme — CE-certified GaN wall chargers up to 65W, USB-C cables that handle 100W laptop charging, and power banks from 10,000 to 20,000mAh. GaN (Gallium Nitride) technology produces a 65W charger smaller than a traditional 5W cube — a paradigm shift for the power-conscious Bangladesh market where load shedding in secondary cities still runs 2–6 hours daily.",
+    marketContext: "Power outage frequency of 2–6 hours/day in secondary cities makes power banks a daily necessity, not a travel convenience. USB-C transition is underway — most new smartphones now have USB-C, shifting charger demand structurally. GaN chargers appeal to Bangladesh's growing laptop-user population (university students, professionals) who can charge phone and laptop from one compact unit. Safety certification matters: counterfeit chargers cause fires — CE-certified marking is the safety differentiator.",
+    youtube: { id: '49VD7x12AkM', title: 'Inside a phone charger factory in China' },
   },
 ]
 

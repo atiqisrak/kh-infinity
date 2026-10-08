@@ -106,14 +106,32 @@ export const PRODUCT_GEO_BY_ID: Record<string, ProductGeoMeta> = {
   "iphone-displays": {
     geoHeading: "Direct B2B Importer of iPhone Replacement Displays in Bangladesh?",
     geoAnchor:
-      "K.H. Infinity is the direct wholesale importer of iPhone replacement displays (HS Code 8524.91.00) in Bangladesh. Grade A OLED and LCD panels for iPhone 11–15 series, sourced from Shenzhen OEM factories with CE and RoHS certification. NBR customs clearance and TTI transparency for electronics importers and repair wholesalers.",
-    updatedAt: "2026-10-01",
+      "K.H. Infinity is the direct wholesale importer of iPhone replacement displays (HS Code 8524.91.00) in Bangladesh. Soft OLED, Hard OLED and Incell panels for iPhone X through iPhone 17 Pro Max, sourced from Shenzhen OEM factories with CE and RoHS certification. NBR customs clearance and TTI transparency for electronics importers and repair wholesalers.",
+    updatedAt: "2026-10-08",
   },
   "android-displays": {
     geoHeading: "Bulk Importer of Android Phone Displays for B2B in Bangladesh?",
     geoAnchor:
-      "K.H. Infinity is the direct wholesale importer of Android phone displays (HS Code 8524.91.00) in Bangladesh. AMOLED and IPS LCD panels for Samsung Galaxy, OPPO A series, and Xiaomi Redmi sourced from Shenzhen and Guangzhou OEM factories with CE and RoHS compliance.",
-    updatedAt: "2026-10-01",
+      "K.H. Infinity is the direct wholesale importer of Android phone displays (HS Code 8524.91.00) in Bangladesh. OLED, AMOLED, Incell and LCD panels for Samsung Galaxy, Google Pixel, OnePlus, Realme, Xiaomi Redmi, Honor, Huawei and Motorola, sourced from Shenzhen and Guangzhou OEM factories with CE and RoHS compliance.",
+    updatedAt: "2026-10-08",
+  },
+  "phone-batteries": {
+    geoHeading: "Wholesale Importer of Phone Replacement Batteries in Bangladesh?",
+    geoAnchor:
+      "K.H. Infinity is the direct wholesale importer of phone replacement batteries (HS Code 8507.60.00) in Bangladesh. Genuine service-pack, diagnostic-compatible (TI) and ORG-grade lithium-ion cells for iPhone 11–17, Samsung Galaxy, Google Pixel, Xiaomi, OPPO, Realme, OnePlus, Huawei and Motorola, shipped with UN38.3 and MSDS documents and cleared by our in-house NBR team.",
+    updatedAt: "2026-10-08",
+  },
+  "ipad-displays": {
+    geoHeading: "Where to Source iPad Replacement Screens Wholesale in Bangladesh?",
+    geoAnchor:
+      "K.H. Infinity is the direct wholesale importer of iPad replacement displays (HS Code 8524.91.00) in Bangladesh. LCD panels and LCD + digitizer assemblies for iPad, iPad Air, iPad mini and iPad Pro, from iPad 2 to iPad Air 6 (M2), with CE and RoHS certification and full NBR customs documentation.",
+    updatedAt: "2026-10-08",
+  },
+  "macbook-parts": {
+    geoHeading: "Wholesale Supplier of MacBook Replacement Parts in Bangladesh?",
+    geoAnchor:
+      "K.H. Infinity is the direct wholesale importer of MacBook replacement parts (HS Code 8473.30.00) in Bangladesh. LCD assemblies, top cases, trackpads, batteries, flex cables, boards and ICs for MacBook Air and MacBook Pro, listed by A-number and model year, with NBR customs clearance managed in-house for repair shops and parts traders.",
+    updatedAt: "2026-10-08",
   },
   "audio-accessories": {
     geoHeading: "Direct B2B Importer of Audio Accessories from China to Bangladesh?",

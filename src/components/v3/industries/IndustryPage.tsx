@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { isRemoteImage } from "@/lib/image-src";
 import Link from "next/link";
 import { getProduct } from "@/lib/products";
 import Icon, { type IconName } from "../Icons";
@@ -81,6 +82,7 @@ function ItemCard({ item, index }: { item: IndustryItem; index: number }) {
         {product ? (
           <Image
             src={product.image}
+            unoptimized={isRemoteImage(product.image)}
             alt={product.name}
             fill
             sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
@@ -135,7 +137,7 @@ export default function IndustryPage({ data, children }: { data: IndustryData; c
 
       {/* ───────────── HERO ───────────── */}
       <PageHero
-        crumbs={[{ label: "Home", href: "/" }, { label: "Industries", href: "/industries" }, { label: sector.short }]}
+        crumbs={[{ label: "Home", href: "/" }, { label: "Industries", href: "/industries" }, { label: sector.short, href: `/industries/${sector.slug}` }]}
         eyebrow={hero.eyebrow}
         title={hero.title}
         titleClassName="text-[clamp(2.75rem,5.4vw,5rem)]"

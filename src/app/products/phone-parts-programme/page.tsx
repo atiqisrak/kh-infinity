@@ -188,7 +188,7 @@ export default function PhonePartsProgrammePage() {
       <section aria-labelledby="phone-parts-title" className={`${s.gridBg} relative overflow-hidden bg-[#06131d] pt-[104px] lg:pt-[124px]`}>
         <div className={`${pad} grid items-center gap-12 pb-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:pb-20`}>
           <div>
-            <Crumbs items={[{ label: "Home", href: "/" }, { label: "Products", href: "/products" }, { label: "Phone Parts Programme" }]} />
+            <Crumbs items={[{ label: "Home", href: "/" }, { label: "Products", href: "/products" }, { label: "Phone Parts Programme", href: "/products/phone-parts-programme" }]} />
             <div className="mt-8">
               <Eyebrow>Direct from Shenzhen OEM</Eyebrow>
             </div>
@@ -205,6 +205,7 @@ export default function PhonePartsProgrammePage() {
             <p className="mt-8 flex flex-wrap gap-x-8 gap-y-4 text-sm">
               <ArrowLink href="/products/iphone-displays">iPhone displays product page</ArrowLink>
               <ArrowLink href="/products/android-displays">Android displays product page</ArrowLink>
+              <ArrowLink href="/products/phone-batteries">Phone batteries product page</ArrowLink>
             </p>
           </div>
 

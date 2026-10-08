@@ -91,7 +91,7 @@ export default function ExportsPage() {
 
       {/* ───────────── HERO ───────────── */}
       <PageHero
-        crumbs={[{ label: "Home", href: "/" }, { label: "Export operations" }]}
+        crumbs={[{ label: "Home", href: "/" }, { label: "Export operations", href: "/exports" }]}
         eyebrow="Direct B2B Exporter"
         title={
           <>

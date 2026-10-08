@@ -2,6 +2,7 @@
 // Palette: ink #06131d · sea #0b2c3d · teal #12506a · mist #d5dee7 · paper #f2f4f6 · orange #fa6a25 / #d9531a
 
 import Image from "next/image";
+import { isRemoteImage } from "@/lib/image-src";
 import Link from "next/link";
 import type { Product } from "@/lib/products";
 import Flag, { flagCodeFor } from "./Flag";
@@ -218,6 +219,7 @@ export function ProductCard({
       <div className="relative aspect-[3/4]">
         <Image
           src={p.image}
+          unoptimized={isRemoteImage(p.image)}
           alt={p.name}
           fill
           sizes={sizes}

@@ -9,7 +9,9 @@
     "perf": "pnpm build && pnpm start & sleep 5 && node scripts/lighthouse-check.js && pkill -f 'next start'",
     "perf:dev": "pnpm dev & sleep 8 && node scripts/lighthouse-check.js && pkill -f 'next dev'",
     "kill-port": "npx kill-port 3076",
-    "seed:investors": "node scripts/seed-investor-demo-data.mjs"
+    "seed:investors": "node scripts/seed-investor-demo-data.mjs",
+    "optimize:gallery": "node scripts/optimize-gallery.mjs",
+    "catalog:gallery": "node scripts/build-display-catalog.mjs"
   },
   "private": true,
   "packageManager": "pnpm@10.15.0",
@@ -38,6 +40,7 @@
     "@tailwindcss/cli": "^4.1.16",
     "@tailwindcss/postcss": "^4.1.16",
     "eslint-import-resolver-typescript": "^4.4.4",
+    "sharp": "0.34.4",
     "typescript-eslint": "^8.46.2",
     "web-vitals": "^5.1.0"
   }

@@ -50,3 +50,8 @@ next-env.d.ts
 
 # OS
 Thumbs.db
+
+# Product-gallery originals — commit the WebP made by `pnpm optimize:gallery` instead
+/public/images/prod-gallery/*.png
+/public/images/prod-gallery/*.jpg
+/public/images/prod-gallery/*.jpeg
