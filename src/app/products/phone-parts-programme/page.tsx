@@ -205,6 +205,7 @@ export default function PhonePartsProgrammePage() {
             <p className="mt-8 flex flex-wrap gap-x-8 gap-y-4 text-sm">
               <ArrowLink href="/products/iphone-displays">iPhone displays product page</ArrowLink>
               <ArrowLink href="/products/android-displays">Android displays product page</ArrowLink>
+              <ArrowLink href="/products/phone-batteries">Phone batteries product page</ArrowLink>
             </p>
           </div>
 

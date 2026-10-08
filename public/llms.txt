@@ -28,6 +28,12 @@ K.H. Infinity owns physical inventory for bulk commodities and manages NBR custo
 - U.S. Almonds (HS 0802.12.00, TTI 64.25–96.10%): https://khi.com.bd/products/almonds
 - Medjool Dates (HS 0804.10.00, TTI ~48.75%): https://khi.com.bd/products/medjool-dates
 - Soy Sauce & Condiments (HS 2103.10.00): https://khi.com.bd/products/soy-sauce
+- iPhone Replacement Displays (HS 8524.91.00): https://khi.com.bd/products/iphone-displays
+- Android Phone Displays (HS 8524.91.00): https://khi.com.bd/products/android-displays
+- Phone Replacement Batteries (HS 8507.60.00): https://khi.com.bd/products/phone-batteries
+- iPad Replacement Displays (HS 8524.91.00): https://khi.com.bd/products/ipad-displays
+- MacBook Replacement Parts (HS 8473.30.00): https://khi.com.bd/products/macbook-parts
+- Phone Parts Programme (compatibility, grades, MOQ): https://khi.com.bd/products/phone-parts-programme
 
 ## Export Operations
 

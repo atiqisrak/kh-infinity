@@ -1,5 +1,19 @@
 import { getProductGeo } from './product-geo'
-import { catalogImage, iphoneDisplayCatalog, type DisplayCatalogItem } from './iphone-display-catalog'
+import {
+  androidDisplayCatalog,
+  batteryCatalog,
+  catalogImage,
+  ipadDisplayCatalog,
+  iphoneDisplayCatalog,
+  macbookPartsCatalog,
+  type Catalog,
+} from './parts-catalog'
+
+const iphone = (id: string) => catalogImage(iphoneDisplayCatalog, id)
+const android = (id: string) => catalogImage(androidDisplayCatalog, id)
+const ipad = (id: string) => catalogImage(ipadDisplayCatalog, id)
+const battery = (id: string) => catalogImage(batteryCatalog, id)
+const macbook = (id: string) => catalogImage(macbookPartsCatalog, id)
 
 export interface Product {
   id: string
@@ -37,13 +51,15 @@ export interface Product {
   originStory?: string
   marketContext?: string
   videoSrc?: string
+  /** YouTube video shown in place of a self-hosted file */
+  youtube?: { id: string; title: string }
   applications?: {
     label: string
     image: string
     description: string
   }[]
   /** Individually named SKUs shown as a filterable catalogue grid */
-  displayCatalog?: DisplayCatalogItem[]
+  catalog?: Catalog
 }
 
 export const products: Product[] = [
@@ -729,13 +745,13 @@ export const products: Product[] = [
   {
     id: 'iphone-displays',
     name: 'iPhone Replacement Displays',
-    image: catalogImage('dd-soft-oled-iphone-17-pro-max'),
+    image: iphone('dd-soft-oled-iphone-17-pro-max'),
     images: [
-      catalogImage('dd-soft-oled-iphone-17-pro-max'),
-      catalogImage('gx-hard-oled-iphone-17-pro'),
-      catalogImage('rj-incell-fhd-iphone-16-pro-max'),
-      catalogImage('jk-hard-oled-iphone-15-pro'),
-      catalogImage('zy-hd-iphone-14-pro'),
+      iphone('dd-soft-oled-iphone-17-pro-max'),
+      iphone('gx-hard-oled-iphone-17-pro'),
+      iphone('rj-incell-fhd-iphone-16-pro-max'),
+      iphone('jk-hard-oled-iphone-15-pro'),
+      iphone('zy-hd-iphone-14-pro'),
     ],
     description: 'iPhone replacement displays sourced from DBX Electronic Technology Co., Ltd. — Shenzhen\'s leading B2B phone parts supplier since 1998, serving 20,000 repair shops across 180+ countries. Available in three quality tiers: ANGO Soft OLED (top-tier, original TCLCSOT panels), ANGO Hard OLED (COG technology, XL glass), and ANGO Incell (highest-volume, cost-effective). Coverage from iPhone X through iPhone 17 Pro Max. Return rate never exceeds 0.48% — backed by 43-point QC on every unit.',
     type: 'import',
@@ -770,50 +786,55 @@ export const products: Product[] = [
       countries: ['China'],
       certifications: ['CE Certified', 'FCC Certified', 'RoHS Compliant', 'ISO 9001'],
     },
-    relatedProducts: ['android-displays', 'charging-accessories', 'audio-accessories'],
+    relatedProducts: ['android-displays', 'phone-batteries', 'ipad-displays'],
     originStory: "DBX Electronic Technology Co., Ltd. (operated by Shenzhen Eclinking Electronic Technology Co., Limited) has operated from Shenzhen since 1998 — first from Guangzhou, then moving its supply chain to Huaqiangbei as the district became the world's largest aftermarket electronics wholesale hub. Over 28 years, DBX built seven factories, a 15,000-SKU catalogue, and direct supply relationships with 20,000 repair shops across 180 countries. Their proprietary ANGO brand sets the benchmark for iPhone LCD quality in the aftermarket: every unit goes through 43 inspection steps plus a second full-class inspection before shipment, holding defective rates below 0.48% annually — a standard 40% above the industry average. KHI sources ANGO Soft OLED, Hard OLED, and Incell tiers directly through DBX, with full CE, FCC, and RoHS documentation for clean import into Chattogram.",
     marketContext: "Bangladesh has 30–35 million active smartphone users, with iPhone market share at 5–8% and growing — concentrated among Dhaka's urban middle class, returning diaspora, and the premium second-hand market. Elephant Road, Dhaka: 2,000+ repair shops and component traders — the beating heart of the national repair economy. iPhone 11 and 12 are the highest-volume models at accessible second-hand price points; screen damage is the single most common repair. Chain repair workshops are expanding beyond Dhaka into Chittagong, Sylhet, and Rajshahi — creating demand for certified, consistently graded display supply. The price gap between a new iPhone and a screen repair (BDT 3,000–8,000 versus BDT 80,000+) makes the repair market structurally resilient even in economic downturns.",
-    videoSrc: '/videos/products/iphone-displays.mp4',
+    youtube: { id: 'BKc-cBeJMMs', title: 'Inside the DBX phone-parts factory, Shenzhen' },
     applications: [
       {
         label: 'Chain Repair Shops',
-        image: catalogImage('rj-soft-oled-iphone-16-pro'),
+        image: iphone('rj-soft-oled-iphone-16-pro'),
         description: 'Multi-branch repair chains in Dhaka and Chittagong requiring consistent grade-certified iPhone screen stock across all locations.',
       },
       {
         label: 'Street Repair Workshops',
-        image: catalogImage('gx-incell-hd-iphone-16'),
+        image: iphone('gx-incell-hd-iphone-16'),
         description: 'Independent technicians on Elephant Road and Bashundhara City who need reliable Incell-grade screens at competitive wholesale pricing.',
       },
       {
         label: 'Soft OLED Refurb Grade',
-        image: catalogImage('dd-soft-oled-iphone-16-pro-max'),
+        image: iphone('dd-soft-oled-iphone-16-pro-max'),
         description: 'Premium TCLCSOT OLED panels for refurbishment chains and insurance repair partners who guarantee original-quality visual experience.',
       },
       {
         label: 'Hard OLED Mid-Tier',
-        image: catalogImage('zy-hard-oled-iphone-17-pro-max'),
+        image: iphone('zy-hard-oled-iphone-17-pro-max'),
         description: 'COG-technology Hard OLED for high-end repair shops offering a quality alternative between original and budget screens.',
       },
       {
         label: 'Incell Volume Supply',
-        image: catalogImage('gx-incell-fhd-iphone-17-pro'),
+        image: iphone('gx-incell-fhd-iphone-17-pro'),
         description: 'Highest-volume iPhone LCD grade for wholesalers and distributors supplying upcountry repair markets across Bangladesh.',
       },
       {
         label: 'Electronics Importers',
-        image: catalogImage('zy-hd-iphone-15-pro-max'),
+        image: iphone('zy-hd-iphone-15-pro-max'),
         description: 'Wholesale distributors building iPhone display catalogues for regional electronics retailers and repair supply networks.',
       },
     ],
-    displayCatalog: iphoneDisplayCatalog,
+    catalog: { items: iphoneDisplayCatalog, groupLabel: 'Brand', variantLabel: 'Panel', noun: 'models' },
   },
   {
     id: 'android-displays',
     name: 'Android Phone Displays',
-    image: '/images/prod-gallery/OLED-Screen-with-Digitizer-Full-Assembly-For-Samsung-Galaxy-S25-FE-5G-S731-A576-A57-5G-6.62-inch.jpg',
+    image: android('android-samsung-galaxy-s23-oled-amoled'),
     images: [
-      '/images/prod-gallery/OLED-Screen-with-Digitizer-Full-Assembly-For-Samsung-Galaxy-S25-FE-5G-S731-A576-A57-5G-6.62-inch.jpg',
+      android('android-samsung-galaxy-s23-oled-amoled'),
+      android('android-samsung-galaxy-a56-5g-a566-oled-amoled'),
+      android('android-google-pixel-9a-5g-oled-amoled'),
+      android('android-oneplus-15-oled-amoled'),
+      android('android-xiaomi-redmi-note-12-pro-lcd'),
+      android('android-realme-c55-lcd'),
     ],
     description: 'Android replacement displays — OLED, AMOLED, and IPS LCD — for Samsung Galaxy, OPPO, Xiaomi Redmi, Huawei/Honor, Motorola, Realme, and OnePlus. Sourced from DBX Electronic Technology Co., Ltd., Shenzhen\'s leading B2B aftermarket supplier since 1998 with a 15,000-SKU catalogue, 7 factories, and supply to 20,000 repair shops globally. Grade A and Grade B tiers available — CE and RoHS certified for compliant import into Bangladesh.',
     type: 'import',
@@ -848,42 +869,181 @@ export const products: Product[] = [
       countries: ['China'],
       certifications: ['CE Certified', 'RoHS Compliant', 'ISO 9001'],
     },
-    relatedProducts: ['iphone-displays', 'charging-accessories', 'audio-accessories'],
+    relatedProducts: ['iphone-displays', 'phone-batteries', 'charging-accessories'],
     originStory: "Android display supply is more complex than iPhone — each brand runs its own panel specifications, connector designs, and assembly formats across hundreds of model variants. DBX Electronic Technology Co., Ltd. (Shenzhen) has mapped this complexity over 28 years: 7 factories, 15,000 SKUs, and supply to 20,000 direct repair shops across 180 countries. Their catalogue covers Samsung Galaxy from the S25 series down to J-series legacy models, Xiaomi Redmi from Note 13 back, OPPO and Realme A-series, Huawei/Honor, Motorola, and OnePlus. BOE and Visionox OLED panels increasingly compete with Samsung Display quality at lower cost — DBX selects verified production batches in dust-free automated facilities. KHI brings this catalogue into Bangladesh with CE/RoHS documentation for clean customs clearance at Chattogram.",
     marketContext: "Android commands over 95% of Bangladesh's smartphone market. Samsung holds 25–30% by volume; OPPO, Vivo, and Xiaomi collectively hold 25–30% more. Screen damage accounts for 60–65% of all phone repairs — the single largest repair category. Average Android mid-range display repair costs BDT 1,500–4,000 versus a new phone at BDT 15,000–25,000: repair is economically rational across every income tier. Beyond Dhaka and Chittagong, every district town now has repair workshops — creating a distributed demand chain that stretches from Sylhet to Cox's Bazar. Bangladesh's repair market is growing as smartphone penetration pushes into lower-income tiers where screen repair is the only viable alternative to upgrade.",
     videoSrc: '/videos/products/android-displays.mp4',
     applications: [
       {
         label: 'Samsung Galaxy Repair',
-        image: '/images/prod-gallery/OLED-Screen-with-Digitizer-Full-Assembly-For-Samsung-Galaxy-S25-FE-5G-S731-A576-A57-5G-6.62-inch.jpg',
+        image: android('android-samsung-galaxy-a56-5g-a566-oled-amoled'),
         description: 'OLED and IPS LCD screens for Bangladesh\'s most popular Android brand — Galaxy A14, A34, A54, S23, and S24 are the dominant repair models.',
       },
       {
         label: 'OLED Display Supply',
-        image: '/images/products/dbx/soft-1.jpg',
+        image: '/images/products/phone-parts/oled-display.webp',
         description: 'Grade A OLED panels for premium Android models — Samsung S-series, OPPO Find X, and Xiaomi Mi series requiring top-tier colour and brightness.',
       },
       {
         label: 'Hard OLED Mid-Range',
-        image: '/images/products/dbx/hard-1.jpg',
+        image: '/images/products/phone-parts/hard-oled-mid-range.webp',
         description: 'Mid-range OLED for repair shops serving budget-conscious customers who want better-than-LCD quality without premium pricing.',
       },
       {
         label: 'IPS LCD Volume Grade',
-        image: '/images/products/dbx/incell-1.jpg',
+        image: '/images/products/phone-parts/ips-lcd-display.webp',
         description: 'High-volume Incell IPS LCD for OPPO A-series, Redmi Note series, and Realme C-series — the mass-market repair tier across Bangladesh.',
       },
       {
         label: 'Wholesale Distribution',
-        image: '/images/products/dbx/Anog2_03.png',
+        image: '/images/products/phone-parts/wholesale-distribution.webp',
         description: 'Bulk Android display orders for regional electronics distributors supplying repair shops across Dhaka, Chittagong, Sylhet, and Rajshahi.',
       },
       {
         label: 'Online Parts Retailers',
-        image: '/images/products/dbx/Anog-20230814_20.jpg',
+        image: '/images/products/phone-parts/online-parts-retailer.webp',
         description: 'E-commerce phone parts sellers sourcing mixed-model Android display catalogues for next-day delivery across Bangladesh.',
       },
+    ],    catalog: { items: androidDisplayCatalog, groupLabel: 'Brand', variantLabel: 'Panel', noun: 'models' },
+  },
+  {
+    id: 'phone-batteries',
+    name: 'Phone Replacement Batteries',
+    image: battery('battery-iphone-16-pro-max-genuine-service-pack'),
+    images: [
+      battery('battery-iphone-16-pro-max-genuine-service-pack'),
+      battery('battery-samsung-galaxy-s23-s23-org-grade'),
+      battery('battery-google-pixel-9-pro-org-grade'),
+      battery('battery-xiaomi-redmi-note-13-org-grade'),
+      battery('battery-iphone-15-pro-max-diagnostic-ti'),
+      battery('battery-oneplus-12-org-grade'),
     ],
+    description: 'Replacement lithium-ion batteries for iPhone, Samsung Galaxy, Google Pixel, Xiaomi / Redmi / POCO, OPPO, Realme, OnePlus, Huawei, Honor, and Motorola. Four grades: genuine service-pack iPhone batteries, diagnostic-compatible (TI solution) cells that report battery health in iOS, high-capacity aftermarket cells, and ORG-grade Android batteries. Shipped with UN38.3 test summaries and MSDS for compliant freight into Bangladesh.',
+    type: 'import',
+    category: 'Phone Parts',
+    specifications: {
+      'iPhone coverage': 'iPhone 11 through iPhone 17 Pro Max — service pack, diagnostic (TI) and high-capacity grades',
+      'Android coverage': 'Samsung Galaxy A / M / S / Note / Z Flip · Google Pixel 2–10 · Xiaomi, Redmi & POCO · OPPO A / Reno / Find · Realme · OnePlus · Huawei · Honor · Motorola',
+      'Grades': 'Genuine service pack · Diagnostic-compatible (TI) · Aftermarket high-capacity · ORG grade',
+      'Cell chemistry': 'Lithium-ion polymer',
+      'Diagnostic (TI) cells': 'Report cycle count and battery health in iOS Settings',
+      'Foldables': 'Main and secondary cells for Galaxy Z Flip and Pixel Fold',
+      'Shipping documents': 'UN38.3 test summary · MSDS · Class 9 dangerous-goods labelling',
+      'Certifications': 'CE · RoHS',
+    },
+    benefits: [
+      'One supplier for iPhone and every major Android brand sold in Bangladesh',
+      'Four grades let repair shops match price to customer — from genuine service pack down to ORG grade',
+      'Diagnostic-compatible iPhone cells avoid the iOS battery-health warning that drives customer complaints',
+      'UN38.3 and MSDS paperwork prepared for every shipment, so lithium batteries clear freight and customs without delays',
+      'Mixed-model cartons accepted — stock the fast movers without buying a full carton per model',
+    ],
+    packaging: [
+      'Individual anti-static bag per cell, with adhesive strips where the model needs them',
+      'Inner boxes of 10 cells per model and grade',
+      'Class 9 lithium-battery labelled outer cartons',
+      'Mixed-model orders accepted — compatibility list provided per shipment',
+    ],
+    sourcing: {
+      countries: ['China'],
+      certifications: ['CE Certified', 'RoHS Compliant', 'UN38.3 Tested', 'MSDS'],
+    },
+    relatedProducts: ['iphone-displays', 'android-displays', 'charging-accessories'],
+    originStory: "Battery replacement is one of the most common phone repairs, and grade matters more here than for almost any other part: a weak cell comes back within weeks, and an iPhone cell without diagnostic support shows the owner a warning in Settings. KHI's battery programme keeps the grades clearly separated — genuine service-pack cells for premium repair, TI-solution diagnostic cells that report health and cycle count in iOS, high-capacity aftermarket cells for budget repair, and ORG-grade cells across the Android range. Lithium batteries are regulated dangerous goods, so every KHI shipment carries UN38.3 test summaries, MSDS and Class 9 labelling to move through Chattogram without hold-ups.",
+    marketContext: "Phone batteries wear out on a predictable cycle, which makes replacement demand steady and recurring. Bangladesh's large second-hand iPhone market and long Android ownership cycles outside the big cities both push owners to replace the battery rather than the phone. Repair shops need dependable stock across many models, with clear grading so they can quote each customer correctly.",
+    youtube: { id: 'F0x4pJw2mww', title: 'How phone batteries are made — factory tour' },
+    catalog: { items: batteryCatalog, groupLabel: 'Brand', variantLabel: 'Grade', noun: 'batteries' },
+  },
+  {
+    id: 'ipad-displays',
+    name: 'iPad Replacement Displays',
+    image: ipad('ipad-ipad-air-5-10-9-inch-lcd-digitizer'),
+    images: [
+      ipad('ipad-ipad-air-5-10-9-inch-lcd-digitizer'),
+      ipad('ipad-ipad-pro-12-9-inch-5th-6th-lcd-digitizer'),
+      ipad('ipad-ipad-mini-6-lcd-digitizer'),
+      ipad('ipad-ipad-10-2022-lcd-digitizer'),
+    ],
+    description: 'Replacement LCD panels and LCD + digitizer assemblies for iPad, iPad Air, iPad mini, and iPad Pro — from iPad 2 and iPad mini 2 through iPad Air 6 (M2), iPad mini 7, and the 6th-generation 12.9-inch iPad Pro. LCD-only panels for workshops that refit glass, or full assemblies for drop-in repair.',
+    type: 'import',
+    category: 'Tablet & Laptop Parts',
+    specifications: {
+      'iPad': 'iPad 2 through iPad 10 (2022), including the 10.2-inch 7th / 8th / 9th generation',
+      'iPad Air': 'iPad Air 1 through iPad Air 6 11-inch (M2, 2024) — WiFi and Cellular versions',
+      'iPad mini': 'iPad mini 2 / 3 through iPad mini 7 (2024)',
+      'iPad Pro': '9.7-inch · 11-inch 1st–3rd generation · 12.9-inch 1st–6th generation',
+      'Formats': 'LCD only · LCD + digitizer assembly (with sticker / sleep-wake sensor where fitted)',
+      'Colours': 'Black and white bezels where the model has both',
+      'Certifications': 'CE · RoHS',
+    },
+    benefits: [
+      'More than a decade of iPad models covered — education and business fleets in Bangladesh run many older iPads',
+      'LCD-only and full-assembly formats, so shops can choose between a cheaper glass refit and a fast drop-in repair',
+      'WiFi and Cellular versions identified per listing — fewer returns from wrong-version orders',
+      'Ships with iPhone and Android displays in one consolidated parts consignment',
+    ],
+    packaging: [
+      'Individual anti-static foam box per panel',
+      'Rigid outer carton with corner protection — tablet panels are larger and more fragile than phone screens',
+      'Mixed-model orders accepted — compatibility list provided per shipment',
+    ],
+    sourcing: {
+      countries: ['China'],
+      certifications: ['CE Certified', 'RoHS Compliant'],
+    },
+    relatedProducts: ['macbook-parts', 'iphone-displays', 'android-displays'],
+    originStory: "iPad screens are a different job from phone screens: the panels are larger, the LCD and touch glass are often separate parts, and one model name can hide WiFi and Cellular versions with different connectors. KHI lists every iPad panel by generation, screen size and version, and offers both LCD-only panels and full LCD + digitizer assemblies, so a workshop can quote either the cheaper refit or the faster drop-in replacement.",
+    marketContext: "iPads are widely used in Bangladesh's schools, coaching centres, clinics and retail point-of-sale, and these fleets often stay in service for years. Older models such as the iPad Air 2 and the 10.2-inch iPads are still common, so repair shops need panels for older generations as well as current ones.",
+    youtube: { id: 'kmkTmVRqxbM', title: 'iPad screen replacement, step by step' },
+    catalog: { items: ipadDisplayCatalog, groupLabel: 'Series', variantLabel: 'Format', noun: 'displays' },
+  },
+  {
+    id: 'macbook-parts',
+    name: 'MacBook Replacement Parts',
+    image: macbook('macbook-lcd-assembly-space-gray-premium-for-macbook-pro-13-a2338-lat'),
+    images: [
+      macbook('macbook-lcd-assembly-space-gray-premium-for-macbook-pro-13-a2338-lat'),
+      macbook('macbook-top-case-w-us-keyboard-space-gray-for-macbook-air-13-a2337-l'),
+      macbook('macbook-trackpad-space-gray-for-macbook-pro-14-a2442-a2779'),
+      macbook('macbook-battery-replacement-a1965-for-macbook-air-13-retina-a1932-la'),
+      macbook('macbook-left-right-cooling-fan-for-macbook-pro-13-a2251-mid-2020'),
+      macbook('macbook-usb-c-board-for-macbook-air-13-retina-a1932-late-2018-early'),
+    ],
+    description: 'Replacement parts for MacBook Air, MacBook Pro, and the 12-inch MacBook — LCD assemblies, top cases with keyboard, bottom cases, trackpads, batteries, flex cables, USB-C and DC-in boards, speakers, cooling fans, SSDs, screws, and board-level ICs. Listed by A-number and year, from the 2009 unibody MacBook Pro to the M3 MacBook Air.',
+    type: 'import',
+    category: 'Tablet & Laptop Parts',
+    specifications: {
+      'Model coverage': 'MacBook Air 11 / 13 / 15-inch · MacBook Pro 13 / 14 / 15 / 16 / 17-inch · MacBook 12-inch Retina',
+      'Display': 'Full LCD assemblies (premium, refurbished and OEM-pull grades) and LCD panels only',
+      'Chassis': 'Top case with US keyboard · bottom case · keyboards · keycaps · Touch Bar',
+      'Input': 'Trackpads in every finish · trackpad flex cables',
+      'Power': 'Batteries by A-number · battery cables · DC-in and USB-C boards',
+      'Internal': 'Flex cables · speakers · microphones · cooling fans · heat sinks · SSDs · antennas',
+      'Board level': 'ICs, regulators, fuses and capacitors · BGA reballing stencils · repair tools',
+      'Finishes': 'Silver · Space Gray · Space Black · Midnight · Starlight · Gold · Rose Gold',
+      'Identification': 'Every part listed by A-number and model year',
+    },
+    benefits: [
+      'Hundreds of MacBook parts from one source, listed by A-number — the identifier technicians actually work from',
+      'Everything from cosmetic parts (bottom cases, keycaps) to board-level ICs for logic-board repair',
+      'Display grades from premium new to OEM pull let shops quote at several price points',
+      'Colour-matched chassis parts in every Apple finish',
+      'Consolidates with phone and tablet parts in one shipment to cut freight cost per unit',
+    ],
+    packaging: [
+      'Displays and top cases in rigid foam-lined cartons',
+      'Small parts and ICs in labelled anti-static bags',
+      'Batteries packed and labelled to lithium-battery shipping rules (UN38.3 / MSDS)',
+      'Mixed-part orders accepted — packing list by A-number provided per shipment',
+    ],
+    sourcing: {
+      countries: ['China'],
+      certifications: ['CE Certified', 'RoHS Compliant'],
+    },
+    relatedProducts: ['ipad-displays', 'phone-batteries', 'charging-accessories'],
+    originStory: "MacBook repair runs on A-numbers. A 13-inch MacBook Pro from 2020 can be one of several different machines, and a top case or display from the wrong one will not fit. KHI's MacBook range is listed the way technicians search for it — part type, A-number, model year and colour — covering displays, top and bottom cases, trackpads, batteries, flex cables and boards, down to the ICs and stencils used for logic-board repair.",
+    marketContext: "MacBooks are common among Bangladesh's students, freelancers, designers and developers, and many are bought second-hand or brought back from abroad without local warranty. With little authorised Apple service outside Dhaka, independent repair shops handle most MacBook repairs and need a dependable parts supply.",
+    catalog: { items: macbookPartsCatalog, groupLabel: 'Part', variantLabel: 'Model', noun: 'parts' },
   },
   {
     id: 'audio-accessories',
@@ -918,7 +1078,7 @@ export const products: Product[] = [
     relatedProducts: ['charging-accessories', 'iphone-displays', 'android-displays'],
     originStory: "Dongguan has the highest concentration of audio hardware factories globally — Sony, JBL, and Bose manufacture there alongside hundreds of OEM/ODM factories. The TWS boom post-AirPods transformed this region; Bluetooth 5.0 SoC chips from Qualcomm and MediaTek made quality wireless audio affordable. KHI sources from CE-certified Dongguan and Shenzhen ODM factories with documented Bluetooth specifications, tested battery life, and 90-day warranty — covering the BDT 800–5,000 retail tier that Bangladesh's market has adopted.",
     marketContext: "TWS earbuds are a lifestyle product for young urban Bangladeshis — university students, young professionals, remote workers. 4G coverage expansion and smartphone penetration are driving audio accessories adoption rapidly. Post-COVID home working and e-learning permanently elevated headphone demand. Gaming headsets are an emerging sub-category aligned with mobile gaming growth — PUBG Mobile and Free Fire dominate Bangladesh's gaming culture.",
-    videoSrc: '/videos/products/audio-accessories.mp4',
+    youtube: { id: '29kPe_GJmHk', title: 'Inside an audio accessories factory' },
   },
   {
     id: 'charging-accessories',
@@ -953,7 +1113,7 @@ export const products: Product[] = [
     relatedProducts: ['audio-accessories', 'iphone-displays', 'android-displays'],
     originStory: "Shenzhen invented GaN charging. The same city that built the factory ecosystem for Anker, Baseus, and UGREEN now supplies KHI's charging programme — CE-certified GaN wall chargers up to 65W, USB-C cables that handle 100W laptop charging, and power banks from 10,000 to 20,000mAh. GaN (Gallium Nitride) technology produces a 65W charger smaller than a traditional 5W cube — a paradigm shift for the power-conscious Bangladesh market where load shedding in secondary cities still runs 2–6 hours daily.",
     marketContext: "Power outage frequency of 2–6 hours/day in secondary cities makes power banks a daily necessity, not a travel convenience. USB-C transition is underway — most new smartphones now have USB-C, shifting charger demand structurally. GaN chargers appeal to Bangladesh's growing laptop-user population (university students, professionals) who can charge phone and laptop from one compact unit. Safety certification matters: counterfeit chargers cause fires — CE-certified marking is the safety differentiator.",
-    videoSrc: '/videos/products/charging-accessories.mp4',
+    youtube: { id: '49VD7x12AkM', title: 'Inside a phone charger factory in China' },
   },
 ]
 

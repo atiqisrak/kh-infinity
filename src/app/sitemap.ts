@@ -3,7 +3,7 @@ import { getBlogPosts } from '@/lib/blog';
 import { getProducts } from '@/lib/products';
 import { getActiveJobs } from '@/lib/jobs';
 
-const CONTENT_UPDATED = '2026-10-01';
+const CONTENT_UPDATED = '2026-10-08';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://khi.com.bd';

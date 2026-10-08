@@ -3,22 +3,22 @@
 import Image from "next/image";
 import { useState, useMemo, useCallback } from "react";
 import Lightbox, { type LightboxImage } from "@/components/v3/Lightbox";
-import { isRemoteImage } from "@/lib/image-src";
-import type { DisplayCatalogItem } from "@/lib/iphone-display-catalog";
+import type { Catalog } from "@/lib/parts-catalog";
 
 // ─── DisplayCatalog ───────────────────────────────────────────────────────
-// Named, filterable grid of individual display SKUs (brand · panel · model).
-// • Brand + panel filter chips
+// Named, filterable grid of individual SKUs (model · group · variant).
+// • Two rows of filter chips (e.g. brand + panel grade, part type + model family)
 // • Click any card → lightbox across every photo in the current filter
-// • Self-hosted photos go through the Next.js optimizer; remote ones load directly
+// • Photos load directly (pre-optimized), skipping the Next.js image optimizer
 // • Broken images keep the card and its name, just without the photo
 
 const PAGE = 24;
 const ALL = "All";
 
-export default function DisplayCatalog({ items }: { items: DisplayCatalogItem[] }) {
-  const [brand, setBrand] = useState(ALL);
-  const [panel, setPanel] = useState(ALL);
+export default function DisplayCatalog({ catalog }: { catalog: Catalog }) {
+  const { items, groupLabel, variantLabel, noun } = catalog;
+  const [group, setGroup] = useState(ALL);
+  const [variant, setVariant] = useState(ALL);
   const [expanded, setExpanded] = useState(false);
   // Track the open photo by src, not index: late load/error events reshape the list
   const [lbSrc, setLbSrc] = useState<string | null>(null);
@@ -38,11 +38,11 @@ export default function DisplayCatalog({ items }: { items: DisplayCatalogItem[] 
   const markFailed = useMemo(() => addTo(setFailed), [addTo]);
   const markLoaded = useMemo(() => addTo(setLoaded), [addTo]);
 
-  const brands = useMemo(() => [ALL, ...new Set(items.map((i) => i.brand))], [items]);
-  const panels = useMemo(() => [ALL, ...new Set(items.map((i) => i.panel))], [items]);
+  const groups = useMemo(() => [ALL, ...new Set(items.map((i) => i.group))], [items]);
+  const variants = useMemo(() => [ALL, ...new Set(items.map((i) => i.variant))].sort((a, b) => (a === ALL ? -1 : b === ALL ? 1 : a.localeCompare(b))), [items]);
 
   const filtered = items.filter(
-    (i) => (brand === ALL || i.brand === brand) && (panel === ALL || i.panel === panel),
+    (i) => (group === ALL || i.group === group) && (variant === ALL || i.variant === variant),
   );
   const visible = expanded ? filtered : filtered.slice(0, PAGE);
 
@@ -70,24 +70,24 @@ export default function DisplayCatalog({ items }: { items: DisplayCatalogItem[] 
     <>
       {/* ── filters ─────────────────────────────────────────────────────── */}
       <div className="mt-10 space-y-3">
-        <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by supplier brand">
-          <span className="mr-1 w-14 font-mono text-[11px] uppercase tracking-wider text-white/40">Brand</span>
-          {brands.map((b) => (
-            <button key={b} type="button" aria-pressed={brand === b} onClick={() => setBrand(b)} className={chip(brand === b)}>
-              {b}
+        <div className="flex flex-wrap items-center gap-2" role="group" aria-label={`Filter by ${groupLabel.toLowerCase()}`}>
+          <span className="mr-1 w-14 font-mono text-[11px] uppercase tracking-wider text-white/40">{groupLabel}</span>
+          {groups.map((g) => (
+            <button key={g} type="button" aria-pressed={group === g} onClick={() => setGroup(g)} className={chip(group === g)}>
+              {g}
             </button>
           ))}
         </div>
-        <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Filter by panel type">
-          <span className="mr-1 w-14 font-mono text-[11px] uppercase tracking-wider text-white/40">Panel</span>
-          {panels.map((p) => (
-            <button key={p} type="button" aria-pressed={panel === p} onClick={() => setPanel(p)} className={chip(panel === p)}>
-              {p}
+        <div className="flex flex-wrap items-center gap-2" role="group" aria-label={`Filter by ${variantLabel.toLowerCase()}`}>
+          <span className="mr-1 w-14 font-mono text-[11px] uppercase tracking-wider text-white/40">{variantLabel}</span>
+          {variants.map((v) => (
+            <button key={v} type="button" aria-pressed={variant === v} onClick={() => setVariant(v)} className={chip(variant === v)}>
+              {v}
             </button>
           ))}
         </div>
         <p className="font-mono text-[11px] text-white/40" aria-live="polite">
-          {filtered.length} model{filtered.length === 1 ? "" : "s"}
+          {filtered.length} {filtered.length === 1 ? noun.replace(/s$/, "") : noun}
         </p>
       </div>
 
@@ -115,7 +115,9 @@ export default function DisplayCatalog({ items }: { items: DisplayCatalogItem[] 
                         src={src}
                         alt={item.name}
                         fill
-                        unoptimized={isRemoteImage(src)}
+                        // Gallery photos are pre-shrunk by `pnpm optimize:gallery`, so serve them as-is
+                        // rather than spending an image-optimizer transformation on each of ~1,200 catalogue cards
+                        unoptimized
                         loading="lazy"
                         sizes="(min-width: 1280px) 200px, (min-width: 640px) 30vw, 45vw"
                         className="select-none object-contain p-2 transition duration-500 group-hover:scale-105"
@@ -146,9 +148,9 @@ export default function DisplayCatalog({ items }: { items: DisplayCatalogItem[] 
                 </div>
 
                 <div className="px-1 pb-1">
-                  <p className="text-sm font-semibold leading-snug text-white">{item.model}</p>
+                  <p className="line-clamp-3 text-sm font-semibold leading-snug text-white" title={item.name}>{item.title}</p>
                   <p className="mt-1 text-xs text-white/50">
-                    <span className="font-semibold text-[#fa6a25]">{item.brand}</span> · {item.panel}
+                    <span className="font-semibold text-[#fa6a25]">{item.group}</span> · {item.variant}
                   </p>
                 </div>
               </button>
@@ -164,7 +166,7 @@ export default function DisplayCatalog({ items }: { items: DisplayCatalogItem[] 
             onClick={() => setExpanded((e) => !e)}
             className="rounded-full bg-white/5 px-5 py-2.5 text-sm font-medium text-white ring-1 ring-white/15 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fa6a25]"
           >
-            {expanded ? "Show fewer" : `Show all ${filtered.length} models`}
+            {expanded ? "Show fewer" : `Show all ${filtered.length} ${noun}`}
           </button>
         </div>
       )}

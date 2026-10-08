@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,11 +14,16 @@ import { ListCard, fieldLabelDark, inputDark } from "@/components/v3/blocks";
 import ApplicationsGrid from "@/components/v3/products/ApplicationsGrid";
 import ProductGallery from "@/components/v3/products/ProductGallery";
 import DisplayCatalog from "@/components/v3/products/DisplayCatalog";
+import PausableVideo from "@/components/v3/products/PausableVideo";
+import YouTubeVideo from "@/components/v3/products/YouTubeVideo";
 import { certLogos, phone, shipmentDocs } from "@/components/v3/site";
 import { certKey, YARD_COLOURS } from "@/components/v3/sourcing";
 import { ArrowLink, Eyebrow, GhostButton, PillButton, ProductCard, SectionHead, focusRing, pad } from "@/components/v3/ui";
 import V3Shell from "@/components/v3/V3Shell";
 import s from "@/components/v3/v3.module.css";
+
+/** True when a site-relative path like "/videos/x.mp4" exists in public/ */
+const inPublic = (path: string) => existsSync(join(process.cwd(), "public", path));
 
 interface ProductPageProps {
   params: Promise<{
@@ -128,6 +135,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const relatedProducts = getRelatedProducts(product);
   const isImport = product.type === "import";
   const gallery = product.images && product.images.length > 0 ? product.images : [product.image];
+  const { youtube } = product;
+  // Self-hosted videos and posters are optional: skip any that haven't been added to public/ yet
+  const videoSrc = product.videoSrc && inPublic(product.videoSrc) ? product.videoSrc : undefined;
+  const posterPath = `/images/products/v2/${product.id}-video-poster.webp`;
+  const videoPoster = inPublic(posterPath) ? posterPath : undefined;
   const facts = tradeFacts(product);
   const origins = product.sourcing.countries;
 
@@ -255,24 +267,25 @@ export default async function ProductPage({ params }: ProductPageProps) {
                   </p>
                 )}
 
-                {/* Video placeholder */}
-                {product.videoSrc && (
+                {/* Origin video: YouTube embed, or a self-hosted file once it exists */}
+                {youtube ? (
+                  <div className="mt-8 overflow-hidden rounded-2xl shadow-xl">
+                    <YouTubeVideo id={youtube.id} title={youtube.title} />
+                  </div>
+                ) : videoSrc ? (
                   <div className="mt-8 overflow-hidden rounded-2xl bg-[#06131d] shadow-xl">
-                    <video
-                      src={product.videoSrc}
-                      poster={`/images/products/v2/${product.id}-video-poster.webp`}
+                    <PausableVideo
+                      src={videoSrc}
+                      poster={videoPoster}
                       controls
-                      preload="none"
+                      preload={videoPoster ? "none" : "metadata"}
                       className="w-full"
                       aria-label={`${product.name} origin journey video`}
                     >
                       Your browser does not support the video tag.
-                    </video>
+                    </PausableVideo>
                   </div>
-                )}
-
-                {/* Placeholder card when video not yet available */}
-                {!product.videoSrc && (
+                ) : (
                   <div className="mt-8 flex items-center gap-4 rounded-2xl border border-[#06131d]/10 bg-[#f2f4f6] p-5">
                     <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#fa6a25]/10">
                       <Icon name="arrow" className="h-5 w-5 text-[#fa6a25]" />
@@ -358,7 +371,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       )}
 
       {/* ───────────── MODEL CATALOGUE ───────────── */}
-      {product.displayCatalog && product.displayCatalog.length > 0 && (
+      {product.catalog && product.catalog.items.length > 0 && (
         <section aria-labelledby="catalogue-heading" className="border-t border-white/10 bg-[#06131d] py-20 lg:py-28">
           <div className={pad}>
             <Eyebrow>Model-by-model stock</Eyebrow>
@@ -369,11 +382,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
               Browse the catalogue
             </h2>
             <p className="mt-4 max-w-2xl text-[15px] text-white/60 sm:text-base">
-              {product.displayCatalog.length} {product.name.toLowerCase()} by supplier brand and panel grade.
-              Click any model to view it full size.
+              {product.catalog.items.length} {product.catalog.noun}, filterable by {product.catalog.groupLabel.toLowerCase()} and{" "}
+              {product.catalog.variantLabel.toLowerCase()}. Click any card to view it full size.
             </p>
 
-            <DisplayCatalog items={product.displayCatalog} />
+            <DisplayCatalog catalog={product.catalog} />
 
             <div className="mt-12 flex flex-wrap gap-3">
               <PillButton href="#contact">Request a price list</PillButton>
@@ -399,7 +412,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </Link>
       )}
 
-      {(slug === "iphone-displays" || slug === "android-displays") && (
+      {product.category === "Phone Parts" && (
         <Link
           href="/products/phone-parts-programme"
           className={`group block bg-[#1d4ed8] text-white transition-colors hover:bg-[#1e40af] ${focusRing}`}
