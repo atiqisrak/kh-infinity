@@ -1,30 +1,38 @@
-const SITEMAP_URL = "https://khi.com.bd/sitemap.xml";
+import sitemap from "@/app/sitemap";
 
-export async function pingSearchEngines(): Promise<{
-  google: boolean;
-  bing: boolean;
-}> {
-  const results = { google: false, bing: false };
+/**
+ * IndexNow submission (Bing, Yandex, Naver, Seznam; Bing also feeds ChatGPT
+ * search and Copilot). Replaces the old Google/Bing sitemap "ping" endpoints,
+ * which were retired in 2023 and no longer do anything.
+ *
+ * Google does not support IndexNow. For Google, keep the sitemap submitted in
+ * Search Console and use URL Inspection → Request indexing for key pages.
+ *
+ * Key file: /public/<INDEXNOW_KEY>.txt must contain exactly the key.
+ */
+export const INDEXNOW_KEY = "11c3018b975ceec3fcc72c711f595269";
+const HOST = "khi.com.bd";
+
+export async function pingSearchEngines(
+  urls?: string[]
+): Promise<{ indexnow: boolean; submitted: number }> {
+  const urlList = (urls ?? sitemap().map((entry) => entry.url)).slice(0, 10000);
 
   try {
-    const googleRes = await fetch(
-      `https://www.google.com/ping?sitemap=${encodeURIComponent(SITEMAP_URL)}`,
-      { method: "GET", signal: AbortSignal.timeout(10000) }
-    );
-    results.google = googleRes.ok;
+    const res = await fetch("https://api.indexnow.org/indexnow", {
+      method: "POST",
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      body: JSON.stringify({
+        host: HOST,
+        key: INDEXNOW_KEY,
+        keyLocation: `https://${HOST}/${INDEXNOW_KEY}.txt`,
+        urlList,
+      }),
+      signal: AbortSignal.timeout(10000),
+    });
+    // 200 = accepted, 202 = accepted, key validation pending
+    return { indexnow: res.ok, submitted: urlList.length };
   } catch {
-    results.google = false;
+    return { indexnow: false, submitted: 0 };
   }
-
-  try {
-    const bingRes = await fetch(
-      `https://www.bing.com/ping?sitemap=${encodeURIComponent(SITEMAP_URL)}`,
-      { method: "GET", signal: AbortSignal.timeout(10000) }
-    );
-    results.bing = bingRes.ok;
-  } catch {
-    results.bing = false;
-  }
-
-  return results;
 }

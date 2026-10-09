@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://khi.com.bd/investors/onboarding",
   },
+  robots: { index: false, follow: true },
   openGraph: {
     title: "Compliance, KYC, & Partnership Application - K.H. Infinity",
     description:

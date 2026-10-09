@@ -31,6 +31,8 @@ export async function generateMetadata({
     title: `Apply for ${job.title} | K.H. Infinity Careers`,
     description: `Submit your application for ${job.title} at K.H. Infinity. ${job.department} · ${job.location}.`,
     alternates: { canonical: applyUrl },
+    // Application form: keep out of the index, the job page is the one to rank
+    robots: { index: false, follow: true },
     openGraph: {
       title: `Apply for ${job.title} | K.H. Infinity`,
       description: `Career application: ${job.title}`,

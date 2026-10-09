@@ -1,5 +1,6 @@
 "use client";
 
+import { track } from "@/lib/analytics";
 import { useState } from "react";
 
 export default function ContactSection() {
@@ -27,6 +28,7 @@ export default function ContactSection() {
       }
 
       setFormData({ name: "", email: "", message: "" });
+      track("contact_submit");
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 5000);
     } catch {

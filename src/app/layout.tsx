@@ -8,6 +8,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import SiteChrome from "@/components/SiteChrome";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import TagManager from "@/components/analytics/TagManager";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -179,6 +180,7 @@ export default function RootLayout({
           <Footer />
         </SiteChrome>
         <WhatsAppButton />
+        {isProduction && <TagManager />}
         {isProduction && <SpeedInsights />}
         {isProduction && <Analytics />}
       </body>

@@ -2,8 +2,10 @@ import { products } from "@/lib/products";
 
 const BASE = "https://khi.com.bd";
 
+/** Absolute, URL-encoded image/page URL (remote supplier images stay as-is; spaces etc. get encoded) */
 function url(path: string) {
-  return `${BASE}${path}`;
+  const abs = /^https?:\/\//.test(path) ? path : `${BASE}${path}`;
+  return encodeURI(decodeURI(abs));
 }
 
 interface ImageEntry {

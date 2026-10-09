@@ -704,12 +704,25 @@ function getAllPosts(): BlogPost[] {
   return _cachedPosts;
 }
 
+/**
+ * Posts dated after the build date are scheduled, not published. They stay
+ * out of listings, the sitemap and their own URL (404) until a build on or
+ * after their date. BUILD_DATE is set in next.config.js.
+ */
+const PUBLISH_CUTOFF = process.env.BUILD_DATE ?? "9999-12-31";
+
+/** Posts merged into a stronger page (301s live in next.config.js) */
+const RETIRED_POSTS = new Set(["nbr-customs-update-2025"]);
+
+const isPublished = (post: BlogPost) =>
+  post.date.slice(0, 10) <= PUBLISH_CUTOFF && !RETIRED_POSTS.has(post.id);
+
 export function getBlogPost(id: string): BlogPost | undefined {
-  return getAllPosts().find((post) => post.id === id);
+  return getAllPosts().find((post) => post.id === id && isPublished(post));
 }
 
 export function getBlogPosts() {
-  return getAllPosts();
+  return getAllPosts().filter(isPublished);
 }
 
 export function getBlogCategories() {

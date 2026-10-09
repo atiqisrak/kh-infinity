@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { isRemoteImage } from "@/lib/image-src";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -215,7 +216,7 @@ export default function SiteNav({ entries }: { entries: NavEntry[] }) {
                         >
                           {l.image && (
                             <span className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full ring-1 ring-white/10">
-                              <Image src={l.image} alt="" fill sizes="40px" className="object-cover" />
+                              <Image src={l.image} alt="" fill sizes="40px" unoptimized={isRemoteImage(l.image)} className="object-cover" />
                             </span>
                           )}
                           <span className="min-w-0">

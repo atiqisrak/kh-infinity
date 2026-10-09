@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://khi.com.bd/equal-opportunity",
   },
+  robots: { index: false, follow: true },
   openGraph: {
     title: "Equal Opportunity Employer - K.H. Infinity",
     description:

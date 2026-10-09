@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { isRemoteImage } from "@/lib/image-src";
 import { getBlogPost, getBlogPosts, type BlogPost } from "@/lib/blog";
 import { getProducts } from "@/lib/products";
 import { breadcrumbSchema } from "@/lib/schema-helpers";
@@ -204,7 +205,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
                       className="group flex items-center gap-3 rounded-2xl bg-white/5 p-3 ring-1 ring-white/10 transition hover:bg-white/10"
                     >
                       <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl bg-white">
-                        <Image src={p.image} alt="" fill sizes="48px" className="object-contain p-1" />
+                        <Image src={p.image} alt="" fill sizes="48px" unoptimized={isRemoteImage(p.image)} className="object-contain p-1" />
                       </span>
                       <span className="min-w-0">
                         <span className="block truncate text-sm font-semibold">{p.name}</span>

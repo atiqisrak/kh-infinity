@@ -6,7 +6,8 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/_next/', '/out/'],
+        // Never block /_next/: Google needs those JS, CSS and font files to render pages
+        disallow: ['/api/', '/out/', '/investors/portal', '/investors/admin'],
       },
       { userAgent: 'GPTBot', allow: '/' },
       { userAgent: 'OAI-SearchBot', allow: '/' },

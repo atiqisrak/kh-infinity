@@ -1,5 +1,6 @@
 "use client";
 
+import { track } from "@/lib/analytics";
 import { useState } from "react";
 
 interface JobApplicationFormProps {
@@ -66,6 +67,7 @@ export default function JobApplicationForm({
         noticePeriod: "",
       });
 
+      track("job_application_submit");
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
