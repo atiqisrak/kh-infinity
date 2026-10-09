@@ -1,24 +1,30 @@
 import { MetadataRoute } from 'next';
 
+// AI crawlers we explicitly welcome. They share the "*" rules: a bot obeys only
+// its most specific group, so a separate { allow: '/' } group would let it
+// ignore the disallows below.
+const AI_BOTS = [
+  'GPTBot',
+  'OAI-SearchBot',
+  'PerplexityBot',
+  'ClaudeBot',
+  'anthropic-ai',
+  'Applebot-Extended',
+  'Google-Extended',
+  'Amazonbot',
+  'YouBot',
+  'cohere-ai',
+];
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
-        userAgent: '*',
+        userAgent: ['*', ...AI_BOTS],
         allow: '/',
         // Never block /_next/: Google needs those JS, CSS and font files to render pages
         disallow: ['/api/', '/out/', '/investors/portal', '/investors/admin'],
       },
-      { userAgent: 'GPTBot', allow: '/' },
-      { userAgent: 'OAI-SearchBot', allow: '/' },
-      { userAgent: 'PerplexityBot', allow: '/' },
-      { userAgent: 'ClaudeBot', allow: '/' },
-      { userAgent: 'anthropic-ai', allow: '/' },
-      { userAgent: 'Applebot-Extended', allow: '/' },
-      { userAgent: 'Google-Extended', allow: '/' },
-      { userAgent: 'Amazonbot', allow: '/' },
-      { userAgent: 'YouBot', allow: '/' },
-      { userAgent: 'cohere-ai', allow: '/' },
     ],
     sitemap: [
       'https://khi.com.bd/sitemap.xml',

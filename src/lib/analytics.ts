@@ -11,14 +11,15 @@ type AnalyticsWindow = Window & {
   gtag?: (...args: unknown[]) => void;
 };
 
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+
 export function track(event: string, params: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
   const w = window as AnalyticsWindow;
   const payload = { page_path: window.location.pathname, ...params };
-  if (typeof w.gtag === "function") {
-    w.gtag("event", event, payload);
-  } else {
-    w.dataLayer = w.dataLayer || [];
-    w.dataLayer.push({ event, ...payload });
-  }
+  w.dataLayer = w.dataLayer || [];
+  if (typeof w.gtag === "function") w.gtag("event", event, payload);
+  // GTM "Custom Event" triggers only see {event} pushes, not gtag() calls.
+  // If GTM also has GA4 event tags for these, set NEXT_PUBLIC_GA_ID=off.
+  if (GTM_ID || typeof w.gtag !== "function") w.dataLayer.push({ event, ...payload });
 }
