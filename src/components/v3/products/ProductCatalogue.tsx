@@ -4,6 +4,7 @@ import Image from "next/image";
 import { isRemoteImage } from "@/lib/image-src";
 import Link from "next/link";
 import { Fragment, useEffect, useState } from "react";
+import { track } from "@/lib/analytics";
 import Flag, { flagCodeFor } from "../Flag";
 import Icon from "../Icons";
 import Reveal from "../Reveal";
@@ -442,6 +443,14 @@ export default function ProductCatalogue({ items }: { items: CatalogueItem[] }) 
   const visible = inType.filter((p) => !category || p.category === category);
   const grouped = type === "all" && !category && !q;
 
+  // One search event once typing pauses; zero results show unmet demand
+  useEffect(() => {
+    if (q.length < 2) return;
+    const timer = setTimeout(() => track("search", { search_term: q, results_count: visible.length, search_location: "product_catalogue" }), 1200);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [q]);
+
   const imports = items.filter((p) => p.type === "import");
   const exports = items.filter((p) => p.type === "export");
 
@@ -470,6 +479,7 @@ export default function ProductCatalogue({ items }: { items: CatalogueItem[] }) 
               onClick={() => {
                 setType(t.key);
                 setCategory("");
+                track("product_filter", { filter_type: "direction", filter_value: t.key });
               }}
               className={`min-h-10 rounded-full px-5 text-sm font-semibold transition-colors ${focusRing} ${
                 type === t.key ? "bg-[#06131d] text-white" : "text-[#0b2c3d] hover:text-[#b8440f]"
@@ -484,7 +494,10 @@ export default function ProductCatalogue({ items }: { items: CatalogueItem[] }) 
           <span className="sr-only">Category</span>
           <select
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => {
+              setCategory(e.target.value);
+              track("product_filter", { filter_type: "category", filter_value: e.target.value || "all" });
+            }}
             className="h-full w-full cursor-pointer appearance-none rounded-full bg-transparent py-3 pl-5 pr-10 outline-none"
           >
             <option value="">All categories</option>

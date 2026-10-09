@@ -1,3 +1,19 @@
+// Content-Security-Policy. Tags added in GTM can only load from hosts listed
+// here, so add a vendor's domains before publishing its tag.
+//  - Google: GA4, GTM, Tag Assistant (tagassistant.google.com, cct.google),
+//    Google Ads conversions + remarketing (googleadservices, doubleclick, google.com.bd)
+//  - Meta Pixel (connect.facebook.net, facebook.com), LinkedIn Insight (licdn, ads.linkedin.com)
+//  - Microsoft Clarity, Vercel analytics
+const CSP = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' cdnjs.cloudflare.com https://www.googletagmanager.com https://*.googletagmanager.com https://tagmanager.google.com https://tagassistant.google.com https://cct.google https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://connect.facebook.net https://snap.licdn.com https://www.clarity.ms https://*.clarity.ms https://va.vercel-scripts.com",
+  "style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.googleapis.com https://www.googletagmanager.com https://tagmanager.google.com",
+  "img-src 'self' data: https:",
+  "font-src 'self' data: cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.gstatic.com",
+  "connect-src 'self' https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.googletagmanager.com https://*.g.doubleclick.net https://www.googleadservices.com https://www.google.com https://www.google.com.bd https://tagassistant.google.com https://cct.google https://www.facebook.com https://px.ads.linkedin.com https://*.clarity.ms https://c.bing.com https://vitals.vercel-insights.com",
+  "frame-src 'self' https://maps.google.com https://www.google.com https://www.youtube-nocookie.com https://www.googletagmanager.com https://tagassistant.google.com https://td.doubleclick.net https://www.facebook.com",
+].join("; ") + ";";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Enable Cache Components feature for Next.js 16
@@ -62,12 +78,9 @@ const nextConfig = {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
           },
-          // tagassistant.google.com + cct.google: Tag Assistant / GTM Preview
-          // inject a debug agent; without them it times out ("no debuggable tags")
           {
             key: "Content-Security-Policy",
-            value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdnjs.cloudflare.com https://www.googletagmanager.com https://*.googletagmanager.com https://www.clarity.ms https://*.clarity.ms https://va.vercel-scripts.com https://tagmanager.google.com https://tagassistant.google.com https://cct.google; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.googleapis.com https://www.googletagmanager.com https://tagmanager.google.com; img-src 'self' data: https:; font-src 'self' data: cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.gstatic.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.g.doubleclick.net https://www.google.com https://tagassistant.google.com https://cct.google https://*.clarity.ms https://c.bing.com https://vitals.vercel-insights.com; frame-src 'self' https://maps.google.com https://www.google.com https://www.youtube-nocookie.com https://www.googletagmanager.com https://tagassistant.google.com;",
+            value: CSP,
           },
         ],
       },

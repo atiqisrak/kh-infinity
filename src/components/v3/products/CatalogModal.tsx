@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { CatalogItem } from "@/lib/parts-catalog";
+import { track } from "@/lib/analytics";
 
 // ─── CatalogModal ─────────────────────────────────────────────────────────
 // Detail view for one catalogue item: large photo (with the item's other
@@ -31,6 +32,13 @@ export default function CatalogModal({ items, index, groupLabel, variantLabel, o
 
   // New item → back to its first photo
   useEffect(() => setPhoto(0), [item?.id]);
+
+  const itemId = item?.id;
+  useEffect(() => {
+    if (item) track("catalog_item_view", { item_id: item.id, item_name: item.name, item_group: item.group, item_variant: item.variant });
+    // Once per item shown, not on every re-render of the list
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [itemId]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -160,7 +168,7 @@ export default function CatalogModal({ items, index, groupLabel, variantLabel, o
             {item.description}
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-3" data-track-item-id={item.id} data-track-item-name={item.name}>
             <Link
               href="/quote"
               className="inline-flex items-center gap-2 rounded-full bg-[#fa6a25] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#d9531a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"

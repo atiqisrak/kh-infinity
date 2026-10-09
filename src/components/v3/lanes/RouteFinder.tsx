@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { track } from "@/lib/analytics";
 import { CheckList, SubmitArrow, fieldLabelDark, inputDark, submitCls } from "../blocks";
 import { ArrowLink, PillButton } from "../ui";
 import s from "../v3.module.css";
@@ -45,6 +46,10 @@ export default function RouteFinder() {
         onSubmit={(e) => {
           e.preventDefault();
           setSubmitted(true);
+          if (ready) {
+            const found = findLane(form.origin, form.destination);
+            track("route_search", { origin: form.origin, destination: form.destination, route_found: Boolean(found), route_name: found?.label });
+          }
         }}
         className={`${s.glass} rounded-3xl p-6 sm:p-8`}
       >

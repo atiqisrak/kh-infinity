@@ -6,6 +6,7 @@ import { getBlogPost, getBlogPosts, type BlogPost } from "@/lib/blog";
 import { getProducts } from "@/lib/products";
 import { breadcrumbSchema } from "@/lib/schema-helpers";
 import V3Shell from "@/components/v3/V3Shell";
+import { ReadTracker } from "@/components/analytics/TrackView";
 import PageHero from "@/components/v3/PageHero";
 import { Section } from "@/components/v3/blocks";
 import CtaBand from "@/components/v3/CtaBand";
@@ -190,6 +191,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
             className="prose prose-lg prose-headings:font-semibold prose-headings:text-[#0b2c3d] prose-p:text-[#06131d]/75 prose-li:text-[#06131d]/75 max-w-none"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
+          <ReadTracker event="blog_read_complete" params={{ article_id: post.id, article_category: post.category }} />
 
           {/* Products covered in this guide */}
           {mentionedProducts.length > 0 && (

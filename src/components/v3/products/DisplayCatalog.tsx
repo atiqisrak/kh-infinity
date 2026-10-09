@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, useMemo, useCallback } from "react";
 import CatalogModal from "@/components/v3/products/CatalogModal";
 import type { Catalog } from "@/lib/parts-catalog";
+import { track } from "@/lib/analytics";
 
 // ─── DisplayCatalog ───────────────────────────────────────────────────────
 // Named, filterable grid of individual SKUs (model · group · variant).
@@ -58,6 +59,15 @@ export default function DisplayCatalog({ catalog }: { catalog: Catalog }) {
     [viewable, openIndex],
   );
 
+  const pickGroup = (g: string) => {
+    setGroup(g);
+    track("catalog_filter", { catalog_name: noun, filter_type: groupLabel, filter_value: g });
+  };
+  const pickVariant = (v: string) => {
+    setVariant(v);
+    track("catalog_filter", { catalog_name: noun, filter_type: variantLabel, filter_value: v });
+  };
+
   const chip = (active: boolean) =>
     `rounded-full px-3.5 py-1.5 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#fa6a25] ${
       active ? "bg-[#fa6a25] text-white" : "bg-white/5 text-white/70 ring-1 ring-white/10 hover:bg-white/10"
@@ -70,7 +80,7 @@ export default function DisplayCatalog({ catalog }: { catalog: Catalog }) {
         <div className="flex flex-wrap items-center gap-2" role="group" aria-label={`Filter by ${groupLabel.toLowerCase()}`}>
           <span className="mr-1 w-14 font-mono text-[11px] uppercase tracking-wider text-white/40">{groupLabel}</span>
           {groups.map((g) => (
-            <button key={g} type="button" aria-pressed={group === g} onClick={() => setGroup(g)} className={chip(group === g)}>
+            <button key={g} type="button" aria-pressed={group === g} onClick={() => pickGroup(g)} className={chip(group === g)}>
               {g}
             </button>
           ))}
@@ -78,7 +88,7 @@ export default function DisplayCatalog({ catalog }: { catalog: Catalog }) {
         <div className="flex flex-wrap items-center gap-2" role="group" aria-label={`Filter by ${variantLabel.toLowerCase()}`}>
           <span className="mr-1 w-14 font-mono text-[11px] uppercase tracking-wider text-white/40">{variantLabel}</span>
           {variants.map((v) => (
-            <button key={v} type="button" aria-pressed={variant === v} onClick={() => setVariant(v)} className={chip(variant === v)}>
+            <button key={v} type="button" aria-pressed={variant === v} onClick={() => pickVariant(v)} className={chip(variant === v)}>
               {v}
             </button>
           ))}
