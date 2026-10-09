@@ -62,10 +62,12 @@ const nextConfig = {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
           },
+          // tagassistant.google.com + cct.google: Tag Assistant / GTM Preview
+          // inject a debug agent; without them it times out ("no debuggable tags")
           {
             key: "Content-Security-Policy",
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdnjs.cloudflare.com https://www.googletagmanager.com https://*.googletagmanager.com https://www.clarity.ms https://*.clarity.ms https://va.vercel-scripts.com https://tagmanager.google.com; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.googleapis.com https://www.googletagmanager.com https://tagmanager.google.com; img-src 'self' data: https:; font-src 'self' data: cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.gstatic.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.g.doubleclick.net https://www.google.com https://*.clarity.ms https://c.bing.com https://vitals.vercel-insights.com; frame-src 'self' https://maps.google.com https://www.google.com https://www.youtube-nocookie.com https://www.googletagmanager.com;",
+              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdnjs.cloudflare.com https://www.googletagmanager.com https://*.googletagmanager.com https://www.clarity.ms https://*.clarity.ms https://va.vercel-scripts.com https://tagmanager.google.com https://tagassistant.google.com https://cct.google; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.googleapis.com https://www.googletagmanager.com https://tagmanager.google.com; img-src 'self' data: https:; font-src 'self' data: cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.gstatic.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.g.doubleclick.net https://www.google.com https://tagassistant.google.com https://cct.google https://*.clarity.ms https://c.bing.com https://vitals.vercel-insights.com; frame-src 'self' https://maps.google.com https://www.google.com https://www.youtube-nocookie.com https://www.googletagmanager.com https://tagassistant.google.com;",
           },
         ],
       },
