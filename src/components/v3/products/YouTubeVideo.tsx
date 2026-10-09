@@ -1,6 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
+import { track } from "@/lib/analytics";
 
 // ─── YouTubeVideo ─────────────────────────────────────────────────────────
 // Click-to-play YouTube embed. Shows the video's thumbnail until clicked, so
@@ -39,7 +40,10 @@ export default function YouTubeVideo({ id, title }: { id: string; title: string 
       ) : (
         <button
           type="button"
-          onClick={() => setPlaying(true)}
+          onClick={() => {
+            setPlaying(true);
+            track("video_play", { video_id: id, video_title: title });
+          }}
           aria-label={`Play video: ${title}`}
           className="group absolute inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#fa6a25]"
         >

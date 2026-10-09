@@ -1,7 +1,7 @@
 "use client";
 
-import { track } from "@/lib/analytics";
-import { useState } from "react";
+import { formTracker } from "@/lib/analytics";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { getProducts } from "@/lib/products";
 import Icon from "../Icons";
@@ -50,6 +50,7 @@ function Step({ n, title, children }: { n: string; title: string; children: Reac
 export default function QuoteForm() {
   const [formData, setFormData] = useState(EMPTY);
   const [submitted, setSubmitted] = useState(false);
+  const tracker = useRef(formTracker("quote", "quote_submit")).current;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,16 +66,18 @@ export default function QuoteForm() {
         throw new Error("Failed to submit");
       }
 
+      tracker.submitted({ product_name: formData.product, destination: formData.destination });
       setFormData(EMPTY);
-      track("quote_submit");
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 5000);
-    } catch {
+    } catch (err) {
+      tracker.failed(err instanceof Error ? err.message : "unknown");
       alert("Unable to submit your request. Please email info@khi.com.bd directly.");
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    tracker.start();
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
