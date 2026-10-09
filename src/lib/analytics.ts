@@ -11,7 +11,16 @@ type AnalyticsWindow = Window & {
   gtag?: (...args: unknown[]) => void;
 };
 
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+/** Env value wins; "off" disables; otherwise the KHI default */
+const tagId = (env: string | undefined, fallback: string) =>
+  env === "off" ? undefined : env || fallback;
+
+/** GA4 property, loaded directly via gtag.js */
+export const GA_ID = tagId(process.env.NEXT_PUBLIC_GA_ID, "G-SGMRSY9PLE");
+/** Google Tag Manager container */
+export const GTM_ID = tagId(process.env.NEXT_PUBLIC_GTM_ID, "GTM-PDTJBJ95");
+/** Microsoft Clarity (heatmaps + session recordings), project "K.H. Infinity website" */
+export const CLARITY_ID = tagId(process.env.NEXT_PUBLIC_CLARITY_ID, "yuxcoe8fsr");
 
 export function track(event: string, params: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
