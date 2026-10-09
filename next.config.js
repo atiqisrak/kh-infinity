@@ -3,6 +3,14 @@ const nextConfig = {
   // Enable Cache Components feature for Next.js 16
   cacheComponents: true,
 
+  // Build date (YYYY-MM-DD, Asia/Dhaka). Blog posts dated after this are not
+  // published until the next build, so scheduled posts never go live with
+  // future dates. A daily rebuild (.github/workflows/daily-rebuild.yml)
+  // releases them on their date.
+  env: {
+    BUILD_DATE: new Date(Date.now() + 6 * 60 * 60 * 1000).toISOString().slice(0, 10),
+  },
+
   // Experimental features
   experimental: {
     // Enable filesystem caching for faster dev startup
@@ -57,7 +65,7 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.gstatic.com; connect-src 'self'; frame-src 'self' https://maps.google.com https://www.google.com https://www.youtube-nocookie.com;",
+              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdnjs.cloudflare.com https://www.googletagmanager.com https://*.googletagmanager.com https://www.clarity.ms https://*.clarity.ms https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.googleapis.com https://www.googletagmanager.com; img-src 'self' data: https:; font-src 'self' data: cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.gstatic.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.clarity.ms https://c.bing.com https://vitals.vercel-insights.com; frame-src 'self' https://maps.google.com https://www.google.com https://www.youtube-nocookie.com https://www.googletagmanager.com;",
           },
         ],
       },
@@ -69,6 +77,12 @@ const nextConfig = {
       {
         source: "/landing-v2",
         destination: "/",
+        permanent: true,
+      },
+      // Consolidation: one strong page per topic (see GSC plan, Oct 2026)
+      {
+        source: "/blog/nbr-customs-update-2025",
+        destination: "/blog/bangladesh-import-real-cost-tti",
         permanent: true,
       },
       {

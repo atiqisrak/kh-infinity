@@ -1,0 +1,28 @@
+# Publishes scheduled blog posts on their date.
+# Posts dated after the build date are hidden (see src/lib/blog.ts), so the
+# site needs one rebuild a day to release them. After the deploy, it calls the
+# revalidate endpoint, which also submits all sitemap URLs to IndexNow.
+#
+# One-time setup (GitHub repo → Settings → Secrets and variables → Actions):
+#   VERCEL_DEPLOY_HOOK   Vercel → Project → Settings → Git → Deploy Hooks (branch: production branch)
+#   REVALIDATION_SECRET  same value as the REVALIDATION_SECRET env var in Vercel
+name: Daily rebuild
+
+on:
+  schedule:
+    - cron: "15 0 * * *" # 06:15 Asia/Dhaka
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy
+        run: curl -fsS -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"
+      - name: Wait for deploy
+        run: sleep 420
+      - name: Revalidate blog + submit IndexNow
+        run: |
+          curl -fsS -X POST https://khi.com.bd/api/revalidate/blog \
+            -H "Content-Type: application/json" \
+            -d "{\"secret\":\"${{ secrets.REVALIDATION_SECRET }}\"}"

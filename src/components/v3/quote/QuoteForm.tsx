@@ -1,5 +1,6 @@
 "use client";
 
+import { track } from "@/lib/analytics";
 import { useState } from "react";
 import Link from "next/link";
 import { getProducts } from "@/lib/products";
@@ -65,6 +66,7 @@ export default function QuoteForm() {
       }
 
       setFormData(EMPTY);
+      track("quote_submit");
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 5000);
     } catch {

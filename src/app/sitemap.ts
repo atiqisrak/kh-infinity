@@ -23,18 +23,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/awards`, lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/events`, lastModified: CONTENT_UPDATED, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${baseUrl}/quote`, lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/privacy`, lastModified: CONTENT_UPDATED, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${baseUrl}/terms`, lastModified: CONTENT_UPDATED, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${baseUrl}/equal-opportunity`, lastModified: CONTENT_UPDATED, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${baseUrl}/industries`, lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/services/trade-routes`, lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/products/potato-gulf`, lastModified: CONTENT_UPDATED, changeFrequency: 'weekly', priority: 0.95 },
     { url: `${baseUrl}/services/customs`, lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${baseUrl}/services/sme-import-solutions`, lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${baseUrl}/investors`, lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/investors/onboarding`, lastModified: CONTENT_UPDATED, changeFrequency: 'monthly', priority: 0.6 },
   ];
 
+  // Only published posts (no future dates), see getBlogPosts()
   const blogPosts = getBlogPosts();
   const blogPages = blogPosts.map((post) => ({
     url: `${baseUrl}/blog/${post.id}`,
@@ -78,12 +75,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  const jobApplyPages = activeJobs.map((job) => ({
-    url: `${baseUrl}/careers/apply/${job.id}`,
-    lastModified: CONTENT_UPDATED,
-    changeFrequency: 'weekly' as const,
-    priority: 0.55,
-  }));
+  // /careers/apply/* are form pages: noindex and kept out of the sitemap
 
   return [
     ...mainPages,
@@ -92,6 +84,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...industryPages,
     ...tradeRoutePages,
     ...jobPages,
-    ...jobApplyPages,
   ];
 }

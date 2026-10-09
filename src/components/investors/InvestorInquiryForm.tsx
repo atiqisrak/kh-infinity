@@ -1,5 +1,6 @@
 "use client";
 
+import { track } from "@/lib/analytics";
 import { useState, useRef } from "react";
 
 const MAX_FILE_BYTES = 8 * 1024 * 1024;
@@ -70,6 +71,7 @@ export default function InvestorInquiryForm() {
       });
       setKycFile(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
+      track("investor_inquiry_submit");
       setSubmitted(true);
     } catch (err) {
       setError(
