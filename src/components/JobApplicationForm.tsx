@@ -1,6 +1,6 @@
 "use client";
 
-import { track } from "@/lib/analytics";
+import { capture, track } from "@/lib/analytics";
 import { useState } from "react";
 
 interface JobApplicationFormProps {
@@ -67,10 +67,16 @@ export default function JobApplicationForm({
         noticePeriod: "",
       });
 
-      track("job_application_submit");
+      track("job_application_submit", {
+        job_id: jobId,
+        job_title: jobTitle,
+        country: formData.country,
+        availability: formData.availability,
+      });
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
+      capture("form_submit_failed", { form: "job_application", job_id: jobId });
       setError(
         err instanceof Error ? err.message : "Failed to submit application"
       );
@@ -109,7 +115,7 @@ export default function JobApplicationForm({
   }
 
   return (
-    <form className="space-y-8" onSubmit={handleSubmit}>
+    <form className="space-y-8" onSubmit={handleSubmit} data-form="job_application">
       {error && (
         <div className="bg-red-50 border border-red-500 text-red-700 px-6 py-4 rounded-lg">
           <div className="flex items-center">

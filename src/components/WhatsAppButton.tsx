@@ -6,6 +6,7 @@ export default function WhatsAppButton() {
       rel="noopener noreferrer"
       className="whatsapp-float"
       aria-label="Contact us on WhatsApp"
+      data-placement="floating_button"
     >
       <i className="fab fa-whatsapp"></i>
     </a>

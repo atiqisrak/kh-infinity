@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { capture } from "@/lib/analytics";
 import type { CatalogItem } from "@/lib/parts-catalog";
 
 // ─── CatalogModal ─────────────────────────────────────────────────────────
@@ -29,8 +30,11 @@ export default function CatalogModal({ items, index, groupLabel, variantLabel, o
   const closeRef = useRef<HTMLButtonElement>(null);
   const multi = items.length > 1;
 
-  // New item → back to its first photo
-  useEffect(() => setPhoto(0), [item?.id]);
+  // New item → back to its first photo, and count it as viewed
+  useEffect(() => {
+    setPhoto(0);
+    if (item) capture("catalog_item_view", { item_id: item.id, item_name: item.name, group: item.group, variant: item.variant });
+  }, [item?.id]); // once per item, not on every parent render
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

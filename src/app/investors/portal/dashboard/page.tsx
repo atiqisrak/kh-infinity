@@ -72,7 +72,7 @@ async function DashboardContent() {
   const [latestKpi, previousKpi] = kpis;
 
   return (
-    <div className="pt-28 pb-16">
+    <div className="ph-no-capture pt-28 pb-16">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
           <div>
@@ -93,7 +93,7 @@ async function DashboardContent() {
                 Superadmin
               </Link>
             )}
-            <InvestorLogoutButton />
+            <InvestorLogoutButton user={session} />
           </div>
         </div>
 

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { capture } from "@/lib/analytics";
 
 type FAQQuestion = {
   question: string;
@@ -34,8 +35,13 @@ export default function FAQClient({ faqData }: FAQClientProps) {
     setOpenItems((prev) => ({ ...prev, [itemKey]: !prev[itemKey] }));
   };
 
-  const handleFeedback = (itemKey: string) => {
+  const handleFeedback = (itemKey: string, feedback: "helpful" | "not_helpful") => {
     setFeedbackGiven((prev) => ({ ...prev, [itemKey]: true }));
+    capture("faq_feedback", {
+      faq_section: activeSection,
+      faq_item: itemKey,
+      feedback,
+    });
   };
 
   const getCurrentDate = () => {
@@ -195,7 +201,7 @@ export default function FAQClient({ faqData }: FAQClientProps) {
                               </p>
                               <div className="flex gap-4">
                                 <button
-                                  onClick={() => handleFeedback(itemKey)}
+                                  onClick={() => handleFeedback(itemKey, "helpful")}
                                   className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
                                   <svg
@@ -212,7 +218,7 @@ export default function FAQClient({ faqData }: FAQClientProps) {
                                   <span className="text-sm font-sans">Yes</span>
                                 </button>
                                 <button
-                                  onClick={() => handleFeedback(itemKey)}
+                                  onClick={() => handleFeedback(itemKey, "not_helpful")}
                                   className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
                                   <svg

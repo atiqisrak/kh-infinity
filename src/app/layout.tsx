@@ -9,6 +9,7 @@ import SiteChrome from "@/components/SiteChrome";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import TagManager, { GtmNoScript } from "@/components/analytics/TagManager";
+import ClickTracker from "@/components/analytics/ClickTracker";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -181,6 +182,7 @@ export default function RootLayout({
           <Footer />
         </SiteChrome>
         <WhatsAppButton />
+        <ClickTracker />
         {isProduction && <TagManager />}
         {isProduction && <SpeedInsights />}
         {isProduction && <Analytics />}

@@ -1,8 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 
+/** Vercel rejects request bodies over 4.5 MB */
+const MAX_CV_BYTES = 4 * 1024 * 1024;
+const CV_TYPES = /\.(pdf|docx?)$/i;
+
+// Accepts JSON (CV as a link, resumeUrl) or multipart form data with the CV
+// file in "cv", which is attached to the email (careers/apply/[id] page).
 export async function POST(request: NextRequest) {
   try {
-    const formData = await request.json();
+    let formData: Record<string, string>;
+    let cv: File | null = null;
+    if (request.headers.get("content-type")?.includes("multipart/form-data")) {
+      const body = await request.formData();
+      formData = Object.fromEntries([...body].filter(([, v]) => typeof v === "string")) as Record<string, string>;
+      const file = body.get("cv");
+      if (file instanceof File && file.size > 0) cv = file;
+      if (cv && (cv.size > MAX_CV_BYTES || !CV_TYPES.test(cv.name))) {
+        return NextResponse.json({ error: "Your CV must be a PDF, DOC or DOCX under 4 MB." }, { status: 400 });
+      }
+    } else {
+      formData = await request.json();
+    }
 
     const {
       name,
@@ -12,6 +30,7 @@ export async function POST(request: NextRequest) {
       resumeUrl,
       coverLetter,
       portfolio,
+      linkedin,
       availability,
       salaryExpectation,
       noticePeriod,
@@ -38,23 +57,25 @@ export async function POST(request: NextRequest) {
           <h3 style="color: #ea580c; margin-top: 0;">Personal Information</h3>
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-          <p><strong>Phone:</strong> <a href="tel:${phone}">${phone}</a></p>
-          <p><strong>Country:</strong> ${country}</p>
+          ${phone ? `<p><strong>Phone:</strong> <a href="tel:${phone}">${phone}</a></p>` : ""}
+          ${country ? `<p><strong>Country:</strong> ${country}</p>` : ""}
         </div>
 
         <div style="background-color: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h3 style="color: #ea580c; margin-top: 0;">Application Details</h3>
-          <p><strong>Resume/CV URL:</strong> <a href="${resumeUrl}" target="_blank" rel="noopener noreferrer">${resumeUrl}</a></p>
+          ${cv ? `<p><strong>CV:</strong> attached (${cv.name})</p>` : ""}
+          ${resumeUrl ? `<p><strong>Resume/CV URL:</strong> <a href="${resumeUrl}" target="_blank" rel="noopener noreferrer">${resumeUrl}</a></p>` : ""}
+          ${linkedin ? `<p><strong>LinkedIn:</strong> <a href="${linkedin}" target="_blank" rel="noopener noreferrer">${linkedin}</a></p>` : ""}
           ${portfolio ? `<p><strong>Portfolio:</strong> <a href="${portfolio}" target="_blank" rel="noopener noreferrer">${portfolio}</a></p>` : ''}
-          <p><strong>Availability:</strong> ${getAvailabilityText(availability)}</p>
+          ${availability ? `<p><strong>Availability:</strong> ${getAvailabilityText(availability)}</p>` : ""}
           ${noticePeriod ? `<p><strong>Notice Period:</strong> ${noticePeriod}</p>` : ''}
           ${salaryExpectation ? `<p><strong>Expected Salary:</strong> ${salaryExpectation}</p>` : ''}
         </div>
 
-        <div style="background-color: #fef2f2; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        ${coverLetter ? `<div style="background-color: #fef2f2; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h3 style="color: #ea580c; margin-top: 0;">Cover Letter</h3>
           <div style="white-space: pre-wrap; color: #333;">${coverLetter}</div>
-        </div>
+        </div>` : ""}
 
         <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: 12px;">
           <p>This application was submitted for Job ID: ${jobId}</p>
@@ -76,6 +97,9 @@ export async function POST(request: NextRequest) {
         reply_to: email,
         subject: `New Job Application: ${jobTitle} - ${name}`,
         html: emailHTML,
+        ...(cv && {
+          attachments: [{ filename: cv.name, content: Buffer.from(await cv.arrayBuffer()).toString("base64") }],
+        }),
       }),
     });
 

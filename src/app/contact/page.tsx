@@ -2,9 +2,10 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Icon from "@/components/v3/Icons";
 import Crumbs from "@/components/v3/Crumbs";
-import { fieldLabelLight, inputLight, labelCls, submitCls, SubmitArrow } from "@/components/v3/blocks";
+import { labelCls } from "@/components/v3/blocks";
 import { Eyebrow, SectionHead, focusRing, pad } from "@/components/v3/ui";
 import V3Shell from "@/components/v3/V3Shell";
+import ContactMessageForm from "@/components/v3/forms/ContactMessageForm";
 import s from "@/components/v3/v3.module.css";
 
 export const metadata: Metadata = {
@@ -103,38 +104,7 @@ export default function ContactPage() {
           {/* Message form (unchanged fields and behaviour) */}
           <div className="rounded-[2rem] bg-[#f2f4f6] p-6 text-[#06131d] sm:p-8 lg:self-start">
             <h2 className={`${s.display} text-[clamp(2rem,3.4vw,2.75rem)] text-[#0b2c3d]`}>Send us a message</h2>
-            <form className="mt-8 grid gap-5">
-              <div className="grid gap-5 md:grid-cols-2">
-                <div>
-                  <label className={fieldLabelLight} htmlFor="name">
-                    Name
-                  </label>
-                  <input type="text" id="name" className={inputLight} required autoComplete="name" />
-                </div>
-                <div>
-                  <label className={fieldLabelLight} htmlFor="email">
-                    Email
-                  </label>
-                  <input type="email" id="email" className={inputLight} required autoComplete="email" />
-                </div>
-              </div>
-              <div>
-                <label className={fieldLabelLight} htmlFor="subject">
-                  Subject
-                </label>
-                <input type="text" id="subject" className={inputLight} required />
-              </div>
-              <div>
-                <label className={fieldLabelLight} htmlFor="message">
-                  Message
-                </label>
-                <textarea id="message" rows={6} className={inputLight} required></textarea>
-              </div>
-              <button type="submit" className={`${submitCls} w-full focus-visible:ring-offset-[#f2f4f6] sm:w-auto sm:justify-self-start`}>
-                Send message
-                <SubmitArrow />
-              </button>
-            </form>
+            <ContactMessageForm />
           </div>
         </div>
       </section>

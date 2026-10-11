@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, message } = await request.json();
+    const { name, email, subject, message } = await request.json();
 
     const apiKey = process.env.RESEND_API_KEY || process.env.NEXT_PUBLIC_RESEND_API_KEY;
 
@@ -19,6 +19,7 @@ export async function POST(request: NextRequest) {
         <div style="background-color: #f9fafb; padding: 20px; border-radius: 8px;">
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+          ${subject ? `<p><strong>Subject:</strong> ${subject}</p>` : ""}
           <p><strong>Message:</strong></p>
           <div style="white-space: pre-wrap;">${message}</div>
         </div>
@@ -36,7 +37,7 @@ export async function POST(request: NextRequest) {
         from: "K.H. Infinity <info@khi.com.bd>",
         to: "info@khi.com.bd",
         reply_to: email,
-        subject: `Contact Form: ${name}`,
+        subject: subject ? `Contact Form: ${subject} — ${name}` : `Contact Form: ${name}`,
         html: emailHTML,
       }),
     });

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { capture, identifyLead } from "@/lib/analytics";
 
 export default function InvestorPortalLogin() {
   const router = useRouter();
@@ -28,6 +29,9 @@ export default function InvestorPortalLogin() {
       if (!response.ok) {
         throw new Error(data.error || "Invalid email or password.");
       }
+
+      identifyLead(email, { name: data.name });
+      capture("investor_portal_login");
 
       router.push("/investors/portal/dashboard");
       router.refresh();

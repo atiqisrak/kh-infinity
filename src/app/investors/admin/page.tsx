@@ -92,7 +92,7 @@ async function AdminContent() {
   const newInquiryCount = inquiries.filter((i) => i.status === "new").length;
 
   return (
-    <div className="pt-28 pb-16">
+    <div className="ph-no-capture pt-28 pb-16">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
           <div>
@@ -103,7 +103,7 @@ async function AdminContent() {
               Investor Relations Backoffice
             </h1>
           </div>
-          <InvestorLogoutButton />
+          <InvestorLogoutButton user={session} />
         </div>
 
         <div className="grid sm:grid-cols-3 gap-6 mb-10">

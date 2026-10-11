@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { CheckList, SubmitArrow, fieldLabelDark, inputDark, submitCls } from "../blocks";
+import { capture } from "@/lib/analytics";
 import { ArrowLink, PillButton } from "../ui";
 import s from "../v3.module.css";
 import { finderCountries, findLane, type LaneSummary } from "./lanes";
@@ -44,6 +45,11 @@ export default function RouteFinder() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          capture("trade_route_search", {
+            origin_country: form.origin,
+            destination_country: form.destination,
+            lane_found: Boolean(findLane(form.origin, form.destination)),
+          });
           setSubmitted(true);
         }}
         className={`${s.glass} rounded-3xl p-6 sm:p-8`}

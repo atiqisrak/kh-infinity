@@ -12,7 +12,7 @@ import Crumbs from "@/components/v3/Crumbs";
 import Flag, { flagCodeFor } from "@/components/v3/Flag";
 import HangingContainer from "@/components/v3/HangingContainer";
 import Icon from "@/components/v3/Icons";
-import { ListCard, fieldLabelDark, inputDark } from "@/components/v3/blocks";
+import { ListCard } from "@/components/v3/blocks";
 import ApplicationsGrid from "@/components/v3/products/ApplicationsGrid";
 import ProductGallery from "@/components/v3/products/ProductGallery";
 import DisplayCatalog from "@/components/v3/products/DisplayCatalog";
@@ -22,6 +22,7 @@ import { certLogos, phone, shipmentDocs } from "@/components/v3/site";
 import { certKey, YARD_COLOURS } from "@/components/v3/sourcing";
 import { ArrowLink, Eyebrow, GhostButton, PillButton, ProductCard, SectionHead, focusRing, pad } from "@/components/v3/ui";
 import V3Shell from "@/components/v3/V3Shell";
+import ProductEnquiryForm from "@/components/v3/forms/ProductEnquiryForm";
 import s from "@/components/v3/v3.module.css";
 
 /** True when a site-relative path like "/videos/x.mp4" exists in public/ */
@@ -675,43 +676,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </a>
           </div>
 
-          <form className={`${s.glass} grid gap-5 rounded-[2rem] p-6 sm:p-8`}>
-            <div className="grid gap-5 md:grid-cols-2">
-              <div>
-                <label className={fieldLabelDark} htmlFor="name">
-                  Name
-                </label>
-                <input type="text" id="name" className={inputDark} required autoComplete="name" />
-              </div>
-              <div>
-                <label className={fieldLabelDark} htmlFor="email">
-                  Email
-                </label>
-                <input type="email" id="email" className={inputDark} required autoComplete="email" />
-              </div>
-            </div>
-            <div>
-              <label className={fieldLabelDark} htmlFor="quantity">
-                Required quantity
-              </label>
-              <input type="text" id="quantity" className={inputDark} required placeholder="e.g. 2 × 20ft containers" />
-            </div>
-            <div>
-              <label className={fieldLabelDark} htmlFor="message">
-                Additional requirements
-              </label>
-              <textarea id="message" rows={4} className={inputDark} placeholder="Grade, packing, destination port…" />
-            </div>
-            <button
-              type="submit"
-              className={`group inline-flex items-center justify-between gap-3 rounded-full bg-[#fa6a25] py-2 pl-6 pr-2 font-semibold text-white transition-colors hover:bg-[#d9531a] ${focusRing}`}
-            >
-              Submit request
-              <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-[#d9531a] transition-transform group-hover:rotate-45">
-                <Icon name="arrow" className="h-4 w-4" />
-              </span>
-            </button>
-          </form>
+          <ProductEnquiryForm product={product.name} />
         </div>
       </section>
 

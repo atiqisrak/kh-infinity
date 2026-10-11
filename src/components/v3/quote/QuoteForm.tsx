@@ -1,6 +1,6 @@
 "use client";
 
-import { track } from "@/lib/analytics";
+import { capture, identifyLead, track } from "@/lib/analytics";
 import { useState } from "react";
 import Link from "next/link";
 import { getProducts } from "@/lib/products";
@@ -66,10 +66,23 @@ export default function QuoteForm() {
       }
 
       setFormData(EMPTY);
-      track("quote_submit");
+      identifyLead(formData.email, {
+        name: formData.name,
+        company: formData.company,
+        phone: formData.phone,
+        lead_source: "quote_form",
+      });
+      track("quote_submit", {
+        product: formData.product,
+        quantity: formData.quantity,
+        destination: formData.destination,
+        has_company: Boolean(formData.company),
+        has_specifications: Boolean(formData.specifications),
+      });
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 5000);
     } catch {
+      capture("form_submit_failed", { form: "quote" });
       alert("Unable to submit your request. Please email info@khi.com.bd directly.");
     }
   };
@@ -105,7 +118,7 @@ export default function QuoteForm() {
           </div>
         </div>
       ) : (
-        <form className="mt-8 grid gap-8" onSubmit={handleSubmit}>
+        <form className="mt-8 grid gap-8" onSubmit={handleSubmit} data-form="quote">
           <Step n="01" title="What do you need?">
             <div>
               <label className={fieldLabelLight} htmlFor="product">

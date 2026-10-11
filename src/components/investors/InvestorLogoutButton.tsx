@@ -1,17 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import posthog from "posthog-js";
+import { capture, identifyLead } from "@/lib/analytics";
+import type { InvestorSessionInfo } from "@/lib/investor-auth";
 
-export default function InvestorLogoutButton() {
+/** Also identifies the signed-in investor in PostHog, since it renders on every portal page */
+export default function InvestorLogoutButton({ user }: { user: InvestorSessionInfo }) {
   const router = useRouter();
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const { email, name, partnerType, role } = user;
+
+  useEffect(() => {
+    identifyLead(email, { name, partner_type: partnerType, investor_role: role });
+  }, [email, name, partnerType, role]);
 
   const handleLogout = async () => {
     setIsSigningOut(true);
     try {
       await fetch("/api/investors/logout", { method: "POST" });
     } finally {
+      capture("investor_portal_logout");
+      posthog.reset();
       router.push("/investors/portal");
       router.refresh();
     }

@@ -1,6 +1,6 @@
 "use client";
 
-import { track } from "@/lib/analytics";
+import { capture, identifyLead, track } from "@/lib/analytics";
 import { useState } from "react";
 
 export default function ContactSection() {
@@ -28,10 +28,12 @@ export default function ContactSection() {
       }
 
       setFormData({ name: "", email: "", message: "" });
+      identifyLead(formData.email, { name: formData.name, lead_source: "contact_form" });
       track("contact_submit");
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 5000);
     } catch {
+      capture("form_submit_failed", { form: "contact" });
       setError(true);
     }
   };
@@ -67,6 +69,7 @@ export default function ContactSection() {
               className="space-y-6"
               aria-label="Contact Form"
               onSubmit={handleSubmit}
+              data-form="contact"
             >
               <div>
                 <label className="block text-gray-700 mb-2" htmlFor="name">

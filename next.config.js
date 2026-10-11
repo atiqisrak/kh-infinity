@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
+const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+const posthogAssetsHost = posthogHost
+  ?.replace("://us.i.", "://us-assets.i.")
+  .replace("://eu.i.", "://eu-assets.i.");
+
 const nextConfig = {
   // Enable Cache Components feature for Next.js 16
   cacheComponents: true,
@@ -67,7 +72,7 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdnjs.cloudflare.com https://www.googletagmanager.com https://*.googletagmanager.com https://www.clarity.ms https://*.clarity.ms https://va.vercel-scripts.com https://tagmanager.google.com https://tagassistant.google.com https://cct.google; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.googleapis.com https://www.googletagmanager.com https://tagmanager.google.com; img-src 'self' data: https:; font-src 'self' data: cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.gstatic.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.g.doubleclick.net https://www.google.com https://tagassistant.google.com https://cct.google https://*.clarity.ms https://c.bing.com https://vitals.vercel-insights.com; frame-src 'self' https://maps.google.com https://www.google.com https://www.youtube-nocookie.com https://www.googletagmanager.com https://tagassistant.google.com;",
+              `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdnjs.cloudflare.com https://www.googletagmanager.com https://*.googletagmanager.com https://www.clarity.ms https://*.clarity.ms https://va.vercel-scripts.com https://tagmanager.google.com https://tagassistant.google.com https://cct.google${posthogAssetsHost ? ` ${posthogAssetsHost}` : ""}; style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.googleapis.com https://www.googletagmanager.com https://tagmanager.google.com; img-src 'self' data: https:; font-src 'self' data: cdnjs.cloudflare.com cdn-uicons.flaticon.com fonts.gstatic.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://*.g.doubleclick.net https://www.google.com https://tagassistant.google.com https://cct.google https://*.clarity.ms https://c.bing.com https://vitals.vercel-insights.com${posthogHost ? ` ${posthogHost} ${posthogAssetsHost}` : ""}; worker-src 'self' blob:; frame-src 'self' https://maps.google.com https://www.google.com https://www.youtube-nocookie.com https://www.googletagmanager.com https://tagassistant.google.com;`, 
           },
         ],
       },

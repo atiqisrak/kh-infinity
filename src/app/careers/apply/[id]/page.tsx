@@ -3,7 +3,8 @@ import { getJob, jobPositions } from "@/lib/jobs";
 import { notFound } from "next/navigation";
 import V3Shell from "@/components/v3/V3Shell";
 import PageHero from "@/components/v3/PageHero";
-import { Section, CheckList, RowTable, inputLight, fieldLabelLight, submitCls, SubmitArrow } from "@/components/v3/blocks";
+import { Section, CheckList, RowTable } from "@/components/v3/blocks";
+import CareersApplyForm from "@/components/v3/forms/CareersApplyForm";
 
 interface ApplyPageProps {
   params: Promise<{ id: string }>;
@@ -90,104 +91,7 @@ export default async function ApplyPage({ params }: ApplyPageProps) {
             <h2 className="mb-6 text-xl font-semibold tracking-tight text-[#0b2c3d]">
               Your application
             </h2>
-            <form action="" method="POST" encType="multipart/form-data" className="space-y-5">
-              <input type="hidden" name="jobId" value={job.id} />
-              <input type="hidden" name="jobTitle" value={job.title} />
-
-              <div>
-                <label htmlFor="fullName" className={fieldLabelLight}>
-                  Full name
-                </label>
-                <input
-                  id="fullName"
-                  name="fullName"
-                  type="text"
-                  required
-                  autoComplete="name"
-                  placeholder="Jane Smith"
-                  className={inputLight}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="email" className={fieldLabelLight}>
-                  Email
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  placeholder="jane@example.com"
-                  className={inputLight}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="phone" className={fieldLabelLight}>
-                  Phone
-                </label>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  autoComplete="tel"
-                  placeholder="+1 555 000 0000"
-                  className={inputLight}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="linkedin" className={fieldLabelLight}>
-                  LinkedIn URL
-                </label>
-                <input
-                  id="linkedin"
-                  name="linkedin"
-                  type="url"
-                  placeholder="https://linkedin.com/in/yourprofile"
-                  className={inputLight}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="coverLetter" className={fieldLabelLight}>
-                  Cover letter
-                </label>
-                <textarea
-                  id="coverLetter"
-                  name="coverLetter"
-                  rows={5}
-                  placeholder="Tell us why you're a great fit for this role…"
-                  className={inputLight}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="cv" className={fieldLabelLight}>
-                  CV / Resume
-                </label>
-                <input
-                  id="cv"
-                  name="cv"
-                  type="file"
-                  accept=".pdf,.doc,.docx"
-                  required
-                  className={`${inputLight} file:mr-4 file:rounded-full file:border-0 file:bg-[#fa6a25] file:px-4 file:py-1 file:text-sm file:font-semibold file:text-white hover:file:bg-[#d9531a]`}
-                />
-                <p className="mt-1.5 text-xs text-[#06131d]/45">
-                  PDF, DOC or DOCX · Max 10 MB
-                </p>
-              </div>
-
-              <div className="pt-2">
-                <button type="submit" className={submitCls}>
-                  Submit application
-                  <SubmitArrow />
-                </button>
-              </div>
-            </form>
+            <CareersApplyForm jobId={job.id} jobTitle={job.title} />
           </div>
 
           {/* Right: role summary + process */}

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Binary } from "mongodb";
 import { getDb } from "@/lib/mongodb";
+import { capturePostHogLog } from "@/lib/posthog-logger";
 
 const MAX_ATTACHMENT_BYTES = 8 * 1024 * 1024;
 
@@ -59,7 +60,9 @@ export async function POST(request: NextRequest) {
         data: new Binary(kycAttachment.buffer),
       };
     }
+    await capturePostHogLog("investor_inquiry_ready_to_persist");
     await db.collection("investor_inquiries").insertOne(inquiryDoc);
+    await capturePostHogLog("investor_inquiry_persisted");
 
     // Email is a best-effort notification — the inquiry is already saved
     // even if the email service is unavailable.

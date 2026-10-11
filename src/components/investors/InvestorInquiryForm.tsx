@@ -1,6 +1,6 @@
 "use client";
 
-import { track } from "@/lib/analytics";
+import { capture, identifyLead, track } from "@/lib/analytics";
 import { useState, useRef } from "react";
 
 const MAX_FILE_BYTES = 8 * 1024 * 1024;
@@ -71,9 +71,20 @@ export default function InvestorInquiryForm() {
       });
       setKycFile(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
-      track("investor_inquiry_submit");
+      identifyLead(formData.email, {
+        name: formData.partnerName,
+        phone: formData.phone,
+        partner_type: formData.partnerType,
+        lead_source: "investor_inquiry",
+      });
+      track("investor_inquiry_submit", {
+        partner_type: formData.partnerType,
+        capital_allocation: formData.capitalAllocation,
+        has_kyc_file: Boolean(kycFile),
+      });
       setSubmitted(true);
     } catch (err) {
+      capture("form_submit_failed", { form: "investor_inquiry" });
       setError(
         err instanceof Error ? err.message : "Failed to submit application"
       );
@@ -109,6 +120,7 @@ export default function InvestorInquiryForm() {
       id="apply-form"
       className="bg-white p-8 rounded-lg shadow-md space-y-6 scroll-mt-24"
       onSubmit={handleSubmit}
+      data-form="investor_inquiry"
     >
       <h2 className="text-2xl font-bold text-gray-800">
         Submit Your Digital Partnership Inquiry
