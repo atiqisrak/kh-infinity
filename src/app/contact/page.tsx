@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 };
 
 const EMAIL = "info@khi.com.bd";
-const PHONE = { display: "+880 1577081856", href: "tel:+8801577081856" };
+const PHONE = { display: "+880 1712196266", href: "tel:+8801712196266" };
 const ADDRESS = "Kader Tropical Height, Shop- G5, 10 Hatkhola Road, Tikatuli, Wari, Dhaka 1203, Bangladesh";
 
 const HOURS: [string, string][] = [

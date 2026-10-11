@@ -132,7 +132,7 @@ function AboutJsonLd() {
     name: "K.H. Infinity",
     alternateName: "KHI",
     url: "https://khi.com.bd",
-    telephone: "+880 1577081856",
+    telephone: "+880 1712196266",
     email: "info@khi.com.bd",
     foundingDate: "2018",
     description:

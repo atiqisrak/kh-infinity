@@ -140,10 +140,10 @@ export default function ContactSection() {
               <p className="text-gray-600">
                 Phone:{" "}
                 <a
-                  href="tel:+8801577081856"
+                  href="tel:+8801712196266"
                   className="text-orange-700 hover:text-orange-800"
                 >
-                  +880 1577081856
+                  +880 1712196266
                 </a>
               </p>
             </div>

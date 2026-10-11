@@ -12,7 +12,7 @@ import type { CatalogItem } from "@/lib/parts-catalog";
 // • ← / → step through the items in the current filter, Esc closes
 // • Clicking the backdrop closes; focus moves into the dialog and back out
 
-const WHATSAPP = "8801577081856";
+const WHATSAPP = "8801712196266";
 
 interface CatalogModalProps {
   items: CatalogItem[];

@@ -10,7 +10,7 @@
   "url": "https://khi.com.bd",
   "foundingDate": "2018",
   "address": "Kader Tropical Height, Shop-G5, 10 Hatkhola Road, Tikatuli, Wari, Dhaka 1203, Bangladesh",
-  "telephone": "+880 1577081856",
+  "telephone": "+880 1712196266",
   "email": "info@khi.com.bd"
 }
 ```

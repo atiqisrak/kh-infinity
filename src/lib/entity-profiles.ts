@@ -6,7 +6,7 @@ export const NAP = {
   name: "K.H. Infinity (KHI)",
   address:
     "Kader Tropical Height, Shop-G5, 10 Hatkhola Road, Tikatuli, Wari, Dhaka 1203, Bangladesh",
-  phone: "+880 1577081856",
+  phone: "+880 1712196266",
   email: "info@khi.com.bd",
   website: "https://khi.com.bd",
 } as const;

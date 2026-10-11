@@ -74,7 +74,7 @@ function CustomsJsonLd() {
       contactPoint: [
         {
           "@type": "ContactPoint",
-          telephone: "+8801577081856",
+          telephone: "+8801712196266",
           email: "info@khi.com.bd",
           contactType: "customer service",
           areaServed: "BD",
@@ -510,8 +510,8 @@ export default function CustomsClearanceServicePage() {
               icon: "phone" as const,
               label: "Phone",
               value: (
-                <a href="tel:+8801577081856" className={contactLink}>
-                  +880 1577081856
+                <a href="tel:+8801712196266" className={contactLink}>
+                  +880 1712196266
                 </a>
               ),
             },

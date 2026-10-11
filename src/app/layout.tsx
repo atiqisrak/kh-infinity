@@ -108,7 +108,7 @@ export default function RootLayout({
               contactPoint: [
                 {
                   "@type": "ContactPoint",
-                  telephone: "+880 1577081856",
+                  telephone: "+880 1712196266",
                   contactType: "customer service",
                   email: "info@khi.com.bd",
                   availableLanguage: ["en", "bn"],
